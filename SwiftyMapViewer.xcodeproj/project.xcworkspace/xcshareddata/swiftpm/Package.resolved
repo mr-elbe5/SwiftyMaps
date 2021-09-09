@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SwiftyIOSViewExtensions",
+        "repositoryURL": "https://github.com/mr-elbe5/SwiftyIOSViewExtensions",
+        "state": {
+          "branch": null,
+          "revision": "2a52ac6a53638355d99bd0ec93721fb51511ad00",
+          "version": "1.0.5"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
