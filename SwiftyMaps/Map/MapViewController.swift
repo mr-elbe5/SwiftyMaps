@@ -24,7 +24,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     var location: Location? = nil
     var radius : CLLocationDistance = 10000
     var mapType : MapType = .standard
-    var overlay : MKTileOverlay? = nil;
+    var overlay : MKTileOverlay? = nil
     var zoomLevel : Int = 0
     
     let zoomRangeDefault = MKMapView.CameraZoomRange(minCenterCoordinateDistance: -1, maxCenterCoordinateDistance: -1)

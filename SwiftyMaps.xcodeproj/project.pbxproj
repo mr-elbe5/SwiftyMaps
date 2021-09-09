@@ -18,9 +18,7 @@
 		4E0BD9A926EA0159005A4A94 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */; };
 		4E0BD9AA26EA0159005A4A94 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A226EA0159005A4A94 /* ScrollViewController.swift */; };
 		4E0BD9AB26EA0159005A4A94 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A326EA0159005A4A94 /* ModalViewController.swift */; };
-		4E0BD9AC26EA0159005A4A94 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A426EA0159005A4A94 /* InfoViewController.swift */; };
 		4E0BD9AD26EA0159005A4A94 /* ModalScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A526EA0159005A4A94 /* ModalScrollViewController.swift */; };
-		4E0BD9AE26EA0159005A4A94 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A626EA0159005A4A94 /* EditViewController.swift */; };
 		4E0BD9B326EA0170005A4A94 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */; };
 		4E0BD9B426EA0170005A4A94 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */; };
 		4E0BD9B526EA0170005A4A94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B126EA0170005A4A94 /* MapViewController.swift */; };
@@ -45,6 +43,7 @@
 		4E0BD9E426EA04EE005A4A94 /* AuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */; };
 		4E0BD9E526EA04EE005A4A94 /* LocationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E126EA04EE005A4A94 /* LocationError.swift */; };
 		4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E226EA04EE005A4A94 /* FileError.swift */; };
+		4E3BE7ED26EA80A5000F9069 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3BE7EC26EA80A5000F9069 /* EditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,9 +59,7 @@
 		4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		4E0BD9A226EA0159005A4A94 /* ScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		4E0BD9A326EA0159005A4A94 /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
-		4E0BD9A426EA0159005A4A94 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		4E0BD9A526EA0159005A4A94 /* ModalScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalScrollViewController.swift; sourceTree = "<group>"; };
-		4E0BD9A626EA0159005A4A94 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 		4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4E0BD9B126EA0170005A4A94 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +85,7 @@
 		4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationError.swift; sourceTree = "<group>"; };
 		4E0BD9E126EA04EE005A4A94 /* LocationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationError.swift; sourceTree = "<group>"; };
 		4E0BD9E226EA04EE005A4A94 /* FileError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileError.swift; sourceTree = "<group>"; };
+		4E3BE7EC26EA80A5000F9069 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +120,10 @@
 			isa = PBXGroup;
 			children = (
 				4E0BD99E26EA010A005A4A94 /* Base */,
-				4E0BD99C26EA0074005A4A94 /* View */,
 				4E0BD99A26EA005D005A4A94 /* Data */,
+				4E3BE7EB26EA7EF1000F9069 /* Photo */,
+				4E3BE7EA26EA7E57000F9069 /* Map */,
+				4E0BD99C26EA0074005A4A94 /* View */,
 				4E0BD99726EA0020005A4A94 /* System */,
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
 				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
@@ -148,6 +148,7 @@
 			children = (
 				4E0BD9D526EA037F005A4A94 /* DataController.swift */,
 				4E0BD9D626EA037F005A4A94 /* FileController.swift */,
+				4E0BD9BB26EA0239005A4A94 /* Settings.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -156,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */,
-				4E0BD9B126EA0170005A4A94 /* MapViewController.swift */,
 				4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */,
 			);
 			path = View;
@@ -165,34 +165,47 @@
 		4E0BD99E26EA010A005A4A94 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4E3BE7EC26EA80A5000F9069 /* EditViewController.swift */,
 				4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */,
 				4E0BD9E226EA04EE005A4A94 /* FileError.swift */,
-				4E0BD9E126EA04EE005A4A94 /* LocationError.swift */,
-				4E0BD9DF26EA04EE005A4A94 /* MapError.swift */,
-				4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */,
-				4E0BD9C926EA02BA005A4A94 /* AVCaptureVideoOrientation.swift */,
-				4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */,
-				4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */,
-				4E0BD9C126EA02BA005A4A94 /* CLLocationManager.swift */,
-				4E0BD9C826EA02BA005A4A94 /* Location.swift */,
-				4E0BD9C426EA02BA005A4A94 /* LocationService.swift */,
-				4E0BD9C526EA02BA005A4A94 /* MediaCommentLabel.swift */,
-				4E0BD9C726EA02BA005A4A94 /* MKMapView.swift */,
 				4E0BD9B726EA0239005A4A94 /* Codable.swift */,
 				4E0BD9B826EA0239005A4A94 /* Date.swift */,
-				4E0BD9BB26EA0239005A4A94 /* Settings.swift */,
 				4E0BD9B926EA0239005A4A94 /* String.swift */,
 				4E0BD9BA26EA0239005A4A94 /* URL.swift */,
-				4E0BD9A626EA0159005A4A94 /* EditViewController.swift */,
-				4E0BD9A426EA0159005A4A94 /* InfoViewController.swift */,
 				4E0BD9A526EA0159005A4A94 /* ModalScrollViewController.swift */,
 				4E0BD9A326EA0159005A4A94 /* ModalViewController.swift */,
-				4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */,
 				4E0BD9A226EA0159005A4A94 /* ScrollViewController.swift */,
 				4E0BD99F26EA0159005A4A94 /* UIViewController.swift */,
 				4E0BD9A026EA0159005A4A94 /* ViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		4E3BE7EA26EA7E57000F9069 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				4E0BD9C126EA02BA005A4A94 /* CLLocationManager.swift */,
+				4E0BD9C826EA02BA005A4A94 /* Location.swift */,
+				4E0BD9E126EA04EE005A4A94 /* LocationError.swift */,
+				4E0BD9C426EA02BA005A4A94 /* LocationService.swift */,
+				4E0BD9DF26EA04EE005A4A94 /* MapError.swift */,
+				4E0BD9B126EA0170005A4A94 /* MapViewController.swift */,
+				4E0BD9C726EA02BA005A4A94 /* MKMapView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		4E3BE7EB26EA7EF1000F9069 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */,
+				4E0BD9C926EA02BA005A4A94 /* AVCaptureVideoOrientation.swift */,
+				4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */,
+				4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */,
+				4E0BD9C526EA02BA005A4A94 /* MediaCommentLabel.swift */,
+				4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */,
+			);
+			path = Photo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,7 +298,6 @@
 				4E0BD9CB26EA02BA005A4A94 /* CLLocationManager.swift in Sources */,
 				4E0BD9CE26EA02BA005A4A94 /* LocationService.swift in Sources */,
 				4E0BD9CF26EA02BA005A4A94 /* MediaCommentLabel.swift in Sources */,
-				4E0BD9AC26EA0159005A4A94 /* InfoViewController.swift in Sources */,
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,
 				4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */,
 				4E0BD9E326EA04EE005A4A94 /* MapError.swift in Sources */,
@@ -293,13 +305,13 @@
 				4E0BD9D326EA02BA005A4A94 /* AVCaptureVideoOrientation.swift in Sources */,
 				4E0BD9D826EA037F005A4A94 /* FileController.swift in Sources */,
 				4E0BD9E526EA04EE005A4A94 /* LocationError.swift in Sources */,
+				4E3BE7ED26EA80A5000F9069 /* EditViewController.swift in Sources */,
 				4E0BD99926EA0039005A4A94 /* Statics.swift in Sources */,
 				4E0BD9B426EA0170005A4A94 /* SettingsViewController.swift in Sources */,
 				4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */,
 				4E0BD9E426EA04EE005A4A94 /* AuthorizationError.swift in Sources */,
 				4E0BD9C026EA0239005A4A94 /* Settings.swift in Sources */,
 				4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */,
-				4E0BD9AE26EA0159005A4A94 /* EditViewController.swift in Sources */,
 				4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */,
 				4E0BD9AD26EA0159005A4A94 /* ModalScrollViewController.swift in Sources */,
 				4E0BD9AB26EA0159005A4A94 /* ModalViewController.swift in Sources */,

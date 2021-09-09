@@ -8,6 +8,7 @@
 import Foundation
 
 extension Decodable{
+    
     static func deserialize<T: Decodable>(encoded : String) -> T?{
         if let data = Data(base64Encoded: encoded){
             let decoder = JSONDecoder()
