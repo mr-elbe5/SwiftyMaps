@@ -24,7 +24,6 @@
 		4E0BD9B326EA0170005A4A94 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */; };
 		4E0BD9B426EA0170005A4A94 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */; };
 		4E0BD9B526EA0170005A4A94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B126EA0170005A4A94 /* MapViewController.swift */; };
-		4E0BD9B626EA0170005A4A94 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B226EA0170005A4A94 /* MainTabController.swift */; };
 		4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B726EA0239005A4A94 /* Codable.swift */; };
 		4E0BD9BD26EA0239005A4A94 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B826EA0239005A4A94 /* Date.swift */; };
 		4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B926EA0239005A4A94 /* String.swift */; };
@@ -67,7 +66,6 @@
 		4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 		4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4E0BD9B126EA0170005A4A94 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		4E0BD9B226EA0170005A4A94 /* MainTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		4E0BD9B726EA0239005A4A94 /* Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		4E0BD9B826EA0239005A4A94 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		4E0BD9B926EA0239005A4A94 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -158,7 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */,
-				4E0BD9B226EA0170005A4A94 /* MainTabController.swift */,
 				4E0BD9B126EA0170005A4A94 /* MapViewController.swift */,
 				4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */,
 			);
@@ -276,7 +273,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E0BD9A826EA0159005A4A94 /* ViewController.swift in Sources */,
-				4E0BD9B626EA0170005A4A94 /* MainTabController.swift in Sources */,
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E0BD9B326EA0170005A4A94 /* AppInfoViewController.swift in Sources */,

@@ -168,23 +168,6 @@ class CameraViewController: UIViewController {
         }
     }
     
-    func configureAudio(){
-        do {
-            let audioDevice = AVCaptureDevice.default(for: .audio)
-            let audioDeviceInput = try AVCaptureDeviceInput(device: audioDevice!)
-            
-            if session.canAddInput(audioDeviceInput) {
-                session.addInput(audioDeviceInput)
-            } else {
-                print("Could not add audio device input to the session")
-                session.commitConfiguration()
-                return
-            }
-        } catch {
-            print("Could not create audio device input: \(error)")
-        }
-    }
-    
     @objc func changeCamera() {
         enableButtons(flag: false)
         

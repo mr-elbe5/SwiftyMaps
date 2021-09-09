@@ -6,8 +6,6 @@
 	<string>Your location is needed for showing and saving your current position.</string>
 	<key>NSDocumentsFolderUsageDescription</key>
 	<string>The documents folder is used for export and import.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>The microphone is needed for recording videos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>The photo library is used for exporting pictures on demand.</string>
 	<key>NSLocationUsageDescription</key>
