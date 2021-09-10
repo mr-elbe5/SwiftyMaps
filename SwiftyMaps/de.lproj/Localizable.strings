@@ -1,10 +1,17 @@
-/* 
-  Localizable.strings
-  SwiftyMapViewer
+// menu
+"defaultMapStyle"="Standard";
+"openStreetMapStyle"="OpenStreetMap";
+"openTopoMapStyle"="OpenTopoMap";
+"satelliteMapStyle"="Satellit";
+"setPin"="Pin setzen";
+"removePin"="Pin entfernen";
+"startTour"="Start Tour";
+"stopTour"="Stop Tour";
+"camera"="Kamera";
+"settings"="Einstellungen";
+"export"="Export";
+"info"="Info";
 
-  Created by Michael Rönnau on 09.09.21.
-  
-*/
 "addItem"="Hinzufügen:";
 "addMapSection"="Kartenausschnitt hinzufügen";
 "audioNotAuthorized"="Die Nutzung des Mikrofons ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
@@ -17,7 +24,6 @@
 "backup"="Sichern";
 "backupSuccessInfo"="Sicherung wurde erstellt.";
 "balanced"="Ausbalanciert";
-"camera"="Kamera";
 "cameraNotAvailable"="Die Kamera steht nicht zur Verfügung.";
 "cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
 "cancel" = "Abbrechen";
@@ -54,7 +60,6 @@
 "fromDate" = "Ab Datum";
 "fullBackupData"="Alle Einträge sichern";
 "imageLibrary"="Fotos";
-"info"="Info";
 "large"="gross";
 "locationNotAuthorized"="Die App darf deinen Standort nicht feststellen. Bitte ändere die entsprechenden Einstellungen.";
 "mapInfoHeader"="Kartenansicht";
@@ -102,7 +107,6 @@
 "saveLocation"="Position speichern";
 "selectBackground"="Hintergrundbild wählen";
 "settingsBackupInfo"="Mit 'Sichern' kannst du deine Einträge und Medien als zip-Datei sichern (alle oder für einen bestimmten Zeitraum). Du kannst diese Dateien mit einem Passwort schützen.";
-"settings"="Einstellungen";
 "settingsBackgroundInfo"="Mit 'Hintergrund' kannst du das Hintergrundbild verändern. Du kannst ein Bild aus der Fotobibliothek wählen oder zum Standardbild zurückkehren.";
 "settingsFilesInfo"="Löschen aller öffentlichen Datein bedeutet das Löschen aller Sicherungen und aller Dateien, die in das Exportverzeichnis der App kopiert wurden.";
 "settingsFullBackupInfo"="Mit 'Alles sichern' kannst du eine Sicherung aller Einträge herstellen. Es ist dann unter Dateien > Auf meinem IPhone/iPad > My Private Track > Backups mit dem aktuellen Datum in seinem Namen zu finden.";

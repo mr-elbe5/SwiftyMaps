@@ -1,10 +1,17 @@
-/* 
-  Localizable.strings
-  SwiftyMapViewer
+// menu
+"defaultMapStyle"="Standard";
+"openStreetMapStyle"="OpenStreetMap";
+"openTopoMapStyle"="OpenTopoMap";
+"satelliteMapStyle"="Satellite";
+"setPin"="Set Pin";
+"removePin"="Remove Pin";
+"startTour"="Start Tour";
+"stopTour"="Stop Tour";
+"camera"="Camera";
+"settings"="Settings";
+"export"="Export";
+"info"="Info";
 
-  Created by Michael Rönnau on 09.09.21.
-  
-*/
 "addItem"="Add:";
 "addMapSection"="Add map section";
 "audioNotAuthorized"="Microphone use is not authorized. Please change your settings.";
@@ -17,7 +24,7 @@
 "backupRestored"="The selected days have been restored.";
 "backupSuccessInfo"="Backup has been created.";
 "balanced"="Balanced";
-"camera"="Camera";
+
 "cameraNotAvailable"="Camera is not available.";
 "cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";
 "cancel" = "Cancel";
@@ -54,7 +61,7 @@
 "fromDate" = "From date";
 "fullBackupData"="Backup all entries";
 "imageLibrary"="Photos";
-"info"="Info";
+
 "locationNotAuthorized"="Finding your location is not authorized. Please change your settings.";
 "mapComment"="Map comment";
 "mapInfoHeader"="Map view";
@@ -105,7 +112,7 @@
 "settingsMapSizeInfo"="With 'Start size for capturing map images' you have three possible start sizes of the map, when you are creating a map snapshot. You will still be able to scroll and resize the map.";
 "settingsResetInfo"="With the reset button you delete all entries and their media. If you don't want to lose these data, make sure to create a backup.";
 "settingsRestoreInfo"="With the restore button you restore a previous backup of your entries (all or for a certain time span).";
-"settings"="Settings";
+
 "settingsUseLocationInfo"="If you choose not to use location services, your entries will not have a position and you will not be able to take map screenshots.";
 "shareImage"="Share image";
 "snapshotError"="The map could not be saved.";

@@ -43,16 +43,59 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
             .leading(guide.leadingAnchor, inset: .zero)
             .top(guide.topAnchor,inset: .zero)
             .trailing(guide.trailingAnchor,inset: .zero)
-        let leftStackView = UIStackView()
-        let rightStackView = UIStackView()
-        headerView.backgroundColor = UIColor.systemBackground
-        headerView.addSubview(leftStackView)
-        headerView.addSubview(rightStackView)
-        leftStackView.setupHorizontal(spacing: defaultInset)
-        leftStackView.placeAfter(anchor: headerView.leadingAnchor, insets: defaultInsets)
-        rightStackView.setupHorizontal(spacing: defaultInset)
-        rightStackView.placeBefore(anchor: headerView.trailingAnchor, insets: defaultInsets)
-        addStyleButton(to: leftStackView)
+        headerView.backgroundColor = .black
+        let styleButton = IconButton(icon: "map")
+        styleButton.tintColor = .white
+        styleButton.menu = getStyleMenu()
+        styleButton.showsMenuAsPrimaryAction = true
+        headerView.addSubview(styleButton)
+        styleButton.setAnchors()
+            .top(headerView.topAnchor, inset: defaultInset)
+            .leading(headerView.leadingAnchor, inset: defaultInset)
+            .bottom(headerView.bottomAnchor, inset: defaultInset)
+        let pinButton = IconButton(icon: "mappin")
+        pinButton.tintColor = .white
+        pinButton.menu = getPinMenu()
+        pinButton.showsMenuAsPrimaryAction = true
+        headerView.addSubview(pinButton)
+        pinButton.setAnchors()
+            .top(headerView.topAnchor, inset: defaultInset)
+            .leading(styleButton.trailingAnchor, inset: 2 * defaultInset)
+            .bottom(headerView.bottomAnchor, inset: defaultInset)
+        let tourButton = IconButton(icon: "figure.walk")
+        tourButton.tintColor = .white
+        tourButton.menu = getTourMenu()
+        tourButton.showsMenuAsPrimaryAction = true
+        headerView.addSubview(tourButton)
+        tourButton.setAnchors()
+            .top(headerView.topAnchor, inset: defaultInset)
+            .leading(pinButton.trailingAnchor, inset: 2 * defaultInset)
+            .bottom(headerView.bottomAnchor, inset: defaultInset)
+        let cameraButton = IconButton(icon: "camera")
+        cameraButton.tintColor = .white
+        cameraButton.addTarget(self, action: #selector(openCamera), for: .touchDown)
+        headerView.addSubview(cameraButton)
+        cameraButton.setAnchors()
+            .top(headerView.topAnchor, inset: defaultInset)
+            .centerX(headerView.centerXAnchor)
+            .bottom(headerView.bottomAnchor, inset: defaultInset)
+        let infoButton = IconButton(icon: "info.circle")
+        infoButton.tintColor = .white
+        infoButton.addTarget(self, action: #selector(openCamera), for: .touchDown)
+        headerView.addSubview(infoButton)
+        infoButton.setAnchors()
+            .top(headerView.topAnchor, inset: defaultInset)
+            .trailing(headerView.trailingAnchor, inset: defaultInset)
+            .bottom(headerView.bottomAnchor, inset: defaultInset)
+        let configButton = IconButton(icon: "slider.horizontal.3")
+        configButton.tintColor = .white
+        configButton.menu = getConfigMenu()
+        configButton.showsMenuAsPrimaryAction = true
+        headerView.addSubview(configButton)
+        configButton.setAnchors()
+            .top(headerView.topAnchor, inset: defaultInset)
+            .trailing(infoButton.leadingAnchor, inset: 2 * defaultInset)
+            .bottom(headerView.bottomAnchor, inset: defaultInset)
         mkMapView.mapType = .standard
         mkMapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mkMapView.delegate = self
@@ -64,24 +107,53 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
             .bottom(guide.bottomAnchor, inset: .zero)
     }
     
-    func addStyleButton(to parentView : UIStackView) {
-        let standardAction = UIAction(title: "defaultMapStyle".localize()) { action in
+    func getStyleMenu() -> UIMenu{
+        let standardMapAction = UIAction(title: "defaultMapStyle".localize()) { action in
             self.setMapType(.standard)
         }
-        let osmAction = UIAction(title: "openStreetMapStyle".localize()) { action in
+        let osmMapAction = UIAction(title: "openStreetMapStyle".localize()) { action in
             self.setMapType(.openStreetMap)
         }
-        let topoAction = UIAction(title: "openTopoMapStyle".localize()) { action in
+        let topoMapAction = UIAction(title: "openTopoMapStyle".localize()) { action in
             self.setMapType(.openTopoMap)
         }
         let satelliteAction = UIAction(title: "satelliteMapStyle".localize()) { action in
             self.setMapType(.satellite)
         }
-        let menu = UIMenu(title: "", children: [standardAction, osmAction, topoAction, satelliteAction])
-        let styleButton = IconButton(icon: "map")
-        styleButton.menu = menu
-        styleButton.showsMenuAsPrimaryAction = true
-        parentView.addArrangedSubview(styleButton)
+        return UIMenu(title: "", children: [standardMapAction, osmMapAction, topoMapAction, satelliteAction])
+    }
+    
+    func getPinMenu() -> UIMenu{
+        let setPinAction = UIAction(title: "setPin".localize(), image: UIImage(systemName: "mappin.and.ellipse")) { action in
+            self.setPin()
+        }
+        let removePinAction = UIAction(title: "removePin".localize(), image: UIImage(systemName: "mappin.slash")) { action in
+            self.removePin()
+        }
+        return UIMenu(title: "", children: [setPinAction, removePinAction])
+        
+    }
+    
+    func getTourMenu() -> UIMenu{
+        let startTourAction = UIAction(title: "startTour".localize(), image: UIImage(systemName: "figure.walk")) { action in
+            self.startTour()
+        }
+        let stopTourAction = UIAction(title: "stopTour".localize(), image: UIImage(systemName: "figure.stand")) { action in
+            self.stopTour()
+        }
+        return UIMenu(title: "", children: [startTourAction, stopTourAction])
+        
+    }
+    
+    func getConfigMenu() -> UIMenu{
+        let settingsAction = UIAction(title: "settings".localize(), image: UIImage(systemName: "gearshape")) { action in
+            self.openSettings()
+        }
+        let exportAction = UIAction(title: "export".localize(), image: UIImage(systemName: "square.and.arrow.up")) { action in
+            self.openExport()
+        }
+        return UIMenu(title: "", children: [settingsAction, exportAction])
+        
     }
     
     func locationDidChange(location: Location){
@@ -91,6 +163,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
             mkMapView.centerToLocation(location, regionRadius: self.radius)
         }
     }
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         if CLLocationManager.authorized{
@@ -163,10 +237,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         }
     }
     
-    @objc func openMenu(){
-        print("open")
-    }
-    
     func setMapType(_ type: MapType){
         mapType = type
         removeOverlay()
@@ -196,6 +266,34 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
             appleLogoView?.isHidden = false
             attributionLabel?.isHidden = false
         }
+    }
+    
+    func setPin(){
+        
+    }
+    
+    func removePin(){
+        
+    }
+    
+    func startTour(){
+        
+    }
+    
+    func stopTour(){
+        
+    }
+    
+    @objc func openCamera(){
+    
+    }
+    
+    func openSettings(){
+    
+    }
+    
+    func openExport(){
+    
     }
     
     private func removeOverlay(){
