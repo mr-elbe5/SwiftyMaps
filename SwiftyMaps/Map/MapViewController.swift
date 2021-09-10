@@ -52,9 +52,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         leftStackView.placeAfter(anchor: headerView.leadingAnchor, insets: defaultInsets)
         rightStackView.setupHorizontal(spacing: defaultInset)
         rightStackView.placeBefore(anchor: headerView.trailingAnchor, insets: defaultInsets)
-        let toggleStyleButton = IconButton(icon: "map")
-        toggleStyleButton.addTarget(self, action: #selector(toggleMapStyle), for: .touchDown)
-        leftStackView.addArrangedSubview(toggleStyleButton)
+        addStyleButton(to: leftStackView)
         mkMapView.mapType = .standard
         mkMapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mkMapView.delegate = self
@@ -64,6 +62,26 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
             .top(headerView.bottomAnchor, inset: 1)
             .trailing(guide.trailingAnchor,inset: .zero)
             .bottom(guide.bottomAnchor, inset: .zero)
+    }
+    
+    func addStyleButton(to parentView : UIStackView) {
+        let standardAction = UIAction(title: "defaultMapStyle".localize()) { action in
+            self.setMapType(.standard)
+        }
+        let osmAction = UIAction(title: "openStreetMapStyle".localize()) { action in
+            self.setMapType(.openStreetMap)
+        }
+        let topoAction = UIAction(title: "openTopoMapStyle".localize()) { action in
+            self.setMapType(.openTopoMap)
+        }
+        let satelliteAction = UIAction(title: "satelliteMapStyle".localize()) { action in
+            self.setMapType(.satellite)
+        }
+        let menu = UIMenu(title: "", children: [standardAction, osmAction, topoAction, satelliteAction])
+        let styleButton = IconButton(icon: "map")
+        styleButton.menu = menu
+        styleButton.showsMenuAsPrimaryAction = true
+        parentView.addArrangedSubview(styleButton)
     }
     
     func locationDidChange(location: Location){
@@ -145,17 +163,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         }
     }
     
-    @objc func toggleMapStyle() {
-        switch mapType{
-        case .standard:
-            setMapType(.openStreetMap)
-        case .openStreetMap:
-            setMapType(.openTopoMap)
-        case .openTopoMap:
-            setMapType(.satellite)
-        case .satellite:
-            setMapType(.standard)
-        }
+    @objc func openMenu(){
+        print("open")
     }
     
     func setMapType(_ type: MapType){

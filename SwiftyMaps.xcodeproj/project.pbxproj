@@ -17,7 +17,7 @@
 		4E0BD9A826EA0159005A4A94 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A026EA0159005A4A94 /* ViewController.swift */; };
 		4E0BD9A926EA0159005A4A94 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */; };
 		4E0BD9AA26EA0159005A4A94 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A226EA0159005A4A94 /* ScrollViewController.swift */; };
-		4E0BD9AB26EA0159005A4A94 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A326EA0159005A4A94 /* ModalViewController.swift */; };
+		4E0BD9AB26EA0159005A4A94 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A326EA0159005A4A94 /* MenuViewController.swift */; };
 		4E0BD9AD26EA0159005A4A94 /* ModalScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A526EA0159005A4A94 /* ModalScrollViewController.swift */; };
 		4E0BD9B326EA0170005A4A94 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */; };
 		4E0BD9B426EA0170005A4A94 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */; };
@@ -58,7 +58,7 @@
 		4E0BD9A026EA0159005A4A94 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		4E0BD9A226EA0159005A4A94 /* ScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
-		4E0BD9A326EA0159005A4A94 /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		4E0BD9A326EA0159005A4A94 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		4E0BD9A526EA0159005A4A94 /* ModalScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalScrollViewController.swift; sourceTree = "<group>"; };
 		4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 		4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 				4E0BD9B926EA0239005A4A94 /* String.swift */,
 				4E0BD9BA26EA0239005A4A94 /* URL.swift */,
 				4E0BD9A526EA0159005A4A94 /* ModalScrollViewController.swift */,
-				4E0BD9A326EA0159005A4A94 /* ModalViewController.swift */,
+				4E0BD9A326EA0159005A4A94 /* MenuViewController.swift */,
 				4E0BD9A226EA0159005A4A94 /* ScrollViewController.swift */,
 				4E0BD99F26EA0159005A4A94 /* UIViewController.swift */,
 				4E0BD9A026EA0159005A4A94 /* ViewController.swift */,
@@ -314,7 +314,7 @@
 				4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */,
 				4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */,
 				4E0BD9AD26EA0159005A4A94 /* ModalScrollViewController.swift in Sources */,
-				4E0BD9AB26EA0159005A4A94 /* ModalViewController.swift in Sources */,
+				4E0BD9AB26EA0159005A4A94 /* MenuViewController.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
 				4E0BD9B526EA0170005A4A94 /* MapViewController.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,
@@ -396,7 +396,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -452,7 +452,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
