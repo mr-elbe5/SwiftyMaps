@@ -24,4 +24,10 @@ extension CLLocationManager{
         }
     }
     
+    var authorizedForTracking : Bool{
+        get{
+            authorizationStatus == .authorizedAlways
+        }
+    }
+    
 }
