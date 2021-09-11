@@ -34,7 +34,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     
     var authorized : Bool{
         get{
-            return CLLocationManager.authorized
+            return locationManager.authorized
         }
     }
     
