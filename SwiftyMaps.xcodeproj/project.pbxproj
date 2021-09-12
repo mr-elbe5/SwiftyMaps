@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3324D1A867D8A687E78801F3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324DF1A0C4E4D212BE2CBE8 /* MainViewController.swift */; };
+		3324DAEC600505909B9F80F9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D7344CB150EF999C019F /* Settings.swift */; };
+		3324DC67876112E830378F5F /* MainViewController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D151A2B674E9D41D473D /* MainViewController+Menu.swift */; };
+		3324DE7AD7C5252CC55D0113 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D0DD6D1F994A117B059E /* SettingsViewController.swift */; };
 		4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */; };
 		4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */; };
 		4E0BD98A26E9FC67005A4A94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD98926E9FC67005A4A94 /* Assets.xcassets */; };
@@ -17,13 +21,11 @@
 		4E0BD9A926EA0159005A4A94 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */; };
 		4E0BD9AA26EA0159005A4A94 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A226EA0159005A4A94 /* ScrollViewController.swift */; };
 		4E0BD9B326EA0170005A4A94 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */; };
-		4E0BD9B426EA0170005A4A94 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */; };
 		4E0BD9B526EA0170005A4A94 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B126EA0170005A4A94 /* MapViewController.swift */; };
 		4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B726EA0239005A4A94 /* Codable.swift */; };
 		4E0BD9BD26EA0239005A4A94 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B826EA0239005A4A94 /* Date.swift */; };
 		4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B926EA0239005A4A94 /* String.swift */; };
 		4E0BD9BF26EA0239005A4A94 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9BA26EA0239005A4A94 /* URL.swift */; };
-		4E0BD9C026EA0239005A4A94 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9BB26EA0239005A4A94 /* Settings.swift */; };
 		4E0BD9CB26EA02BA005A4A94 /* CLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C126EA02BA005A4A94 /* CLLocationManager.swift */; };
 		4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */; };
 		4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */; };
@@ -44,6 +46,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3324D0DD6D1F994A117B059E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		3324D151A2B674E9D41D473D /* MainViewController+Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+Menu.swift"; sourceTree = "<group>"; };
+		3324D7344CB150EF999C019F /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		3324DF1A0C4E4D212BE2CBE8 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,13 +61,11 @@
 		4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		4E0BD9A226EA0159005A4A94 /* ScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
-		4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4E0BD9B126EA0170005A4A94 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4E0BD9B726EA0239005A4A94 /* Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		4E0BD9B826EA0239005A4A94 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		4E0BD9B926EA0239005A4A94 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		4E0BD9BA26EA0239005A4A94 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
-		4E0BD9BB26EA0239005A4A94 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		4E0BD9C126EA02BA005A4A94 /* CLLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationManager.swift; sourceTree = "<group>"; };
 		4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
@@ -94,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3324D39D787B17917D850EB5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3324D7344CB150EF999C019F /* Settings.swift */,
+				3324D0DD6D1F994A117B059E /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		4E0BD97426E9FC66005A4A94 = {
 			isa = PBXGroup;
 			children = (
@@ -118,24 +131,27 @@
 				4E0BD99A26EA005D005A4A94 /* Data */,
 				4E3BE7EB26EA7EF1000F9069 /* Photo */,
 				4E3BE7EA26EA7E57000F9069 /* Map */,
-				4E0BD99C26EA0074005A4A94 /* View */,
-				4E0BD99726EA0020005A4A94 /* System */,
+				4E0BD99C26EA0074005A4A94 /* Info */,
+				4E0BD99726EA0020005A4A94 /* Application */,
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
 				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
 				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
 				4E0BD9DD26EA043D005A4A94 /* Localizable.strings */,
+				3324D39D787B17917D850EB5 /* Settings */,
 			);
 			path = SwiftyMaps;
 			sourceTree = "<group>";
 		};
-		4E0BD99726EA0020005A4A94 /* System */ = {
+		4E0BD99726EA0020005A4A94 /* Application */ = {
 			isa = PBXGroup;
 			children = (
 				4E0BD99826EA0039005A4A94 /* Statics.swift */,
 				4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
+				3324DF1A0C4E4D212BE2CBE8 /* MainViewController.swift */,
+				3324D151A2B674E9D41D473D /* MainViewController+Menu.swift */,
 			);
-			path = System;
+			path = Application;
 			sourceTree = "<group>";
 		};
 		4E0BD99A26EA005D005A4A94 /* Data */ = {
@@ -144,18 +160,16 @@
 				4E0BD9D526EA037F005A4A94 /* DataController.swift */,
 				4E0BD9D626EA037F005A4A94 /* FileController.swift */,
 				4E0BD9E226EA04EE005A4A94 /* FileError.swift */,
-				4E0BD9BB26EA0239005A4A94 /* Settings.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
 		};
-		4E0BD99C26EA0074005A4A94 /* View */ = {
+		4E0BD99C26EA0074005A4A94 /* Info */ = {
 			isa = PBXGroup;
 			children = (
 				4E0BD9AF26EA0170005A4A94 /* AppInfoViewController.swift */,
-				4E0BD9B026EA0170005A4A94 /* SettingsViewController.swift */,
 			);
-			path = View;
+			path = Info;
 			sourceTree = "<group>";
 		};
 		4E0BD99E26EA010A005A4A94 /* Base */ = {
@@ -305,15 +319,17 @@
 				4E0BD9E526EA04EE005A4A94 /* LocationError.swift in Sources */,
 				4E3BE7ED26EA80A5000F9069 /* EditViewController.swift in Sources */,
 				4E0BD99926EA0039005A4A94 /* Statics.swift in Sources */,
-				4E0BD9B426EA0170005A4A94 /* SettingsViewController.swift in Sources */,
 				4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */,
 				4E0BD9E426EA04EE005A4A94 /* AuthorizationError.swift in Sources */,
-				4E0BD9C026EA0239005A4A94 /* Settings.swift in Sources */,
 				4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */,
 				4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
 				4E0BD9B526EA0170005A4A94 /* MapViewController.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,
+				3324DAEC600505909B9F80F9 /* Settings.swift in Sources */,
+				3324DE7AD7C5252CC55D0113 /* SettingsViewController.swift in Sources */,
+				3324D1A867D8A687E78801F3 /* MainViewController.swift in Sources */,
+				3324DC67876112E830378F5F /* MainViewController+Menu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

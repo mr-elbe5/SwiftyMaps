@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import MapKit
 import AVFoundation
 
 class Settings: Identifiable, Codable{
@@ -18,35 +19,23 @@ class Settings: Identifiable, Codable{
     }
     
     enum CodingKeys: String, CodingKey {
-        case mapStartSize
+        case mapType
+        case position
     }
-    
-    var mapStartSize : MapStartSize = .mid
-    
-    var mapStartSizeIndex : Int{
-        get{
-            switch mapStartSize{
-            case .small:
-                return 0
-            case .mid:
-                return 1
-            case .large:
-                return 2
-            }
-        }
-    }
+
+    var mapType : MKMapView.MapType = .standard
     
     init(){
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        mapStartSize = MapStartSize(rawValue: try values.decode(Double.self, forKey: .mapStartSize)) ?? MapStartSize.mid
+        mapType = MKMapView.MapType(rawValue: try values.decode(String.self, forKey: .mapType)) ?? MKMapView.MapType.standard
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(Double(mapStartSize.rawValue), forKey: .mapStartSize)
+        try container.encode(mapType.rawValue, forKey: .mapType)
     }
     
     func save(){
