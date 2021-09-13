@@ -17,49 +17,50 @@ extension MainViewController {
         styleButton.menu = getStyleMenu()
         styleButton.showsMenuAsPrimaryAction = true
         menuView.addSubview(styleButton)
-        styleButton.setAnchors()
-            .top(menuView.topAnchor, inset: defaultInset)
-            .leading(menuView.leadingAnchor, inset: defaultInset)
-            .bottom(menuView.bottomAnchor, inset: defaultInset)
-        let pinButton = IconButton(icon: "mappin")
-        pinButton.tintColor = .white
-        pinButton.menu = getPinMenu()
-        pinButton.showsMenuAsPrimaryAction = true
-        menuView.addSubview(pinButton)
-        pinButton.setAnchors()
-            .top(menuView.topAnchor, inset: defaultInset)
-            .leading(styleButton.trailingAnchor, inset: 2 * defaultInset)
-            .bottom(menuView.bottomAnchor, inset: defaultInset)
         let tourButton = IconButton(icon: "figure.walk")
         tourButton.tintColor = .white
-        tourButton.menu = getTourMenu()
-        tourButton.showsMenuAsPrimaryAction = true
+        tourButton.addTarget(self, action: #selector(toggleTracking), for: .touchDown)
         menuView.addSubview(tourButton)
-        tourButton.setAnchors()
-            .top(menuView.topAnchor, inset: defaultInset)
-            .leading(pinButton.trailingAnchor, inset: 2 * defaultInset)
-            .bottom(menuView.bottomAnchor, inset: defaultInset)
+        let pinButton = IconButton(icon: "mappin.and.ellipse")
+        pinButton.tintColor = .white
+        pinButton.addTarget(self, action: #selector(setPin), for: .touchDown)
+        menuView.addSubview(pinButton)
         let cameraButton = IconButton(icon: "camera")
         cameraButton.tintColor = .white
         cameraButton.addTarget(self, action: #selector(openCamera), for: .touchDown)
         menuView.addSubview(cameraButton)
-        cameraButton.setAnchors()
-            .top(menuView.topAnchor, inset: defaultInset)
-            .centerX(menuView.centerXAnchor)
-            .bottom(menuView.bottomAnchor, inset: defaultInset)
         let infoButton = IconButton(icon: "info.circle")
         infoButton.tintColor = .white
         infoButton.addTarget(self, action: #selector(openCamera), for: .touchDown)
         menuView.addSubview(infoButton)
-        infoButton.setAnchors()
-            .top(menuView.topAnchor, inset: defaultInset)
-            .trailing(menuView.trailingAnchor, inset: defaultInset)
-            .bottom(menuView.bottomAnchor, inset: defaultInset)
         let configButton = IconButton(icon: "slider.horizontal.3")
         configButton.tintColor = .white
         configButton.menu = getConfigMenu()
         configButton.showsMenuAsPrimaryAction = true
         menuView.addSubview(configButton)
+
+        styleButton.setAnchors()
+                .top(menuView.topAnchor, inset: defaultInset)
+                .leading(menuView.leadingAnchor, inset: defaultInset)
+                .bottom(menuView.bottomAnchor, inset: defaultInset)
+
+        tourButton.setAnchors()
+                .top(menuView.topAnchor, inset: defaultInset)
+                .centerX(menuView.centerXAnchor)
+                .bottom(menuView.bottomAnchor, inset: defaultInset)
+        pinButton.setAnchors()
+                .top(menuView.topAnchor, inset: defaultInset)
+                .trailing(tourButton.leadingAnchor, inset: 2 * defaultInset)
+                .bottom(menuView.bottomAnchor, inset: defaultInset)
+        cameraButton.setAnchors()
+                .top(menuView.topAnchor, inset: defaultInset)
+                .leading(tourButton.trailingAnchor, inset: 2 * defaultInset)
+                .bottom(menuView.bottomAnchor, inset: defaultInset)
+
+        infoButton.setAnchors()
+            .top(menuView.topAnchor, inset: defaultInset)
+            .trailing(menuView.trailingAnchor, inset: defaultInset)
+            .bottom(menuView.bottomAnchor, inset: defaultInset)
         configButton.setAnchors()
             .top(menuView.topAnchor, inset: defaultInset)
             .trailing(infoButton.leadingAnchor, inset: 2 * defaultInset)
@@ -82,28 +83,6 @@ extension MainViewController {
         return UIMenu(title: "", children: [standardMapAction, osmMapAction, topoMapAction, satelliteAction])
     }
 
-    func getPinMenu() -> UIMenu{
-        let setPinAction = UIAction(title: "setPin".localize(), image: UIImage(systemName: "mappin.and.ellipse")) { action in
-            self.setPin()
-        }
-        let removePinAction = UIAction(title: "removePin".localize(), image: UIImage(systemName: "mappin.slash")) { action in
-            self.removePin()
-        }
-        return UIMenu(title: "", children: [setPinAction, removePinAction])
-
-    }
-
-    func getTourMenu() -> UIMenu{
-        let startTourAction = UIAction(title: "startTour".localize(), image: UIImage(systemName: "figure.walk")) { action in
-            self.startTour()
-        }
-        let stopTourAction = UIAction(title: "stopTour".localize(), image: UIImage(systemName: "figure.stand")) { action in
-            self.stopTour()
-        }
-        return UIMenu(title: "", children: [startTourAction, stopTourAction])
-
-    }
-
     func getConfigMenu() -> UIMenu{
         let settingsAction = UIAction(title: "settings".localize(), image: UIImage(systemName: "gearshape")) { action in
             self.openSettings()
@@ -115,24 +94,26 @@ extension MainViewController {
 
     }
 
-    func setPin(){
-
-    }
-
-    func removePin(){
-
-    }
-
-    func startTour(){
-
-    }
-
-    func stopTour(){
-
-    }
+    
 
     @objc func openCamera(){
 
+    }
+
+    @objc func setPin(){
+
+    }
+    
+    @objc func toggleTracking(sender: Any){
+        guard let sender = sender as? UIButton else { return }
+        if isTracking{
+            isTracking = false
+            sender.setImage(UIImage(systemName: "figure.walk"), for: .normal)
+        }
+        else{
+            isTracking = true
+            sender.setImage(UIImage(systemName: "figure.stand"), for: .normal)
+        }
     }
 
     func openSettings(){

@@ -126,17 +126,17 @@
 		4E0BD97F26E9FC66005A4A94 /* SwiftyMaps */ = {
 			isa = PBXGroup;
 			children = (
-				4E3BE7EE26EC9841000F9069 /* Location */,
+				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
+				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
+				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
+				4E0BD9DD26EA043D005A4A94 /* Localizable.strings */,
+				4E0BD99726EA0020005A4A94 /* Application */,
 				4E0BD99E26EA010A005A4A94 /* Base */,
 				4E0BD99A26EA005D005A4A94 /* Data */,
-				4E3BE7EB26EA7EF1000F9069 /* Photo */,
-				4E3BE7EA26EA7E57000F9069 /* Map */,
 				4E0BD99C26EA0074005A4A94 /* Info */,
-				4E0BD99726EA0020005A4A94 /* Application */,
-				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
-				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
-				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
-				4E0BD9DD26EA043D005A4A94 /* Localizable.strings */,
+				4E3BE7EE26EC9841000F9069 /* Location */,
+				4E3BE7EA26EA7E57000F9069 /* Map */,
+				4E3BE7EB26EA7EF1000F9069 /* Photo */,
 				3324D39D787B17917D850EB5 /* Settings */,
 			);
 			path = SwiftyMaps;

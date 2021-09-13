@@ -19,8 +19,8 @@ extension MKMapView {
     }
 
     static let zoomRangeDefault = MKMapView.CameraZoomRange(minCenterCoordinateDistance: -1, maxCenterCoordinateDistance: -1)!
-    static let zoomRange20 = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 175, maxCenterCoordinateDistance: -1)!
-    static let zoomRange17 = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 1380, maxCenterCoordinateDistance: -1)!
+    static let zoomRange20 = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 175, maxCenterCoordinateDistance: 15000000)!
+    static let zoomRange17 = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 1380, maxCenterCoordinateDistance: 15000000)!
 
     func setMapType(_ type: MapType) {
         switch type {

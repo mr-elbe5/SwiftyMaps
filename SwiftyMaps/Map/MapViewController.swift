@@ -21,15 +21,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     
     var appleLogoView : UIView? = nil
     var attributionLabel : UIView? = nil
-
-    override func loadView() {
-        super.loadView()
-        LocationService.shared.checkRunning()
-        mkMapView.mapType = .standard
-        mkMapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mkMapView.delegate = self
-        view.addSubview(mkMapView)
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         if LocationService.shared.authorized{
@@ -81,6 +72,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         let zoom = mapView.zoomLevel
         if zoom != zoomLevel{
             zoomLevel = zoom
+            print("\(zoomLevel), \(mapView.camera.centerCoordinateDistance)")
         }
     }
 
@@ -122,8 +114,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         }
         mkMapView.setMapType(mapType)
         let showAppleLabels = mkMapView.showAppleLabels(mapType)
-        appleLogoView?.isHidden = showAppleLabels
-        attributionLabel?.isHidden = showAppleLabels
+        appleLogoView?.isHidden = !showAppleLabels
+        attributionLabel?.isHidden = !showAppleLabels
     }
     
     private func setOverlay(with urlTemplate: String){
