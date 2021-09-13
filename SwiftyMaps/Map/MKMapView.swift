@@ -66,4 +66,15 @@ extension MKMapView {
         setRegion(coordinateRegion, animated: true)
     }
     
+    func setTileOverlay(with urlTemplate: String) -> MKTileOverlay{
+        let overlay = MKTileOverlay(urlTemplate: urlTemplate)
+        overlay.canReplaceMapContent = true
+        addOverlay(overlay, level: .aboveLabels)
+        return overlay
+    }
+    
+    func removeTileOverlay(_ overlay: MKTileOverlay){
+        removeOverlay(overlay)
+    }
+    
 }

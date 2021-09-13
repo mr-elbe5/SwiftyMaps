@@ -26,13 +26,13 @@ class MainViewController: MapViewController {
                 .trailing(guide.trailingAnchor, inset: .zero)
         headerView.backgroundColor = .black
         fillMenu(menuView: headerView)
-        mkMapView.mapType = .standard
-        mkMapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mkMapView.showsCompass = true
-        mkMapView.showsScale = true
-        mkMapView.delegate = self
-        view.addSubview(mkMapView)
-        mkMapView.setAnchors()
+        mapView.mapType = .standard
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapView.showsCompass = true
+        mapView.showsScale = true
+        mapView.delegate = self
+        view.addSubview(mapView)
+        mapView.setAnchors()
                 .leading(guide.leadingAnchor, inset: .zero)
                 .top(headerView.bottomAnchor, inset: 1)
                 .trailing(guide.trailingAnchor, inset: .zero)
@@ -41,11 +41,11 @@ class MainViewController: MapViewController {
     }
     
     func applySettings(){
-        mkMapView.showsUserLocation = Settings.shared.showUserLocation
+        mapView.showsUserLocation = Settings.shared.showUserLocation
     }
     
     func updateSettings(){
-        Settings.shared.showUserLocation = mkMapView.showsUserLocation
+        Settings.shared.showUserLocation = mapView.showsUserLocation
     }
     
 }

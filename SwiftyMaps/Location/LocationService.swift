@@ -10,6 +10,7 @@ import CoreLocation
 
 protocol LocationServiceDelegate{
     func locationDidChange(location: Location)
+    func authorizationDidChange(authorized: Bool)
 }
 
 class LocationService : NSObject, CLLocationManagerDelegate{
@@ -91,6 +92,10 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     
     func requestWhenInUseAuthorization(){
         self.locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        delegate?.authorizationDidChange(authorized: authorized)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

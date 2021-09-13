@@ -11,7 +11,7 @@ import SwiftyIOSViewExtensions
 
 class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDelegate {
     
-    var mkMapView = MKMapView()
+    var mapView = MKMapView()
     var mapLoaded = false
     var location: Location? = nil
     var radius : CLLocationDistance = 10000
@@ -23,17 +23,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     var attributionLabel : UIView? = nil
     
     override func viewDidAppear(_ animated: Bool) {
+        LocationService.shared.delegate = self
         if LocationService.shared.authorized{
-            if location == nil{
-                location = LocationService.shared.getLocation()
-                if let loc = location{
-                    mkMapView.centerToLocation(loc, regionRadius: radius)
-                }
-            }
-            LocationService.shared.delegate = self
+            initLocation()
         }
-        else{
-            showError("locationNotAuthorized")
+    }
+    
+    func initLocation(){
+        if location == nil{
+            location = LocationService.shared.getLocation()
+            if let loc = location{
+                mapView.centerToLocation(loc, regionRadius: radius)
+            }
         }
     }
     
@@ -43,7 +44,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     
     func setNeedsUpdate(){
         if mapLoaded{
-            mkMapView.removeAnnotations(mkMapView.annotations)
+            mapView.removeAnnotations(mapView.annotations)
             setAnnotations()
         }
     }
@@ -54,7 +55,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapLoaded = true
-        for vw in mkMapView.subviews {
+        for vw in mapView.subviews {
             let vwType = "\(type(of: vw))"
             switch vwType {
             case "MKAppleLogoImageView":
@@ -75,11 +76,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
             print("\(zoomLevel), \(mapView.camera.centerCoordinateDistance)")
         }
     }
+    
+    func authorizationDidChange(authorized: Bool) {
+        if authorized{
+            initLocation()
+        }
+    }
 
     func locationDidChange(location: Location){
         if self.location == nil{
             self.location = location
-            mkMapView.centerToLocation(location, regionRadius: radius)
+            mapView.centerToLocation(location, regionRadius: radius)
         }
     }
 
@@ -99,32 +106,25 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     func setMapType(_ type: MKMapView.MapType){
         mapType = type
         if overlay != nil{
-            mkMapView.removeOverlay(overlay!)
+            mapView.removeOverlay(overlay!)
             overlay = nil
         }
         switch mapType{
         case .openStreetMap:
-            setOverlay(with: "https://maps.elbe5.de/carto/{z}/{x}/{y}.png")
+            overlay = mapView.setTileOverlay(with: "https://maps.elbe5.de/carto/{z}/{x}/{y}.png")
             overlay?.maximumZ = 20
         case .openTopoMap:
-            setOverlay(with: "https://maps.elbe5.de/topo/{z}/{x}/{y}.png")
+            overlay = mapView.setTileOverlay(with: "https://maps.elbe5.de/topo/{z}/{x}/{y}.png")
             overlay?.maximumZ = 17
         default:
             break
         }
-        mkMapView.setMapType(mapType)
-        let showAppleLabels = mkMapView.showAppleLabels(mapType)
+        mapView.setMapType(mapType)
+        let showAppleLabels = mapView.showAppleLabels(mapType)
         appleLogoView?.isHidden = !showAppleLabels
         attributionLabel?.isHidden = !showAppleLabels
     }
     
-    private func setOverlay(with urlTemplate: String){
-        let newOverlay = MKTileOverlay(urlTemplate: urlTemplate)
-        newOverlay.canReplaceMapContent = true
-        mkMapView.addOverlay(newOverlay, level: .aboveLabels)
-        overlay = newOverlay
-    }
-
     func showError(_ reason: String){
         showAlert(title: "error".localize(), text: reason.localize())
     }
