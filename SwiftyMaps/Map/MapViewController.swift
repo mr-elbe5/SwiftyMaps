@@ -111,10 +111,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         }
         switch mapType{
         case .openStreetMap:
-            overlay = mapView.setTileOverlay(with: "https://maps.elbe5.de/carto/{z}/{x}/{y}.png")
+            overlay = mapView.setTileOverlay(with: Settings.cartoUrl)
             overlay?.maximumZ = 20
         case .openTopoMap:
-            overlay = mapView.setTileOverlay(with: "https://maps.elbe5.de/topo/{z}/{x}/{y}.png")
+            overlay = mapView.setTileOverlay(with: Settings.topoUrl)
             overlay?.maximumZ = 17
         default:
             break

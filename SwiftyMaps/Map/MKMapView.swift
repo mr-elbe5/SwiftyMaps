@@ -19,8 +19,8 @@ extension MKMapView {
     }
 
     static let zoomRangeDefault = MKMapView.CameraZoomRange(minCenterCoordinateDistance: -1, maxCenterCoordinateDistance: -1)!
-    static let zoomRange20 = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 175, maxCenterCoordinateDistance: 15000000)!
-    static let zoomRange17 = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 1380, maxCenterCoordinateDistance: 15000000)!
+    static let cartoZoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 200, maxCenterCoordinateDistance: 15000000)!
+    static let topoZoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: 1500, maxCenterCoordinateDistance: 15000000)!
 
     func setMapType(_ type: MapType) {
         switch type {
@@ -29,10 +29,10 @@ extension MKMapView {
             setCameraZoomRange(MKMapView.zoomRangeDefault, animated: true)
         case .openStreetMap:
             mapType = .standard
-            setCameraZoomRange(MKMapView.zoomRange20, animated: true)
+            setCameraZoomRange(MKMapView.cartoZoomRange, animated: true)
         case .openTopoMap:
             mapType = .standard
-            setCameraZoomRange(MKMapView.zoomRange17, animated: true)
+            setCameraZoomRange(MKMapView.topoZoomRange, animated: true)
         case .satellite:
             mapType = .satellite
             setCameraZoomRange(MKMapView.zoomRangeDefault, animated: true)

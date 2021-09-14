@@ -11,6 +11,9 @@ import MapKit
 import AVFoundation
 
 class Settings: Identifiable, Codable{
+
+    static var cartoUrl = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
+    static var topoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
     
     static var shared = Settings()
     
