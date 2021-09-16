@@ -211,19 +211,24 @@ class MainViewController: MapViewController {
     
     @objc func centerMap(){
         if let loc = LocationService.shared.getLocation(){
-            mapView.centerToLocation(loc, regionRadius: radius)
+            mapView.centerToLocation(loc)
         }
     }
 
     @objc func refreshMap(){
-        mapView.setNeedsLayout()
+        if let renderer = overlayRenderer{
+            renderer.reloadData()
+        }
+        else{
+            mapView.setNeedsLayout()
+        }
     }
     
     override func locationDidChange(location: Location){
         super.locationDidChange(location: location)
         updatePositionLabel()
         if isTracking{
-            mapView.centerToLocation(location, regionRadius: radius)
+            mapView.centerToLocation(location)
         }
     }
 

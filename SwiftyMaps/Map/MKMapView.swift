@@ -23,11 +23,10 @@ extension MKMapView {
         }
     }
     
-    func centerToLocation(_ location: Location,regionRadius: CLLocationDistance) {
+    func centerToLocation(_ location: Location) {
         let coordinateRegion = MKCoordinateRegion(
             center: location.coordinate,
-            latitudinalMeters: regionRadius,
-            longitudinalMeters: regionRadius)
+            span: MKCoordinateSpan(latitudeDelta: location.latitudeSpan, longitudeDelta: location.longitudeSpan))
         setRegion(coordinateRegion, animated: true)
     }
     

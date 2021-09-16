@@ -7,8 +7,11 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 class Location: Identifiable, Codable{
+    
+    static var initialRadius : Double = 10000
     
     enum CodingKeys: String, CodingKey {
         case latitude
@@ -25,19 +28,21 @@ class Location: Identifiable, Codable{
     
     init(){
         coordinate = CLLocationCoordinate2D()
-        latitudeSpan = 0
-        longitudeSpan = 0
+        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: Location.initialRadius, longitudinalMeters: Location.initialRadius)
+        latitudeSpan = region.span.latitudeDelta
+        longitudeSpan = region.span.longitudeDelta
         altitude = 0.0
     }
     
     init(_ location: CLLocation){
         self.coordinate = location.coordinate
-        latitudeSpan = 0
-        longitudeSpan = 0
+        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: Location.initialRadius, longitudinalMeters: Location.initialRadius)
+        latitudeSpan = region.span.latitudeDelta
+        longitudeSpan = region.span.longitudeDelta
         self.altitude = location.altitude
     }
     
-    init(_ coordinate: CLLocationCoordinate2D, latitudeSpan: Double = 0, longitudeSpan : Double = 0){
+    init(_ coordinate: CLLocationCoordinate2D, latitudeSpan: Double, longitudeSpan : Double){
         self.coordinate = coordinate
         self.latitudeSpan = latitudeSpan
         self.longitudeSpan = longitudeSpan

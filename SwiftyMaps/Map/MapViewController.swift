@@ -17,6 +17,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     var radius : CLLocationDistance = 10000
     var mapType : MapType = StandardMapType()
     var overlay : MKTileOverlay? = nil
+    var overlayRenderer : MKTileOverlayRenderer? = nil
     var zoomLevel : Int = 0
     
     var appleLogoView : UIView? = nil
@@ -31,7 +32,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     
     func initLocation(){
         if !locationInitialized, let loc = LocationService.shared.getLocation(){
-            mapView.centerToLocation(loc, regionRadius: radius)
+            mapView.centerToLocation(loc)
             locationInitialized = true
             locationDidChange(location: loc)
         }
@@ -65,6 +66,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
                 continue
             }
         }
+        print("map loaded")
         setAnnotations()
     }
 
@@ -92,11 +94,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKTileOverlay {
-            let renderer = MKTileOverlayRenderer(overlay: overlay)
-            return renderer
+            print("get tile renderer")
+            self.overlayRenderer = MKTileOverlayRenderer(overlay: overlay)
+            return self.overlayRenderer!
         } else {
-            return MKTileOverlayRenderer()
+            return MKOverlayRenderer()
         }
+        
     }
     
     func setMapType(_ type: MapType){
@@ -104,6 +108,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         if overlay != nil{
             mapView.removeOverlay(overlay!)
             overlay = nil
+            overlayRenderer = nil
         }
         if mapType.usesTileOverlay, let overlay = mapType.getTileOverlay(){
             self.overlay = overlay
