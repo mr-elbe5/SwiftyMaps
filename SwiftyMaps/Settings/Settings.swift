@@ -11,9 +11,6 @@ import MapKit
 import AVFoundation
 
 class Settings: Identifiable, Codable{
-
-    static var cartoUrl = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
-    static var topoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
     
     static var shared = Settings()
     
@@ -29,7 +26,7 @@ class Settings: Identifiable, Codable{
         case showAnnotations
     }
 
-    var mapType : MKMapView.MapType = .standard
+    var mapTypeName : MapTypeName = .standard
     var region : MKCoordinateRegion? = nil
     var startWithLastPosition : Bool = false
     var showUserLocation : Bool = true
@@ -40,7 +37,7 @@ class Settings: Identifiable, Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        mapType = MKMapView.MapType(rawValue: try values.decode(String.self, forKey: .mapType)) ?? MKMapView.MapType.standard
+        mapTypeName = MapTypeName(rawValue: try values.decode(String.self, forKey: .mapType)) ?? MapTypeName.standard
         if let location = try values.decodeIfPresent(Location.self, forKey: .location){
             region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: location.latitudeSpan, longitudeDelta: location.longitudeSpan))
         }
@@ -54,7 +51,7 @@ class Settings: Identifiable, Codable{
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(mapType.rawValue, forKey: .mapType)
+        try container.encode(mapTypeName.rawValue, forKey: .mapType)
         if let region = region{
             let location = Location(region.center, latitudeSpan: region.span.latitudeDelta, longitudeSpan: region.span.longitudeDelta)
             try container.encode(location, forKey: .location)

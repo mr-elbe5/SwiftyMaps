@@ -13,9 +13,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     
     var mapView = MKMapView()
     var mapLoaded = false
-    var location: Location? = nil
+    var locationInitialized = false
     var radius : CLLocationDistance = 10000
-    var mapType : MKMapView.MapType = .standard
+    var mapType : MapType = StandardMapType()
     var overlay : MKTileOverlay? = nil
     var zoomLevel : Int = 0
     
@@ -30,11 +30,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     }
     
     func initLocation(){
-        if location == nil{
-            location = LocationService.shared.getLocation()
-            if let loc = location{
-                mapView.centerToLocation(loc, regionRadius: radius)
-            }
+        if !locationInitialized, let loc = LocationService.shared.getLocation(){
+            mapView.centerToLocation(loc, regionRadius: radius)
+            locationInitialized = true
+            locationDidChange(location: loc)
         }
     }
     
@@ -84,10 +83,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     }
 
     func locationDidChange(location: Location){
-        if self.location == nil{
-            self.location = location
-            mapView.centerToLocation(location, regionRadius: radius)
-        }
+        
     }
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
@@ -103,26 +99,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         }
     }
     
-    func setMapType(_ type: MKMapView.MapType){
+    func setMapType(_ type: MapType){
         mapType = type
         if overlay != nil{
             mapView.removeOverlay(overlay!)
             overlay = nil
         }
-        switch mapType{
-        case .openStreetMap:
-            overlay = mapView.setTileOverlay(with: Settings.cartoUrl)
-            overlay?.maximumZ = 20
-        case .openTopoMap:
-            overlay = mapView.setTileOverlay(with: Settings.topoUrl)
-            overlay?.maximumZ = 17
-        default:
-            break
+        if mapType.usesTileOverlay, let overlay = mapType.getTileOverlay(){
+            self.overlay = overlay
+            mapView.addOverlay(overlay, level: .aboveLabels)
         }
-        mapView.setMapType(mapType)
-        let showAppleLabels = mapView.showAppleLabels(mapType)
-        appleLogoView?.isHidden = !showAppleLabels
-        attributionLabel?.isHidden = !showAppleLabels
+        mapView.setMkMapType(from: mapType)
+        appleLogoView?.isHidden = !mapType.showsAppleLabel
+        attributionLabel?.isHidden = !mapType.showsAppleLabel
     }
     
     func showError(_ reason: String){

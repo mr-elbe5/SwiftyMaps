@@ -11,7 +11,8 @@ import SwiftyIOSViewExtensions
 
 class MainViewController: MapViewController {
     
-    var headerView = UIView()
+    var menuView = UIView()
+    var statusView = UIView()
     
     var isTracking : Bool = false
     var isShowingPins : Bool = false
@@ -20,13 +21,13 @@ class MainViewController: MapViewController {
         super.loadView()
         LocationService.shared.checkRunning()
         let guide = view.safeAreaLayoutGuide
-        view.addSubview(headerView)
-        headerView.setAnchors()
+        view.addSubview(menuView)
+        menuView.setAnchors()
                 .leading(guide.leadingAnchor, inset: .zero)
                 .top(guide.topAnchor, inset: .zero)
                 .trailing(guide.trailingAnchor, inset: .zero)
-        headerView.backgroundColor = .black
-        fillMenu(menuView: headerView)
+        menuView.backgroundColor = .black
+        fillMenu()
         mapView.mapType = .standard
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.showsCompass = true
@@ -35,9 +36,16 @@ class MainViewController: MapViewController {
         view.addSubview(mapView)
         mapView.setAnchors()
                 .leading(guide.leadingAnchor, inset: .zero)
-                .top(headerView.bottomAnchor, inset: 1)
+                .top(menuView.bottomAnchor, inset: 1)
                 .trailing(guide.trailingAnchor, inset: .zero)
-                .bottom(guide.bottomAnchor, inset: .zero)
+        view.addSubview(statusView)
+        fillStatus()
+        statusView.setAnchors()
+                .leading(guide.leadingAnchor, inset: .zero)
+                .top(mapView.bottomAnchor, inset: .zero)
+                .trailing(guide.trailingAnchor, inset: .zero)
+            .bottom(guide.bottomAnchor, inset: .zero)
+        menuView.backgroundColor = .black
         applySettings()
     }
     
@@ -58,7 +66,11 @@ class MainViewController: MapViewController {
     var configButton : MenuButton!
     var infoButton : MenuButton!
 
-    func fillMenu(menuView: UIView) {
+    var statusLabel : UILabel!
+    var centerButton : IconButton!
+    var refreshButton : IconButton!
+
+    func fillMenu() {
         styleButton = MenuButton(icon: "map", menu: getStyleMenu())
         menuView.addSubview(styleButton)
         tourButton = MenuButton(icon: "figure.walk", menu: getTourMenu(isTracking: isTracking))
@@ -103,16 +115,16 @@ class MainViewController: MapViewController {
 
     func getStyleMenu() -> UIMenu{
         let standardMapAction = UIAction(title: "defaultMapStyle".localize()) { action in
-            self.setMapType(.standard)
+            self.setMapType(StandardMapType.shared)
         }
         let osmMapAction = UIAction(title: "openStreetMapStyle".localize()) { action in
-            self.setMapType(.openStreetMap)
+            self.setMapType(OpenStreetMapType.shared)
         }
         let topoMapAction = UIAction(title: "openTopoMapStyle".localize()) { action in
-            self.setMapType(.openTopoMap)
+            self.setMapType(OpenTopoMapType.shared)
         }
         let satelliteAction = UIAction(title: "satelliteMapStyle".localize()) { action in
-            self.setMapType(.satellite)
+            self.setMapType(SatelliteMapType.shared)
         }
         return UIMenu(title: "", children: [standardMapAction, osmMapAction, topoMapAction, satelliteAction])
     }
@@ -167,7 +179,52 @@ class MainViewController: MapViewController {
 
     }
 
-    private func drawPins(){
+    func fillStatus() {
+        statusLabel = UILabel()
+        statusLabel.textColor = .white
+        statusView.addSubview(statusLabel)
+        centerButton = IconButton(icon: "smallcircle.fill.circle", tintColor: .white)
+        centerButton.addTarget(self, action: #selector(centerMap), for: .touchDown)
+        statusView.addSubview(centerButton)
+        refreshButton = IconButton(icon: "arrow.triangle.2.circlepath", tintColor: .white)
+        refreshButton.addTarget(self, action: #selector(refreshMap), for: .touchDown)
+        statusView.addSubview(refreshButton)
 
+        statusLabel.setAnchors()
+                .top(statusView.topAnchor, inset: defaultInset)
+                .centerX(statusView.centerXAnchor)
+                .bottom(statusView.bottomAnchor)
+        centerButton.setAnchors()
+                .top(statusView.topAnchor, inset: defaultInset)
+                .leading(statusLabel.trailingAnchor, inset: defaultInset)
+                .bottom(statusView.bottomAnchor)
+        refreshButton.setAnchors()
+                .top(statusView.topAnchor, inset: defaultInset)
+                .trailing(statusView.trailingAnchor, inset: defaultInset)
+                .bottom(statusView.bottomAnchor)
     }
+    
+    func updatePositionLabel(){
+        LocationService.shared.lookUpCurrentLocation()
+        statusLabel.text = LocationService.shared.getLocationDescription()
+    }
+    
+    @objc func centerMap(){
+        if let loc = LocationService.shared.getLocation(){
+            mapView.centerToLocation(loc, regionRadius: radius)
+        }
+    }
+
+    @objc func refreshMap(){
+        mapView.setNeedsLayout()
+    }
+    
+    override func locationDidChange(location: Location){
+        super.locationDidChange(location: location)
+        updatePositionLabel()
+        if isTracking{
+            mapView.centerToLocation(location, regionRadius: radius)
+        }
+    }
+
 }

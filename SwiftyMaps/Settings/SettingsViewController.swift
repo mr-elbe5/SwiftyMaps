@@ -19,7 +19,6 @@ class SettingsViewController: EditViewController, UIImagePickerControllerDelegat
     
     override func loadView() {
         super.loadView()
-        let mapSizeHeader = InfoHeader(text: "mapStartSize".localize())
 
     }
     

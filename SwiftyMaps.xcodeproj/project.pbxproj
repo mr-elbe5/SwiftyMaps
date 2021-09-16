@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3324D1A867D8A687E78801F3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324DF1A0C4E4D212BE2CBE8 /* MainViewController.swift */; };
 		3324D2F9E8E7FD197ABABF39 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D9FC7C61E31CE946772E /* MenuButton.swift */; };
+		3324D415B2595FDFBCBA2998 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324DCCFD88F983DCF749AC8 /* MapType.swift */; };
 		3324DAEC600505909B9F80F9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D7344CB150EF999C019F /* Settings.swift */; };
 		3324DE7AD7C5252CC55D0113 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D0DD6D1F994A117B059E /* SettingsViewController.swift */; };
 		4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */; };
@@ -49,6 +50,7 @@
 		3324D0DD6D1F994A117B059E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3324D7344CB150EF999C019F /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3324D9FC7C61E31CE946772E /* MenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
+		3324DCCFD88F983DCF749AC8 /* MapType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		3324DF1A0C4E4D212BE2CBE8 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				4E0BD9DF26EA04EE005A4A94 /* MapError.swift */,
 				4E0BD9B126EA0170005A4A94 /* MapViewController.swift */,
 				4E0BD9C726EA02BA005A4A94 /* MKMapView.swift */,
+				3324DCCFD88F983DCF749AC8 /* MapType.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				3324DE7AD7C5252CC55D0113 /* SettingsViewController.swift in Sources */,
 				3324D1A867D8A687E78801F3 /* MainViewController.swift in Sources */,
 				3324D2F9E8E7FD197ABABF39 /* MenuButton.swift in Sources */,
+				3324D415B2595FDFBCBA2998 /* MapType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
