@@ -50,11 +50,12 @@ class MainViewController: MapViewController {
     }
     
     func applySettings(){
-        mapView.showsUserLocation = Settings.shared.showUserLocation
+        mapView.showsUserLocation = Settings.instance.showUserLocation
+        setMapType(Settings.instance.mapTypeName.getMapType())
     }
     
     func updateSettings(){
-        Settings.shared.showUserLocation = mapView.showsUserLocation
+        Settings.instance.showUserLocation = mapView.showsUserLocation
     }
 
     // menu
@@ -115,16 +116,16 @@ class MainViewController: MapViewController {
 
     func getStyleMenu() -> UIMenu{
         let standardMapAction = UIAction(title: "defaultMapStyle".localize()) { action in
-            self.setMapType(StandardMapType.shared)
+            self.setMapType(StandardMapType.instance)
         }
         let osmMapAction = UIAction(title: "openStreetMapStyle".localize()) { action in
-            self.setMapType(OpenStreetMapType.shared)
+            self.setMapType(OpenStreetMapType.instance)
         }
         let topoMapAction = UIAction(title: "openTopoMapStyle".localize()) { action in
-            self.setMapType(OpenTopoMapType.shared)
+            self.setMapType(OpenTopoMapType.instance)
         }
         let satelliteAction = UIAction(title: "satelliteMapStyle".localize()) { action in
-            self.setMapType(SatelliteMapType.shared)
+            self.setMapType(SatelliteMapType.instance)
         }
         return UIMenu(title: "", children: [standardMapAction, osmMapAction, topoMapAction, satelliteAction])
     }
@@ -216,7 +217,7 @@ class MainViewController: MapViewController {
     }
 
     @objc func refreshMap(){
-        if let renderer = overlayRenderer{
+        if let renderer = tileOverlayRenderer{
             renderer.reloadData()
         }
         else{

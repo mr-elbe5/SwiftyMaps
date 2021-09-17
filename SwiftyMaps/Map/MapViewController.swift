@@ -14,10 +14,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     var mapView = MKMapView()
     var mapLoaded = false
     var locationInitialized = false
-    var radius : CLLocationDistance = 10000
-    var mapType : MapType = StandardMapType()
-    var overlay : MKTileOverlay? = nil
-    var overlayRenderer : MKTileOverlayRenderer? = nil
+    var mapType : MapType = StandardMapType.instance
+    var tileOverlay : MKTileOverlay? = nil
+    var tileOverlayRenderer : MKTileOverlayRenderer? = nil
     var zoomLevel : Int = 0
     
     var appleLogoView : UIView? = nil
@@ -28,11 +27,22 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         if LocationService.shared.authorized{
             initLocation()
         }
+        if identifyAppleAttributions(){
+            print("apple attributions identified")
+        }
     }
     
     func initLocation(){
         if !locationInitialized, let loc = LocationService.shared.getLocation(){
-            mapView.centerToLocation(loc)
+            if Settings.instance.startWithLastPosition{
+                mapView.loadLastRegion()
+            }
+            else{
+                let region = MKCoordinateRegion(
+                    center: loc.coordinate,
+                    latitudinalMeters: Statics.startRadius,longitudinalMeters: Statics.startRadius)
+                mapView.centerToLocation(region)
+            }
             locationInitialized = true
             locationDidChange(location: loc)
         }
@@ -53,20 +63,26 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
 
     }
     
-    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        mapLoaded = true
+    func identifyAppleAttributions() -> Bool{
+        var found = false
         for vw in mapView.subviews {
             let vwType = "\(type(of: vw))"
             switch vwType {
             case "MKAppleLogoImageView":
                 appleLogoView = vw
+                found = true
             case "MKAttributionLabel":
                 attributionLabel = vw
+                found = true
             default:
                 continue
             }
         }
-        print("map loaded")
+        return found
+    }
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        mapLoaded = true
         setAnnotations()
     }
 
@@ -93,10 +109,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKTileOverlay {
+        if overlay is MKTileOverlay, let renderer = mapType.getTileOverlayRenderer(overlay: overlay as! MKTileOverlay) {
             print("get tile renderer")
-            self.overlayRenderer = MKTileOverlayRenderer(overlay: overlay)
-            return self.overlayRenderer!
+            self.tileOverlayRenderer = renderer
+            return self.tileOverlayRenderer!
         } else {
             return MKOverlayRenderer()
         }
@@ -105,18 +121,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     
     func setMapType(_ type: MapType){
         mapType = type
-        if overlay != nil{
-            mapView.removeOverlay(overlay!)
-            overlay = nil
-            overlayRenderer = nil
+        if tileOverlay != nil{
+            mapView.removeOverlay(tileOverlay!)
+            tileOverlay = nil
+            tileOverlayRenderer = nil
         }
         if mapType.usesTileOverlay, let overlay = mapType.getTileOverlay(){
-            self.overlay = overlay
+            self.tileOverlay = overlay
             mapView.addOverlay(overlay, level: .aboveLabels)
         }
         mapView.setMkMapType(from: mapType)
         appleLogoView?.isHidden = !mapType.showsAppleLabel
         attributionLabel?.isHidden = !mapType.showsAppleLabel
+        Settings.instance.mapTypeName = mapType.name
     }
     
     func showError(_ reason: String){

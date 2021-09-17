@@ -11,6 +11,7 @@ class DataController{
     
     enum StoreKey: String, CaseIterable {
         case settings
+        case region
         case data
     }
     

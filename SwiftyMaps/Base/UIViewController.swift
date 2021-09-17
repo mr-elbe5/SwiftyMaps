@@ -35,7 +35,7 @@ extension UIViewController{
     
     var settings : Settings {
         get{
-            return Settings.shared
+            return Settings.instance
         }
     }
     

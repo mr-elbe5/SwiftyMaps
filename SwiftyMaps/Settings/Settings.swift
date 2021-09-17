@@ -12,22 +12,20 @@ import AVFoundation
 
 class Settings: Identifiable, Codable{
     
-    static var shared = Settings()
+    static var instance = Settings()
     
-    static func load(){
-        Settings.shared = DataController.shared.load(forKey: .settings) ?? Settings()
+    static func createAndLoadInstance(){
+        Settings.instance = DataController.shared.load(forKey: .settings) ?? Settings()
     }
     
     enum CodingKeys: String, CodingKey {
         case mapType
-        case location
         case startWithLastPosition
         case showUserLocation
         case showAnnotations
     }
 
     var mapTypeName : MapTypeName = .standard
-    var region : MKCoordinateRegion? = nil
     var startWithLastPosition : Bool = false
     var showUserLocation : Bool = true
     var showAnnotations : Bool = true
@@ -38,12 +36,7 @@ class Settings: Identifiable, Codable{
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         mapTypeName = MapTypeName(rawValue: try values.decode(String.self, forKey: .mapType)) ?? MapTypeName.standard
-        if let location = try values.decodeIfPresent(Location.self, forKey: .location){
-            region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: location.latitudeSpan, longitudeDelta: location.longitudeSpan))
-        }
-        else{
-            region = nil
-        }
+        print("mapname: \(mapTypeName)")
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         showUserLocation = try values.decodeIfPresent(Bool.self, forKey: .showUserLocation) ?? true
         showAnnotations = try values.decodeIfPresent(Bool.self, forKey: .showAnnotations) ?? true
@@ -52,10 +45,6 @@ class Settings: Identifiable, Codable{
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(mapTypeName.rawValue, forKey: .mapType)
-        if let region = region{
-            let location = Location(region.center, latitudeSpan: region.span.latitudeDelta, longitudeSpan: region.span.longitudeDelta)
-            try container.encode(location, forKey: .location)
-        }
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(showUserLocation, forKey: .showUserLocation)
         try container.encode(showAnnotations, forKey: .showAnnotations)

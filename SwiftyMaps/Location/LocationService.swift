@@ -16,7 +16,7 @@ protocol LocationServiceDelegate{
 class LocationService : NSObject, CLLocationManagerDelegate{
     
     static var shared = LocationService()
-    // min location difference in meters
+    
     static var deviation : CLLocationDistance = 5
     
     var clLocation : CLLocation? = nil

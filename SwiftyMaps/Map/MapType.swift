@@ -11,12 +11,12 @@ enum MapTypeName: String{
     case topo
     case satellite
     
-    static func getMapType(name: MapTypeName) -> MapType{
-        switch name{
-        case .standard: return StandardMapType.shared
-        case .osm: return OpenStreetMapType.shared
-        case .topo: return OpenTopoMapType.shared
-        case .satellite: return SatelliteMapType.shared
+    func getMapType() -> MapType{
+        switch self{
+        case .standard: return StandardMapType.instance
+        case .osm: return OpenStreetMapType.instance
+        case .topo: return OpenTopoMapType.instance
+        case .satellite: return SatelliteMapType.instance
         }
     }
 }
@@ -28,23 +28,23 @@ protocol MapType{
     var zoomRange : MKMapView.CameraZoomRange {get}
     var usesTileOverlay : Bool {get}
     func getTileOverlay() -> MKTileOverlay?
+    func getTileOverlayRenderer(overlay: MKTileOverlay) -> MKTileOverlayRenderer?
 }
 
-class StandardMapType: MapType{
+class AppleMapType : MapType{
     
-    static let shared = StandardMapType()
-    
-    var name : MapTypeName{
-        get{
-            .standard
-        }
-    }
-
     var mkMapType: MKMapType{
         get{
             .standard
         }
     }
+    
+    var name: MapTypeName{
+        get{
+            .standard
+        }
+    }
+    
     
     var showsAppleLabel: Bool{
         get{
@@ -66,11 +66,20 @@ class StandardMapType: MapType{
         nil
     }
     
+    func getTileOverlayRenderer(overlay: MKTileOverlay) -> MKTileOverlayRenderer?{
+        nil
+    }
+}
+
+class StandardMapType: AppleMapType{
+    
+    static let instance = StandardMapType()
+    
 }
 
 class OpenStreetMapType: MapType{
     
-    static let shared = OpenStreetMapType()
+    static let instance = OpenStreetMapType()
     
     var name : MapTypeName{
         get{
@@ -92,7 +101,7 @@ class OpenStreetMapType: MapType{
     
     var zoomRange : MKMapView.CameraZoomRange{
         get{
-            MKMapView.CameraZoomRange(minCenterCoordinateDistance: 200, maxCenterCoordinateDistance: 15000000)!
+            MKMapView.CameraZoomRange(minCenterCoordinateDistance: 350, maxCenterCoordinateDistance: 15000000)!
         }
     }
     
@@ -101,17 +110,29 @@ class OpenStreetMapType: MapType{
     }
     
     func getTileOverlay() -> MKTileOverlay?{
-        let overlay =  MKTileOverlay(urlTemplate: Statics.cartoUrl)
+        let overlay =  OpenStreetMapOverlay(urlTemplate: Statics.cartoUrl)
         overlay.canReplaceMapContent = true
-        overlay.maximumZ = 20
+        overlay.maximumZ = 19
         return overlay
+    }
+    
+    func getTileOverlayRenderer(overlay: MKTileOverlay) -> MKTileOverlayRenderer?{
+        OpenStreetMapOverlayRenderer(tileOverlay: overlay)
+    }
+    
+    class OpenStreetMapOverlay : MKTileOverlay{
+        
+    }
+    
+    class OpenStreetMapOverlayRenderer : MKTileOverlayRenderer{
+        
     }
     
 }
 
 class OpenTopoMapType: MapType{
     
-    static let shared = OpenTopoMapType()
+    static let instance = OpenTopoMapType()
     
     var name : MapTypeName{
         get{
@@ -142,48 +163,40 @@ class OpenTopoMapType: MapType{
     }
     
     func getTileOverlay() -> MKTileOverlay?{
-        let overlay =  MKTileOverlay(urlTemplate: Statics.topoUrl)
+        let overlay =  OpenTopoMapOverlay(urlTemplate: Statics.topoUrl)
         overlay.canReplaceMapContent = true
         overlay.maximumZ = 17
         return overlay
     }
     
+    func getTileOverlayRenderer(overlay: MKTileOverlay) -> MKTileOverlayRenderer?{
+        OpenTopoMapOverlayRenderer(tileOverlay: overlay)
+    }
+    
+    class OpenTopoMapOverlay : MKTileOverlay{
+        
+    }
+    
+    class OpenTopoMapOverlayRenderer : MKTileOverlayRenderer{
+        
+    }
+    
 }
 
-class SatelliteMapType: MapType{
+class SatelliteMapType: AppleMapType{
     
-    static let shared = SatelliteMapType()
+    static let instance = SatelliteMapType()
     
-    var name : MapTypeName{
+    override var name : MapTypeName{
         get{
             .satellite
         }
     }
     
-    var mkMapType : MKMapType{
+    override var mkMapType : MKMapType{
         get{
             .satellite
         }
-    }
-    
-    var showsAppleLabel: Bool{
-        get{
-            true
-        }
-    }
-    
-    var zoomRange: MKMapView.CameraZoomRange{
-        get{
-            MKMapView.CameraZoomRange(minCenterCoordinateDistance: -1, maxCenterCoordinateDistance: -1)!
-        }
-    }
-    
-    var usesTileOverlay : Bool {
-        false
-    }
-    
-    func getTileOverlay() -> MKTileOverlay?{
-        nil
     }
     
 }
