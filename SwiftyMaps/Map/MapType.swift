@@ -112,7 +112,7 @@ class OpenStreetMapType: MapType{
     func getTileOverlay() -> MKTileOverlay?{
         let overlay =  MapTileOverlay(urlTemplate: Statics.cartoUrl)
         overlay.canReplaceMapContent = true
-        overlay.maximumZ = 19
+        overlay.maximumZ = 20
         return overlay
     }
     

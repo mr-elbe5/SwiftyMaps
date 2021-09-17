@@ -45,6 +45,7 @@
 		4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E226EA04EE005A4A94 /* FileError.swift */; };
 		4E3BE7ED26EA80A5000F9069 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3BE7EC26EA80A5000F9069 /* EditViewController.swift */; };
 		4E75E67A26F4D8C900798CF9 /* MapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E75E67926F4D8C900798CF9 /* MapOverlay.swift */; };
+		4E75E67C26F5289100798CF9 /* CodableRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E75E67B26F5289100798CF9 /* CodableRegion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		4E0BD9E226EA04EE005A4A94 /* FileError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileError.swift; sourceTree = "<group>"; };
 		4E3BE7EC26EA80A5000F9069 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		4E75E67926F4D8C900798CF9 /* MapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOverlay.swift; sourceTree = "<group>"; };
+		4E75E67B26F5289100798CF9 /* CodableRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableRegion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 				4E0BD9C726EA02BA005A4A94 /* MKMapView.swift */,
 				3324DCCFD88F983DCF749AC8 /* MapType.swift */,
 				4E75E67926F4D8C900798CF9 /* MapOverlay.swift */,
+				4E75E67B26F5289100798CF9 /* CodableRegion.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 			files = (
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
+				4E75E67C26F5289100798CF9 /* CodableRegion.swift in Sources */,
 				4E0BD9B326EA0170005A4A94 /* AppInfoViewController.swift in Sources */,
 				4E0BD9AA26EA0159005A4A94 /* ScrollViewController.swift in Sources */,
 				4E0BD9D226EA02BA005A4A94 /* Location.swift in Sources */,

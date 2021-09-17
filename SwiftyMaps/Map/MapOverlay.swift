@@ -11,7 +11,7 @@ import MapKit
 class MapTileOverlay : MKTileOverlay{
     override func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, Error?) -> Void) {
         let url = url(forTilePath: path)
-        let request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60.0)
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 30.0)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             var statusCode = 0
             if (response != nil && response is HTTPURLResponse){

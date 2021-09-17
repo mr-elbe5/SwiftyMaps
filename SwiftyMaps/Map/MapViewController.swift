@@ -131,6 +131,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
             mapView.addOverlay(overlay, level: .aboveLabels)
         }
         mapView.setMkMapType(from: mapType)
+        mapView.setCameraZoomRange(mapType.zoomRange, animated: true)
         appleLogoView?.isHidden = !mapType.showsAppleLabel
         attributionLabel?.isHidden = !mapType.showsAppleLabel
         Settings.instance.mapTypeName = mapType.name
