@@ -9,6 +9,7 @@
 import Foundation
 
 enum MapError: Swift.Error {
+    case load
     case snapshot
     case unexpected
 }
@@ -16,6 +17,7 @@ enum MapError: Swift.Error {
 extension MapError: LocalizedError {
     var errorDescription: String? {
         switch self {
+        case .load: return "loadError".localize()
         case .snapshot: return "snapshotError".localize()
         case .unexpected: return "unexpectedError".localize()
         }

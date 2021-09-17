@@ -44,6 +44,7 @@
 		4E0BD9E526EA04EE005A4A94 /* LocationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E126EA04EE005A4A94 /* LocationError.swift */; };
 		4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E226EA04EE005A4A94 /* FileError.swift */; };
 		4E3BE7ED26EA80A5000F9069 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3BE7EC26EA80A5000F9069 /* EditViewController.swift */; };
+		4E75E67A26F4D8C900798CF9 /* MapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E75E67926F4D8C900798CF9 /* MapOverlay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		4E0BD9E126EA04EE005A4A94 /* LocationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationError.swift; sourceTree = "<group>"; };
 		4E0BD9E226EA04EE005A4A94 /* FileError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileError.swift; sourceTree = "<group>"; };
 		4E3BE7EC26EA80A5000F9069 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		4E75E67926F4D8C900798CF9 /* MapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 				4E0BD9B126EA0170005A4A94 /* MapViewController.swift */,
 				4E0BD9C726EA02BA005A4A94 /* MKMapView.swift */,
 				3324DCCFD88F983DCF749AC8 /* MapType.swift */,
+				4E75E67926F4D8C900798CF9 /* MapOverlay.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				4E0BD9BD26EA0239005A4A94 /* Date.swift in Sources */,
 				4E0BD9CB26EA02BA005A4A94 /* CLLocationManager.swift in Sources */,
 				4E0BD9CE26EA02BA005A4A94 /* LocationService.swift in Sources */,
+				4E75E67A26F4D8C900798CF9 /* MapOverlay.swift in Sources */,
 				4E0BD9CF26EA02BA005A4A94 /* MediaCommentLabel.swift in Sources */,
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,
 				4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */,

@@ -110,22 +110,14 @@ class OpenStreetMapType: MapType{
     }
     
     func getTileOverlay() -> MKTileOverlay?{
-        let overlay =  OpenStreetMapOverlay(urlTemplate: Statics.cartoUrl)
+        let overlay =  MapTileOverlay(urlTemplate: Statics.cartoUrl)
         overlay.canReplaceMapContent = true
         overlay.maximumZ = 19
         return overlay
     }
     
     func getTileOverlayRenderer(overlay: MKTileOverlay) -> MKTileOverlayRenderer?{
-        OpenStreetMapOverlayRenderer(tileOverlay: overlay)
-    }
-    
-    class OpenStreetMapOverlay : MKTileOverlay{
-        
-    }
-    
-    class OpenStreetMapOverlayRenderer : MKTileOverlayRenderer{
-        
+        MapTileOverlayRenderer(tileOverlay: overlay)
     }
     
 }
@@ -163,22 +155,14 @@ class OpenTopoMapType: MapType{
     }
     
     func getTileOverlay() -> MKTileOverlay?{
-        let overlay =  OpenTopoMapOverlay(urlTemplate: Statics.topoUrl)
+        let overlay =  MapTileOverlay(urlTemplate: Statics.cartoUrl)
         overlay.canReplaceMapContent = true
         overlay.maximumZ = 17
         return overlay
     }
     
     func getTileOverlayRenderer(overlay: MKTileOverlay) -> MKTileOverlayRenderer?{
-        OpenTopoMapOverlayRenderer(tileOverlay: overlay)
-    }
-    
-    class OpenTopoMapOverlay : MKTileOverlay{
-        
-    }
-    
-    class OpenTopoMapOverlayRenderer : MKTileOverlayRenderer{
-        
+        MapTileOverlayRenderer(tileOverlay: overlay)
     }
     
 }
