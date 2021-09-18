@@ -66,5 +66,28 @@ struct Statics{
         return log2(Double(360 * sizeDiag) / (deltaDiag * 128))
     }
     
+    static func distance(zoom: Int) -> Double{
+        switch zoom{
+        case 6: return 5319214
+        case 7: return 2727606
+        case 8: return 1401332
+        case 9: return 695556
+        case 10: return 353327
+        case 11: return 174954
+        case 12: return 87467
+        case 13: return 43509
+        case 14: return 21904
+        case 15: return 10707
+        case 16: return 5419
+        case 17: return 2756 // 2533 2653
+        case 18: return 1367 // 1356 1349 1087?
+        case 19: return 688 // 686 688 665
+        case 20: return 341 // 337
+        case 21: return 152 // 164
+        default:
+            return 0
+        }
+    }
+    
 }
 

@@ -28,5 +28,4 @@ protocol MapType{
     var zoomRange : MKMapView.CameraZoomRange {get}
     var usesTileOverlay : Bool {get}
     func getTileOverlay() -> MKTileOverlay?
-    func getTileOverlayRenderer(overlay: MKTileOverlay) -> MKTileOverlayRenderer?
 }

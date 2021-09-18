@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import SwiftyIOSViewExtensions
 
-class MapViewController: UIViewController, LocationServiceDelegate, MapOverlayDelegate {
+class MapViewController: UIViewController, LocationServiceDelegate {
     
     var mapView = MKMapView()
     var mapLoaded = false
@@ -108,13 +108,6 @@ class MapViewController: UIViewController, LocationServiceDelegate, MapOverlayDe
         
     }
     
-    // MapOverlayDelegate
-    
-    func zoomChanged(zoom: Int){
-        print("zoom = \(zoom)")
-        print("dist = \(round(mapView.camera.centerCoordinateDistance))")
-    }
-    
 }
 
 extension MapViewController : MKMapViewDelegate{
@@ -125,7 +118,10 @@ extension MapViewController : MKMapViewDelegate{
     }
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        
+        /*let zoom = Statics.zoomLevel(from: mapView.bounds.size, latitudeDelta: mapView.region.span.latitudeDelta)
+        print("zoom = \(zoom)")
+        print("dist = \(round(mapView.camera.centerCoordinateDistance))")
+        print("calcdist = \(Statics.cameraDistance(from: mapView.region.span.latitudeDelta))")*/
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
@@ -133,9 +129,8 @@ extension MapViewController : MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let overlay = overlay as? MapTileOverlay, let renderer = mapType.getTileOverlayRenderer(overlay: overlay){
-            self.tileOverlayRenderer = renderer
-            overlay.delegate = self
+        if let overlay = overlay as? MKTileOverlay{
+            self.tileOverlayRenderer = MKTileOverlayRenderer(overlay: overlay)
             return self.tileOverlayRenderer!
         } else {
             return MKOverlayRenderer()

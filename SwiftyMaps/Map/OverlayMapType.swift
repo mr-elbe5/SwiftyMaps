@@ -42,10 +42,6 @@ class OverlayMapType: MapType{
         nil
     }
     
-    func getTileOverlayRenderer(overlay: MKTileOverlay) -> MKTileOverlayRenderer?{
-        MapTileOverlayRenderer(tileOverlay: overlay)
-    }
-    
 }
 
 class OpenStreetMapType: OverlayMapType{
@@ -54,14 +50,14 @@ class OpenStreetMapType: OverlayMapType{
     
     override var zoomRange : MKMapView.CameraZoomRange{
         get{
-            MKMapView.CameraZoomRange(minCenterCoordinateDistance: 350, maxCenterCoordinateDistance: 15000000)!
+            MKMapView.CameraZoomRange(minCenterCoordinateDistance: 100, maxCenterCoordinateDistance: 15000000)!
         }
     }
     
     override func getTileOverlay() -> MKTileOverlay?{
         let overlay =  MapTileOverlay(urlTemplate: Statics.cartoUrl)
         overlay.canReplaceMapContent = true
-        overlay.maximumZ = 20
+        overlay.maximumZ = 21
         return overlay
     }
     

@@ -8,21 +8,17 @@
 import Foundation
 import MapKit
 
-protocol MapOverlayDelegate{
-    func zoomChanged(zoom: Int)
-}
-
 class MapTileOverlay : MKTileOverlay{
     
-    var zoom = 0
-    var delegate : MapOverlayDelegate? = nil
+    var zoom : Int = 0
     
     override func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, Error?) -> Void) {
         let url = url(forTilePath: path)
-        if path.z != zoom{
+        if zoom != path.z{
+            //print(">>>>>>>>>>>>>>>>>>\(zoom) -> \(path.z)")
             zoom = path.z
-            delegate?.zoomChanged(zoom: zoom)
         }
+        
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 30.0)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             var statusCode = 0
@@ -43,13 +39,5 @@ class MapTileOverlay : MKTileOverlay{
         }
         task.resume()
     }
-}
-
-class MapTileOverlayRenderer : MKTileOverlayRenderer{
-    
-    /*override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
-        print("drawing tile")
-        super.draw(mapRect, zoomScale: zoomScale, in: context)
-    }*/
 }
 

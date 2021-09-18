@@ -42,10 +42,7 @@ class AppleMapType : MapType{
     func getTileOverlay() -> MKTileOverlay?{
         nil
     }
-    
-    func getTileOverlayRenderer(overlay: MKTileOverlay) -> MKTileOverlayRenderer?{
-        nil
-    }
+
 }
 
 class StandardMapType: AppleMapType{
