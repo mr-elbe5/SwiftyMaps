@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 struct Statics{
     
@@ -39,4 +40,31 @@ struct Statics{
     static var cartoUrl = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
     static var topoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
     
+    static var cameraAngle : Double = 0.26114827778041366
+    static var cameraTan : Double = tan(cameraAngle)
+    
+    static func latitudeMeters(from latitudeDelta: Double) -> Double{
+        latitudeDelta * 111000
+    }
+    
+    static func cameraDistance(from latitudeDelta: Double) -> Double{
+        // latitude meters/2 / dist = cameraTan
+        return round(latitudeMeters(from: latitudeDelta)/2/cameraTan)
+    }
+    
+    static func zoomLevel(from size: CGSize, longitudeDelta: Double) -> Double{
+       log2(Double(360 * size.width) / (longitudeDelta * 128))
+    }
+    
+    static func zoomLevel(from size: CGSize, latitudeDelta: Double) -> Double{
+       log2(Double(360 * size.height) / (latitudeDelta * 128))
+    }
+    
+    static func zoomLevel(from size: CGSize, span: MKCoordinateSpan) -> Double{
+        let sizeDiag = sqrt(size.width*size.width + size.height*size.height)
+        let deltaDiag = sqrt(span.latitudeDelta*span.latitudeDelta + span.longitudeDelta*span.longitudeDelta)
+        return log2(Double(360 * sizeDiag) / (deltaDiag * 128))
+    }
+    
 }
+

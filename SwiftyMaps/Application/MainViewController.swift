@@ -31,6 +31,7 @@ class MainViewController: MapViewController {
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.showsCompass = true
         mapView.showsScale = true
+        mapView.isPitchEnabled = false
         mapView.delegate = self
         view.addSubview(mapView)
         mapView.setAnchors()

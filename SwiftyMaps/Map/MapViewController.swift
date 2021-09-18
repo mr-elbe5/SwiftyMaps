@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import SwiftyIOSViewExtensions
 
-class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDelegate {
+class MapViewController: UIViewController, LocationServiceDelegate, MapOverlayDelegate {
     
     var mapView = MKMapView()
     var mapLoaded = false
@@ -17,7 +17,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     var mapType : MapType = StandardMapType.instance
     var tileOverlay : MKTileOverlay? = nil
     var tileOverlayRenderer : MKTileOverlayRenderer? = nil
-    var zoomLevel : Int = 0
+    var zoomLevel : Double = 0
     
     var appleLogoView : UIView? = nil
     var attributionLabel : UIView? = nil
@@ -30,6 +30,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         if identifyAppleAttributions(){
             print("apple attributions identified")
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        LocationService.shared.delegate = nil
     }
     
     func initLocation(){
@@ -48,17 +52,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        LocationService.shared.delegate = nil
-    }
-    
-    func setNeedsUpdate(){
-        if mapLoaded{
-            mapView.removeAnnotations(mapView.annotations)
-            setAnnotations()
-        }
-    }
-
     func setAnnotations(){
 
     }
@@ -79,43 +72,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
             }
         }
         return found
-    }
-    
-    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        mapLoaded = true
-        setAnnotations()
-    }
-
-    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        let zoom = mapView.zoomLevel
-        if zoom != zoomLevel{
-            zoomLevel = zoom
-            print("\(zoomLevel), \(mapView.camera.centerCoordinateDistance)")
-        }
-    }
-    
-    func authorizationDidChange(authorized: Bool) {
-        if authorized{
-            initLocation()
-        }
-    }
-
-    func locationDidChange(location: Location){
-        
-    }
-
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
-        
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKTileOverlay, let renderer = mapType.getTileOverlayRenderer(overlay: overlay as! MKTileOverlay) {
-            self.tileOverlayRenderer = renderer
-            return self.tileOverlayRenderer!
-        } else {
-            return MKOverlayRenderer()
-        }
-        
     }
     
     func setMapType(_ type: MapType){
@@ -140,4 +96,51 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
         showAlert(title: "error".localize(), text: reason.localize())
     }
     
+    // LocationServiceDelegate
+    
+    func authorizationDidChange(authorized: Bool) {
+        if authorized{
+            initLocation()
+        }
+    }
+    
+    func locationDidChange(location: Location){
+        
+    }
+    
+    // MapOverlayDelegate
+    
+    func zoomChanged(zoom: Int){
+        print("zoom = \(zoom)")
+        print("dist = \(round(mapView.camera.centerCoordinateDistance))")
+    }
+    
 }
+
+extension MapViewController : MKMapViewDelegate{
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        mapLoaded = true
+        setAnnotations()
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
+        
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let overlay = overlay as? MapTileOverlay, let renderer = mapType.getTileOverlayRenderer(overlay: overlay){
+            self.tileOverlayRenderer = renderer
+            overlay.delegate = self
+            return self.tileOverlayRenderer!
+        } else {
+            return MKOverlayRenderer()
+        }
+    }
+    
+}
+

@@ -16,9 +16,9 @@ extension MKMapView {
         setCameraZoomRange(type.zoomRange, animated: true)
     }
 
-    var zoomLevel : Int{
+    var zoomLevel : Double{
         get{
-            Int(round(log2(Double(360 * frame.size.width) / (region.span.longitudeDelta * 128))))
+            Statics.zoomLevel(from: frame.size, longitudeDelta: region.span.longitudeDelta)
         }
     }
     
