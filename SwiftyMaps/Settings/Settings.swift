@@ -22,13 +22,13 @@ class Settings: Identifiable, Codable{
         case mapType
         case startWithLastPosition
         case showUserLocation
-        case showAnnotations
+        case showPins
     }
 
     var mapTypeName : MapTypeName = .standard
     var startWithLastPosition : Bool = false
     var showUserLocation : Bool = true
-    var showAnnotations : Bool = true
+    var showPins : Bool = true
     
     init(){
     }
@@ -39,7 +39,7 @@ class Settings: Identifiable, Codable{
         print("mapname: \(mapTypeName)")
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         showUserLocation = try values.decodeIfPresent(Bool.self, forKey: .showUserLocation) ?? true
-        showAnnotations = try values.decodeIfPresent(Bool.self, forKey: .showAnnotations) ?? true
+        showPins = try values.decodeIfPresent(Bool.self, forKey: .showPins) ?? true
     }
     
     func encode(to encoder: Encoder) throws {
@@ -47,7 +47,7 @@ class Settings: Identifiable, Codable{
         try container.encode(mapTypeName.rawValue, forKey: .mapType)
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(showUserLocation, forKey: .showUserLocation)
-        try container.encode(showAnnotations, forKey: .showAnnotations)
+        try container.encode(showPins, forKey: .showPins)
     }
     
     func save(){

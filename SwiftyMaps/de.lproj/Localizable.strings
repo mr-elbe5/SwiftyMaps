@@ -24,19 +24,29 @@
 "rejectedError"="Diese Aktion wurde nicht autorisiert.";
 "unexpectedError"="Ein unerwarteter Fehler ist aufgetreten.";
 
-// menu
+// style menu
 "defaultMapStyle"="Standard";
 "openStreetMapStyle"="OpenStreetMap";
 "openTopoMapStyle"="OpenTopoMap";
 "satelliteMapStyle"="Satellit";
-"setPin"="Pin setzen";
-"removePin"="Pin entfernen";
-"startTour"="Start Tour";
-"stopTour"="Stop Tour";
-"camera"="Kamera";
-"settings"="Einstellungen";
+//tour menu
+"start"="Start";
+"stop"="Stop";
+//pin menu
+"hidePins"="Nadeln verstecken";
+"showPins"="Nadeln anzeigen";
+"addPin"="Nadel hinzufügen";
+//photo menu
+"addPhoto"="Foto hinzufügen";
+//settings menu
+"startWithLastPosition"="Mit der letzten Position starten";
+"showUserLocation"="Aktuelle Position anzeigen";
+//transfer menu
 "export"="Export";
-"info"="Info";
+"import"="Import";
+//info menu
+"appInfo"="App-Info";
+"mapInfo"="Karten-Info";
 
 //map
 "map"="Karte";

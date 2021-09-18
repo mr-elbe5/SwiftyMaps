@@ -46,6 +46,8 @@
 		4E3BE7ED26EA80A5000F9069 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3BE7EC26EA80A5000F9069 /* EditViewController.swift */; };
 		4E75E67A26F4D8C900798CF9 /* MapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E75E67926F4D8C900798CF9 /* MapOverlay.swift */; };
 		4E75E67C26F5289100798CF9 /* CodableRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E75E67B26F5289100798CF9 /* CodableRegion.swift */; };
+		4E9D6D1626F5DD6E00B082E7 /* AppleMapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D6D1526F5DD6E00B082E7 /* AppleMapType.swift */; };
+		4E9D6D1826F5DD8900B082E7 /* OverlayMapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D6D1726F5DD8900B082E7 /* OverlayMapType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +92,8 @@
 		4E3BE7EC26EA80A5000F9069 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		4E75E67926F4D8C900798CF9 /* MapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOverlay.swift; sourceTree = "<group>"; };
 		4E75E67B26F5289100798CF9 /* CodableRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableRegion.swift; sourceTree = "<group>"; };
+		4E9D6D1526F5DD6E00B082E7 /* AppleMapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapType.swift; sourceTree = "<group>"; };
+		4E9D6D1726F5DD8900B082E7 /* OverlayMapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayMapType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +206,8 @@
 				3324DCCFD88F983DCF749AC8 /* MapType.swift */,
 				4E75E67926F4D8C900798CF9 /* MapOverlay.swift */,
 				4E75E67B26F5289100798CF9 /* CodableRegion.swift */,
+				4E9D6D1526F5DD6E00B082E7 /* AppleMapType.swift */,
+				4E9D6D1726F5DD8900B082E7 /* OverlayMapType.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -329,11 +335,13 @@
 				4E0BD9D826EA037F005A4A94 /* FileController.swift in Sources */,
 				4E0BD9E526EA04EE005A4A94 /* LocationError.swift in Sources */,
 				4E3BE7ED26EA80A5000F9069 /* EditViewController.swift in Sources */,
+				4E9D6D1826F5DD8900B082E7 /* OverlayMapType.swift in Sources */,
 				4E0BD99926EA0039005A4A94 /* Statics.swift in Sources */,
 				4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */,
 				4E0BD9E426EA04EE005A4A94 /* AuthorizationError.swift in Sources */,
 				4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */,
 				4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */,
+				4E9D6D1626F5DD6E00B082E7 /* AppleMapType.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
 				4E0BD9B526EA0170005A4A94 /* MapViewController.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,

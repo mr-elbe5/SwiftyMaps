@@ -9,7 +9,6 @@
 "save" = "Save";
 "title"="Title";
 "title/text"="Title/Text";
-"toDate" = "To date";
 "success"="Success";
 "yes"="Yes";
 "yourText"="Your text...";
@@ -19,25 +18,35 @@
 "copyError"="The file could not be copied.";
 "fileOpenError"="The file could not be opened.";
 "saveError"="The file could not be saved.";
-"timeoutError"="Eine vorgegebene Zeit wurde überschritten.";
+"timeoutError"="A timeout has been reached.";
 "notComplete"="Some entries are not complete.";
 "readError"="The file could not be read.";
 "rejectedError"="This action has not been authorized.";
 "unexpectedError"="There has been an unexpected error.";
 
-// menu
+// style menu
 "defaultMapStyle"="Standard";
 "openStreetMapStyle"="OpenStreetMap";
 "openTopoMapStyle"="OpenTopoMap";
 "satelliteMapStyle"="Satellite";
-"setPin"="Set Pin";
-"removePin"="Remove Pin";
-"startTour"="Start Tour";
-"stopTour"="Stop Tour";
-"camera"="Camera";
-"settings"="Settings";
+//tour menu
+"start"="Start";
+"stop"="Stop";
+//pin menu
+"hidePins"="Hide Pins";
+"showPins"="Show Pins";
+"addPin"="Add Pin";
+//photo menu
+"addPhoto"="Add Photo";
+//settings menu
+"startWithLastPosition"="Start with last position";
+"showUserLocation"="Show current location";
+//transfer menu
 "export"="Export";
-"info"="Info";
+"import"="Import";
+//info menu
+"appInfo"="App Info";
+"mapInfo"="Map Info";
 
 //map
 "mapComment"="Map comment";

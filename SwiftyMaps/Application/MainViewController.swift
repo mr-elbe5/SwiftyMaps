@@ -15,7 +15,6 @@ class MainViewController: MapViewController {
     var statusView = UIView()
     
     var isTracking : Bool = false
-    var isShowingPins : Bool = false
 
     override func loadView() {
         super.loadView()
@@ -64,7 +63,8 @@ class MainViewController: MapViewController {
     var tourButton : MenuButton!
     var pinButton : MenuButton!
     var cameraButton : MenuButton!
-    var configButton : MenuButton!
+    var settingsButton : MenuButton!
+    var transferButton : MenuButton!
     var infoButton : MenuButton!
 
     var statusLabel : UILabel!
@@ -74,15 +74,18 @@ class MainViewController: MapViewController {
     func fillMenu() {
         styleButton = MenuButton(icon: "map", menu: getStyleMenu())
         menuView.addSubview(styleButton)
-        tourButton = MenuButton(icon: "figure.walk", menu: getTourMenu(isTracking: isTracking))
+        tourButton = MenuButton(icon: "figure.walk", menu: getTourMenu())
         menuView.addSubview(tourButton)
-        pinButton = MenuButton(icon: "mappin", menu: getPinMenu(isShowingPins: isShowingPins))
+        pinButton = MenuButton(icon: "mappin", menu: getPinMenu())
         menuView.addSubview(pinButton)
         cameraButton = MenuButton(icon: "camera", menu: getCameraMenu())
         menuView.addSubview(cameraButton)
-        configButton = MenuButton(icon: "slider.horizontal.3", menu: getConfigMenu())
-        configButton.showsMenuAsPrimaryAction = true
-        menuView.addSubview(configButton)
+        settingsButton = MenuButton(icon: "slider.horizontal.3", menu: getSettingsMenu())
+        settingsButton.showsMenuAsPrimaryAction = true
+        menuView.addSubview(settingsButton)
+        transferButton = MenuButton(icon: "arrow.up.arrow.down", menu: getTransferMenu())
+        transferButton.showsMenuAsPrimaryAction = true
+        menuView.addSubview(transferButton)
         infoButton = MenuButton(icon: "info.circle", menu: getInfoMenu())
         menuView.addSubview(infoButton)
 
@@ -108,9 +111,13 @@ class MainViewController: MapViewController {
                 .top(menuView.topAnchor, inset: defaultInset)
                 .trailing(menuView.trailingAnchor, inset: defaultInset)
                 .bottom(menuView.bottomAnchor, inset: defaultInset)
-        configButton.setAnchors()
+        transferButton.setAnchors()
                 .top(menuView.topAnchor, inset: defaultInset)
                 .trailing(infoButton.leadingAnchor, inset: 2 * defaultInset)
+                .bottom(menuView.bottomAnchor, inset: defaultInset)
+        settingsButton.setAnchors()
+                .top(menuView.topAnchor, inset: defaultInset)
+                .trailing(transferButton.leadingAnchor, inset: 2 * defaultInset)
                 .bottom(menuView.bottomAnchor, inset: defaultInset)
     }
 
@@ -130,26 +137,27 @@ class MainViewController: MapViewController {
         return UIMenu(title: "", children: [standardMapAction, osmMapAction, topoMapAction, satelliteAction])
     }
 
-    func getTourMenu(isTracking: Bool) -> UIMenu {
-        let title = isTracking ? "stop" : "start"
+    func getTourMenu() -> UIMenu {
+        let title = self.isTracking ? "stop" : "start"
         let img = isTracking ? UIImage(systemName: "figure.stand") : UIImage(systemName: "figure.walk")
         let toggleAction = UIAction(title: title.localize(), image: img) { action in
             self.isTracking = !self.isTracking
-            self.tourButton.menu = self.getTourMenu(isTracking: !isTracking)
+            self.tourButton.menu = self.getTourMenu()
         }
         return UIMenu(title: "", children: [toggleAction])
     }
-
-    func getPinMenu(isShowingPins: Bool) -> UIMenu{
+    
+    func getPinMenu() -> UIMenu{
+        let isShowingPins = Settings.instance.showPins
         let title = isShowingPins ? "hidePins" : "showPins"
         let img = isShowingPins ? UIImage(systemName: "mappin.slash") : UIImage(systemName: "mappin")
         let toggleAction = UIAction(title: title.localize(), image: img) { action in
-                self.isShowingPins = !self.isShowingPins
-                self.pinButton.menu = self.getPinMenu(isShowingPins: !isShowingPins)
-
+            Settings.instance.showPins = !Settings.instance.showPins
+            self.pinButton.menu = self.getPinMenu()
+            
         }
         let addAction = UIAction(title: "addPin".localize(), image: UIImage(systemName: "mappin.and.ellipse")) { action in
-
+            
         }
         return UIMenu(title: "", children: [toggleAction, addAction])
     }
@@ -161,22 +169,40 @@ class MainViewController: MapViewController {
         return UIMenu(title: "", children: [addPhoto])
     }
 
-    func getConfigMenu() -> UIMenu{
-        let settingsAction = UIAction(title: "settings".localize(), image: UIImage(systemName: "gearshape")) { action in
+    func getSettingsMenu() -> UIMenu{
+        let lastPosImage = Settings.instance.startWithLastPosition ? "checkmark" : "nosign"
+        let lastPosAction = UIAction(title: "startWithLastPosition".localize(), image: UIImage(systemName: lastPosImage)) { action in
+            Settings.instance.startWithLastPosition = !Settings.instance.startWithLastPosition
+            self.settingsButton.menu = self.getSettingsMenu()
+        }
+        let userLocImage = Settings.instance.showUserLocation ? "checkmark" : "nosign"
+        let userLocAction = UIAction(title: "showUserLocation".localize(), image: UIImage(systemName: userLocImage)) { action in
+            Settings.instance.showUserLocation = !Settings.instance.showUserLocation
+            self.settingsButton.menu = self.getSettingsMenu()
+        }
+        return UIMenu(title: "", children: [lastPosAction, userLocAction])
+
+    }
+    
+    func getTransferMenu() -> UIMenu{
+        let exportAction = UIAction(title: "export".localize(), image: UIImage(systemName: "arrow.up")) { action in
 
         }
-        let exportAction = UIAction(title: "export".localize(), image: UIImage(systemName: "square.and.arrow.up")) { action in
+        let importAction = UIAction(title: "import".localize(), image: UIImage(systemName: "arrow.down")) { action in
 
         }
-        return UIMenu(title: "", children: [settingsAction, exportAction])
+        return UIMenu(title: "", children: [exportAction, importAction])
 
     }
 
     func getInfoMenu() -> UIMenu{
-        let appAction = UIAction(title: "app".localize()) { action in
+        let appAction = UIAction(title: "appInfo".localize(), image: UIImage(systemName: "app")) { action in
 
         }
-        return UIMenu(title: "", children: [appAction])
+        let mapAction = UIAction(title: "mapInfo".localize(), image: UIImage(systemName: "map")) { action in
+
+        }
+        return UIMenu(title: "", children: [appAction, mapAction])
 
     }
 

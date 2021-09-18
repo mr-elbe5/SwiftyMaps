@@ -19,13 +19,13 @@ class MapTileOverlay : MKTileOverlay{
                 statusCode = httpResponse.statusCode
             }
             if let error = error {
-                print("error loading map tile, error:\(error.localizedDescription)")
+                print("error loading map tile from \(url.path), error:\(error.localizedDescription)")
                 result(nil, error)
             } else if (statusCode == 200 ){
                 result(data, nil)
             }
             else{
-                print("error loading map tile, statusCode=\(statusCode)")
+                print("error loading map tile from \(url.path), statusCode=\(statusCode)")
                 result(nil, MapError.load)
             }
         }

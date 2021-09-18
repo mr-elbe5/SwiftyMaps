@@ -110,7 +110,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, LocationServiceDel
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKTileOverlay, let renderer = mapType.getTileOverlayRenderer(overlay: overlay as! MKTileOverlay) {
-            print("get tile renderer")
             self.tileOverlayRenderer = renderer
             return self.tileOverlayRenderer!
         } else {
