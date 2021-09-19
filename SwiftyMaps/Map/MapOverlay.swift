@@ -15,12 +15,15 @@ class MapTileOverlay : MKTileOverlay{
     var renderer : MKTileOverlayRenderer? = nil
     
     override func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, Error?) -> Void) {
-        let url = url(forTilePath: path)
         if zoom != path.z{
             //print(">>>>>>>>>>>>>>>>>>\(zoom) -> \(path.z)")
             zoom = path.z
         }
-        
+        if let tile = MapCache.instance.getTile(path: path){
+            result(tile, nil)
+            return
+        }
+        let url = url(forTilePath: path)
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 30.0)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             var statusCode = 0
@@ -32,6 +35,9 @@ class MapTileOverlay : MKTileOverlay{
                 print("error loading map tile from \(url.path), error:\(error.localizedDescription)")
                 result(nil, error)
             } else if (statusCode == 200 ){
+                if !MapCache.instance.saveTile(path: path, tile: data){
+                    print("could not save tile")
+                }
                 result(data, nil)
             }
             else{

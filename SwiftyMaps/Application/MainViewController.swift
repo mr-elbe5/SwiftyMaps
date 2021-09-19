@@ -165,7 +165,7 @@ class MainViewController: MapViewController {
 
     func getCameraMenu() -> UIMenu{
         let addPhoto = UIAction(title: "addPhoto".localize(), image: UIImage(systemName: "camera")) { action in
-
+            MapCache.instance.dumpTiles()
         }
         return UIMenu(title: "", children: [addPhoto])
     }

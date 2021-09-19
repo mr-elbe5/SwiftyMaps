@@ -89,5 +89,7 @@ struct Statics{
         }
     }
     
+    static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
+    
 }
 

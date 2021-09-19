@@ -16,8 +16,6 @@ class FileController {
     
     static let tempDir = NSTemporaryDirectory()
     
-    static var privatePath: String = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory,.userDomainMask,true).first!
-    static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var documentPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true).first!
     static var documentURL : URL = FileManager.default.urls(for: .documentDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var backupDirURL = documentURL.appendingPathComponent(Statics.backupDir)
@@ -36,7 +34,7 @@ class FileController {
     }
     
     static func initialize() {
-        try! FileManager.default.createDirectory(at: privateURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: Statics.privateURL, withIntermediateDirectories: true, attributes: nil)
         try! FileManager.default.createDirectory(at: backupDirURL, withIntermediateDirectories: true, attributes: nil)
         try! FileManager.default.createDirectory(at: exportDirURL, withIntermediateDirectories: true, attributes: nil)
     }
@@ -285,7 +283,7 @@ class FileController {
             print(name)
         }
         print("private files:")
-        names = listAllFiles(dirPath: privatePath)
+        names = listAllFiles(dirPath: Statics.privateURL.path)
         for name in names{
             print(name)
         }
