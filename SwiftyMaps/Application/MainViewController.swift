@@ -60,7 +60,8 @@ class MainViewController: MapViewController {
 
     // menu
 
-    var styleButton : MenuButton!
+    var mapButton : MenuButton!
+    var searchButton : MenuButton!
     var tourButton : MenuButton!
     var pinButton : MenuButton!
     var cameraButton : MenuButton!
@@ -73,8 +74,10 @@ class MainViewController: MapViewController {
     var refreshButton : IconButton!
 
     func fillMenu() {
-        styleButton = MenuButton(icon: "map", menu: getStyleMenu())
-        menuView.addSubview(styleButton)
+        mapButton = MenuButton(icon: "map", menu: getStyleMenu())
+        menuView.addSubview(mapButton)
+        searchButton = MenuButton(icon: "magnifyingglass", menu: getSearchMenu())
+        menuView.addSubview(searchButton)
         tourButton = MenuButton(icon: "figure.walk", menu: getTourMenu())
         menuView.addSubview(tourButton)
         pinButton = MenuButton(icon: "mappin", menu: getPinMenu())
@@ -90,9 +93,13 @@ class MainViewController: MapViewController {
         infoButton = MenuButton(icon: "info.circle", menu: getInfoMenu())
         menuView.addSubview(infoButton)
 
-        styleButton.setAnchors()
+        mapButton.setAnchors()
                 .top(menuView.topAnchor, inset: defaultInset)
                 .leading(menuView.leadingAnchor, inset: defaultInset)
+                .bottom(menuView.bottomAnchor, inset: defaultInset)
+        searchButton.setAnchors()
+                .top(menuView.topAnchor, inset: defaultInset)
+                .leading(mapButton.trailingAnchor, inset: 2 * defaultInset)
                 .bottom(menuView.bottomAnchor, inset: defaultInset)
 
         tourButton.setAnchors()
@@ -135,7 +142,23 @@ class MainViewController: MapViewController {
         let satelliteAction = UIAction(title: "satelliteMapStyle".localize()) { action in
             self.setMapType(SatelliteMapType.instance)
         }
-        return UIMenu(title: "", children: [standardMapAction, osmMapAction, topoMapAction, satelliteAction])
+        let preloadAction = UIAction(title: "preloadTiles".localize(), image: UIImage(systemName: "square.and.arrow.down")) { action in
+            self.preloadTiles()
+        }
+        return UIMenu(title: "", children: [standardMapAction, osmMapAction, topoMapAction, satelliteAction, preloadAction])
+    }
+    
+    func getSearchMenu() -> UIMenu {
+        let searchAction = UIAction(title: "searchMap".localize(), image: UIImage(systemName: "map")) { action in
+            self.openLocationSearch()
+        }
+        let searchPinAction = UIAction(title: "searchPin".localize(), image: UIImage(systemName: "mappin")) { action in
+            self.openPinSearch()
+        }
+        let searchTourAction = UIAction(title: "searchTour".localize(), image: UIImage(systemName: "figure.walk")) { action in
+            self.openTourSearch()
+        }
+        return UIMenu(title: "", children: [searchAction, searchPinAction, searchTourAction])
     }
 
     func getTourMenu() -> UIMenu {
@@ -145,7 +168,10 @@ class MainViewController: MapViewController {
             self.isTracking = !self.isTracking
             self.tourButton.menu = self.getTourMenu()
         }
-        return UIMenu(title: "", children: [toggleAction])
+        let searchAction = UIAction(title: "search".localize(), image: UIImage(systemName: "magnifyingglass")) { action in
+            self.openTourSearch()
+        }
+        return UIMenu(title: "", children: [toggleAction, searchAction])
     }
     
     func getPinMenu() -> UIMenu{
@@ -158,14 +184,17 @@ class MainViewController: MapViewController {
             
         }
         let addAction = UIAction(title: "addPin".localize(), image: UIImage(systemName: "mappin.and.ellipse")) { action in
-            
+            self.openAddPin()
         }
-        return UIMenu(title: "", children: [toggleAction, addAction])
+        let searchAction = UIAction(title: "search".localize(), image: UIImage(systemName: "magnifyingglass")) { action in
+            self.openPinSearch()
+        }
+        return UIMenu(title: "", children: [toggleAction, addAction, searchAction])
     }
 
     func getCameraMenu() -> UIMenu{
         let addPhoto = UIAction(title: "addPhoto".localize(), image: UIImage(systemName: "camera")) { action in
-            MapCache.instance.dumpTiles()
+            self.openAddPhoto()
         }
         return UIMenu(title: "", children: [addPhoto])
     }
@@ -187,10 +216,10 @@ class MainViewController: MapViewController {
     
     func getTransferMenu() -> UIMenu{
         let exportAction = UIAction(title: "export".localize(), image: UIImage(systemName: "arrow.up")) { action in
-
+            self.openExport()
         }
         let importAction = UIAction(title: "import".localize(), image: UIImage(systemName: "arrow.down")) { action in
-
+            self.openImport()
         }
         return UIMenu(title: "", children: [exportAction, importAction])
 
@@ -198,12 +227,15 @@ class MainViewController: MapViewController {
 
     func getInfoMenu() -> UIMenu{
         let appAction = UIAction(title: "appInfo".localize(), image: UIImage(systemName: "app")) { action in
-
+            self.openAppInfo()
         }
         let mapAction = UIAction(title: "mapInfo".localize(), image: UIImage(systemName: "map")) { action in
-
+            self.openMapInfo()
         }
-        return UIMenu(title: "", children: [appAction, mapAction])
+        let debugAction = UIAction(title: "debug".localize(), image: UIImage(systemName: "chevron.left.slash.chevron.right")) { action in
+            self.showDebugInfo()
+        }
+        return UIMenu(title: "", children: [appAction, mapAction, debugAction])
 
     }
 
@@ -250,6 +282,50 @@ class MainViewController: MapViewController {
         else{
             mapView.setNeedsLayout()
         }
+    }
+    
+    func preloadTiles(){
+        print("preloadTiles")
+    }
+    
+    func openLocationSearch(){
+        print("openLocationSearch")
+    }
+    
+    func openPinSearch(){
+        print("openPinSearch")
+    }
+    
+    func openTourSearch(){
+        print("openTourSearch")
+    }
+    
+    func openAddPin(){
+        print("openAddPin")
+    }
+    
+    func openAddPhoto(){
+        print("openAddPhoto")
+    }
+    
+    func openExport(){
+        print("openExport")
+    }
+    
+    func openImport(){
+        print("openImport")
+    }
+    
+    func openAppInfo(){
+        print("openAppInfo")
+    }
+    
+    func openMapInfo(){
+        print("openMapInfo")
+    }
+    
+    func showDebugInfo(){
+        MapCache.instance.dumpTiles()
     }
     
     override func locationDidChange(location: Location){

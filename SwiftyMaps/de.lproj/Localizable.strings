@@ -29,6 +29,12 @@
 "openStreetMapStyle"="OpenStreetMap";
 "openTopoMapStyle"="OpenTopoMap";
 "satelliteMapStyle"="Satellit";
+"preloadTiles"="Kacheln vorladen";
+//search menu
+"search"="Suche";
+"searchMap"="Karten-Suche";
+"searchPin"=-Suche;
+"searchTour"="Tour-Suche";
 //tour menu
 "start"="Start";
 "stop"="Stop";
@@ -47,6 +53,7 @@
 //info menu
 "appInfo"="App-Info";
 "mapInfo"="Karten-Info";
+"debug"="Debug";
 
 //map
 "map"="Karte";

@@ -67,14 +67,26 @@ class MapCache{
         return false
     }
     
-    func dumpTiles(){
-        //print("dump tiles")
+    func getTilePaths() -> Array<String>{
+        var paths = Array<String>()
         if let url = URL(string: "tiles", relativeTo: Statics.privateURL){
             if let subpaths = FileManager.default.subpaths(atPath: url.path){
                 for path in subpaths{
-                    print(path)
+                    if !path.hasSuffix(".png"){
+                        continue
+                    }
+                    paths.append(path)
                 }
+                paths.sort()
             }
+        }
+        return paths
+    }
+    
+    func dumpTiles(){
+        let paths = getTilePaths()
+        for path in paths{
+            print(path)
         }
     }
     

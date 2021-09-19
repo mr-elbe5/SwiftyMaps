@@ -16,7 +16,6 @@ class MapTileOverlay : MKTileOverlay{
     
     override func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, Error?) -> Void) {
         if zoom != path.z{
-            //print(">>>>>>>>>>>>>>>>>>\(zoom) -> \(path.z)")
             zoom = path.z
         }
         if let tile = MapCache.instance.getTile(path: path){

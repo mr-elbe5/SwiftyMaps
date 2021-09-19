@@ -24,11 +24,17 @@
 "rejectedError"="This action has not been authorized.";
 "unexpectedError"="There has been an unexpected error.";
 
-// style menu
+// map menu
 "defaultMapStyle"="Standard";
 "openStreetMapStyle"="OpenStreetMap";
 "openTopoMapStyle"="OpenTopoMap";
 "satelliteMapStyle"="Satellite";
+"preloadTiles"="Preload Tiles";
+//search menu
+"search"="Search";
+"searchMap"="Search Map";
+"searchPin"="Search Pin";
+"searchTour"="Search Tour";
 //tour menu
 "start"="Start";
 "stop"="Stop";
@@ -47,6 +53,7 @@
 //info menu
 "appInfo"="App Info";
 "mapInfo"="Map Info";
+"debug"="Debug";
 
 //map
 "mapComment"="Map comment";
