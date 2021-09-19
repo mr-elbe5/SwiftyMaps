@@ -12,6 +12,8 @@ class MapTileOverlay : MKTileOverlay{
     
     var zoom : Int = 0
     
+    var renderer : MKTileOverlayRenderer? = nil
+    
     override func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, Error?) -> Void) {
         let url = url(forTilePath: path)
         if zoom != path.z{

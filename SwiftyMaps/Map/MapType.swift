@@ -27,5 +27,5 @@ protocol MapType{
     var showsAppleLabel : Bool {get}
     var zoomRange : MKMapView.CameraZoomRange {get}
     var usesTileOverlay : Bool {get}
-    func getTileOverlay() -> MKTileOverlay?
+    func getTileOverlay() -> MapTileOverlay?
 }

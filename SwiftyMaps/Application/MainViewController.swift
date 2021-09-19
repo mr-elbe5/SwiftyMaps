@@ -244,7 +244,7 @@ class MainViewController: MapViewController {
     }
 
     @objc func refreshMap(){
-        if let renderer = tileOverlayRenderer{
+        if let renderer = tileOverlay?.renderer{
             renderer.reloadData()
         }
         else{

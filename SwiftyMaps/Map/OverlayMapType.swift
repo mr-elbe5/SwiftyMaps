@@ -10,6 +10,15 @@ import MapKit
 
 class OverlayMapType: MapType{
     
+    var overlay: MapTileOverlay
+    
+    init(overlay: MapTileOverlay, maxZoom: Int){
+        overlay.canReplaceMapContent = true
+        overlay.maximumZ = maxZoom
+        overlay.renderer = MKTileOverlayRenderer(tileOverlay: overlay)
+        self.overlay = overlay
+    }
+    
     var name : MapTypeName{
         get{
             .osm
@@ -38,15 +47,15 @@ class OverlayMapType: MapType{
         true
     }
     
-    func getTileOverlay() -> MKTileOverlay?{
-        nil
+    func getTileOverlay() -> MapTileOverlay?{
+        overlay
     }
     
 }
 
 class OpenStreetMapType: OverlayMapType{
     
-    static let instance = OpenStreetMapType()
+    static let instance = OpenStreetMapType(overlay: MapTileOverlay(urlTemplate: Statics.cartoUrl), maxZoom: 20)
     
     override var zoomRange : MKMapView.CameraZoomRange{
         get{
@@ -54,18 +63,11 @@ class OpenStreetMapType: OverlayMapType{
         }
     }
     
-    override func getTileOverlay() -> MKTileOverlay?{
-        let overlay =  MapTileOverlay(urlTemplate: Statics.cartoUrl)
-        overlay.canReplaceMapContent = true
-        overlay.maximumZ = 21
-        return overlay
-    }
-    
 }
 
 class OpenTopoMapType: OverlayMapType{
     
-    static let instance = OpenTopoMapType()
+    static let instance = OpenTopoMapType(overlay: MapTileOverlay(urlTemplate: Statics.topoUrl), maxZoom: 17)
     
     override var name : MapTypeName{
         get{
@@ -77,13 +79,6 @@ class OpenTopoMapType: OverlayMapType{
         get{
             MKMapView.CameraZoomRange(minCenterCoordinateDistance: 1500, maxCenterCoordinateDistance: 15000000)!
         }
-    }
-    
-    override func getTileOverlay() -> MKTileOverlay?{
-        let overlay =  MapTileOverlay(urlTemplate: Statics.topoUrl)
-        overlay.canReplaceMapContent = true
-        overlay.maximumZ = 17
-        return overlay
     }
     
 }

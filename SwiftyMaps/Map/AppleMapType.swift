@@ -39,7 +39,7 @@ class AppleMapType : MapType{
         false
     }
     
-    func getTileOverlay() -> MKTileOverlay?{
+    func getTileOverlay() -> MapTileOverlay?{
         nil
     }
 

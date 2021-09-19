@@ -15,8 +15,7 @@ class MapViewController: UIViewController, LocationServiceDelegate {
     var mapLoaded = false
     var locationInitialized = false
     var mapType : MapType = StandardMapType.instance
-    var tileOverlay : MKTileOverlay? = nil
-    var tileOverlayRenderer : MKTileOverlayRenderer? = nil
+    var tileOverlay : MapTileOverlay? = nil
     var zoomLevel : Double = 0
     
     var appleLogoView : UIView? = nil
@@ -79,7 +78,6 @@ class MapViewController: UIViewController, LocationServiceDelegate {
         if tileOverlay != nil{
             mapView.removeOverlay(tileOverlay!)
             tileOverlay = nil
-            tileOverlayRenderer = nil
         }
         if mapType.usesTileOverlay, let overlay = mapType.getTileOverlay(){
             self.tileOverlay = overlay
@@ -129,9 +127,8 @@ extension MapViewController : MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let overlay = overlay as? MKTileOverlay{
-            self.tileOverlayRenderer = MKTileOverlayRenderer(overlay: overlay)
-            return self.tileOverlayRenderer!
+        if let overlay = overlay as? MapTileOverlay, let renderer = overlay.renderer{
+            return renderer
         } else {
             return MKOverlayRenderer()
         }
