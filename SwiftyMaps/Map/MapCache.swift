@@ -12,12 +12,12 @@ class MapCache{
     
     static var instance = MapCache()
     
-    func getUrl(path: MKTileOverlayPath) -> URL?{
-        URL(string: "tiles/\(path.z)/\(path.x)/\(path.y).png", relativeTo: Statics.privateURL)
+    func getUrl(type: String, path: MKTileOverlayPath) -> URL?{
+        URL(string: "tiles/\(type)/\(path.z)/\(path.x)/\(path.y).png", relativeTo: Statics.privateURL)
     }
     
-    func getDirUrl(path: MKTileOverlayPath) -> URL?{
-        URL(string: "tiles/\(path.z)/\(path.x)", relativeTo: Statics.privateURL)
+    func getDirUrl(type: String, path: MKTileOverlayPath) -> URL?{
+        URL(string: "tiles/\(type)/\(path.z)/\(path.x)", relativeTo: Statics.privateURL)
     }
     
     func shortPath(_ url: URL?) -> String{
@@ -33,16 +33,16 @@ class MapCache{
         FileManager.default.fileExists(atPath: url.path)
     }
     
-    func getTile(path: MKTileOverlayPath) -> Data?{
-        if let url = getUrl(path: path), tileExists(url: url), let fileData = FileManager.default.contents(atPath: url.path){
+    func getTile(type: String, path: MKTileOverlayPath) -> Data?{
+        if let url = getUrl(type: type, path: path), tileExists(url: url), let fileData = FileManager.default.contents(atPath: url.path){
             //print("getting tile \(shortPath(url))")
             return fileData
         }
         return nil
     }
     
-    func saveTile(path: MKTileOverlayPath, tile: Data?) -> Bool{
-        if let dirUrl = getDirUrl(path: path), let url = getUrl(path: path), let data = tile{
+    func saveTile(type: String, path: MKTileOverlayPath, tile: Data?) -> Bool{
+        if let dirUrl = getDirUrl(type: type, path: path), let url = getUrl(type: type, path: path), let data = tile{
             //print("save tile \(shortPath(url)) in \(shortPath(dirUrl))")
             var isDir:ObjCBool = true
             if !FileManager.default.fileExists(atPath: dirUrl.path, isDirectory: &isDir) {

@@ -11,6 +11,7 @@ import MapKit
 class MapTileOverlay : MKTileOverlay{
     
     var zoom : Int = 0
+    var mapType : String = ""
     
     var renderer : MKTileOverlayRenderer? = nil
     
@@ -18,7 +19,7 @@ class MapTileOverlay : MKTileOverlay{
         if zoom != path.z{
             zoom = path.z
         }
-        if let tile = MapCache.instance.getTile(path: path){
+        if let tile = MapCache.instance.getTile(type: mapType, path: path){
             result(tile, nil)
             return
         }
@@ -34,7 +35,7 @@ class MapTileOverlay : MKTileOverlay{
                 print("error loading map tile from \(url.path), error:\(error.localizedDescription)")
                 result(nil, error)
             } else if (statusCode == 200 ){
-                if !MapCache.instance.saveTile(path: path, tile: data){
+                if !MapCache.instance.saveTile(type: self.mapType, path: path, tile: data){
                     print("could not save tile")
                 }
                 result(data, nil)

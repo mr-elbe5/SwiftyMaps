@@ -10,18 +10,35 @@ import MapKit
 
 class OverlayMapType: MapType{
     
-    var overlay: MapTileOverlay
+    private var _overlay: MapTileOverlay? = nil
     
-    init(overlay: MapTileOverlay, maxZoom: Int){
-        overlay.canReplaceMapContent = true
-        overlay.maximumZ = maxZoom
-        overlay.renderer = MKTileOverlayRenderer(tileOverlay: overlay)
-        self.overlay = overlay
+    var maxZoom : Int{
+        get{
+            -1
+        }
+    }
+    
+    var overlay : MapTileOverlay?{
+        get{
+            _overlay
+        }
+        set{
+            if let ovrl = newValue{
+                ovrl.canReplaceMapContent = true
+                ovrl.maximumZ = maxZoom
+                ovrl.renderer = MKTileOverlayRenderer(tileOverlay: ovrl)
+                ovrl.mapType = self.name.rawValue
+                _overlay = ovrl
+            }
+            else{
+                _overlay = nil
+            }
+        }
     }
     
     var name : MapTypeName{
         get{
-            .osm
+            .carto
         }
     }
     
@@ -55,11 +72,23 @@ class OverlayMapType: MapType{
 
 class OpenStreetMapType: OverlayMapType{
     
-    static let instance = OpenStreetMapType(overlay: MapTileOverlay(urlTemplate: Statics.cartoUrl), maxZoom: 20)
+    static let instance = OpenStreetMapType()
+    
+    override init(){
+        super.init()
+        overlay = MapTileOverlay(urlTemplate: Statics.cartoUrl)
+    }
+    
+    
+    override var maxZoom : Int{
+        get{
+            20
+        }
+    }
     
     override var zoomRange : MKMapView.CameraZoomRange{
         get{
-            MKMapView.CameraZoomRange(minCenterCoordinateDistance: 100, maxCenterCoordinateDistance: 15000000)!
+            MKMapView.CameraZoomRange(minCenterCoordinateDistance: 350, maxCenterCoordinateDistance: 15000000)!
         }
     }
     
@@ -67,7 +96,18 @@ class OpenStreetMapType: OverlayMapType{
 
 class OpenTopoMapType: OverlayMapType{
     
-    static let instance = OpenTopoMapType(overlay: MapTileOverlay(urlTemplate: Statics.topoUrl), maxZoom: 17)
+    static let instance = OpenTopoMapType()
+    
+    override init(){
+        super.init()
+        overlay = MapTileOverlay(urlTemplate: Statics.topoUrl)
+    }
+    
+    override var maxZoom : Int{
+        get{
+            17
+        }
+    }
     
     override var name : MapTypeName{
         get{

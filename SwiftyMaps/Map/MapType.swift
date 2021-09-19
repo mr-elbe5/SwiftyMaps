@@ -7,14 +7,14 @@ import MapKit
 
 enum MapTypeName: String{
     case standard
-    case osm
+    case carto
     case topo
     case satellite
     
     func getMapType() -> MapType{
         switch self{
         case .standard: return StandardMapType.instance
-        case .osm: return OpenStreetMapType.instance
+        case .carto: return OpenStreetMapType.instance
         case .topo: return OpenTopoMapType.instance
         case .satellite: return SatelliteMapType.instance
         }
