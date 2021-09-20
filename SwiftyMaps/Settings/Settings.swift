@@ -24,7 +24,7 @@ class Settings: Identifiable, Codable{
         case topoUrl
         case startWithLastPosition
         case showUserLocation
-        case showPins
+        case showMarkers
     }
 
     var mapTypeName : MapTypeName = .standard
@@ -32,7 +32,7 @@ class Settings: Identifiable, Codable{
     var topoUrl : String = Statics.topoUrl
     var startWithLastPosition : Bool = false
     var showUserLocation : Bool = true
-    var showPins : Bool = true
+    var showMarkers : Bool = true
     
     init(){
     }
@@ -44,7 +44,7 @@ class Settings: Identifiable, Codable{
         topoUrl = try values.decodeIfPresent(String.self, forKey: .topoUrl) ?? Statics.topoUrl
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         showUserLocation = try values.decodeIfPresent(Bool.self, forKey: .showUserLocation) ?? true
-        showPins = try values.decodeIfPresent(Bool.self, forKey: .showPins) ?? true
+        showMarkers = try values.decodeIfPresent(Bool.self, forKey: .showMarkers) ?? true
         updateOverlays()
     }
     
@@ -55,7 +55,7 @@ class Settings: Identifiable, Codable{
         try container.encode(topoUrl, forKey: .topoUrl)
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(showUserLocation, forKey: .showUserLocation)
-        try container.encode(showPins, forKey: .showPins)
+        try container.encode(showMarkers, forKey: .showMarkers)
     }
     
     func updateOverlays(){

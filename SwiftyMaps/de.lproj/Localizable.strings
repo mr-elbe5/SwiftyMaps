@@ -29,31 +29,18 @@
 "openStreetMapStyle"="OpenStreetMap";
 "openTopoMapStyle"="OpenTopoMap";
 "satelliteMapStyle"="Satellit";
-"preloadTiles"="Kacheln vorladen";
-//search menu
-"search"="Suche";
-"searchMap"="Karten-Suche";
-"searchPin"=-Suche;
-"searchTour"="Tour-Suche";
+"preloadMap"="Karte vorladen";
+"mapConfiguration"="Karten-Konfiguration";
+//marker menu
+"hideMarkers"="Markierungen nicht anzeigen";
+"showMarkers"="Markierungen anzeigen";
+"addMarker"="Markierung hinzufügen";
+"searchMarker"="Marker suchen";
 //tour menu
-"start"="Start";
-"stop"="Stop";
-//pin menu
-"hidePins"="Nadeln verstecken";
-"showPins"="Nadeln anzeigen";
-"addPin"="Nadel hinzufügen";
-//photo menu
-"addPhoto"="Foto hinzufügen";
-//settings menu
-"startWithLastPosition"="Mit der letzten Position starten";
-"showUserLocation"="Aktuelle Position anzeigen";
-//transfer menu
-"export"="Export";
-"import"="Import";
-//info menu
-"appInfo"="App-Info";
-"mapInfo"="Karten-Info";
-"debug"="Debug";
+"startTracking"="Aufzeichnen starten";
+"stopTracking"="Aufzeichnen beenden";
+"saveTour"="Tour speichern";
+"searchTour"="Tour-Suche";
 
 //map
 "map"="Karte";

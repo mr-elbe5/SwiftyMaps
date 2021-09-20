@@ -29,31 +29,18 @@
 "openStreetMapStyle"="OpenStreetMap";
 "openTopoMapStyle"="OpenTopoMap";
 "satelliteMapStyle"="Satellite";
-"preloadTiles"="Preload Tiles";
-//search menu
-"search"="Search";
-"searchMap"="Search Map";
-"searchPin"="Search Pin";
-"searchTour"="Search Tour";
+"preloadMap"="Preload Map";
+"mapConfiguration"="Map Configuration";
+//marker menu
+"hideMarkers"="Hide Markers";
+"showMarkers"="Show Markers";
+"addMarker"="Add Marker";
+"searchMarker"="Search Marker";
 //tour menu
-"start"="Start";
-"stop"="Stop";
-//pin menu
-"hidePins"="Hide Pins";
-"showPins"="Show Pins";
-"addPin"="Add Pin";
-//photo menu
-"addPhoto"="Add Photo";
-//settings menu
-"startWithLastPosition"="Start with last position";
-"showUserLocation"="Show current location";
-//transfer menu
-"export"="Export";
-"import"="Import";
-//info menu
-"appInfo"="App Info";
-"mapInfo"="Map Info";
-"debug"="Debug";
+"startTracking"="Start Tracking";
+"stopTracking"="Stop Tracking";
+"saveTour"="Save Tour";
+"searchTour"="Search Tour";
 
 //map
 "mapComment"="Map comment";

@@ -61,75 +61,75 @@ class MainViewController: MapViewController {
     // menu
 
     var mapButton : MenuButton!
-    var searchButton : MenuButton!
+    var markerButton : MenuButton!
     var tourButton : MenuButton!
-    var pinButton : MenuButton!
-    var cameraButton : MenuButton!
-    var settingsButton : MenuButton!
-    var transferButton : MenuButton!
-    var infoButton : MenuButton!
+    
+    var searchButton : IconButton!
+    var cameraButton : IconButton!
+    
+    var configurationButton : IconButton!
+    var infoButton : IconButton!
 
     var statusLabel : UILabel!
     var centerButton : IconButton!
     var refreshButton : IconButton!
 
     func fillMenu() {
-        mapButton = MenuButton(icon: "map", menu: getStyleMenu())
+        mapButton = MenuButton(icon: "map", menu: getMapMenu())
         menuView.addSubview(mapButton)
-        searchButton = MenuButton(icon: "magnifyingglass", menu: getSearchMenu())
-        menuView.addSubview(searchButton)
-        tourButton = MenuButton(icon: "figure.walk", menu: getTourMenu())
+        markerButton = MenuButton(icon: "mappin", menu: getMarkerMenu())
+        menuView.addSubview(markerButton)
+        tourButton = MenuButton(icon: isTracking ? "figure.walk" : "figure.stand", menu: getTourMenu())
         menuView.addSubview(tourButton)
-        pinButton = MenuButton(icon: "mappin", menu: getPinMenu())
-        menuView.addSubview(pinButton)
-        cameraButton = MenuButton(icon: "camera", menu: getCameraMenu())
+        
+        searchButton = IconButton(icon: "magnifyingglass", tintColor: .white)
+        searchButton.addTarget(self, action: #selector(openSearch), for: .touchDown)
+        menuView.addSubview(searchButton)
+        cameraButton = IconButton(icon: "camera", tintColor: .white)
+        cameraButton.addTarget(self, action: #selector(openCamera), for: .touchDown)
         menuView.addSubview(cameraButton)
-        settingsButton = MenuButton(icon: "slider.horizontal.3", menu: getSettingsMenu())
-        settingsButton.showsMenuAsPrimaryAction = true
-        menuView.addSubview(settingsButton)
-        transferButton = MenuButton(icon: "arrow.up.arrow.down", menu: getTransferMenu())
-        transferButton.showsMenuAsPrimaryAction = true
-        menuView.addSubview(transferButton)
-        infoButton = MenuButton(icon: "info.circle", menu: getInfoMenu())
+        
+        configurationButton = IconButton(icon: "gearshape", tintColor: .white)
+        configurationButton.addTarget(self, action: #selector(openConfiguration), for: .touchDown)
+        menuView.addSubview(configurationButton)
+        infoButton = IconButton(icon: "info.circle", tintColor: .white)
+        infoButton.addTarget(self, action: #selector(openInfo), for: .touchDown)
+        menuView.addSubview(configurationButton)
         menuView.addSubview(infoButton)
 
         mapButton.setAnchors()
                 .top(menuView.topAnchor, inset: defaultInset)
                 .leading(menuView.leadingAnchor, inset: defaultInset)
                 .bottom(menuView.bottomAnchor, inset: defaultInset)
-        searchButton.setAnchors()
+        markerButton.setAnchors()
                 .top(menuView.topAnchor, inset: defaultInset)
                 .leading(mapButton.trailingAnchor, inset: 2 * defaultInset)
                 .bottom(menuView.bottomAnchor, inset: defaultInset)
-
         tourButton.setAnchors()
                 .top(menuView.topAnchor, inset: defaultInset)
-                .centerX(menuView.centerXAnchor)
+            .leading(markerButton.trailingAnchor, inset: 2 * defaultInset)
                 .bottom(menuView.bottomAnchor, inset: defaultInset)
-        pinButton.setAnchors()
+        
+        searchButton.setAnchors()
                 .top(menuView.topAnchor, inset: defaultInset)
-                .trailing(tourButton.leadingAnchor, inset: 2 * defaultInset)
+                .trailing(menuView.centerXAnchor, inset: defaultInset)
                 .bottom(menuView.bottomAnchor, inset: defaultInset)
         cameraButton.setAnchors()
                 .top(menuView.topAnchor, inset: defaultInset)
-                .leading(tourButton.trailingAnchor, inset: 2 * defaultInset)
+                .leading(menuView.centerXAnchor, inset: defaultInset)
                 .bottom(menuView.bottomAnchor, inset: defaultInset)
 
         infoButton.setAnchors()
                 .top(menuView.topAnchor, inset: defaultInset)
                 .trailing(menuView.trailingAnchor, inset: defaultInset)
                 .bottom(menuView.bottomAnchor, inset: defaultInset)
-        transferButton.setAnchors()
+        configurationButton.setAnchors()
                 .top(menuView.topAnchor, inset: defaultInset)
                 .trailing(infoButton.leadingAnchor, inset: 2 * defaultInset)
                 .bottom(menuView.bottomAnchor, inset: defaultInset)
-        settingsButton.setAnchors()
-                .top(menuView.topAnchor, inset: defaultInset)
-                .trailing(transferButton.leadingAnchor, inset: 2 * defaultInset)
-                .bottom(menuView.bottomAnchor, inset: defaultInset)
     }
 
-    func getStyleMenu() -> UIMenu{
+    func getMapMenu() -> UIMenu{
         let standardMapAction = UIAction(title: "defaultMapStyle".localize()) { action in
             self.setMapType(StandardMapType.instance)
         }
@@ -142,101 +142,109 @@ class MainViewController: MapViewController {
         let satelliteAction = UIAction(title: "satelliteMapStyle".localize()) { action in
             self.setMapType(SatelliteMapType.instance)
         }
-        let preloadAction = UIAction(title: "preloadTiles".localize(), image: UIImage(systemName: "square.and.arrow.down")) { action in
-            self.preloadTiles()
+        let preloadAction = UIAction(title: "preloadMap".localize(), image: UIImage(systemName: "square.and.arrow.down")) { action in
+            self.preloadMap()
         }
-        return UIMenu(title: "", children: [standardMapAction, osmMapAction, topoMapAction, satelliteAction, preloadAction])
+        let configAction = UIAction(title: "mapConfiguration".localize(), image: UIImage(systemName: "gearshape")) { action in
+            self.openMapConfiguration()
+        }
+        return UIMenu(title: "", children: [standardMapAction, osmMapAction, topoMapAction, satelliteAction, preloadAction, configAction])
     }
     
-    func getSearchMenu() -> UIMenu {
-        let searchAction = UIAction(title: "searchMap".localize(), image: UIImage(systemName: "map")) { action in
-            self.openLocationSearch()
-        }
-        let searchPinAction = UIAction(title: "searchPin".localize(), image: UIImage(systemName: "mappin")) { action in
-            self.openPinSearch()
-        }
-        let searchTourAction = UIAction(title: "searchTour".localize(), image: UIImage(systemName: "figure.walk")) { action in
-            self.openTourSearch()
-        }
-        return UIMenu(title: "", children: [searchAction, searchPinAction, searchTourAction])
-    }
-
-    func getTourMenu() -> UIMenu {
-        let title = self.isTracking ? "stop" : "start"
-        let img = isTracking ? UIImage(systemName: "figure.stand") : UIImage(systemName: "figure.walk")
-        let toggleAction = UIAction(title: title.localize(), image: img) { action in
-            self.isTracking = !self.isTracking
-            self.tourButton.menu = self.getTourMenu()
-        }
-        let searchAction = UIAction(title: "search".localize(), image: UIImage(systemName: "magnifyingglass")) { action in
-            self.openTourSearch()
-        }
-        return UIMenu(title: "", children: [toggleAction, searchAction])
+    func preloadMap(){
+        print("preloadMap")
     }
     
-    func getPinMenu() -> UIMenu{
-        let isShowingPins = Settings.instance.showPins
-        let title = isShowingPins ? "hidePins" : "showPins"
+    func openMapConfiguration(){
+        let controller = MapConfigurationViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func getMarkerMenu() -> UIMenu{
+        let isShowingPins = Settings.instance.showMarkers
+        let title = isShowingPins ? "hideMarkers" : "showMarkers"
         let img = isShowingPins ? UIImage(systemName: "mappin.slash") : UIImage(systemName: "mappin")
         let toggleAction = UIAction(title: title.localize(), image: img) { action in
-            Settings.instance.showPins = !Settings.instance.showPins
-            self.pinButton.menu = self.getPinMenu()
-            
+            Settings.instance.showMarkers = !Settings.instance.showMarkers
+            self.markerButton.menu = self.getMarkerMenu()
+            self.updateMarkers()
         }
-        let addAction = UIAction(title: "addPin".localize(), image: UIImage(systemName: "mappin.and.ellipse")) { action in
-            self.openAddPin()
+        let addAction = UIAction(title: "addMarker".localize(), image: UIImage(systemName: "mappin.and.ellipse")) { action in
+            self.openAddMarker()
         }
-        let searchAction = UIAction(title: "search".localize(), image: UIImage(systemName: "magnifyingglass")) { action in
-            self.openPinSearch()
+        let searchAction = UIAction(title: "searchMarker".localize(), image: UIImage(systemName: "magnifyingglass")) { action in
+            self.openSearchMarker()
         }
         return UIMenu(title: "", children: [toggleAction, addAction, searchAction])
     }
-
-    func getCameraMenu() -> UIMenu{
-        let addPhoto = UIAction(title: "addPhoto".localize(), image: UIImage(systemName: "camera")) { action in
-            self.openAddPhoto()
-        }
-        return UIMenu(title: "", children: [addPhoto])
-    }
-
-    func getSettingsMenu() -> UIMenu{
-        let lastPosImage = Settings.instance.startWithLastPosition ? "checkmark" : "nosign"
-        let lastPosAction = UIAction(title: "startWithLastPosition".localize(), image: UIImage(systemName: lastPosImage)) { action in
-            Settings.instance.startWithLastPosition = !Settings.instance.startWithLastPosition
-            self.settingsButton.menu = self.getSettingsMenu()
-        }
-        let userLocImage = Settings.instance.showUserLocation ? "checkmark" : "nosign"
-        let userLocAction = UIAction(title: "showUserLocation".localize(), image: UIImage(systemName: userLocImage)) { action in
-            Settings.instance.showUserLocation = !Settings.instance.showUserLocation
-            self.settingsButton.menu = self.getSettingsMenu()
-        }
-        return UIMenu(title: "", children: [lastPosAction, userLocAction])
-
+    
+    func updateMarkers(){
+        print("updateMarkers")
     }
     
-    func getTransferMenu() -> UIMenu{
-        let exportAction = UIAction(title: "export".localize(), image: UIImage(systemName: "arrow.up")) { action in
-            self.openExport()
+    func openAddMarker(){
+        let controller = MarkerViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func openSearchMarker(){
+        let controller = MarkerSearchViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func getTourMenu() -> UIMenu {
+        let title = self.isTracking ? "stopTracking" : "startTracking"
+        let toggleAction = UIAction(title: title.localize(), image: UIImage(systemName: "figure.walk")) { action in
+            self.isTracking = !self.isTracking
+            self.tourButton.setImage(UIImage(systemName: self.isTracking ? "figure.walk" : "figure.stand"), for: .normal)
+            self.tourButton.menu = self.getTourMenu()
         }
-        let importAction = UIAction(title: "import".localize(), image: UIImage(systemName: "arrow.down")) { action in
-            self.openImport()
+        let saveAction = UIAction(title: "saveTour".localize(), image: UIImage(systemName: "square.and.arrow.down")) { action in
+            self.openSaveTour()
         }
-        return UIMenu(title: "", children: [exportAction, importAction])
-
+        let searchAction = UIAction(title: "searchTour".localize(), image: UIImage(systemName: "magnifyingglass")) { action in
+            self.openSearchTour()
+        }
+        return UIMenu(title: "", children: [toggleAction, saveAction, searchAction])
+    }
+    
+    func openSearchTour(){
+        let controller = TourSearchViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func openSaveTour(){
+        let controller = TourViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    @objc func openSearch(){
+        let controller = SearchViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
     }
 
-    func getInfoMenu() -> UIMenu{
-        let appAction = UIAction(title: "appInfo".localize(), image: UIImage(systemName: "app")) { action in
-            self.openAppInfo()
-        }
-        let mapAction = UIAction(title: "mapInfo".localize(), image: UIImage(systemName: "map")) { action in
-            self.openMapInfo()
-        }
-        let debugAction = UIAction(title: "debug".localize(), image: UIImage(systemName: "chevron.left.slash.chevron.right")) { action in
-            self.showDebugInfo()
-        }
-        return UIMenu(title: "", children: [appAction, mapAction, debugAction])
+    @objc func openCamera(){
+        let controller = CameraViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
 
+    @objc func openConfiguration(){
+        let controller = ConfigurationViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    @objc func openInfo(){
+        let controller = InfoViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
     }
 
     func fillStatus() {
@@ -264,11 +272,6 @@ class MainViewController: MapViewController {
                 .bottom(statusView.bottomAnchor)
     }
     
-    func updatePositionLabel(){
-        LocationService.shared.lookUpCurrentLocation()
-        statusLabel.text = LocationService.shared.getLocationDescription()
-    }
-    
     @objc func centerMap(){
         if let loc = LocationService.shared.getLocation(){
             mapView.centerToLocation(loc)
@@ -284,56 +287,17 @@ class MainViewController: MapViewController {
         }
     }
     
-    func preloadTiles(){
-        print("preloadTiles")
-    }
-    
-    func openLocationSearch(){
-        print("openLocationSearch")
-    }
-    
-    func openPinSearch(){
-        print("openPinSearch")
-    }
-    
-    func openTourSearch(){
-        print("openTourSearch")
-    }
-    
-    func openAddPin(){
-        print("openAddPin")
-    }
-    
-    func openAddPhoto(){
-        print("openAddPhoto")
-    }
-    
-    func openExport(){
-        print("openExport")
-    }
-    
-    func openImport(){
-        print("openImport")
-    }
-    
-    func openAppInfo(){
-        print("openAppInfo")
-    }
-    
-    func openMapInfo(){
-        print("openMapInfo")
-    }
-    
-    func showDebugInfo(){
-        MapCache.instance.dumpTiles()
-    }
-    
     override func locationDidChange(location: Location){
         super.locationDidChange(location: location)
         updatePositionLabel()
         if isTracking{
             mapView.centerToLocation(location)
         }
+    }
+    
+    func updatePositionLabel(){
+        LocationService.shared.lookUpCurrentLocation()
+        statusLabel.text = LocationService.shared.getLocationDescription()
     }
 
 }

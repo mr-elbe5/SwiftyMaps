@@ -27,6 +27,7 @@ class PhotoViewController: ScrollViewController, UIScrollViewDelegate {
             imageView!.fillSuperview()
         }
     }
+    
     override open func setupHeaderView(){
         setupCloseHeader()
     }

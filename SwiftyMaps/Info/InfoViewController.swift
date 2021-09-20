@@ -45,4 +45,8 @@ class InfoViewController: ScrollViewController {
         setupCloseHeader()
     }
     
+    func dump(){
+        MapCache.instance.dumpTiles()
+    }
+    
 }
