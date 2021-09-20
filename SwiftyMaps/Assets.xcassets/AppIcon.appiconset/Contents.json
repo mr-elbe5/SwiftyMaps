@@ -21,21 +21,25 @@
       "size" : "29x29"
     },
     {
+      "filename" : "SwiftyMaps80.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
+      "filename" : "SwiftyMaps120-1.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
+      "filename" : "SwiftyMaps120.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
+      "filename" : "SwiftyMaps180.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
@@ -66,6 +70,7 @@
       "size" : "40x40"
     },
     {
+      "filename" : "SwiftyMaps80-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
@@ -76,16 +81,19 @@
       "size" : "76x76"
     },
     {
+      "filename" : "SwiftyMaps152.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
+      "filename" : "SwiftyMaps167.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
+      "filename" : "SwiftyMaps1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"

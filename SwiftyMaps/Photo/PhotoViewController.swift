@@ -28,16 +28,7 @@ class PhotoViewController: ScrollViewController, UIScrollViewDelegate {
         }
     }
     override open func setupHeaderView(){
-        let buttonView = UIView()
-        buttonView.backgroundColor = UIColor.systemBackground
-        let closeButton = IconButton(icon: "xmark.circle")
-        buttonView.addSubview(closeButton)
-        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        closeButton.setAnchors()
-            .top(buttonView.topAnchor,inset: defaultInset)
-            .trailing(buttonView.trailingAnchor,inset: defaultInset)
-            .bottom(buttonView.bottomAnchor,inset: defaultInset)
-        headerView = buttonView
+        setupCloseHeader()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,11 +42,6 @@ class PhotoViewController: ScrollViewController, UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
-    }
-    
-    @objc func close(){
-        self.dismiss(animated: true, completion: {
-        })
     }
     
 }

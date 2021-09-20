@@ -13,13 +13,20 @@ enum SettingsPickerType{
     case backup
 }
 
-class SettingsViewController: EditViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class SettingsViewController: ScrollViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     var pickerType : SettingsPickerType? = nil
     
+    var stackView = UIStackView()
+    
     override func loadView() {
         super.loadView()
-
+        scrollView.setupVertical()
+        scrollView.addSubview(stackView)
+        stackView.fillSuperview(insets: UIEdgeInsets(top: defaultInset, left: .zero, bottom: defaultInset, right: .zero))
+        stackView.setupVertical()
+        scrollChild = stackView
+        setupKeyboard()
     }
     
     override func setupHeaderView(){

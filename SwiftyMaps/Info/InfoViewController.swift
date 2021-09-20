@@ -10,7 +10,7 @@ import Foundation
 import SwiftyIOSViewExtensions
 import UIKit
 
-class AppInfoViewController: ScrollViewController {
+class InfoViewController: ScrollViewController {
     
     var stackView = UIStackView()
     
@@ -41,5 +41,8 @@ class AppInfoViewController: ScrollViewController {
         stackView.addArrangedSubview(filesInfoText)
     }
     
+    override open func setupHeaderView(){
+        setupCloseHeader()
+    }
     
 }

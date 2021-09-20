@@ -135,11 +135,9 @@ class MainViewController: MapViewController {
         }
         let osmMapAction = UIAction(title: "openStreetMapStyle".localize()) { action in
             self.setMapType(OpenStreetMapType.instance)
-            print((self.mapType.getTileOverlay() as? MapTileOverlay)?.urlTemplate)
         }
         let topoMapAction = UIAction(title: "openTopoMapStyle".localize()) { action in
             self.setMapType(OpenTopoMapType.instance)
-            print((self.mapType.getTileOverlay() as? MapTileOverlay)?.urlTemplate)
         }
         let satelliteAction = UIAction(title: "satelliteMapStyle".localize()) { action in
             self.setMapType(SatelliteMapType.instance)
