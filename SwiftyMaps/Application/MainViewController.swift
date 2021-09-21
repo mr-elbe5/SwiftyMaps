@@ -230,7 +230,7 @@ class MainViewController: MapViewController {
     }
 
     @objc func openCamera(){
-        let controller = CameraViewController()
+        let controller = PhotoCaptureViewController()
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
