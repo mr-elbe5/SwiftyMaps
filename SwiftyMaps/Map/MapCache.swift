@@ -83,6 +83,20 @@ class MapCache{
         return paths
     }
     
+    func removeTiles(type: String) -> Bool{
+        if let url = URL(string: "tiles/\(type)", relativeTo: Statics.privateURL){
+            do{
+                try FileManager.default.removeItem(at: url)
+                print("tile directory for type \(type) deleted")
+                return true
+            }
+            catch{
+                print(error)
+            }
+        }
+        return false
+    }
+    
     func dumpTiles(){
         let paths = getTilePaths()
         for path in paths{
