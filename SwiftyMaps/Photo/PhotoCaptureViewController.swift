@@ -247,8 +247,8 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let imageURL = info[.imageURL] as? URL else {return}
-        /*if FileController.copyFile(fromURL: imageURL, toURL: data.fileURL){
+        /*guard let imageURL = info[.imageURL] as? URL else {return}
+        if FileController.copyFile(fromURL: imageURL, toURL: data.fileURL){
             delegate?.photoCaptured(data: data)
             picker.dismiss(animated: false){
                 self.dismiss(animated: true)

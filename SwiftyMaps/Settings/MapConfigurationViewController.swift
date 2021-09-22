@@ -21,10 +21,18 @@ class MapConfigurationViewController: ScrollViewController, UINavigationControll
         stackView.setupVertical()
         scrollChild = stackView
         setupKeyboard()
+        
+        let btn = IconButton(icon: "gearshape")
+        btn.addTarget(self, action: #selector(dumpIcons), for: .touchDown)
+        stackView.addArrangedSubview(btn)
     }
     
     override open func setupHeaderView(){
         setupCloseHeader()
+    }
+    
+    @objc func dumpIcons(){
+        MapCache.instance.dumpTiles()
     }
     
 }

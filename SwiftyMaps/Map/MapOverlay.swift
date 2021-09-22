@@ -19,7 +19,8 @@ class MapTileOverlay : MKTileOverlay{
         if zoom != path.z{
             zoom = path.z
         }
-        if let tile = MapCache.instance.getTile(type: mapType, path: path){
+        let tileData = TileData(x: path.x, y: path.y, z: path.z)
+        if let tile = MapCache.instance.getTile(type: mapType, tile: tileData){
             result(tile, nil)
             return
         }
@@ -35,7 +36,7 @@ class MapTileOverlay : MKTileOverlay{
                 print("error loading map tile from \(url.path), error:\(error.localizedDescription)")
                 result(nil, error)
             } else if (statusCode == 200 ){
-                if !MapCache.instance.saveTile(type: self.mapType, path: path, tile: data){
+                if !MapCache.instance.saveTile(type: self.mapType, tile: tileData, data: data){
                     print("could not save tile")
                 }
                 result(data, nil)

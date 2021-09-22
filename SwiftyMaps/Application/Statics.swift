@@ -42,6 +42,7 @@ struct Statics{
     
     static var cameraAngle : Double = 0.26114827778041366
     static var cameraTan : Double = tan(cameraAngle)
+    static var tilesSize : Int = 3500
     
     static func latitudeMeters(from latitudeDelta: Double) -> Double{
         latitudeDelta * 111000
