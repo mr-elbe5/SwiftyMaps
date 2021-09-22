@@ -152,13 +152,11 @@ class MainViewController: MapViewController {
     }
     
     func preloadMap(){
-        print("preloadMap")
-        let list = mapView.region.getTileList(minZoom: 6, maxZoom: 18)
-        print("downloading \(list.count) tiles")
-        print("download size = \(list.count * Statics.tilesSize / 1024 / 1024) MB")
-        if let overlay = mapType.getTileOverlay(){
-            MapCache.instance.preloadTiles(list: list, type: mapType.name.rawValue, urlTemplate: overlay.urlTemplate!)
-        }
+        let controller = MapDownloadViewController()
+        controller.mapType = mapType
+        controller.region = mapView.region
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
     }
     
     func openMapConfiguration(){

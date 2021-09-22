@@ -143,28 +143,6 @@ class MapCache{
     }*/
     
     func preloadTiles(list: Array<TileData>, type: String, urlTemplate: String){
-        let downloadManager = DownloadManager()
-        let completion = BlockOperation {
-            /// Do something here when all of the download is done
-            print("All of the download completed!")
-        }
-        var urlPairs = [URLPair]()
-        var existingTiles = 0
-        for tile in list{
-            guard let fileUrl = tile.fileUrl(type: type) else {print("error creating file url"); return}
-            if tileExists(url: fileUrl){
-                existingTiles += 1
-                continue
-            }
-            guard let url = tile.url(urlTemplate: urlTemplate) else {print("error creating download url"); return}
-            urlPairs.append(URLPair(source: url, target: fileUrl))
-        }
-        print("\(existingTiles) tiles exist already")
-        print("there are \(urlPairs.count) tiles to be downloaded")
-        urlPairs.forEach { urlPair in
-            let downloadOperation = downloadManager.addDownloadOperation(urlPair)
-                completion.addDependency(downloadOperation)
-        }
-        OperationQueue.main.addOperation(completion)
+        
     }
 }

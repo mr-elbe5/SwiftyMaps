@@ -57,6 +57,15 @@ extension DownloadManager: URLSessionDownloadDelegate {
         }
     }
     
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        if let downloadUrl = downloadTask.originalRequest!.url {
+            let percent = Double(totalBytesWritten)/Double(totalBytesExpectedToWrite)
+            DispatchQueue.main.async { [self] in
+                processDelegate?.downloadingProgress(Float(percent), fileName:  downloadUrl.lastPathComponent)
+            }
+        }
+    }
+    
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         let key = task.taskIdentifier
         operations[key]?.trackDownloadByOperation(session, task: task, didCompleteWithError: error)
