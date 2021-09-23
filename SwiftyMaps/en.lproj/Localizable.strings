@@ -12,6 +12,8 @@
 "success"="Success";
 "yes"="Yes";
 "yourText"="Your text...";
+"start"="Start";
+"close"="Close";
 
 //error
 "error"="Error";
@@ -41,6 +43,14 @@
 "stopTracking"="Stop Tracking";
 "saveTour"="Save Tour";
 "searchTour"="Search Tour";
+
+//mapDownload
+"mapDownload"="Map Download";
+"allTilesForDownload"="Number of all tiles:";
+"existingTiles"="Number of existing tiles:";
+"tilesToLoad"="Numer of tiles to load:";
+"sizeToLoad"="Full size of tiles to load (est.):";
+"unloadedTiles"="Number of not loaded tiles:";
 
 //map
 "mapComment"="Map comment";

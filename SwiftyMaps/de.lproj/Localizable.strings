@@ -12,6 +12,8 @@
 "success"="Erfolg";
 "yes"="Ja";
 "yourText"="Dein Text...";
+"start"="Start";
+"close"="Schliessen";
 
 //error
 "error"="Fehler";
@@ -48,6 +50,14 @@
 "mapInfoHeader"="Kartenansicht";
 "mapStartSize"="Anfangsgröße für Kartensnapshots";
 "mapTopInfo"="Die Kartenansicht zeigt alle Einträge, deren Position gespeichert wurde. Die Einträge werden duch eine Nadel dargestellt. Durch Antippen der Nadel wird der gesamte Eintrag angezeigt.";
+
+//mapDownload
+"mapDownload"="Karten-Download";
+"allTilesForDownload"="Zahl aller Kacheln:";
+"existingTiles"="Zahl vorhandener Kacheln:";
+"tilesToLoad"="Zahl zu ladender Kacheln:";
+"sizeToLoad"="Gesamtgröße zu ladender Kacheln (ca):";
+"unloadedTiles"="Zahl nicht geladener Kacheln:";
 
 //location
 "east"="Ost";
