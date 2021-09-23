@@ -110,39 +110,4 @@ class MapCache{
         }
     }
     
-    /*func preloadTiles(list: Array<TileData>, type: String, urlTemplate: String){
-        for tile in list{
-            print("tile z=\(tile.z),x=\(tile.x),y=\(tile.y)")
-            if tileExists(type: type, tile: tile){
-                print("tile exists")
-                continue
-            }
-            if let url = tile.url(urlTemplate: urlTemplate){
-                let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 30.0)
-                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                    var statusCode = 0
-                    if (response != nil && response is HTTPURLResponse){
-                        let httpResponse = response! as! HTTPURLResponse
-                        statusCode = httpResponse.statusCode
-                    }
-                    if let error = error {
-                        print("error loading map tile from \(url.path), error:\(error.localizedDescription)")
-                    } else if (statusCode == 200 ){
-                        print("received tile")
-                        if !MapCache.instance.saveTile(type: type, tile: tile, data: data){
-                            print("could not save tile")
-                        }
-                    }
-                    else{
-                        print("error loading map tile from \(url.path), statusCode=\(statusCode)")
-                    }
-                }
-                task.resume()
-            }
-        }
-    }*/
-    
-    func preloadTiles(list: Array<TileData>, type: String, urlTemplate: String){
-        
-    }
 }
