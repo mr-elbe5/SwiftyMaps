@@ -83,6 +83,12 @@
 "photoShared"="Photo has been copied.";
 "shareImage"="Share image";
 
+//configuration
+"cartoUrl"="OpenStreetMap tile server URL:";
+"topoUrl"="OpenTopoMap tile server URL:";
+"startWithLastPosition"="Start with last position";
+"showUserLocation"="Show current position";
+
 //data/files
 "deleteData" = "Delete entries";
 "deleteItemApproveInfo"="If you approve, you delete this item. You cannot undo this action.";

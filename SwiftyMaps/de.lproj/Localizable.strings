@@ -83,6 +83,12 @@
 "photoShared"="Foto wurde kopiert.";
 "shareImage"="Bild kopieren";
 
+//configuration
+"cartoUrl"="OpenStreetMap Tileserver URL:";
+"topoUrl"="OpenTopoMap Tileserver URL:";
+"startWithLastPosition"="Mit letzter Position starten";
+"showUserLocation"="Aktuelle Position anzeigen";
+
 //data/files
 "deleteData" = "Einträge löschen";
 "deleteItemApproveInfo"="Wenn du zustimmst, wird dieses Element gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";

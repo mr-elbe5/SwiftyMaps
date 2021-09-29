@@ -46,6 +46,7 @@ class Settings: Identifiable, Codable{
         showUserLocation = try values.decodeIfPresent(Bool.self, forKey: .showUserLocation) ?? true
         showMarkers = try values.decodeIfPresent(Bool.self, forKey: .showMarkers) ?? true
         updateOverlays()
+        
     }
     
     func encode(to encoder: Encoder) throws {
@@ -65,6 +66,15 @@ class Settings: Identifiable, Codable{
     
     func save(){
         DataController.shared.save(forKey: .settings, value: self)
+    }
+    
+    func dump(){
+        print("mapTypeName  = \(mapTypeName)" )
+        print("cartoUrl  = \(cartoUrl)" )
+        print("topoUrl  = \(topoUrl)" )
+        print("startWithLastPosition  = \(startWithLastPosition)" )
+        print("showUserLocation  = \(showUserLocation)" )
+        print("showMarkers  = \(showMarkers)" )
     }
     
 }

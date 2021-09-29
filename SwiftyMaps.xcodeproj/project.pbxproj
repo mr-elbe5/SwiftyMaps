@@ -641,7 +641,7 @@
 			repositoryURL = "https://github.com/mr-elbe5/SwiftyIOSViewExtensions";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.5;
+				minimumVersion = 1.0.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

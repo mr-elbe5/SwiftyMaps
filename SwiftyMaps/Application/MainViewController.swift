@@ -173,6 +173,7 @@ class MainViewController: MapViewController {
             Settings.instance.showMarkers = !Settings.instance.showMarkers
             self.markerButton.menu = self.getMarkerMenu()
             self.updateMarkers()
+            Settings.instance.save()
         }
         let addAction = UIAction(title: "addMarker".localize(), image: UIImage(systemName: "mappin.and.ellipse")) { action in
             self.openAddMarker()

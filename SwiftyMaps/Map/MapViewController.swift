@@ -88,6 +88,7 @@ class MapViewController: UIViewController, LocationServiceDelegate {
         appleLogoView?.isHidden = !mapType.showsAppleLabel
         attributionLabel?.isHidden = !mapType.showsAppleLabel
         Settings.instance.mapTypeName = mapType.name
+        Settings.instance.save()
     }
     
     func showError(_ reason: String){
