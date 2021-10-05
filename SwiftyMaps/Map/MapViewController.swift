@@ -139,6 +139,7 @@ extension MapViewController: MapTileOverlayDelegate{
     
     func zoomChanged(from: Int, to: Int) {
         print("zoom changed from \(from) to \(to), calculated zoom: \(mapView.zoomLevel), dist = \(round(mapView.camera.centerCoordinateDistance))")
+        OSM.Tiles(minLongitude: mapView.region.minLongitude, maxLongitude: mapView.region.maxLongitude, minLatitude: mapView.region.minLatitude, maxLatitude: mapView.region.maxLatitude, zoom: to).dump()
     }
     
 }

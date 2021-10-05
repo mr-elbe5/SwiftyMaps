@@ -31,6 +31,7 @@ class MapTileOverlay : MKTileOverlay{
             zoom = path.z
         }
         let tileData = TileData(x: path.x, y: path.y, z: path.z)
+        print("get \(path.x), \(path.y)")
         if let tile = MapCache.instance.getTile(type: mapType, tile: tileData){
             result(tile, nil)
             return
