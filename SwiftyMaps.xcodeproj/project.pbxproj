@@ -52,7 +52,7 @@
 		4E4264CA26FB13F500FD00D5 /* TileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4264C926FB13F500FD00D5 /* TileData.swift */; };
 		4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */; };
 		4E4935E126F72644007A9433 /* MapCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4935E026F72644007A9433 /* MapCache.swift */; };
-		4E75E67A26F4D8C900798CF9 /* MapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E75E67926F4D8C900798CF9 /* MapOverlay.swift */; };
+		4E75E67A26F4D8C900798CF9 /* MapTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E75E67926F4D8C900798CF9 /* MapTileOverlay.swift */; };
 		4E75E67C26F5289100798CF9 /* CodableRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E75E67B26F5289100798CF9 /* CodableRegion.swift */; };
 		4E9D6D1626F5DD6E00B082E7 /* AppleMapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D6D1526F5DD6E00B082E7 /* AppleMapType.swift */; };
 		4E9D6D1826F5DD8900B082E7 /* OverlayMapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D6D1726F5DD8900B082E7 /* OverlayMapType.swift */; };
@@ -112,7 +112,7 @@
 		4E4264C926FB13F500FD00D5 /* TileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileData.swift; sourceTree = "<group>"; };
 		4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
 		4E4935E026F72644007A9433 /* MapCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCache.swift; sourceTree = "<group>"; };
-		4E75E67926F4D8C900798CF9 /* MapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOverlay.swift; sourceTree = "<group>"; };
+		4E75E67926F4D8C900798CF9 /* MapTileOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTileOverlay.swift; sourceTree = "<group>"; };
 		4E75E67B26F5289100798CF9 /* CodableRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableRegion.swift; sourceTree = "<group>"; };
 		4E9D6D1526F5DD6E00B082E7 /* AppleMapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapType.swift; sourceTree = "<group>"; };
 		4E9D6D1726F5DD8900B082E7 /* OverlayMapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayMapType.swift; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 				4E0BD9B126EA0170005A4A94 /* MapViewController.swift */,
 				4E0BD9C726EA02BA005A4A94 /* MKMapView.swift */,
 				3324DCCFD88F983DCF749AC8 /* MapType.swift */,
-				4E75E67926F4D8C900798CF9 /* MapOverlay.swift */,
+				4E75E67926F4D8C900798CF9 /* MapTileOverlay.swift */,
 				4E75E67B26F5289100798CF9 /* CodableRegion.swift */,
 				4E9D6D1526F5DD6E00B082E7 /* AppleMapType.swift */,
 				4E9D6D1726F5DD8900B082E7 /* OverlayMapType.swift */,
@@ -397,7 +397,7 @@
 				4E0BD9CB26EA02BA005A4A94 /* CLLocationManager.swift in Sources */,
 				4E0BD9CE26EA02BA005A4A94 /* LocationService.swift in Sources */,
 				4E0D092826F90C5D00FABB17 /* MarkerSearchViewController.swift in Sources */,
-				4E75E67A26F4D8C900798CF9 /* MapOverlay.swift in Sources */,
+				4E75E67A26F4D8C900798CF9 /* MapTileOverlay.swift in Sources */,
 				4E0BD9CF26EA02BA005A4A94 /* MediaCommentLabel.swift in Sources */,
 				4E0D092A26F90C7D00FABB17 /* TourSearchViewController.swift in Sources */,
 				4E0D092E26F90D8500FABB17 /* MarkerViewController.swift in Sources */,

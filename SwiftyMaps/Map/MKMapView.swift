@@ -18,7 +18,7 @@ extension MKMapView {
 
     var zoomLevel : Double{
         get{
-            Statics.zoomLevel(from: frame.size, longitudeDelta: region.span.longitudeDelta)
+            Statics.zoomLevel(from: frame.size, span: region.span)
         }
     }
     

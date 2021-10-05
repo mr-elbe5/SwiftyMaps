@@ -44,51 +44,28 @@ struct Statics{
     static var cameraTan : Double = tan(cameraAngle)
     static var tilesSize : Int = 3500
     
-    static func latitudeMeters(from latitudeDelta: Double) -> Double{
-        latitudeDelta * 111000
-    }
-    
-    static func cameraDistance(from latitudeDelta: Double) -> Double{
-        // latitude meters/2 / dist = cameraTan
-        return round(latitudeMeters(from: latitudeDelta)/2/cameraTan)
-    }
-    
-    static func zoomLevel(from size: CGSize, longitudeDelta: Double) -> Double{
-       log2(Double(360 * size.width) / (longitudeDelta * 128))
-    }
-    
-    static func zoomLevel(from size: CGSize, latitudeDelta: Double) -> Double{
-       log2(Double(360 * size.height) / (latitudeDelta * 128))
-    }
-    
     static func zoomLevel(from size: CGSize, span: MKCoordinateSpan) -> Double{
-        let sizeDiag = sqrt(size.width*size.width + size.height*size.height)
-        let deltaDiag = sqrt(span.latitudeDelta*span.latitudeDelta + span.longitudeDelta*span.longitudeDelta)
-        return log2(Double(360 * sizeDiag) / (deltaDiag * 128))
+        log2(Double(360 * size.width) / (span.longitudeDelta * 128))
     }
     
-    static func distance(zoom: Int) -> Double{
-        switch zoom{
-        case 6: return 5319214
-        case 7: return 2727606
-        case 8: return 1401332
-        case 9: return 695556
-        case 10: return 353327
-        case 11: return 174954
-        case 12: return 87467
-        case 13: return 43509
-        case 14: return 21904
-        case 15: return 10707
-        case 16: return 5419
-        case 17: return 2756 // 2533 2653
-        case 18: return 1367 // 1356 1349 1087?
-        case 19: return 688 // 686 688 665
-        case 20: return 341 // 337
-        case 21: return 152 // 164
-        default:
-            return 0
-        }
-    }
+    /*
+    zoom 6: distance 5000000
+    zoom 7: distance 2000000
+    zoom 8: distance 1000000
+    zoom 9: distance 5000000
+    zoom 10: distance 250000
+    zoom 11: distance 125000
+    zoom 12: distance 60000
+    zoom 13: distance 30000
+    zoom 14: distance 15000
+    zoom 15: distance 7000
+    zoom 16: distance 3500
+    zoom 17: distance 1750
+    zoom 18: distance 900
+    zoom 19: distance 450
+    zoom 20: distance 225
+    zoom 21: distance 100
+    */
     
     static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     

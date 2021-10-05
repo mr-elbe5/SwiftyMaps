@@ -80,6 +80,7 @@ class MapViewController: UIViewController, LocationServiceDelegate {
             tileOverlay = nil
         }
         if mapType.usesTileOverlay, let overlay = mapType.getTileOverlay(){
+            overlay.delegate = self
             self.tileOverlay = overlay
             mapView.addOverlay(overlay, level: .aboveLabels)
         }
@@ -117,10 +118,7 @@ extension MapViewController : MKMapViewDelegate{
     }
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        /*let zoom = Statics.zoomLevel(from: mapView.bounds.size, latitudeDelta: mapView.region.span.latitudeDelta)
-        print("zoom = \(zoom)")
-        print("dist = \(round(mapView.camera.centerCoordinateDistance))")
-        print("calcdist = \(Statics.cameraDistance(from: mapView.region.span.latitudeDelta))")*/
+        
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
@@ -133,6 +131,14 @@ extension MapViewController : MKMapViewDelegate{
         } else {
             return MKOverlayRenderer()
         }
+    }
+    
+}
+
+extension MapViewController: MapTileOverlayDelegate{
+    
+    func zoomChanged(from: Int, to: Int) {
+        print("zoom changed from \(from) to \(to), calculated zoom: \(mapView.zoomLevel), dist = \(round(mapView.camera.centerCoordinateDistance))")
     }
     
 }

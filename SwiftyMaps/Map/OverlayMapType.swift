@@ -82,13 +82,13 @@ class OpenStreetMapType: OverlayMapType{
     
     override var maxZoom : Int{
         get{
-            18
+            20
         }
     }
     
     override var zoomRange : MKMapView.CameraZoomRange{
         get{
-            MKMapView.CameraZoomRange(minCenterCoordinateDistance: 1500, maxCenterCoordinateDistance: 15000000)!
+            MKMapView.CameraZoomRange(minCenterCoordinateDistance: 300, maxCenterCoordinateDistance: -1)!
         }
     }
     
@@ -117,7 +117,7 @@ class OpenTopoMapType: OverlayMapType{
     
     override var zoomRange : MKMapView.CameraZoomRange{
         get{
-            MKMapView.CameraZoomRange(minCenterCoordinateDistance: 3000, maxCenterCoordinateDistance: 15000000)!
+            MKMapView.CameraZoomRange(minCenterCoordinateDistance: 3000, maxCenterCoordinateDistance: -1)!
         }
     }
     
