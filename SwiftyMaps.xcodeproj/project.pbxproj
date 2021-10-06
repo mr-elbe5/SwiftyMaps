@@ -50,6 +50,9 @@
 		4E0D092E26F90D8500FABB17 /* MarkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0D092D26F90D8500FABB17 /* MarkerViewController.swift */; };
 		4E0D093026F90DC600FABB17 /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0D092F26F90DC600FABB17 /* TourViewController.swift */; };
 		4E3D9E57270C6E0700B2B0A6 /* OSM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D9E56270C6E0700B2B0A6 /* OSM.swift */; };
+		4E3D9E59270C909C00B2B0A6 /* OSMMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D9E58270C909C00B2B0A6 /* OSMMapView.swift */; };
+		4E3D9E5B270C926E00B2B0A6 /* OSMTileGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D9E5A270C926E00B2B0A6 /* OSMTileGrid.swift */; };
+		4E3D9E5D270C957C00B2B0A6 /* OSMTileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D9E5C270C957C00B2B0A6 /* OSMTileData.swift */; };
 		4E4264CA26FB13F500FD00D5 /* TileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4264C926FB13F500FD00D5 /* TileData.swift */; };
 		4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */; };
 		4E4935E126F72644007A9433 /* MapCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4935E026F72644007A9433 /* MapCache.swift */; };
@@ -111,6 +114,9 @@
 		4E0D092D26F90D8500FABB17 /* MarkerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerViewController.swift; sourceTree = "<group>"; };
 		4E0D092F26F90DC600FABB17 /* TourViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourViewController.swift; sourceTree = "<group>"; };
 		4E3D9E56270C6E0700B2B0A6 /* OSM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSM.swift; sourceTree = "<group>"; };
+		4E3D9E58270C909C00B2B0A6 /* OSMMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSMMapView.swift; sourceTree = "<group>"; };
+		4E3D9E5A270C926E00B2B0A6 /* OSMTileGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSMTileGrid.swift; sourceTree = "<group>"; };
+		4E3D9E5C270C957C00B2B0A6 /* OSMTileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSMTileData.swift; sourceTree = "<group>"; };
 		4E4264C926FB13F500FD00D5 /* TileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileData.swift; sourceTree = "<group>"; };
 		4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
 		4E4935E026F72644007A9433 /* MapCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCache.swift; sourceTree = "<group>"; };
@@ -276,6 +282,9 @@
 				4E4264C926FB13F500FD00D5 /* TileData.swift */,
 				4ECFC99E26FBB8AF0083977B /* MapDownloadViewController.swift */,
 				4E3D9E56270C6E0700B2B0A6 /* OSM.swift */,
+				4E3D9E5C270C957C00B2B0A6 /* OSMTileData.swift */,
+				4E3D9E58270C909C00B2B0A6 /* OSMMapView.swift */,
+				4E3D9E5A270C926E00B2B0A6 /* OSMTileGrid.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -383,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
+				4E3D9E5B270C926E00B2B0A6 /* OSMTileGrid.swift in Sources */,
 				4E4264CA26FB13F500FD00D5 /* TileData.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4ECFC99D26FB6FFB0083977B /* URLPair.swift in Sources */,
@@ -409,8 +419,10 @@
 				4E0D092326F90BC400FABB17 /* MapConfigurationViewController.swift in Sources */,
 				4E0BD9E326EA04EE005A4A94 /* MapError.swift in Sources */,
 				4E0BD9A926EA0159005A4A94 /* PhotoViewController.swift in Sources */,
+				4E3D9E5D270C957C00B2B0A6 /* OSMTileData.swift in Sources */,
 				4E0BD9D326EA02BA005A4A94 /* AVCaptureVideoOrientation.swift in Sources */,
 				4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */,
+				4E3D9E59270C909C00B2B0A6 /* OSMMapView.swift in Sources */,
 				4E0BD9D826EA037F005A4A94 /* FileController.swift in Sources */,
 				4E0D092626F90C2900FABB17 /* SearchViewController.swift in Sources */,
 				4E3D9E57270C6E0700B2B0A6 /* OSM.swift in Sources */,
