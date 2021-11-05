@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3324D1A867D8A687E78801F3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324DF1A0C4E4D212BE2CBE8 /* MainViewController.swift */; };
-		3324D2F9E8E7FD197ABABF39 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324D9FC7C61E31CE946772E /* MenuButton.swift */; };
 		3324D415B2595FDFBCBA2998 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324DCCFD88F983DCF749AC8 /* MapType.swift */; };
 		4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */; };
 		4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */; };
@@ -66,7 +65,6 @@
 		4E24F47527345D11004E69C2 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45D27345D11004E69C2 /* CGRect.swift */; };
 		4E24F47627345D11004E69C2 /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45E27345D11004E69C2 /* CGSize.swift */; };
 		4E24F47727345D11004E69C2 /* InfoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45F27345D11004E69C2 /* InfoText.swift */; };
-		4E24F47827345D11004E69C2 /* ButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46027345D11004E69C2 /* ButtonStackView.swift */; };
 		4E24F47927345D11004E69C2 /* InfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46127345D11004E69C2 /* InfoHeader.swift */; };
 		4E24F47A27345D11004E69C2 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46227345D11004E69C2 /* UILabel.swift */; };
 		4E24F47B27345D11004E69C2 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46327345D11004E69C2 /* UIStackView.swift */; };
@@ -78,9 +76,7 @@
 		4E24F48127345D11004E69C2 /* TextEditArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46927345D11004E69C2 /* TextEditArea.swift */; };
 		4E24F48227345D11004E69C2 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46A27345D11004E69C2 /* UIView.swift */; };
 		4E24F48327345D11004E69C2 /* TextEditLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46B27345D11004E69C2 /* TextEditLine.swift */; };
-		4E24F48427345D11004E69C2 /* SwitchIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46C27345D11004E69C2 /* SwitchIcon.swift */; };
 		4E24F48527345D11004E69C2 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46D27345D11004E69C2 /* DatePickerView.swift */; };
-		4E24F48627345D11004E69C2 /* SwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46E27345D11004E69C2 /* SwitchView.swift */; };
 		4E24F48727345D11004E69C2 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46F27345D11004E69C2 /* UIImageView.swift */; };
 		4E24F48827345D11004E69C2 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47027345D11004E69C2 /* UIImage.swift */; };
 		4E24F48927345D11004E69C2 /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47127345D11004E69C2 /* TextButton.swift */; };
@@ -94,7 +90,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3324D9FC7C61E31CE946772E /* MenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		3324DCCFD88F983DCF749AC8 /* MapType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		3324DF1A0C4E4D212BE2CBE8 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,7 +151,6 @@
 		4E24F45D27345D11004E69C2 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		4E24F45E27345D11004E69C2 /* CGSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		4E24F45F27345D11004E69C2 /* InfoText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoText.swift; sourceTree = "<group>"; };
-		4E24F46027345D11004E69C2 /* ButtonStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStackView.swift; sourceTree = "<group>"; };
 		4E24F46127345D11004E69C2 /* InfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoHeader.swift; sourceTree = "<group>"; };
 		4E24F46227345D11004E69C2 /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		4E24F46327345D11004E69C2 /* UIStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
@@ -168,9 +162,7 @@
 		4E24F46927345D11004E69C2 /* TextEditArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditArea.swift; sourceTree = "<group>"; };
 		4E24F46A27345D11004E69C2 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		4E24F46B27345D11004E69C2 /* TextEditLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditLine.swift; sourceTree = "<group>"; };
-		4E24F46C27345D11004E69C2 /* SwitchIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchIcon.swift; sourceTree = "<group>"; };
 		4E24F46D27345D11004E69C2 /* DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
-		4E24F46E27345D11004E69C2 /* SwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchView.swift; sourceTree = "<group>"; };
 		4E24F46F27345D11004E69C2 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		4E24F47027345D11004E69C2 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		4E24F47127345D11004E69C2 /* TextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
@@ -268,14 +260,11 @@
 			children = (
 				4E24F46D27345D11004E69C2 /* DatePickerView.swift */,
 				4E24F46427345D11004E69C2 /* Indicator.swift */,
-				4E24F46027345D11004E69C2 /* ButtonStackView.swift */,
 				4E24F45C27345D11004E69C2 /* IconButton.swift */,
 				4E24F45B27345D11004E69C2 /* IconInfoText.swift */,
 				4E24F46127345D11004E69C2 /* InfoHeader.swift */,
 				4E24F45F27345D11004E69C2 /* InfoText.swift */,
 				4E24F46727345D11004E69C2 /* Insets.swift */,
-				4E24F46C27345D11004E69C2 /* SwitchIcon.swift */,
-				4E24F46E27345D11004E69C2 /* SwitchView.swift */,
 				4E24F47127345D11004E69C2 /* TextButton.swift */,
 				4E24F46927345D11004E69C2 /* TextEditArea.swift */,
 				4E24F46B27345D11004E69C2 /* TextEditLine.swift */,
@@ -284,7 +273,6 @@
 				4EDDE78F26FA72CB00184130 /* DownloadManager.swift */,
 				4ECFC99A26FB551B0083977B /* DownloadOperation.swift */,
 				4E0BD9A226EA0159005A4A94 /* ScrollViewController.swift */,
-				3324D9FC7C61E31CE946772E /* MenuButton.swift */,
 				4ECFC99C26FB6FFB0083977B /* URLPair.swift */,
 			);
 			path = Base;
@@ -534,8 +522,6 @@
 				4E24F47727345D11004E69C2 /* InfoText.swift in Sources */,
 				4E1B811A2732EDC5003ED6B0 /* NormalizedPlanetPoint.swift in Sources */,
 				4ECFC99B26FB551B0083977B /* DownloadOperation.swift in Sources */,
-				4E24F48427345D11004E69C2 /* SwitchIcon.swift in Sources */,
-				4E24F47827345D11004E69C2 /* ButtonStackView.swift in Sources */,
 				4E24F48227345D11004E69C2 /* UIView.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* MapContentView.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
@@ -546,9 +532,7 @@
 				4E1B81162732EDC5003ED6B0 /* MapTileCache.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,
 				4E1B81192732EDC5003ED6B0 /* MapCalculator.swift in Sources */,
-				4E24F48627345D11004E69C2 /* SwitchView.swift in Sources */,
 				3324D1A867D8A687E78801F3 /* MainViewController.swift in Sources */,
-				3324D2F9E8E7FD197ABABF39 /* MenuButton.swift in Sources */,
 				4EDDE79026FA72CB00184130 /* DownloadManager.swift in Sources */,
 				4E1B81152732EDC5003ED6B0 /* MapTileLoader.swift in Sources */,
 				3324D415B2595FDFBCBA2998 /* MapType.swift in Sources */,

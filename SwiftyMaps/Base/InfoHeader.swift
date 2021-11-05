@@ -21,9 +21,9 @@ class InfoHeader : UIView{
         addSubview(label)
         label.setAnchors()
             .top(topAnchor, inset: paddingTop)
-            .leading(leadingAnchor,inset: defaultInset)
-            .trailing(trailingAnchor,inset: defaultInset)
-            .bottom(bottomAnchor, inset: defaultInset)
+            .leading(leadingAnchor,inset: Insets.defaultInset)
+            .trailing(trailingAnchor,inset: Insets.defaultInset)
+            .bottom(bottomAnchor, inset: Insets.defaultInset)
     }
     
     required init?(coder: NSCoder) {

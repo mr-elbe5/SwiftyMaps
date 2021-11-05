@@ -47,11 +47,11 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         photoQualityControl.selectedSegmentTintColor = UIColor.systemGray2
         photoQualityControl.addTarget(self, action: #selector(togglePhotoQuality), for: .valueChanged)
         buttonView.addSubview(photoQualityControl)
-        photoQualityControl.setAnchors(top: buttonView.topAnchor, leading: buttonView.leftAnchor, trailing: buttonView.trailingAnchor, bottom: nil, insets: defaultInsets)
+        photoQualityControl.setAnchors(top: buttonView.topAnchor, leading: buttonView.leftAnchor, trailing: buttonView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
         let bottomView = UIView()
         bottomView.backgroundColor = .clear
         buttonView.addSubview(bottomView)
-        bottomView.setAnchors(top: photoQualityControl.bottomAnchor, leading: buttonView.leftAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: defaultInsets)
+        bottomView.setAnchors(top: photoQualityControl.bottomAnchor, leading: buttonView.leftAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: Insets.defaultInsets)
         libraryButton.addTarget(self, action: #selector(selectImage), for: .touchDown)
         bottomView.addSubview(libraryButton)
         libraryButton.setAnchors(top: bottomView.topAnchor, leading: bottomView.leadingAnchor, trailing: nil, bottom: nil, insets: .zero)
@@ -62,7 +62,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
         flashButton.addTarget(self, action: #selector(toggleFlash), for: .touchDown)
         bottomView.addSubview(flashButton)
-        cameraButton.setAnchors(top: bottomView.topAnchor, leading: nil, trailing: cameraButton.leadingAnchor, bottom: nil, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: defaultInset, right: 2*defaultInset))
+        cameraButton.setAnchors(top: bottomView.topAnchor, leading: nil, trailing: cameraButton.leadingAnchor, bottom: nil, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: Insets.defaultInset, right: 2*Insets.defaultInset))
     }
     
     override func enableButtons(flag: Bool){

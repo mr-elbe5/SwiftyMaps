@@ -34,8 +34,8 @@ class DatePickerView : UIView{
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(valueDidChange), for: .valueChanged)
         addSubview(datePicker)
-        label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil, insets: .zero)
-        datePicker.setAnchors(top: topAnchor, leading: nil, trailing: trailingAnchor, bottom: nil, insets: .zero)
+        label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, insets: .zero)
+        datePicker.setAnchors(top: topAnchor, leading: nil, trailing: trailingAnchor, bottom: bottomAnchor, insets: .zero)
     }
     
     @objc func valueDidChange(sender:UIDatePicker){

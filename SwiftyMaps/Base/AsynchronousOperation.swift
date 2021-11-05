@@ -1,11 +1,13 @@
 import Foundation
 
 class AsynchronousOperation : Operation {
+    
     override var isAsynchronous: Bool {
         return true
     }
 
     private let stateLock = NSLock()
+    
     private var _executing: Bool = false
     override private(set) var isExecuting: Bool {
         get {

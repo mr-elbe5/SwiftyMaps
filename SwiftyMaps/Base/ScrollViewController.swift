@@ -47,9 +47,9 @@ class ScrollViewController: UIViewController {
         buttonView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
         closeButton.setAnchors()
-            .top(buttonView.topAnchor,inset: defaultInset)
-            .trailing(buttonView.trailingAnchor,inset: defaultInset)
-            .bottom(buttonView.bottomAnchor,inset: defaultInset)
+            .top(buttonView.topAnchor,inset: Insets.defaultInset)
+            .trailing(buttonView.trailingAnchor,inset: Insets.defaultInset)
+            .bottom(buttonView.bottomAnchor,inset: Insets.defaultInset)
         headerView = buttonView
     }
     
