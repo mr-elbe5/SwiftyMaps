@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import SwiftyIOSViewExtensions
+
 
 class SearchViewController: ScrollViewController{
     
@@ -17,13 +17,13 @@ class SearchViewController: ScrollViewController{
         super.loadView()
         scrollView.setupVertical()
         scrollView.addSubview(stackView)
-        stackView.fillSuperview(insets: UIEdgeInsets(top: defaultInset, left: .zero, bottom: defaultInset, right: .zero))
+        stackView.fillView(view: scrollView, insets: UIEdgeInsets(top: defaultInset, left: .zero, bottom: defaultInset, right: .zero))
         stackView.setupVertical()
         scrollChild = stackView
         setupKeyboard()
     }
     
-    override open func setupHeaderView(){
+    override func setupHeaderView(){
         setupCloseHeader()
     }
     

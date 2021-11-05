@@ -7,7 +7,7 @@ import UIKit
 
 class MenuButton : UIButton{
 
-    public init(icon: String){
+    init(icon: String){
         super.init(frame: .zero)
         setImage(UIImage(systemName: icon), for: .normal)
         tintColor = .white
@@ -15,7 +15,7 @@ class MenuButton : UIButton{
         self.scaleBy(1.25)
     }
 
-    public init(icon: String, menu: UIMenu){
+    init(icon: String, menu: UIMenu){
         super.init(frame: .zero)
         setImage(UIImage(systemName: icon), for: .normal)
         tintColor = .white
@@ -25,14 +25,14 @@ class MenuButton : UIButton{
         self.scaleBy(1.25)
     }
 
-    public required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 class MenuItemButton : UIButton{
 
-    public init(text: String, icon: String? = nil){
+    init(text: String, icon: String? = nil){
         super.init(frame: .zero)
         setTitle(text, for: .normal)
         if let icon = icon{
@@ -43,7 +43,7 @@ class MenuItemButton : UIButton{
         self.scaleBy(1.25)
     }
 
-    public required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

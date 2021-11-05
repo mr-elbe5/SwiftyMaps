@@ -1,13 +1,13 @@
 import Foundation
 
-public class AsynchronousOperation : Operation {
-    override public var isAsynchronous: Bool {
+class AsynchronousOperation : Operation {
+    override var isAsynchronous: Bool {
         return true
     }
 
     private let stateLock = NSLock()
     private var _executing: Bool = false
-    override private(set) public var isExecuting: Bool {
+    override private(set) var isExecuting: Bool {
         get {
             return stateLock.withCriticalScope {
                 _executing
@@ -23,7 +23,7 @@ public class AsynchronousOperation : Operation {
     }
 
     private var _finished: Bool = false
-    override private(set) public var isFinished: Bool {
+    override private(set) var isFinished: Bool {
         get {
             return stateLock.withCriticalScope {
                 _finished
@@ -38,7 +38,7 @@ public class AsynchronousOperation : Operation {
         }
     }
 
-    public func completeOperation() {
+    func completeOperation() {
         if isExecuting {
             isExecuting = false
         }
@@ -47,7 +47,7 @@ public class AsynchronousOperation : Operation {
         }
     }
 
-    override public func start() {
+    override func start() {
         if isCancelled {
             isFinished = true
             return

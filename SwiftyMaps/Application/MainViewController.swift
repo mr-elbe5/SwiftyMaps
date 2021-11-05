@@ -6,10 +6,9 @@
 //
 
 import UIKit
-import MapKit
-import SwiftyIOSViewExtensions
 
-class MainViewController: MapViewController {
+
+/*class MainViewController: MapViewController {
     
     var menuView = UIView()
     var statusView = UIView()
@@ -27,7 +26,7 @@ class MainViewController: MapViewController {
                 .trailing(guide.trailingAnchor, inset: .zero)
         menuView.backgroundColor = .black
         fillMenu()
-        mapView.mapType = .standard
+        /*mapView.mapType = .standard
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.showsCompass = true
         mapView.showsScale = true
@@ -38,7 +37,7 @@ class MainViewController: MapViewController {
                 .leading(guide.leadingAnchor, inset: .zero)
                 .top(menuView.bottomAnchor, inset: 1)
                 .trailing(guide.trailingAnchor, inset: .zero)
-        view.addSubview(statusView)
+        view.addSubview(statusView)*/
         fillStatus()
         statusView.setAnchors()
                 .leading(guide.leadingAnchor, inset: .zero)
@@ -306,3 +305,4 @@ class MainViewController: MapViewController {
     }
 
 }
+ */

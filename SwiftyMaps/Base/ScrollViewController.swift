@@ -7,16 +7,15 @@
 
 import Foundation
 import UIKit
-import SwiftyIOSViewExtensions
 
-open class ScrollViewController: UIViewController {
+class ScrollViewController: UIViewController {
     
     var scrollViewTopPadding : CGFloat = 1
     var headerView : UIView? = nil
     var scrollView = UIScrollView()
     var scrollChild : UIView? = nil
     
-    override open func loadView() {
+    override func loadView() {
         super.loadView()
         view.backgroundColor = .systemGroupedBackground
         let guide = view.safeAreaLayoutGuide
@@ -37,7 +36,7 @@ open class ScrollViewController: UIViewController {
             .bottom(guide.bottomAnchor, inset: .zero)
     }
     
-    open func setupHeaderView(){
+    func setupHeaderView(){
         
     }
     
@@ -54,7 +53,7 @@ open class ScrollViewController: UIViewController {
         headerView = buttonView
     }
     
-    open func setupKeyboard(){
+    func setupKeyboard(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name:UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)

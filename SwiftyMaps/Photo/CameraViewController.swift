@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import AVFoundation
-import SwiftyIOSViewExtensions
 
 class CameraViewController: UIViewController {
     var bodyView = UIView()
@@ -47,10 +46,10 @@ class CameraViewController: UIViewController {
             .trailing(bodyView.trailingAnchor,inset: defaultInset)
         bodyView.addSubview(preview)
         preview.backgroundColor = .black
-        preview.placeBelow(anchor: closeButton.bottomAnchor, insets: defaultInsets)
+        preview.setAnchors(top: closeButton.bottomAnchor, leading: bodyView.leftAnchor, trailing: bodyView.trailingAnchor, bottom: nil, insets: defaultInsets)
         buttonView.backgroundColor = .black
         bodyView.addSubview(buttonView)
-        buttonView.placeBelow(view: preview, insets: .zero)
+        buttonView.setAnchors(top: preview.bottomAnchor, leading: bodyView.leftAnchor, trailing: bodyView.trailingAnchor, bottom: nil, insets: .zero)
         buttonView.bottom(bodyView.bottomAnchor)
         addButtons()
         AVCaptureDevice.askCameraAuthorization(){ result in

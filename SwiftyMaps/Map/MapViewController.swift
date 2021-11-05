@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import MapKit
-import SwiftyIOSViewExtensions
 
-class MapViewController: UIViewController, LocationServiceDelegate {
+
+class MapViewController: UIViewController {
     
-    var mapView = MKMapView()
+    /*var mapView = MKMapView()
     var mapLoaded = false
     var locationInitialized = false
     var mapType : MapType = StandardMapType.instance
@@ -106,11 +105,11 @@ class MapViewController: UIViewController, LocationServiceDelegate {
     
     func locationDidChange(location: Location){
         
-    }
+    }*/
     
 }
 
-extension MapViewController : MKMapViewDelegate{
+/*extension MapViewController : MKMapViewDelegate{
     
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         mapLoaded = true
@@ -133,14 +132,14 @@ extension MapViewController : MKMapViewDelegate{
         }
     }
     
-}
+}*/
 
-extension MapViewController: MapTileOverlayDelegate{
+/*extension MapViewController: MapTileOverlayDelegate{
     
     func zoomChanged(from: Int, to: Int) {
         print("zoom changed from \(from) to \(to), calculated zoom: \(mapView.zoomLevel), dist = \(round(mapView.camera.centerCoordinateDistance))")
         OSM.Tiles(minLongitude: mapView.region.minLongitude, maxLongitude: mapView.region.maxLongitude, minLatitude: mapView.region.minLatitude, maxLatitude: mapView.region.maxLatitude, zoom: to).dump()
     }
     
-}
+}*/
 

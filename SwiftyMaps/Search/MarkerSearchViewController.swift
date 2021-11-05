@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import SwiftyIOSViewExtensions
 
 class MarkerSearchViewController: ScrollViewController{
     
@@ -17,13 +16,13 @@ class MarkerSearchViewController: ScrollViewController{
         super.loadView()
         scrollView.setupVertical()
         scrollView.addSubview(stackView)
-        stackView.fillSuperview(insets: UIEdgeInsets(top: defaultInset, left: .zero, bottom: defaultInset, right: .zero))
+        stackView.fillView(view: scrollView, insets: UIEdgeInsets(top: defaultInset, left: .zero, bottom: defaultInset, right: .zero))
         stackView.setupVertical()
         scrollChild = stackView
         setupKeyboard()
     }
     
-    override open func setupHeaderView(){
+    override func setupHeaderView(){
         setupCloseHeader()
     }
     

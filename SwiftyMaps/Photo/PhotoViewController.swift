@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import SwiftyIOSViewExtensions
+
 
 class PhotoViewController: ScrollViewController, UIScrollViewDelegate {
     
@@ -24,11 +24,11 @@ class PhotoViewController: ScrollViewController, UIScrollViewDelegate {
             imageView!.contentMode = .scaleAspectFit
             imageView!.isUserInteractionEnabled = true
             scrollView.addSubview(imageView!)
-            imageView!.fillSuperview()
+            imageView!.fillView(view: scrollView)
         }
     }
     
-    override open func setupHeaderView(){
+    override func setupHeaderView(){
         setupCloseHeader()
     }
     

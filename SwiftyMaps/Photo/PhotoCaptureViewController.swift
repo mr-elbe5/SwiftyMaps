@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import AVFoundation
 import Photos
-import SwiftyIOSViewExtensions
+
 
 protocol PhotoCaptureDelegate{
     func photoCaptured(image: UIImage)
@@ -47,23 +47,22 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         photoQualityControl.selectedSegmentTintColor = UIColor.systemGray2
         photoQualityControl.addTarget(self, action: #selector(togglePhotoQuality), for: .valueChanged)
         buttonView.addSubview(photoQualityControl)
-        photoQualityControl.placeBelow(anchor: buttonView.topAnchor)
+        photoQualityControl.setAnchors(top: buttonView.topAnchor, leading: buttonView.leftAnchor, trailing: buttonView.trailingAnchor, bottom: nil, insets: defaultInsets)
         let bottomView = UIView()
         bottomView.backgroundColor = .clear
         buttonView.addSubview(bottomView)
-        bottomView.placeBelow(view: photoQualityControl)
-        bottomView.connectBottom(view: buttonView)
+        bottomView.setAnchors(top: photoQualityControl.bottomAnchor, leading: buttonView.leftAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: defaultInsets)
         libraryButton.addTarget(self, action: #selector(selectImage), for: .touchDown)
         bottomView.addSubview(libraryButton)
-        libraryButton.placeAfter(anchor: bottomView.leadingAnchor)
+        libraryButton.setAnchors(top: bottomView.topAnchor, leading: bottomView.leadingAnchor, trailing: nil, bottom: nil, insets: .zero)
         cameraButton.setImage(UIImage(systemName: "camera.rotate"), for: .normal)
         cameraButton.addTarget(self, action: #selector(changeCamera), for: .touchDown)
         bottomView.addSubview(cameraButton)
-        cameraButton.placeBefore(anchor: bottomView.trailingAnchor)
+        cameraButton.setAnchors(top: bottomView.topAnchor, leading: nil, trailing: bottomView.trailingAnchor, bottom: nil, insets: .zero)
         flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
         flashButton.addTarget(self, action: #selector(toggleFlash), for: .touchDown)
         bottomView.addSubview(flashButton)
-        flashButton.placeBefore(anchor: cameraButton.leadingAnchor,insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: defaultInset, right: 2*defaultInset))
+        cameraButton.setAnchors(top: bottomView.topAnchor, leading: nil, trailing: cameraButton.leadingAnchor, bottom: nil, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: defaultInset, right: 2*defaultInset))
     }
     
     override func enableButtons(flag: Bool){

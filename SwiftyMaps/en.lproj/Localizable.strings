@@ -95,7 +95,7 @@
 "backup"="Backup";
 "exportImport"="Export/Import";
 "deleteAllDataApproveInfo"="If you approve, you lose all your entries and media. You cannot undo this action.";
-"deleteDocumentsApproveInfo"="If you approve, all public files (backups and exports) will be deleted. You cannot undo this action.";
+"deleteDocumentsApproveInfo"="If you approve, all files (backups and exports) will be deleted. You cannot undo this action.";
 "deleteDocuments" = "Delete all exported files";
 "documentsDeleted"="All exported files (backups, exports) have been deleted.";
 "files"="Files";
@@ -105,7 +105,7 @@
 "reallyDeleteAllData"="Really delete all data?";
 "reallyDeleteEntry"="Really delete this entry?";
 "reallyDeleteItem"="Really delete this item?";
-"reallyDeleteDocuments"="Really delete all public files?";
+"reallyDeleteDocuments"="Really delete all files?";
 "restoreData"="Restore entries";
 "restoreInfo"="You can select the first and the last of days to be restored. After selecting the days, the entries of these days will be added or merged to your current days.";
 "restore"="Restore";
@@ -116,7 +116,7 @@
 "privacyInfoText2"="None of your entered data leaves your iPhone or iPad, if you do not explicitly export it.";
 "privacyInfoText3"="There are no ads.";
 "privacyInfoText4"="The only use of the network is for getting map tiles and the location service for showing the location of your entries on the map.";
-"privacyInfoText5"="Only Apple APIs and services are used, except for the open source project Zip, which is embedded for backup and restore.";
+"privacyInfoText5"="Only Apple APIs and services are used, except for the source project Zip, which is embedded for backup and restore.";
 "privacyInfoText6"="The code of this app is published on GitHub under https://github.com/mr-elbe5/myprivatetrack.git.";
 "privacyExportHeader"="Exported Files";
 "privacyExportText"="With this app it is possible to create backups and copy files to the 'Files' folder of this app. You should be aware that these files are visible to other running apps on the iPhone/iPad. Depending on your privacy policy they should be deleted after use.";

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyIOSViewExtensions
 import UIKit
 
 class InfoViewController: ScrollViewController {
@@ -28,7 +27,7 @@ class InfoViewController: ScrollViewController {
         super.loadView()
         scrollView.setupVertical()
         scrollView.addSubview(stackView)
-        stackView.fillSuperview(insets: UIEdgeInsets(top: defaultInset, left: .zero, bottom: defaultInset, right: .zero))
+        stackView.fillView(view: scrollView, insets: UIEdgeInsets(top: defaultInset, left: .zero, bottom: defaultInset, right: .zero))
         stackView.setupVertical()
         stackView.addArrangedSubview(privacyHeader)
         stackView.addArrangedSubview(privacyInfoText1)
@@ -41,12 +40,12 @@ class InfoViewController: ScrollViewController {
         stackView.addArrangedSubview(filesInfoText)
     }
     
-    override open func setupHeaderView(){
+    override func setupHeaderView(){
         setupCloseHeader()
     }
     
     func dump(){
-        MapCache.instance.dumpTiles()
+        //MapCache.instance.dumpTiles()
     }
     
 }

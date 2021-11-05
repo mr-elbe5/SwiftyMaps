@@ -1,15 +1,16 @@
-//
-//  Location.swift
-//
-//  Created by Michael Rönnau on 04.06.20.
-//  Copyright © 2020 Michael Rönnau. All rights reserved.
-//
+/*
+ OSM-Maps
+ Project for displaying a map like OSM without MapKit
+ Copyright: Michael Rönnau mr@elbe5.de
+ */
 
 import Foundation
 import CoreLocation
+import UIKit
 
 protocol LocationServiceDelegate{
-    func locationDidChange(location: Location)
+    func locationDidChange(location: CLLocation)
+    func directionDidChange(direction: CLLocationDirection)
     func authorizationDidChange(authorized: Bool)
 }
 
@@ -17,15 +18,19 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     
     static var shared = LocationService()
     
-    static var deviation : CLLocationDistance = 5
+    static var locationDeviation : CLLocationDistance = 5.0
+    static var headingDeviation : CLLocationDirection = 2.0
     
-    var clLocation : CLLocation? = nil
+    var location : CLLocation? = nil
+    var direction : CLLocationDirection = 0
     var placemark : CLPlacemark? = nil
     var running = false
     var delegate : LocationServiceDelegate? = nil
     
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
+    
+    private var lock = DispatchSemaphore(value: 1)
     
     override init() {
         super.init()
@@ -39,28 +44,47 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         }
     }
     
-    func getLocation() -> Location? {
-        return clLocation == nil ? nil : Location(clLocation!)
-    }
-    
-    func getLocationDescription() -> String {
+    func getLocationDescription(placemark: CLPlacemark) -> String {
         var s = ""
-        if let place = placemark{
-            if let name = place.name{
-                s += name
+        if let name = placemark.name{
+            s += name
+        }
+        if let locality = placemark.locality{
+            if !s.isEmpty{
+                s += ", "
             }
-            if let locality = place.locality{
-                if !s.isEmpty{
-                    s += ", "
-                }
-                s += locality
-            }
+            s += locality
         }
         return s
     }
     
+    func getLocationDescription() -> String {
+        if let place = placemark{
+            return getLocationDescription(placemark: place)
+        }
+        return ""
+    }
+    
+    func getLocationDescription(coordinate: CLLocationCoordinate2D, completion: @escaping(String) -> ()){
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        getLocationDescription(location: location, completion: completion)
+    }
+    
+    func getLocationDescription(location: CLLocation, completion: @escaping(String) -> ()){
+        var description = ""
+        geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
+            if error == nil, let placemark =  placemarks?[0]{
+                description = self.getLocationDescription(placemark: placemark)
+                completion(description)
+            }
+            else{
+                completion("")
+            }
+        })
+    }
+    
     func lookUpCurrentLocation() {
-        if let lastLocation = clLocation {
+        if let lastLocation = location {
             geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
                 if error == nil {
                     self.placemark = placemarks?[0]
@@ -70,23 +94,27 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     func start(){
+        lock.wait()
+        defer{lock.signal()}
         if authorized{
             locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
             running = true
         }
+        //print("loc start: running = \(running)")
     }
     
     func checkRunning(){
         if authorized && !running{
             //print("run after check")
-            locationManager.startUpdatingLocation()
-            running = true
+            start()
         }
     }
     
     func stop(){
         if running{
             locationManager.stopUpdatingLocation()
+            locationManager.stopUpdatingHeading()
         }
     }
     
@@ -95,19 +123,26 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        //print("changed auth")
+        checkRunning()
         delegate?.authorizationDidChange(authorized: authorized)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last else { return }
-        if clLocation == nil || newLocation.distance(from: clLocation!) > LocationService.deviation{
-            clLocation = newLocation
+        if location == nil || newLocation.distance(from: location!) > LocationService.locationDeviation {
+            location = newLocation
             lookUpCurrentLocation()
-            if let delegate = delegate{
-                delegate.locationDidChange(location: Location(clLocation!))
-                
-            }
+            delegate?.locationDidChange(location: location!)
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        if abs(newHeading.trueHeading - direction) > LocationService.headingDeviation{
+            direction = newHeading.trueHeading
+            delegate?.directionDidChange(direction: direction)
+        }
+        
     }
     
 }

@@ -13,6 +13,7 @@ class DataController{
         case settings
         case region
         case data
+        case annotations
     }
     
     static var shared = DataController()
