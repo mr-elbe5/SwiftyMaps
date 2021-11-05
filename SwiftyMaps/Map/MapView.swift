@@ -254,17 +254,49 @@ extension MapView: UserLocationDelegate{
 
 extension MapView: MapControlDelegate{
     
+    func focusUserLocation() {
+        if let location = LocationService.shared.location{
+            scrollToCenteredCoordinate(coordinate: location.coordinate)
+        }
+    }
+    
+    func addAnnotation(){
+        let coordinate = getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2))
+        let annotation = MapAnnotationCache.instance.addAnnotation(coordinate: coordinate)
+        addAnnotation(annotation: annotation)
+    }
+    
+    func changeMap(){
+        if MapType.current.name == MapType.carto.name{
+            MapType.current = .topo
+        }
+        else{
+            MapType.current = .carto
+        }
+    }
+    
     func openInfo() {
         let controller = InfoViewController()
         controller.modalPresentationStyle = .fullScreen
         self.controller.present(controller, animated: true)
     }
     
+    func openCamera() {
+        let controller = PhotoViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.controller.present(controller, animated: true)
+    }
     
-    func focusUserLocation() {
-        if let location = LocationService.shared.location{
-            scrollToCenteredCoordinate(coordinate: location.coordinate)
-        }
+    func openTour() {
+        let controller = TourViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.controller.present(controller, animated: true)
+    }
+    
+    func openSearch() {
+        let controller = SearchViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.controller.present(controller, animated: true)
     }
     
     func openPreferences(){
@@ -274,11 +306,7 @@ extension MapView: MapControlDelegate{
         self.controller.present(controller, animated: true)
     }
     
-    func addAnnotation(){
-        let coordinate = getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2))
-        let annotation = MapAnnotationCache.instance.addAnnotation(coordinate: coordinate)
-        addAnnotation(annotation: annotation)
-    }
+    
     
 }
 

@@ -8,14 +8,19 @@ import UIKit
 
 protocol MapControlDelegate{
     func focusUserLocation()
-    func openPreferences()
-    func openInfo()
     func addAnnotation()
+    func changeMap()
+    func openInfo()
+    func openCamera()
+    func openTour()
+    func openSearch()
+    func openPreferences()
 }
 
 class MapControlView: UIView {
     
     var delegate : MapControlDelegate? = nil
+    
     
     var toggleCrossControl = MapControl(icon: "plus.circle")
     var crossControl = MapControl(icon: "plus.circle")
@@ -23,25 +28,48 @@ class MapControlView: UIView {
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
         
-        let focusUserLocationControl = MapControl(icon: "record.circle")
-        addSubview(focusUserLocationControl)
-        focusUserLocationControl.setAnchors(top: nil, leading: layoutGuide.leadingAnchor, trailing: nil, bottom: layoutGuide.bottomAnchor, insets: Insets.doubleInsets)
-        focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
+        let topStackView = UIStackView()
+        topStackView.setupHorizontal(distribution: .equalSpacing, spacing: 0)
+        topStackView.backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.33)
+        addSubview(topStackView)
+        topStackView.setAnchors(top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: nil, insets: Insets.doubleInsets)
         
-        let openSettingsControl = MapControl(icon: "gearshape")
-        addSubview(openSettingsControl)
-        openSettingsControl.setAnchors(top: nil, leading: nil, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: Insets.doubleInsets)
-        openSettingsControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
+        let openCameraControl = MapControl(icon: "camera.circle")
+        topStackView.addArrangedSubview(openCameraControl)
+        openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
+        
+        let openTourControl = MapControl(icon: "figure.walk.circle")
+        topStackView.addArrangedSubview(openTourControl)
+        openTourControl.addTarget(self, action: #selector(openTour), for: .touchDown)
+        
+        let openSearchControl = MapControl(icon: "magnifyingglass.circle")
+        topStackView.addArrangedSubview(openSearchControl)
+        openSearchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
+        
+        let openPreferencesControl = MapControl(icon: "gearshape.circle")
+        topStackView.addArrangedSubview(openPreferencesControl)
+        openPreferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
         
         let openInfoControl = MapControl(icon: "info.circle")
-        addSubview(openInfoControl)
-        openInfoControl.setAnchors(top: layoutGuide.topAnchor, leading: nil, trailing: layoutGuide.trailingAnchor, bottom: nil, insets: Insets.doubleInsets)
+        topStackView.addArrangedSubview(openInfoControl)
         openInfoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
-        addSubview(toggleCrossControl)
-        toggleCrossControl.setAnchors(centerX: centerXAnchor, centerY: nil)
-        toggleCrossControl.setAnchors(top: nil, leading: nil, trailing: nil, bottom: layoutGuide.bottomAnchor, insets: Insets.doubleInsets)
+        let bottomStackView = UIStackView()
+        bottomStackView.setupHorizontal(distribution: .equalSpacing, spacing: 0)
+        bottomStackView.backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.33)
+        addSubview(bottomStackView)
+        bottomStackView.setAnchors(top: nil, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: Insets.doubleInsets)
+        
+        let focusUserLocationControl = MapControl(icon: "record.circle")
+        bottomStackView.addArrangedSubview(focusUserLocationControl)
+        focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
+        
+        bottomStackView.addArrangedSubview(toggleCrossControl)
         toggleCrossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
+        
+        let changeMapControl = MapControl(icon: "map.circle")
+        bottomStackView.addArrangedSubview(changeMapControl)
+        changeMapControl.addTarget(self, action: #selector(changeMap), for: .touchDown)
         
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
@@ -56,7 +84,7 @@ class MapControlView: UIView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
-            $0 is MapControl && $0.point(inside: self.convert(point, to: $0), with: event)
+            ($0 is UIStackView || $0 is MapControl) && $0.point(inside: self.convert(point, to: $0), with: event)
         })
     }
     
@@ -64,21 +92,37 @@ class MapControlView: UIView {
         delegate?.focusUserLocation()
     }
     
-    @objc func openPreferences(){
-        delegate?.openPreferences()
+    @objc func toggleCross(){
+        crossControl.isHidden = !crossControl.isHidden
+        toggleCrossControl.setImage(crossControl.isHidden ? UIImage(systemName: "plus.circle") : UIImage(systemName: "circle.slash"), for: .normal)
+    }
+    
+    @objc func changeMap(){
+        delegate?.changeMap()
     }
     
     @objc func openInfo(){
         delegate?.openInfo()
     }
     
-    @objc func toggleCross(){
-        crossControl.isHidden = !crossControl.isHidden
-        toggleCrossControl.setImage(crossControl.isHidden ? UIImage(systemName: "plus.circle") : UIImage(systemName: "circle.slash"), for: .normal)
+    @objc func openCamera(){
+        delegate?.openCamera()
+    }
+    
+    @objc func openTour(){
+        delegate?.openTour()
+    }
+    
+    @objc func openSearch(){
+        delegate?.openSearch()
     }
     
     @objc func annotationCrossTouched(){
         delegate?.addAnnotation()
+    }
+    
+    @objc func openPreferences(){
+        delegate?.openPreferences()
     }
     
 }
@@ -86,12 +130,12 @@ class MapControlView: UIView {
 class MapControl : UIButton{
     
     init(icon: String){
-        super.init(frame: CGRect(x: 00, y: 00, width: 20, height: 20))
-        layer.cornerRadius = 10
+        super.init(frame: .zero)
+        layer.cornerRadius = 5
         layer.masksToBounds = true
         setImage(UIImage(systemName: icon), for: .normal)
         self.tintColor = .darkGray
-        transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+        transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
     }
     
     required init?(coder: NSCoder) {
