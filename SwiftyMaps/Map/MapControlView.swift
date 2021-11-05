@@ -8,7 +8,8 @@ import UIKit
 
 protocol MapControlDelegate{
     func focusUserLocation()
-    func openSettings()
+    func openPreferences()
+    func openInfo()
     func addAnnotation()
 }
 
@@ -21,6 +22,7 @@ class MapControlView: UIView {
     
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
+        
         let focusUserLocationControl = MapControl(icon: "record.circle")
         addSubview(focusUserLocationControl)
         focusUserLocationControl.setAnchors(top: nil, leading: layoutGuide.leadingAnchor, trailing: nil, bottom: layoutGuide.bottomAnchor, insets: Insets.doubleInsets)
@@ -29,7 +31,12 @@ class MapControlView: UIView {
         let openSettingsControl = MapControl(icon: "gearshape")
         addSubview(openSettingsControl)
         openSettingsControl.setAnchors(top: nil, leading: nil, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: Insets.doubleInsets)
-        openSettingsControl.addTarget(self, action: #selector(openSettings), for: .touchDown)
+        openSettingsControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
+        
+        let openInfoControl = MapControl(icon: "info.circle")
+        addSubview(openInfoControl)
+        openInfoControl.setAnchors(top: layoutGuide.topAnchor, leading: nil, trailing: layoutGuide.trailingAnchor, bottom: nil, insets: Insets.doubleInsets)
+        openInfoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
         addSubview(toggleCrossControl)
         toggleCrossControl.setAnchors(centerX: centerXAnchor, centerY: nil)
@@ -57,8 +64,12 @@ class MapControlView: UIView {
         delegate?.focusUserLocation()
     }
     
-    @objc func openSettings(){
-        delegate?.openSettings()
+    @objc func openPreferences(){
+        delegate?.openPreferences()
+    }
+    
+    @objc func openInfo(){
+        delegate?.openInfo()
     }
     
     @objc func toggleCross(){

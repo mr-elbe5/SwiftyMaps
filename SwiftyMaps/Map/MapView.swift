@@ -254,13 +254,20 @@ extension MapView: UserLocationDelegate{
 
 extension MapView: MapControlDelegate{
     
+    func openInfo() {
+        let controller = InfoViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.controller.present(controller, animated: true)
+    }
+    
+    
     func focusUserLocation() {
         if let location = LocationService.shared.location{
             scrollToCenteredCoordinate(coordinate: location.coordinate)
         }
     }
     
-    func openSettings(){
+    func openPreferences(){
         let controller = MapPreferencesViewController()
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
