@@ -14,7 +14,7 @@ class MapView: UIView {
     var scrollView : UIScrollView!
     var contentView = MapContentView()
     var annotationView = MapAnnotationView()
-    var locationControl = UserLocationControl()
+    var userLocationView = UserLocationView()
     var controlView = MapControlView()
     
     var locationInitialized = false
@@ -50,7 +50,7 @@ class MapView: UIView {
         let minZoom = MapCalculator.minimumZoomLevelForViewSize(viewSize: bounds.size)
         setupScrollView(minimalZoom: minZoom)
         setupContentView()
-        setupLocationControl()
+        setupUserLocationView()
         setupAnnotationView()
         setupControlView()
     }
@@ -87,10 +87,8 @@ class MapView: UIView {
         annotationView.isHidden = !Preferences.instance.showAnnotations
     }
     
-    private func setupLocationControl(){
-        addSubview(locationControl)
-        locationControl.delegate = self
-        locationControl.createMenu()
+    private func setupUserLocationView(){
+        addSubview(userLocationView)
     }
     
     private func setupControlView(){
@@ -169,11 +167,11 @@ class MapView: UIView {
     }
     
     func setLocation(_ location: CLLocation){
-        locationControl.updateLocation(location: MapCalculator.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
+        userLocationView.updateLocation(location: MapCalculator.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
     }
     
     func setDirection(_ direction: CLLocationDirection) {
-        locationControl.updateDirection(direction: direction)
+        userLocationView.updateDirection(direction: direction)
     }
     
     func addAnnotation(annotation: MapAnnotation){
@@ -192,7 +190,7 @@ extension MapView : UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         assertCenteredContent(scrollView: scrollView)
-        locationControl.updatePosition(offset: contentOffset, scale: scale)
+        userLocationView.updatePosition(offset: contentOffset, scale: scale)
         annotationView.updatePosition(offset: contentOffset, scale: scale)
     }
     
@@ -234,20 +232,21 @@ extension MapView: LocationServiceDelegate{
 
 extension MapView: MapAnnotationViewDelegate{
     
+    func showAnnotation(annotation: MapAnnotation) {
+        let controller = MapAnnotationViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.controller.present(controller, animated: true)
+    }
+    
+    func editAnnotation(annotation: MapAnnotation) {
+        let controller = EditAnnotationViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.controller.present(controller, animated: true)
+    }
+    
     func deleteAnnotation(annotation: MapAnnotation) {
         MapAnnotationCache.instance.removeAnnotation(annotation)
         MapAnnotationCache.instance.save()
-    }
-    
-}
-
-extension MapView: UserLocationDelegate{
-    
-    func addUserLocationAnnotation(){
-        if let location = LocationService.shared.location{
-            let annotation = MapAnnotation(coordinate: location.coordinate)
-            addAnnotation(annotation: annotation)
-        }
     }
     
 }
@@ -260,10 +259,17 @@ extension MapView: MapControlDelegate{
         }
     }
     
-    func addAnnotation(){
+    func addAnnotationAtCross(){
         let coordinate = getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2))
         let annotation = MapAnnotationCache.instance.addAnnotation(coordinate: coordinate)
         addAnnotation(annotation: annotation)
+    }
+    
+    func addAnnotationAtUserPosition(){
+        if let location = LocationService.shared.location{
+            let annotation = MapAnnotation(coordinate: location.coordinate)
+            addAnnotation(annotation: annotation)
+        }
     }
     
     func changeMap(){

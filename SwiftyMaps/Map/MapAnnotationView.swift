@@ -8,6 +8,8 @@
 import UIKit
 
 protocol MapAnnotationViewDelegate{
+    func showAnnotation(annotation: MapAnnotation)
+    func editAnnotation(annotation: MapAnnotation)
     func deleteAnnotation(annotation: MapAnnotation)
 }
 
@@ -50,6 +52,14 @@ class MapAnnotationView: UIView {
 }
 
 extension MapAnnotationView: MapAnnotationControlDelegate{
+    
+    func detailAction(sender: MapAnnotationControl) {
+        delegate?.showAnnotation(annotation: sender.annotation)
+    }
+    
+    func editAction(sender: MapAnnotationControl) {
+        delegate?.editAnnotation(annotation: sender.annotation)
+    }
     
     func deleteAction(sender: MapAnnotationControl) {
         subviews.first(where: {$0 == sender})?.removeFromSuperview()

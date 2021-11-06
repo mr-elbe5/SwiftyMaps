@@ -8,34 +8,20 @@
 import UIKit
 import CoreLocation
 
-protocol UserLocationDelegate{
-    func addUserLocationAnnotation()
-}
-
-class UserLocationControl : UIButton{
+class UserLocationView : UIView{
     
     static var baseFrame = CGRect(x: -MapStatics.locationRadius, y: -MapStatics.locationRadius, width: 2*MapStatics.locationRadius, height: 2*MapStatics.locationRadius)
     
     var locationPoint : CGPoint = .zero
     var direction : CLLocationDirection = 0
     
-    var delegate : UserLocationDelegate? = nil
-    
     init(){
-        super.init(frame: UserLocationControl.baseFrame)
+        super.init(frame: UserLocationView.baseFrame)
         backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func createMenu(){
-        let addAnnotationAction = UIAction(title: "Add annotation", image: UIImage(systemName: "mappin")){ action in
-            self.delegate?.addUserLocationAnnotation()
-        }
-        menu = UIMenu(title: "", image: nil, children: [addAnnotationAction])
-        showsMenuAsPrimaryAction = true
     }
     
     func updateLocation(location: CGPoint, offset: CGPoint, scale: CGFloat){
@@ -46,7 +32,7 @@ class UserLocationControl : UIButton{
     func updatePosition(offset: CGPoint, scale: CGFloat){
         let normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint(x: offset.x/scale, y: offset.y/scale))
         let pnt = CGPoint(x: (locationPoint.x - normalizedOffset.point.x)*scale , y: (locationPoint.y - normalizedOffset.point.y)*scale)
-        frame = UserLocationControl.baseFrame.offsetBy(dx: pnt.x, dy: pnt.y)
+        frame = UserLocationView.baseFrame.offsetBy(dx: pnt.x, dy: pnt.y)
     }
     
     func updateDirection(direction: CLLocationDirection){

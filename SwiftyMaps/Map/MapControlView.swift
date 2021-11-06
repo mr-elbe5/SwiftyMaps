@@ -8,7 +8,8 @@ import UIKit
 
 protocol MapControlDelegate{
     func focusUserLocation()
-    func addAnnotation()
+    func addAnnotationAtCross()
+    func addAnnotationAtUserPosition()
     func changeMap()
     func openInfo()
     func openCamera()
@@ -64,6 +65,10 @@ class MapControlView: UIView {
         bottomStackView.addArrangedSubview(focusUserLocationControl)
         focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
         
+        let addAnnotationControl = MapControl(icon: "mappin.circle")
+        bottomStackView.addArrangedSubview(addAnnotationControl)
+        addAnnotationControl.addTarget(self, action: #selector(addAnnotationAtUserPosition), for: .touchDown)
+        
         bottomStackView.addArrangedSubview(toggleCrossControl)
         toggleCrossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
         
@@ -75,9 +80,12 @@ class MapControlView: UIView {
         addSubview(crossControl)
         crossControl.setAnchors(centerX: centerXAnchor, centerY: centerYAnchor)
         let addAnnotationAction = UIAction(title: "Add annotation", image: UIImage(systemName: "mappin")){ action in
-            self.delegate?.addAnnotation()
+            self.delegate?.addAnnotationAtCross()
         }
-        crossControl.menu = UIMenu(title: "", image: nil, children: [addAnnotationAction])
+        let hideCrossAction = UIAction(title: "Hide", image: UIImage(systemName: "circle.slash")){ action in
+            self.toggleCross()
+        }
+        crossControl.menu = UIMenu(title: "", image: nil, children: [addAnnotationAction, hideCrossAction])
         crossControl.showsMenuAsPrimaryAction = true
         crossControl.isHidden = true
     }
@@ -117,8 +125,12 @@ class MapControlView: UIView {
         delegate?.openSearch()
     }
     
+    @objc func addAnnotationAtUserPosition(){
+        delegate?.addAnnotationAtUserPosition()
+    }
+    
     @objc func annotationCrossTouched(){
-        delegate?.addAnnotation()
+        delegate?.addAnnotationAtCross()
     }
     
     @objc func openPreferences(){
