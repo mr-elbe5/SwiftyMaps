@@ -8,6 +8,8 @@
 import UIKit
 
 protocol MapAnnotationControlDelegate{
+    func editAction(sender: MapAnnotationControl)
+    func photoAction(sender: MapAnnotationControl)
     func deleteAction(sender: MapAnnotationControl)
 }
 
@@ -17,13 +19,10 @@ class MapAnnotationControl : UIButton{
     
     var annotation : MapAnnotation
     
-    var deleteActionIdentifier : UIAction.Identifier
-    
     var delegate: MapAnnotationControlDelegate? = nil
     
     init(annotation: MapAnnotation){
         self.annotation = annotation
-        deleteActionIdentifier = UIAction.Identifier(annotation.id.uuidString)
         super.init(frame: MapAnnotationControl.baseFrame)
         annotation.delegate = self
         setImage(MapStatics.mapPinImage, for: .normal)
@@ -38,10 +37,16 @@ class MapAnnotationControl : UIButton{
     }
     
     func createMenu(){
-        let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "mappin.slash")?.withTintColor(.systemRed), identifier: deleteActionIdentifier){ action in
+        let editAction = UIAction(title: "Edit", image: UIImage(systemName: "pencil")){ action in
+            self.delegate?.editAction(sender: self)
+        }
+        let photoAction = UIAction(title: "Edit", image: UIImage(systemName: "photo")){ action in
+            self.delegate?.photoAction(sender: self)
+        }
+        let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "mappin.slash")?.withTintColor(.systemRed)){ action in
             self.delegate?.deleteAction(sender: self)
         }
-        self.menu = UIMenu(title: annotation.description, image: UIImage(systemName: "mappin")?.withTintColor(.systemRed), children: [deleteAction])
+        self.menu = UIMenu(title: annotation.description, image: UIImage(systemName: "mappin")?.withTintColor(.systemRed), children: [editAction, photoAction, deleteAction])
         showsMenuAsPrimaryAction = true
     }
     
