@@ -13,17 +13,13 @@ class MapAnnotationViewController: PopupViewController{
     var stackView = UIStackView()
     
     override func loadView() {
+        title = "Annotation"
         super.loadView()
         scrollView.setupVertical()
-        scrollView.addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.fillView(view: scrollView, insets: UIEdgeInsets(top: Insets.defaultInset, left: .zero, bottom: Insets.defaultInset, right: .zero))
         stackView.setupVertical()
-        scrollChild = stackView
         setupKeyboard()
-    }
-    
-    override func setupHeaderView(){
-        setupCloseHeader()
     }
     
 }

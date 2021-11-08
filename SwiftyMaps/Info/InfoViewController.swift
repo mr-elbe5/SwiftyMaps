@@ -24,9 +24,10 @@ class InfoViewController: PopupViewController {
     let filesInfoText = InfoText(text: "privacyExportText".localize())
     
     override func loadView() {
+        title = "Info"
         super.loadView()
         scrollView.setupVertical()
-        scrollView.addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.fillView(view: scrollView, insets: UIEdgeInsets(top: Insets.defaultInset, left: .zero, bottom: Insets.defaultInset, right: .zero))
         stackView.setupVertical()
         stackView.addArrangedSubview(privacyHeader)
@@ -38,10 +39,6 @@ class InfoViewController: PopupViewController {
         stackView.addArrangedSubview(privacyInfoText6)
         stackView.addArrangedSubview(filesHeader)
         stackView.addArrangedSubview(filesInfoText)
-    }
-    
-    override func setupHeaderView(){
-        setupCloseHeader()
     }
     
 }

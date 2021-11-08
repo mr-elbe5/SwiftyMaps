@@ -10,41 +10,42 @@ import UIKit
 
 class PopupViewController: UIViewController {
     
-    var scrollViewTopPadding : CGFloat = 1
-    var headerView : UIView? = nil
+    var headerView = UIView()
     var scrollView = UIScrollView()
-    var scrollChild : UIView? = nil
+    var contentView = UIView()
     
     override func loadView() {
         super.loadView()
         view.backgroundColor = .systemGroupedBackground
         let guide = view.safeAreaLayoutGuide
         setupHeaderView()
-        if let headerView = headerView{
-            view.addSubview(headerView)
-            headerView.setAnchors(top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: nil, insets: .zero)
-        }
+        view.addSubview(headerView)
+        headerView.setAnchors(top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: nil, insets: .zero)
         self.view.addSubview(scrollView)
         scrollView.backgroundColor = .systemBackground
-        scrollView.setAnchors()
-            .leading(guide.leadingAnchor, inset: .zero)
-            .top(headerView?.bottomAnchor ?? guide.topAnchor, inset: scrollViewTopPadding)
-            .trailing(guide.trailingAnchor,inset: .zero)
-            .bottom(guide.bottomAnchor, inset: .zero)
+        scrollView.setAnchors(top: headerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
+        scrollView.addSubview(contentView)
+        contentView.setAnchors(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, trailing: scrollView.trailingAnchor, bottom: scrollView.bottomAnchor, insets: .zero)
+        //needed? 
+        /*let scflg = scrollView.contentLayoutGuide
+        let svflg = scrollView.frameLayoutGuide
+        scflg.widthAnchor.constraint(equalTo: svflg.widthAnchor).isActive = true*/
     }
     
     func setupHeaderView(){
-        
-    }
-    
-    func setupCloseHeader(){
-        let buttonView = UIView()
-        buttonView.backgroundColor = UIColor.black
+        headerView.backgroundColor = .black
+        if let title = title{
+            let label = UILabel()
+            label.text = title
+            label.textColor = .white
+            headerView.addSubview(label)
+            label.setAnchors(top: headerView.topAnchor, leading: nil, trailing: nil, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
+                .centerX(headerView.centerXAnchor)
+        }
         let closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
-        buttonView.addSubview(closeButton)
+        headerView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        closeButton.setAnchors(top: buttonView.topAnchor, leading: nil, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: Insets.defaultInsets)
-        headerView = buttonView
+        closeButton.setAnchors(top: headerView.topAnchor, leading: nil, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
     }
     
     func setupKeyboard(){
@@ -65,7 +66,7 @@ class PopupViewController: UIViewController {
     }
     
     @objc func keyboardDidShow(notification:NSNotification){
-        if let firstResponder = scrollChild?.firstResponder{
+        if let firstResponder = contentView.firstResponder{
             let rect : CGRect = firstResponder.frame
             var parentView = firstResponder.superview
             var offset : CGFloat = 0

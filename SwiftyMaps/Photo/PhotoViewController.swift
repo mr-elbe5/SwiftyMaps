@@ -15,7 +15,7 @@ class PhotoViewController: PopupViewController, UIScrollViewDelegate {
     var imageView : UIImageView? = nil
     
     override func loadView() {
-        self.scrollViewTopPadding = 0
+        title = "Photo"
         super.loadView()
         if let image = uiImage{
             scrollView.maximumZoomScale = 1.0
@@ -26,10 +26,6 @@ class PhotoViewController: PopupViewController, UIScrollViewDelegate {
             scrollView.addSubview(imageView!)
             imageView!.fillView(view: scrollView)
         }
-    }
-    
-    override func setupHeaderView(){
-        setupCloseHeader()
     }
     
     override func viewDidAppear(_ animated: Bool) {
