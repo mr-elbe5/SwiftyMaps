@@ -79,14 +79,6 @@ class MapControlView: UIView {
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
         crossControl.setAnchors(centerX: centerXAnchor, centerY: centerYAnchor)
-        let addAnnotationAction = UIAction(title: "Add annotation", image: UIImage(systemName: "mappin")){ action in
-            self.delegate?.addAnnotationAtCross()
-        }
-        let hideCrossAction = UIAction(title: "Hide", image: UIImage(systemName: "circle.slash")){ action in
-            self.toggleCross()
-        }
-        crossControl.menu = UIMenu(title: "", image: nil, children: [addAnnotationAction, hideCrossAction])
-        crossControl.showsMenuAsPrimaryAction = true
         crossControl.isHidden = true
     }
     
@@ -101,8 +93,15 @@ class MapControlView: UIView {
     }
     
     @objc func toggleCross(){
-        crossControl.isHidden = !crossControl.isHidden
-        toggleCrossControl.setImage(crossControl.isHidden ? UIImage(systemName: "plus.circle") : UIImage(systemName: "circle.slash"), for: .normal)
+        if crossControl.isHidden{
+            crossControl.isHidden = false
+            toggleCrossControl.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
+        }
+        else{
+            crossControl.isHidden = true
+            toggleCrossControl.setImage(UIImage(systemName: "plus.circle"), for: .normal)
+            delegate?.addAnnotationAtCross()
+        }
     }
     
     @objc func changeMap(){
