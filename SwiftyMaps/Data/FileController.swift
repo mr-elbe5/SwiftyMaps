@@ -12,14 +12,14 @@ import Compression
 
 class FileController {
     
+    static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
+    
     static var shared = FileController()
     
     static let tempDir = NSTemporaryDirectory()
     
     static var documentPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true).first!
     static var documentURL : URL = FileManager.default.urls(for: .documentDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
-    static var backupDirURL = documentURL.appendingPathComponent(Statics.backupDir)
-    static var exportDirURL = documentURL.appendingPathComponent(Statics.exportDir)
     static var imageLibraryPath: String = NSSearchPathForDirectoriesInDomains(.picturesDirectory,.userDomainMask,true).first!
     static var imageLibraryURL : URL = FileManager.default.urls(for: .picturesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var temporaryPath : String {
@@ -34,9 +34,7 @@ class FileController {
     }
     
     static func initialize() {
-        try! FileManager.default.createDirectory(at: Statics.privateURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: backupDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: exportDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileController.privateURL, withIntermediateDirectories: true, attributes: nil)
     }
     
     static func getPath(dirPath: String, fileName: String ) -> String
@@ -283,7 +281,7 @@ class FileController {
             print(name)
         }
         print("private files:")
-        names = listAllFiles(dirPath: Statics.privateURL.path)
+        names = listAllFiles(dirPath: FileController.privateURL.path)
         for name in names{
             print(name)
         }

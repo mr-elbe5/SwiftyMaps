@@ -38,7 +38,6 @@ struct MapStatics{
     
     static var mapGearImage = UIImage(named: "gear.grey")
     static var mapPinImage = UIImage(named: "mappin")
-    static var mapPinBlueImage = UIImage(named: "mappin.blue")
     static var mapPinRadius : CGFloat = 16
     
     static var locationRadius : CGFloat = 16

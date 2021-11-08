@@ -13,7 +13,7 @@ class MapAnnotationViewController: PopupViewController{
     var stackView = UIStackView()
     
     override func loadView() {
-        title = "Annotation"
+        title = "annotation".localize()
         super.loadView()
         scrollView.setupVertical()
         contentView.addSubview(stackView)

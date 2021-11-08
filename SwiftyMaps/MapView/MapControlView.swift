@@ -23,8 +23,8 @@ class MapControlView: UIView {
     var delegate : MapControlDelegate? = nil
     
     
-    var toggleCrossControl = MapControl(icon: "plus.circle")
-    var crossControl = MapControl(icon: "plus.circle")
+    var toggleCrossControl = IconButton(icon: "plus.circle")
+    var crossControl = IconButton(icon: "plus.circle")
     
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
@@ -35,23 +35,23 @@ class MapControlView: UIView {
         addSubview(topStackView)
         topStackView.setAnchors(top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: nil, insets: Insets.doubleInsets)
         
-        let openCameraControl = MapControl(icon: "camera.circle")
+        let openCameraControl = IconButton(icon: "camera.circle")
         topStackView.addArrangedSubview(openCameraControl)
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
-        let openTourControl = MapControl(icon: "figure.walk.circle")
+        let openTourControl = IconButton(icon: "figure.walk.circle")
         topStackView.addArrangedSubview(openTourControl)
         openTourControl.addTarget(self, action: #selector(openTour), for: .touchDown)
         
-        let openSearchControl = MapControl(icon: "magnifyingglass.circle")
+        let openSearchControl = IconButton(icon: "magnifyingglass.circle")
         topStackView.addArrangedSubview(openSearchControl)
         openSearchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
         
-        let openPreferencesControl = MapControl(icon: "gearshape.circle")
+        let openPreferencesControl = IconButton(icon: "gearshape.circle")
         topStackView.addArrangedSubview(openPreferencesControl)
         openPreferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
         
-        let openInfoControl = MapControl(icon: "info.circle")
+        let openInfoControl = IconButton(icon: "info.circle")
         topStackView.addArrangedSubview(openInfoControl)
         openInfoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
@@ -61,18 +61,18 @@ class MapControlView: UIView {
         addSubview(bottomStackView)
         bottomStackView.setAnchors(top: nil, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: Insets.doubleInsets)
         
-        let focusUserLocationControl = MapControl(icon: "record.circle")
+        let focusUserLocationControl = IconButton(icon: "record.circle")
         bottomStackView.addArrangedSubview(focusUserLocationControl)
         focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
         
-        let addAnnotationControl = MapControl(icon: "mappin.circle")
+        let addAnnotationControl = IconButton(icon: "mappin.circle")
         bottomStackView.addArrangedSubview(addAnnotationControl)
         addAnnotationControl.addTarget(self, action: #selector(addAnnotationAtUserPosition), for: .touchDown)
         
         bottomStackView.addArrangedSubview(toggleCrossControl)
         toggleCrossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
         
-        let changeMapControl = MapControl(icon: "map.circle")
+        let changeMapControl = IconButton(icon: "map.circle")
         bottomStackView.addArrangedSubview(changeMapControl)
         changeMapControl.addTarget(self, action: #selector(changeMap), for: .touchDown)
         
@@ -84,7 +84,7 @@ class MapControlView: UIView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
-            ($0 is UIStackView || $0 is MapControl) && $0.point(inside: self.convert(point, to: $0), with: event)
+            ($0 is UIStackView || $0 is IconButton) && $0.point(inside: self.convert(point, to: $0), with: event)
         })
     }
     
@@ -138,21 +138,5 @@ class MapControlView: UIView {
     
 }
 
-class MapControl : UIButton{
-    
-    init(icon: String){
-        super.init(frame: .zero)
-        layer.cornerRadius = 5
-        layer.masksToBounds = true
-        setImage(UIImage(systemName: icon), for: .normal)
-        self.tintColor = .darkGray
-        transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
 
 

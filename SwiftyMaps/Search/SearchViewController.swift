@@ -14,6 +14,7 @@ class SearchViewController: PopupViewController{
     var stackView = UIStackView()
     
     override func loadView() {
+        title = "search".localize()
         super.loadView()
         scrollView.setupVertical()
         contentView.addSubview(stackView)

@@ -15,11 +15,11 @@ protocol PreferencesDelegate{
 
 class MapPreferencesViewController: PopupViewController{
     
-    var cartoUrlTemplateField = UITextField()
-    var topoUrlTemplateField = UITextField()
-    var startWithLastPositionSwitch = UISwitch()
-    var showUserDirectionSwitch = UISwitch()
-    var showAnnotationsSwitch = UISwitch()
+    var cartoUrlTemplateField = LabeledTextField()
+    var topoUrlTemplateField = LabeledTextField()
+    var startWithLastPositionSwitch = LabeledSwitchView()
+    var showUserDirectionSwitch = LabeledSwitchView()
+    var showAnnotationsSwitch = LabeledSwitchView()
     
     var delegate : PreferencesDelegate? = nil
     
@@ -27,54 +27,30 @@ class MapPreferencesViewController: PopupViewController{
         title = "Preferences"
         super.loadView()
         
-        var label = UILabel()
-        label.text = "URL Template for OpenStreetMap Carto Style:"
-        contentView.addSubview(label)
-        label.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.doubleInsets)
-        cartoUrlTemplateField.autocapitalizationType = .none
-        cartoUrlTemplateField.autocorrectionType = .no
-        cartoUrlTemplateField.setKeyboardToolbar(doneTitle: "Done")
+        
+        cartoUrlTemplateField.setupView(labelText: "cartoUrl".localize(), text: MapType.carto.tileUrl, isHorizontal: false)
         contentView.addSubview(cartoUrlTemplateField)
-        cartoUrlTemplateField.setAnchors(top: label.bottomAnchor, leading: scrollView.leadingAnchor, trailing: scrollView.trailingAnchor, bottom: nil, insets: Insets.doubleInsets)
-        cartoUrlTemplateField.text = MapType.carto.tileUrl
+        cartoUrlTemplateField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
         
-        label = UILabel()
-        label.text = "URL Template for OpenTopoMap Style:"
-        contentView.addSubview(label)
-        label.setAnchors(top: cartoUrlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.doubleInsets)
-        topoUrlTemplateField.autocapitalizationType = .none
-        topoUrlTemplateField.autocorrectionType = .no
-        topoUrlTemplateField.setKeyboardToolbar(doneTitle: "Done")
+        topoUrlTemplateField.setupView(labelText: "topoUrl".localize(), text: MapType.topo.tileUrl, isHorizontal: false)
         contentView.addSubview(topoUrlTemplateField)
-        topoUrlTemplateField.setAnchors(top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.doubleInsets)
-        topoUrlTemplateField.text = MapType.topo.tileUrl
+        topoUrlTemplateField.setAnchors(top: cartoUrlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
         
-        label = UILabel()
-        label.text = "startWithLastPosition".localize()
-        scrollView.addSubview(label)
-        label.setAnchors(top: topoUrlTemplateField.bottomAnchor, leading: scrollView.leadingAnchor, trailing: nil, bottom: nil, insets: Insets.doubleInsets)
+        startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: Preferences.instance.startWithLastPosition)
         contentView.addSubview(startWithLastPositionSwitch)
-        startWithLastPositionSwitch.setAnchors(top: topoUrlTemplateField.bottomAnchor, leading: nil, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
+        startWithLastPositionSwitch.setAnchors(top: topoUrlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
         startWithLastPositionSwitch.isOn = Preferences.instance.startWithLastPosition
         
-        label = UILabel()
-        label.text = "Show User Direction:"
-        scrollView.addSubview(label)
-        label.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, leading: scrollView.leadingAnchor, trailing: nil, bottom: nil, insets: Insets.doubleInsets)
+        showUserDirectionSwitch.setupView(labelText: "showUserDirection".localize(), isOn: Preferences.instance.showUserDirection)
         contentView.addSubview(showUserDirectionSwitch)
-        showUserDirectionSwitch.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, leading: nil, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
-        showUserDirectionSwitch.isOn = Preferences.instance.showUserDirection
+        showUserDirectionSwitch.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
         
-        label = UILabel()
-        label.text = "Show Annotations:"
-        scrollView.addSubview(label)
-        label.setAnchors(top: showUserDirectionSwitch.bottomAnchor, leading: scrollView.leadingAnchor, trailing: nil, bottom: nil, insets: Insets.doubleInsets)
+        showAnnotationsSwitch.setupView(labelText: "showAnnotations".localize(), isOn: Preferences.instance.showAnnotations)
         contentView.addSubview((showAnnotationsSwitch))
-        showAnnotationsSwitch.setAnchors(top: showUserDirectionSwitch.bottomAnchor, leading: nil, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
-        showAnnotationsSwitch.isOn =  Preferences.instance.showAnnotations
+        showAnnotationsSwitch.setAnchors(top: showUserDirectionSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
         
         let saveButton = UIButton()
-        saveButton.setTitle("Save", for: .normal)
+        saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(ok), for: .touchDown)
         contentView.addSubview(saveButton)
@@ -82,14 +58,14 @@ class MapPreferencesViewController: PopupViewController{
             .centerX(contentView.centerXAnchor)
         
         let clearTileCacheButton = UIButton()
-        clearTileCacheButton.setTitle("Clear Tile Cache", for: .normal)
+        clearTileCacheButton.setTitle("clearTileCache".localize(), for: .normal)
         clearTileCacheButton.setTitleColor(.systemBlue, for: .normal)
         clearTileCacheButton.addTarget(self, action: #selector(clearTileCache), for: .touchDown)
         contentView.addSubview(clearTileCacheButton)
         clearTileCacheButton.setAnchors(top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: nil, bottom: nil, insets: Insets.doubleInsets)
         
         let removeAnnotationsButton = UIButton()
-        removeAnnotationsButton.setTitle("Remove all annotations", for: .normal)
+        removeAnnotationsButton.setTitle("deleteAnnotations".localize(), for: .normal)
         removeAnnotationsButton.setTitleColor(.systemBlue, for: .normal)
         removeAnnotationsButton.addTarget(self, action: #selector(removeAnnotations), for: .touchDown)
         contentView.addSubview(removeAnnotationsButton)
@@ -98,23 +74,25 @@ class MapPreferencesViewController: PopupViewController{
     }
     
     @objc func clearTileCache(){
-        showApprove(title: "Really clear all tiles from cache?", text: "Tiles will have to be reloaded"){
+        showApprove(title: "reallyClearTileCache".localize(), text: "clearTileCacheHint".localize()){
             self.delegate?.clearTileCache()
         }
     }
     
     @objc func removeAnnotations(){
-        showApprove(title: "Really delete all annotations?", text: "This cannot be undone"){
+        showApprove(title: "reallyDeleteAnnotations".localize(), text: "deleteAnnotationsHint".localize()){
             self.delegate?.removeAnnotations()
         }
     }
     
     @objc func ok(){
-        if let newTemplate = cartoUrlTemplateField.text, newTemplate != MapType.carto.tileUrl{
+        var newTemplate = cartoUrlTemplateField.text
+        if newTemplate != MapType.carto.tileUrl{
             MapType.carto.tileUrl = newTemplate
             _ = MapTileCache.clear()
         }
-        if let newTemplate = topoUrlTemplateField.text, newTemplate != MapType.topo.tileUrl{
+        newTemplate = topoUrlTemplateField.text
+        if newTemplate != MapType.topo.tileUrl{
             MapType.topo.tileUrl = newTemplate
             _ = MapTileCache.clear()
         }

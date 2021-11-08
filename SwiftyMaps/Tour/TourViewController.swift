@@ -13,7 +13,7 @@ class TourViewController: PopupViewController{
     var stackView = UIStackView()
     
     override func loadView() {
-        title = "Tour"
+        title = "tour".localize()
         super.loadView()
         scrollView.setupVertical()
         contentView.addSubview(stackView)

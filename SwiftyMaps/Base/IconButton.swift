@@ -11,29 +11,18 @@ import UIKit
 
 class IconButton : UIButton{
     
-    init(icon: String, tintColor: UIColor = .systemBlue, backgroundColor: UIColor? = nil){
+    init(icon: String, tintColor: UIColor = .darkGray){
         super.init(frame: .zero)
         setImage(UIImage(systemName: icon), for: .normal)
         self.tintColor = tintColor
         self.setTitleColor(tintColor, for: .normal)
         self.scaleBy(1.25)
-        if let bgcol = backgroundColor{
-            self.backgroundColor = bgcol
-            layer.cornerRadius = 5
-            layer.masksToBounds = true
-        }
     }
     
-    init(image: String, tintColor: UIColor = .systemBlue, backgroundColor: UIColor? = nil){
+    init(image: String, titleColor: UIColor = .darkGray){
         super.init(frame: .zero)
         setImage(UIImage(named: image), for: .normal)
-        self.tintColor = tintColor
-        self.setTitleColor(tintColor, for: .normal)
-        if let bgcol = backgroundColor{
-            self.backgroundColor = bgcol
-            layer.cornerRadius = 5
-            layer.masksToBounds = true
-        }
+        self.setTitleColor(titleColor, for: .normal)
     }
     
     required init?(coder: NSCoder) {

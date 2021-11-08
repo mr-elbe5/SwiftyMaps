@@ -37,7 +37,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         captureButton.addTarget(self, action: #selector(capturePhoto), for: .touchDown)
         bodyView.addSubview(captureButton)
         captureButton.setAnchors()
-            .bottom(buttonView.topAnchor,inset: Statics.defaultInset)
+            .bottom(buttonView.topAnchor,inset: Insets.defaultInset)
             .centerX(bodyView.centerXAnchor)
             .width(50)
             .height(50)

@@ -37,13 +37,13 @@ class MapAnnotationControl : UIButton{
     }
     
     func createMenu(){
-        let detailAction = UIAction(title: "Show Details", image: UIImage(systemName: "rectangle.and.text.magnifyingglass")){ action in
+        let detailAction = UIAction(title: "showDetails".localize(), image: UIImage(systemName: "rectangle.and.text.magnifyingglass")){ action in
             self.delegate?.detailAction(sender: self)
         }
-        let editAction = UIAction(title: "Edit", image: UIImage(systemName: "pencil")){ action in
+        let editAction = UIAction(title: "edit".localize(), image: UIImage(systemName: "pencil")){ action in
             self.delegate?.editAction(sender: self)
         }
-        let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "mappin.slash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
+        let deleteAction = UIAction(title: "delete".localize(), image: UIImage(systemName: "mappin.slash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteAction(sender: self)
         }
         self.menu = UIMenu(title: annotation.description, children: [detailAction, editAction, deleteAction])

@@ -20,9 +20,7 @@ class MapContentView: UIView {
         set{
             if _scaleToPlanet  != newValue{
                 _scaleToPlanet = newValue
-                //print("scale to planet = \(_scaleToPlanet)")
                 zoom = MapStatics.maxZoom - MapCalculator.zoomLevelFromScale(scale: _scaleToPlanet)
-                //print("draw zoom = \(zoom)")
             }
         }
     }
@@ -50,7 +48,6 @@ class MapContentView: UIView {
     
     override func draw(_ rect: CGRect) {
         let ctx = UIGraphicsGetCurrentContext()!
-        //drawRect(ctx: ctx, rect: rect, color: .red)
         scaleToPlanet = 1.0/ctx.ctm.a*screenScale
         drawTile(rect: rect)
     }
