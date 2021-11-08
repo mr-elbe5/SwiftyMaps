@@ -9,8 +9,6 @@ import CoreLocation
 
 class MapView: UIView {
     
-    var controller : UIViewController
-
     var scrollView : UIScrollView!
     var contentView = MapContentView()
     var annotationView = MapAnnotationView()
@@ -44,18 +42,7 @@ class MapView: UIView {
         }
     }
     
-    init(controller: UIViewController) {
-        self.controller = controller
-        super.init(frame: controller.view.bounds)
-        let minZoom = MapCalculator.minimumZoomLevelForViewSize(viewSize: bounds.size)
-        setupScrollView(minimalZoom: minZoom)
-        setupContentView()
-        setupUserLocationView()
-        setupAnnotationView()
-        setupControlView()
-    }
-    
-    private func setupScrollView(minimalZoom: Int){
+    func setupScrollView(minimalZoom: Int){
         scrollView = UIScrollView(frame: bounds)
         scrollView.backgroundColor = .white
         scrollView.isScrollEnabled = true
@@ -73,33 +60,27 @@ class MapView: UIView {
         scrollView.delegate = self
     }
     
-    private func setupContentView(){
+    func setupContentView(){
         contentView.backgroundColor = .white
         scrollView.addSubview(contentView)
         contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
     }
     
-    private func setupAnnotationView(){
+    func setupAnnotationView(){
         addSubview(annotationView)
         annotationView.fillView(view: self)
         annotationView.setupAnnotations()
-        annotationView.delegate = self
         annotationView.isHidden = !Preferences.instance.showAnnotations
     }
     
-    private func setupUserLocationView(){
+    func setupUserLocationView(){
         addSubview(userLocationView)
     }
     
-    private func setupControlView(){
+    func setupControlView(){
         addSubview(controlView)
         controlView.fillView(view: self)
         controlView.setup()
-        controlView.delegate = self
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func getCoordinate(screenPoint: CGPoint) -> CLLocationCoordinate2D{
@@ -170,6 +151,12 @@ class MapView: UIView {
         userLocationView.updateLocation(location: MapCalculator.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
     }
     
+    func focusUserLocation() {
+        if let location = LocationService.shared.location{
+            scrollToCenteredCoordinate(coordinate: location.coordinate)
+        }
+    }
+    
     func setDirection(_ direction: CLLocationDirection) {
         userLocationView.updateDirection(direction: direction)
     }
@@ -178,6 +165,14 @@ class MapView: UIView {
         annotationView.addAnnotationControl(annotation: annotation)
         MapAnnotationCache.instance.save()
         annotationView.updatePosition(offset: contentOffset, scale: scale)
+    }
+    
+    func getVisibleCenter() -> CGPoint{
+        CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2)
+    }
+    
+    func getVisibleCenterCoordinate() -> CLLocationCoordinate2D{
+        getCoordinate(screenPoint: getVisibleCenter())
     }
     
 }
@@ -230,103 +225,6 @@ extension MapView: LocationServiceDelegate{
     
 }
 
-extension MapView: MapAnnotationViewDelegate{
-    
-    func showAnnotation(annotation: MapAnnotation) {
-        let controller = MapAnnotationViewController()
-        controller.modalPresentationStyle = .fullScreen
-        self.controller.present(controller, animated: true)
-    }
-    
-    func editAnnotation(annotation: MapAnnotation) {
-        let controller = EditAnnotationViewController()
-        controller.modalPresentationStyle = .fullScreen
-        self.controller.present(controller, animated: true)
-    }
-    
-    func deleteAnnotation(annotation: MapAnnotation) {
-        MapAnnotationCache.instance.removeAnnotation(annotation)
-        MapAnnotationCache.instance.save()
-    }
-    
-}
 
-extension MapView: MapControlDelegate{
-    
-    func focusUserLocation() {
-        if let location = LocationService.shared.location{
-            scrollToCenteredCoordinate(coordinate: location.coordinate)
-        }
-    }
-    
-    func addAnnotationAtCross(){
-        let coordinate = getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2))
-        let annotation = MapAnnotationCache.instance.addAnnotation(coordinate: coordinate)
-        addAnnotation(annotation: annotation)
-    }
-    
-    func addAnnotationAtUserPosition(){
-        if let location = LocationService.shared.location{
-            let annotation = MapAnnotation(coordinate: location.coordinate)
-            addAnnotation(annotation: annotation)
-        }
-    }
-    
-    func changeMap(){
-        if MapType.current.name == MapType.carto.name{
-            MapType.current = .topo
-        }
-        else{
-            MapType.current = .carto
-        }
-    }
-    
-    func openInfo() {
-        let controller = InfoViewController()
-        controller.modalPresentationStyle = .fullScreen
-        self.controller.present(controller, animated: true)
-    }
-    
-    func openCamera() {
-        let controller = PhotoViewController()
-        controller.modalPresentationStyle = .fullScreen
-        self.controller.present(controller, animated: true)
-    }
-    
-    func openTour() {
-        let controller = TourViewController()
-        controller.modalPresentationStyle = .fullScreen
-        self.controller.present(controller, animated: true)
-    }
-    
-    func openSearch() {
-        let controller = SearchViewController()
-        controller.modalPresentationStyle = .fullScreen
-        self.controller.present(controller, animated: true)
-    }
-    
-    func openPreferences(){
-        let controller = MapPreferencesViewController()
-        controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
-        self.controller.present(controller, animated: true)
-    }
-    
-    
-    
-}
-
-extension MapView: PreferencesDelegate{
-    
-    func clearTileCache() {
-        MapTileCache.clear()
-    }
-    
-    func removeAnnotations() {
-        MapAnnotationCache.instance.annotations.removeAll()
-        annotationView.setupAnnotations()
-    }
-    
-}
 
 

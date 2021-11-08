@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class SearchViewController: ScrollViewController{
+class SearchViewController: PopupViewController{
     
     var stackView = UIStackView()
     

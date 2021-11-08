@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class InfoViewController: ScrollViewController {
+class InfoViewController: PopupViewController {
     
     var stackView = UIStackView()
     
@@ -42,10 +42,6 @@ class InfoViewController: ScrollViewController {
     
     override func setupHeaderView(){
         setupCloseHeader()
-    }
-    
-    func dump(){
-        //MapCache.instance.dumpTiles()
     }
     
 }

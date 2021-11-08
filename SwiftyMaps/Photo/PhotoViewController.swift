@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class PhotoViewController: ScrollViewController, UIScrollViewDelegate {
+class PhotoViewController: PopupViewController, UIScrollViewDelegate {
     
     var uiImage : UIImage? = nil
     var imageView : UIImageView? = nil

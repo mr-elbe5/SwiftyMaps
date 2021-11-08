@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MarkerSearchViewController: ScrollViewController{
+class MarkerSearchViewController: PopupViewController{
     
     var stackView = UIStackView()
     

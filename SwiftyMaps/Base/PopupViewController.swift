@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ScrollViewController: UIViewController {
+class PopupViewController: UIViewController {
     
     var scrollViewTopPadding : CGFloat = 1
     var headerView : UIView? = nil
@@ -22,10 +22,7 @@ class ScrollViewController: UIViewController {
         setupHeaderView()
         if let headerView = headerView{
             view.addSubview(headerView)
-            headerView.setAnchors()
-                .leading(guide.leadingAnchor, inset: .zero)
-                .top(guide.topAnchor,inset: .zero)
-                .trailing(guide.trailingAnchor,inset: .zero)
+            headerView.setAnchors(top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: nil, insets: .zero)
         }
         self.view.addSubview(scrollView)
         scrollView.backgroundColor = .systemBackground
@@ -46,10 +43,7 @@ class ScrollViewController: UIViewController {
         let closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
         buttonView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        closeButton.setAnchors()
-            .top(buttonView.topAnchor,inset: Insets.defaultInset)
-            .trailing(buttonView.trailingAnchor,inset: Insets.defaultInset)
-            .bottom(buttonView.bottomAnchor,inset: Insets.defaultInset)
+        closeButton.setAnchors(top: buttonView.topAnchor, leading: nil, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: Insets.defaultInsets)
         headerView = buttonView
     }
     

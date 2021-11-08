@@ -9,12 +9,6 @@ import Foundation
 
 import UIKit
 
-enum MapStartSize: Double{
-    case small = 100.0
-    case mid = 1000.0
-    case large = 5000.0
-}
-
 struct Insets{
     
     static var defaultInset : CGFloat = 10

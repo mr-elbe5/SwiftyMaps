@@ -1,5 +1,5 @@
 //
-//  EditAnnotationViewController.swift
+//  MapAnnotationViewController.swift
 //  SwiftyMaps
 //
 //  Created by Michael Rönnau on 06.11.21.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class EditAnnotationViewController: ScrollViewController{
+class MapAnnotationViewController: PopupViewController{
     
     var stackView = UIStackView()
     

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TourViewController: ScrollViewController{
+class TourViewController: PopupViewController{
     
     var stackView = UIStackView()
     
