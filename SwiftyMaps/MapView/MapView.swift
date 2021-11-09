@@ -11,7 +11,7 @@ class MapView: UIView {
     
     var scrollView : UIScrollView!
     var contentView = MapContentView()
-    var annotationView = MapAnnotationView()
+    var placeMarkerView = PlaceMarkerView()
     var userLocationView = UserLocationView()
     var controlView = MapControlView()
     
@@ -66,11 +66,11 @@ class MapView: UIView {
         contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
     }
     
-    func setupAnnotationView(){
-        addSubview(annotationView)
-        annotationView.fillView(view: self)
-        annotationView.setupAnnotations()
-        annotationView.isHidden = !Preferences.instance.showAnnotations
+    func setupPlaceMarkerView(){
+        addSubview(placeMarkerView)
+        placeMarkerView.fillView(view: self)
+        placeMarkerView.setupPlaceMarkers()
+        placeMarkerView.isHidden = !Preferences.instance.showPlaceMarkers
     }
     
     func setupUserLocationView(){
@@ -161,10 +161,10 @@ class MapView: UIView {
         userLocationView.updateDirection(direction: direction)
     }
     
-    func addAnnotation(annotation: MapAnnotation){
-        annotationView.addAnnotationControl(annotation: annotation)
-        MapAnnotationCache.instance.save()
-        annotationView.updatePosition(offset: contentOffset, scale: scale)
+    func addPlaceMarker(place: PlaceData){
+        placeMarkerView.addPlaceMarkerControl(place: place)
+        PlaceCache.instance.save()
+        placeMarkerView.updatePosition(offset: contentOffset, scale: scale)
     }
     
     func getVisibleCenter() -> CGPoint{
@@ -190,7 +190,7 @@ extension MapView : UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         assertCenteredContent(scrollView: scrollView)
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
-        annotationView.updatePosition(offset: contentOffset, scale: scale)
+        placeMarkerView.updatePosition(offset: contentOffset, scale: scale)
     }
     
     // for infinite scroll using 3 * content width

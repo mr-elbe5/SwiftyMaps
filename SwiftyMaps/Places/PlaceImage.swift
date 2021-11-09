@@ -1,5 +1,4 @@
 //
-//  MapAnnotationPhoto.swift
 //  SwiftyMaps
 //
 //  Created by Michael Rönnau on 09.11.21.
@@ -8,7 +7,7 @@
 import Foundation
 import UIKit
 
-class MapAnnotationPhoto : Identifiable, Codable{
+class PlaceImage : Identifiable, Codable{
     
     private enum CodingKeys: CodingKey{
         case id

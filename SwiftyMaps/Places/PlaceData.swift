@@ -8,13 +8,13 @@ import Foundation
 import CoreLocation
 import UIKit
 
-protocol MapAnnotationDelegate{
-    func descriptionChanged(annotation: MapAnnotation)
+protocol PlaceDelegate{
+    func descriptionChanged(place: PlaceData)
 }
 
-class MapAnnotation : Hashable, Codable{
+class PlaceData : Hashable, Codable{
     
-    static func == (lhs: MapAnnotation, rhs: MapAnnotation) -> Bool {
+    static func == (lhs: PlaceData, rhs: PlaceData) -> Bool {
         lhs.id == rhs.id
     }
     
@@ -32,9 +32,9 @@ class MapAnnotation : Hashable, Codable{
     var planetPosition : CGPoint
     var description : String
     var timestamp : Date
-    var photos : Array<MapAnnotationPhoto>
+    var photos : Array<PlaceImage>
     
-    var delegate: MapAnnotationDelegate? = nil
+    var delegate: PlaceDelegate? = nil
     
     init(coordinate: CLLocationCoordinate2D){
         id = UUID()
@@ -42,11 +42,11 @@ class MapAnnotation : Hashable, Codable{
         description = ""
         timestamp = Date()
         planetPosition = MapCalculator.pointInScaledSize(coordinate: coordinate, scaledSize: MapStatics.planetSize)
-        photos = Array<MapAnnotationPhoto>()
+        photos = Array<PlaceImage>()
         LocationService.shared.getLocationDescription(coordinate: coordinate){ description in
             self.description = description
             DispatchQueue.main.async {
-                self.delegate?.descriptionChanged(annotation: self)
+                self.delegate?.descriptionChanged(place: self)
             }
         }
         
@@ -65,7 +65,7 @@ class MapAnnotation : Hashable, Codable{
         planetPosition = MapCalculator.pointInScaledSize(coordinate: coordinate, scaledSize: MapStatics.planetSize)
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
-        photos = try values.decodeIfPresent(Array<MapAnnotationPhoto>.self, forKey: .photos) ?? Array<MapAnnotationPhoto>()
+        photos = try values.decodeIfPresent(Array<PlaceImage>.self, forKey: .photos) ?? Array<PlaceImage>()
     }
     
     func encode(to encoder: Encoder) throws {

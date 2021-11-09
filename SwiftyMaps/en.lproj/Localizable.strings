@@ -44,13 +44,13 @@
 "topoUrl"="URL Template for OpenTopoMap Style:";
 "startWithLastPosition"="Start with last Position";
 "showUserDirection"="Show current Direction";
-"showAnnotations"="Show Annotations";
+"showPlaces"="Show Places";
 "clearTileCache"="Delete saved map tiles";
-"deleteAnnotations"="Delete all Annotations";
+"deletePlaces"="Delete all Places";
 "reallyClearTileCache"="Do you want to delete all map tiles?";
 "clearTileCacheHint"="Maps will have to be reloaded then.";
-"reallyDeleteAnnotations"="Do you want to delete all annotations?";
-"deleteAnnotationsHint"="This action cannot be undone.";
+"reallyDeletePlaces"="Do you want to delete all places?";
+"deletePlacesHint"="This action cannot be undone.";
 
 //info
 "privacyInfoHeader"="Your privacy";
@@ -64,8 +64,8 @@
 // map
 "showDetails"="Show Details";
 
-// annotations
-"annotation"="Annotation";
+// places
+"place"="Place";
 
 //tour
 "tour"="Tour";

@@ -44,13 +44,13 @@
 "topoUrl"="URL Template für OpenTopoMap-Stil:";
 "startWithLastPosition"="Mit der letzten Position starten";
 "showUserDirection"="Aktuelle Richtung anzeigen";
-"showAnnotations"="Markierungen anzeigen";
+"showPlaces"="Orte anzeigen";
 "clearTileCache"="Gespeicherte Kartenkacheln löschen";
-"deleteAnnotations"="Alle Markierungen löschen";
+"deletePlaces"="Alle Ortsmarkierungen löschen";
 "reallyClearTileCache"="Wollen Sie alle Kartenkacheln löschen?";
 "clearTileCacheHint"="Die Karten müssen dann neu geladen werden.";
-"reallyDeleteAnnotations"="Wollen Sie alle Markierungen löschen?";
-"deleteAnnotationsHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
+"reallyDeletePlaces"="Wollen Sie alle Ortsmarkierungen löschen?";
+"deletePlacesHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
 
 //info
 "privacyInfoText1"="Diese App ist für private Daten erstellt.";
@@ -63,8 +63,8 @@
 // map
 "showDetails"="Details anzeigen";
 
-// annotations
-"annotation"="Markierung";
+// places
+"place"="Ort";
 
 //tour
 "tour"="Tour";

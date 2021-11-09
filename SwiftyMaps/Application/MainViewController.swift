@@ -21,8 +21,8 @@ class MainViewController: UIViewController {
         mapView.setupScrollView(minimalZoom: minZoom)
         mapView.setupContentView()
         mapView.setupUserLocationView()
-        mapView.setupAnnotationView()
-        mapView.annotationView.delegate = self
+        mapView.setupPlaceMarkerView()
+        mapView.placeMarkerView.delegate = self
         mapView.setupControlView()
         mapView.controlView.delegate = self
     }
@@ -37,24 +37,24 @@ class MainViewController: UIViewController {
     
 }
 
-extension MainViewController: MapAnnotationViewDelegate{
+extension MainViewController: PlaceMarkerViewDelegate{
     
-    func showAnnotation(annotation: MapAnnotation) {
-        let controller = MapAnnotationViewController()
-        controller.annotation = annotation
+    func showPlaceDetails(place: PlaceData) {
+        let controller = PlaceViewController()
+        controller.place = place
         present(controller, animated: true)
     }
     
-    func editAnnotation(annotation: MapAnnotation) {
-        let controller = EditAnnotationViewController()
-        controller.annotation = annotation
+    func editPlaceData(place: PlaceData) {
+        let controller = PlaceEditViewController()
+        controller.place = place
         
         present(controller, animated: true)
     }
     
-    func deleteAnnotation(annotation: MapAnnotation) {
-        MapAnnotationCache.instance.removeAnnotation(annotation)
-        MapAnnotationCache.instance.save()
+    func deletePlaceData(place: PlaceData) {
+        PlaceCache.instance.removePlace(place)
+        PlaceCache.instance.save()
     }
     
 }
@@ -65,15 +65,15 @@ extension MainViewController: MapControlDelegate{
         mapView.focusUserLocation()
     }
     
-    func addAnnotationAtCross(){
-        let annotation = MapAnnotationCache.instance.addAnnotation(coordinate: mapView.getVisibleCenterCoordinate())
-        mapView.addAnnotation(annotation: annotation)
+    func addPlaceMarkerAtCross(){
+        let place = PlaceCache.instance.addPlace(coordinate: mapView.getVisibleCenterCoordinate())
+        mapView.addPlaceMarker(place: place)
     }
     
-    func addAnnotationAtUserPosition(){
+    func addPlaceMarkerAtUserPosition(){
         if let location = LocationService.shared.location{
-            let annotation = MapAnnotation(coordinate: location.coordinate)
-            mapView.addAnnotation(annotation: annotation)
+            let place = PlaceData(coordinate: location.coordinate)
+            mapView.addPlaceMarker(place: place)
         }
     }
     
@@ -97,7 +97,7 @@ extension MainViewController: MapControlDelegate{
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let data = MapAnnotationPhoto()
+                    let data = PlaceImage()
                     let imageCaptureController = PhotoCaptureViewController()
                     imageCaptureController.data = data
                     imageCaptureController.delegate = self
@@ -139,16 +139,16 @@ extension MainViewController: PreferencesDelegate{
         MapTileCache.clear()
     }
     
-    func removeAnnotations() {
-        MapAnnotationCache.instance.annotations.removeAll()
-        mapView.annotationView.setupAnnotations()
+    func removePlaces() {
+        PlaceCache.instance.places.removeAll()
+        mapView.placeMarkerView.setupPlaceMarkers()
     }
     
 }
 
 extension MainViewController: PhotoCaptureDelegate{
     
-    func photoCaptured(photo: MapAnnotationPhoto) {
+    func photoCaptured(photo: PlaceImage) {
         print("photo captured")
         //todo
     }

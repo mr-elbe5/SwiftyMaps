@@ -1,5 +1,5 @@
 //
-//  EditAnnotationViewController.swift
+//
 //  SwiftyMaps
 //
 //  Created by Michael Rönnau on 06.11.21.
@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-class EditAnnotationViewController: PopupViewController{
+class PlaceEditViewController: PopupViewController{
     
     var stackView = UIStackView()
     
-    var annotation: MapAnnotation? = nil
+    var place: PlaceData? = nil
     
     override func loadView() {
         super.loadView()

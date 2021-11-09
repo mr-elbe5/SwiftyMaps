@@ -1,5 +1,4 @@
 //
-//  MapAnnotationControl.swift
 //  OSM-Maps
 //
 //  Created by Michael Rönnau on 02.11.21.
@@ -7,29 +6,29 @@
 
 import UIKit
 
-protocol MapAnnotationControlDelegate{
-    func detailAction(sender: MapAnnotationControl)
-    func editAction(sender: MapAnnotationControl)
-    func deleteAction(sender: MapAnnotationControl)
+protocol PlaceMarkerControlDelegate{
+    func detailAction(sender: PlaceMarkerControl)
+    func editAction(sender: PlaceMarkerControl)
+    func deleteAction(sender: PlaceMarkerControl)
 }
 
-class MapAnnotationControl : UIButton{
+class PlaceMarkerControl : UIButton{
     
     static var baseFrame = CGRect(x: -MapStatics.mapPinRadius, y: -2*MapStatics.mapPinRadius, width: 2*MapStatics.mapPinRadius, height: 2*MapStatics.mapPinRadius)
     
-    var annotation : MapAnnotation
+    var place : PlaceData
     
-    var delegate: MapAnnotationControlDelegate? = nil
+    var delegate: PlaceMarkerControlDelegate? = nil
     
-    init(annotation: MapAnnotation){
-        self.annotation = annotation
-        super.init(frame: MapAnnotationControl.baseFrame)
-        annotation.delegate = self
+    init(place: PlaceData){
+        self.place = place
+        super.init(frame: PlaceMarkerControl.baseFrame)
+        place.delegate = self
         setImage(MapStatics.mapPinImage, for: .normal)
     }
     
     deinit{
-        annotation.delegate = nil
+        place.delegate = nil
     }
     
     required init?(coder: NSCoder) {
@@ -46,21 +45,21 @@ class MapAnnotationControl : UIButton{
         let deleteAction = UIAction(title: "delete".localize(), image: UIImage(systemName: "mappin.slash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteAction(sender: self)
         }
-        self.menu = UIMenu(title: annotation.description, children: [detailAction, editAction, deleteAction])
+        self.menu = UIMenu(title: place.description, children: [detailAction, editAction, deleteAction])
         showsMenuAsPrimaryAction = true
     }
     
     func updatePosition(to pos: CGPoint){
-        frame = MapAnnotationControl.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
+        frame = PlaceMarkerControl.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
         //print("new frame = \(frame) in \(superview!.bounds)")
         setNeedsDisplay()
     }
     
 }
 
-extension MapAnnotationControl: MapAnnotationDelegate{
+extension PlaceMarkerControl: PlaceDelegate{
     
-    func descriptionChanged(annotation: MapAnnotation) {
+    func descriptionChanged(place: PlaceData) {
         createMenu()
     }
     

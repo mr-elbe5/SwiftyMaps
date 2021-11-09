@@ -10,7 +10,7 @@ import UIKit
 
 protocol PreferencesDelegate{
     func clearTileCache()
-    func removeAnnotations()
+    func removePlaces()
 }
 
 class MapPreferencesViewController: PopupViewController{
@@ -19,7 +19,7 @@ class MapPreferencesViewController: PopupViewController{
     var topoUrlTemplateField = LabeledTextField()
     var startWithLastPositionSwitch = LabeledSwitchView()
     var showUserDirectionSwitch = LabeledSwitchView()
-    var showAnnotationsSwitch = LabeledSwitchView()
+    var showPlaceMarkersSwitch = LabeledSwitchView()
     
     var delegate : PreferencesDelegate? = nil
     
@@ -45,16 +45,16 @@ class MapPreferencesViewController: PopupViewController{
         contentView.addSubview(showUserDirectionSwitch)
         showUserDirectionSwitch.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
         
-        showAnnotationsSwitch.setupView(labelText: "showAnnotations".localize(), isOn: Preferences.instance.showAnnotations)
-        contentView.addSubview((showAnnotationsSwitch))
-        showAnnotationsSwitch.setAnchors(top: showUserDirectionSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
+        showPlaceMarkersSwitch.setupView(labelText: "showPlaces".localize(), isOn: Preferences.instance.showPlaceMarkers)
+        contentView.addSubview((showPlaceMarkersSwitch))
+        showPlaceMarkersSwitch.setAnchors(top: showUserDirectionSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
         
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(ok), for: .touchDown)
         contentView.addSubview(saveButton)
-        saveButton.setAnchors(top: showAnnotationsSwitch.bottomAnchor, leading: nil, trailing: nil, bottom: nil, insets: Insets.doubleInsets)
+        saveButton.setAnchors(top: showPlaceMarkersSwitch.bottomAnchor, leading: nil, trailing: nil, bottom: nil, insets: Insets.doubleInsets)
             .centerX(contentView.centerXAnchor)
         
         let clearTileCacheButton = UIButton()
@@ -64,12 +64,12 @@ class MapPreferencesViewController: PopupViewController{
         contentView.addSubview(clearTileCacheButton)
         clearTileCacheButton.setAnchors(top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: nil, bottom: nil, insets: Insets.doubleInsets)
         
-        let removeAnnotationsButton = UIButton()
-        removeAnnotationsButton.setTitle("deleteAnnotations".localize(), for: .normal)
-        removeAnnotationsButton.setTitleColor(.systemBlue, for: .normal)
-        removeAnnotationsButton.addTarget(self, action: #selector(removeAnnotations), for: .touchDown)
-        contentView.addSubview(removeAnnotationsButton)
-        removeAnnotationsButton.setAnchors(top: clearTileCacheButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: nil, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
+        let removePlacesButton = UIButton()
+        removePlacesButton.setTitle("deletePlaces".localize(), for: .normal)
+        removePlacesButton.setTitleColor(.systemBlue, for: .normal)
+        removePlacesButton.addTarget(self, action: #selector(removePlaces), for: .touchDown)
+        contentView.addSubview(removePlacesButton)
+        removePlacesButton.setAnchors(top: clearTileCacheButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: nil, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
         
     }
     
@@ -79,9 +79,9 @@ class MapPreferencesViewController: PopupViewController{
         }
     }
     
-    @objc func removeAnnotations(){
-        showApprove(title: "reallyDeleteAnnotations".localize(), text: "deleteAnnotationsHint".localize()){
-            self.delegate?.removeAnnotations()
+    @objc func removePlaces(){
+        showApprove(title: "reallyDeletePlaces".localize(), text: "deletePlacesHint".localize()){
+            self.delegate?.removePlaces()
         }
     }
     
@@ -98,7 +98,7 @@ class MapPreferencesViewController: PopupViewController{
         }
         Preferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
         Preferences.instance.showUserDirection = showUserDirectionSwitch.isOn
-        Preferences.instance.showAnnotations = showAnnotationsSwitch.isOn
+        Preferences.instance.showPlaceMarkers = showPlaceMarkersSwitch.isOn
         Preferences.instance.save()
         self.dismiss(animated: true)
     }

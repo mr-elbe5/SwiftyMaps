@@ -31,7 +31,7 @@ class Preferences: Identifiable, Codable{
         case topoUrlTemplate
         case startWithLastPosition
         case showUserDirection
-        case showAnnotations
+        case showPlaceMarkers
         case flashMode
     }
 
@@ -40,7 +40,7 @@ class Preferences: Identifiable, Codable{
     var topoUrlTemplate : String = MapType.current.tileUrl
     var startWithLastPosition : Bool = false
     var showUserDirection : Bool = true
-    var showAnnotations : Bool = true
+    var showPlaceMarkers : Bool = true
     var flashMode : AVCaptureDevice.FlashMode = .off
     
     init(){
@@ -53,7 +53,7 @@ class Preferences: Identifiable, Codable{
         topoUrlTemplate = try values.decodeIfPresent(String.self, forKey: .topoUrlTemplate) ?? MapType.topo.tileUrl
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         showUserDirection = try values.decodeIfPresent(Bool.self, forKey: .showUserDirection) ?? true
-        showAnnotations = try values.decodeIfPresent(Bool.self, forKey: .showAnnotations) ?? true
+        showPlaceMarkers = try values.decodeIfPresent(Bool.self, forKey: .showPlaceMarkers) ?? true
         flashMode = AVCaptureDevice.FlashMode(rawValue: try values.decode(Int.self, forKey: .flashMode)) ?? .off
         if let mapType = MapType.getMapType(name: mapTypeName){
             MapType.current = mapType
@@ -67,7 +67,7 @@ class Preferences: Identifiable, Codable{
         try container.encode(topoUrlTemplate, forKey: .topoUrlTemplate)
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(showUserDirection, forKey: .showUserDirection)
-        try container.encode(showAnnotations, forKey: .showAnnotations)
+        try container.encode(showPlaceMarkers, forKey: .showPlaceMarkers)
         try container.encode(flashMode.rawValue, forKey: .flashMode)
     }
     
@@ -81,7 +81,7 @@ class Preferences: Identifiable, Codable{
         print("topoUrlTemplate  = \(topoUrlTemplate)" )
         print("startWithLastPosition  = \(startWithLastPosition)" )
         print("showUserDirection  = \(showUserDirection)" )
-        print("showAnnotations  = \(showAnnotations)" )
+        print("showPlaces  = \(showPlaceMarkers)" )
     }
     
 }

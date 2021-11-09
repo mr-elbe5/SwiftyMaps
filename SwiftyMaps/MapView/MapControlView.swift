@@ -8,8 +8,8 @@ import UIKit
 
 protocol MapControlDelegate{
     func focusUserLocation()
-    func addAnnotationAtCross()
-    func addAnnotationAtUserPosition()
+    func addPlaceMarkerAtCross()
+    func addPlaceMarkerAtUserPosition()
     func changeMap()
     func openInfo()
     func openCamera()
@@ -66,9 +66,9 @@ class MapControlView: UIView {
         bottomStackView.addArrangedSubview(focusUserLocationControl)
         focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
         
-        let addAnnotationControl = IconButton(icon: "mappin.circle")
-        bottomStackView.addArrangedSubview(addAnnotationControl)
-        addAnnotationControl.addTarget(self, action: #selector(addAnnotationAtUserPosition), for: .touchDown)
+        let addPlaceMarkerControl = IconButton(icon: "mappin.circle")
+        bottomStackView.addArrangedSubview(addPlaceMarkerControl)
+        addPlaceMarkerControl.addTarget(self, action: #selector(addPlaceMarkerAtUserPosition), for: .touchDown)
         
         bottomStackView.addArrangedSubview(toggleCrossControl)
         toggleCrossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
@@ -80,7 +80,7 @@ class MapControlView: UIView {
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
         crossControl.setAnchors(centerX: centerXAnchor, centerY: centerYAnchor)
-        crossControl.addTarget(self, action: #selector(annotationCrossTouched), for: .touchDown)
+        crossControl.addTarget(self, action: #selector(placeMarkerCrossTouched), for: .touchDown)
         crossControl.isHidden = true
         
         addSubview(licenseView)
@@ -131,12 +131,12 @@ class MapControlView: UIView {
         delegate?.openSearch()
     }
     
-    @objc func addAnnotationAtUserPosition(){
-        delegate?.addAnnotationAtUserPosition()
+    @objc func addPlaceMarkerAtUserPosition(){
+        delegate?.addPlaceMarkerAtUserPosition()
     }
     
-    @objc func annotationCrossTouched(){
-        delegate?.addAnnotationAtCross()
+    @objc func placeMarkerCrossTouched(){
+        delegate?.addPlaceMarkerAtCross()
     }
     
     @objc func openPreferences(){
