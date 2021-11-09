@@ -26,8 +26,8 @@
 "timeoutError"="A timeout has been reached.";
 "notComplete"="Some entries are not complete.";
 "readError"="The file could not be read.";
-"unexpectedError"="There has been an unexpected error.";
 "unauthorizedError"="This action has not been authorized.";
+"unexpectedError"="There has been an unexpected error.";
 
 //location
 "east"="East";
@@ -39,17 +39,18 @@
 "yourPosition"="Your Position";
 
 //preferences
+"preferences"="Preferences";
 "cartoUrl"="URL Template for OpenStreetMap Carto Style:";
 "topoUrl"="URL Template for OpenTopoMap Style:";
 "startWithLastPosition"="Start with last Position";
 "showUserDirection"="Show current Direction";
 "showAnnotations"="Show Annotations";
-"clearTileCache"="Clear Tile Cache";
+"clearTileCache"="Delete saved map tiles";
 "deleteAnnotations"="Delete all Annotations";
-"reallyClearTileCache"="Really clear all tiles from cache?";
-"clearTileCacheHint"="Tiles will have to be reloaded";
-"reallyDeleteAnnotations"="Really delete all annotations?";
-"deleteAnnotationsHint"="This cannot be undone";
+"reallyClearTileCache"="Do you want to delete all map tiles?";
+"clearTileCacheHint"="Maps will have to be reloaded then.";
+"reallyDeleteAnnotations"="Do you want to delete all annotations?";
+"deleteAnnotationsHint"="This action cannot be undone.";
 
 //info
 "privacyInfoHeader"="Your privacy";
@@ -100,13 +101,6 @@
 "mapInfoHeader"="Map view";
 "map"="Map";
 "mapTopInfo"="The map view shows all entries with a saved position represented by a needle. By tapping one of these needles the complete entry is shown.";
-
-
-
-//places
-
-//tour
-"tour"="Tour";
 
 //camera
 "cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";

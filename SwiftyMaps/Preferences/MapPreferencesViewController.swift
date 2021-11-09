@@ -24,7 +24,7 @@ class MapPreferencesViewController: PopupViewController{
     var delegate : PreferencesDelegate? = nil
     
     override func loadView() {
-        title = "Preferences"
+        title = "preferences".localize()
         super.loadView()
         
         

@@ -112,6 +112,7 @@ class MapControlView: UIView {
     
     @objc func changeMap(){
         delegate?.changeMap()
+        MapType.current.fillLicenseView(licenseView)
     }
     
     @objc func openInfo(){

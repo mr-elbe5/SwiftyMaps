@@ -76,12 +76,14 @@ extension MainViewController: MapControlDelegate{
     }
     
     func changeMap(){
+        print("changeMap")
         if MapType.current.name == MapType.carto.name{
             MapType.current = .topo
         }
         else{
             MapType.current = .carto
         }
+        mapView.mapTypeHasChanged()
     }
     
     func openInfo() {

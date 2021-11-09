@@ -2,7 +2,9 @@
 "back"="Zurück";
 "cancel" = "Abbrechen";
 "comment"="Kommentar";
+"delete"="Löschen";
 "done"="Fertig";
+"edit"="Ändern";
 "ok"="Ok";
 "no"="Nein";
 "reset" = "Zurücksetzen";
@@ -19,14 +21,55 @@
 "error"="Fehler";
 "copyError"="Die Datei konnte nicht kopiert werden.";
 "fileOpenError"="Die Datei konnte nicht geöffnet werden.";
+"loadError"="Die Datei konnte nicht geladen werden.";
 "saveError"="Die Datei konnte nicht gespeichert werden.";
 "timeoutError"="Eine vorgegebene Zeit wurde überschritten.";
 "notComplete"="Einige Eingaben sind nicht vollständig.";
 "readError"="Die Datei konnte nicht gelesen werden.";
-"rejectedError"="Diese Aktion wurde nicht autorisiert.";
+"unauthorizedError"="Diese Aktion wurde nicht autorisiert.";
 "unexpectedError"="Ein unerwarteter Fehler ist aufgetreten.";
 
-// style menu
+//location
+"east"="Ost";
+"north"="Nord";
+"south"="Süd";
+"west"="West";
+"locationNotAuthorized"="Die App darf deinen Standort nicht feststellen. Bitte ändere die entsprechenden Einstellungen.";
+"saveLocation"="Position speichern";
+"yourPosition"="Deine Position";
+
+//preferences
+"preferences"="Voreinstellungen";
+"cartoUrl"="URL Template für OpenStreetMap-Carto-Stil:";
+"topoUrl"="URL Template für OpenTopoMap-Stil:";
+"startWithLastPosition"="Mit der letzten Position starten";
+"showUserDirection"="Aktuelle Richtung anzeigen";
+"showAnnotations"="Markierungen anzeigen";
+"clearTileCache"="Gespeicherte Kartenkacheln löschen";
+"deleteAnnotations"="Alle Markierungen löschen";
+"reallyClearTileCache"="Wollen Sie alle Kartenkacheln löschen?";
+"clearTileCacheHint"="Die Karten müssen dann neu geladen werden.";
+"reallyDeleteAnnotations"="Wollen Sie alle Markierungen löschen?";
+"deleteAnnotationsHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
+
+//info
+"privacyInfoText1"="Diese App ist für private Daten erstellt.";
+"privacyInfoText2"="Keine eingegebenen Daten verlassen das iPhone oder iPad, solange sie nicht explizit exportiert werden.";
+"privacyInfoText3"="Es gibt keine Werbung.";
+"privacyInfoText4"="Das Netzwerk wird lediglich genutzt, um Kartenkacheln zu laden oder den Ort deiner Einträge auf Karten darzustellen.";
+"privacyInfoText5"="Es werden nur Apple-APIs und -Services benutzt, mit Ausnahme des Open-Source-Projekts Zip, das für die Sicherung und Wiederherstellung eingebunden ist.";
+"privacyInfoText6"="Der Code dieser App ist bei Github unter https://github.com/mr-elbe5/myprivatetrack.git offengelegt.";
+
+// map
+"showDetails"="Details anzeigen";
+
+// annotations
+"annotation"="Markierung";
+
+//tour
+"tour"="Tour";
+
+// map menu
 "defaultMapStyle"="Standard";
 "openStreetMapStyle"="OpenStreetMap";
 "openTopoMapStyle"="OpenTopoMap";
@@ -44,13 +87,6 @@
 "saveTour"="Tour speichern";
 "searchTour"="Tour-Suche";
 
-//map
-"map"="Karte";
-"mapComment"="Kommentar zur Karte";
-"mapInfoHeader"="Kartenansicht";
-"mapStartSize"="Anfangsgröße für Kartensnapshots";
-"mapTopInfo"="Die Kartenansicht zeigt alle Einträge, deren Position gespeichert wurde. Die Einträge werden duch eine Nadel dargestellt. Durch Antippen der Nadel wird der gesamte Eintrag angezeigt.";
-
 //mapDownload
 "mapDownload"="Karten-Download";
 "allTilesForDownload"="Zahl aller Kacheln:";
@@ -59,19 +95,13 @@
 "sizeToLoad"="Gesamtgröße zu ladender Kacheln (ca):";
 "unloadedTiles"="Zahl nicht geladener Kacheln:";
 
-//location
-"east"="Ost";
-"north"="Nord";
-"south"="Süd";
-"west"="West";
-"locationNotAuthorized"="Die App darf deinen Standort nicht feststellen. Bitte ändere die entsprechenden Einstellungen.";
-"saveLocation"="Position speichern";
-"yourPosition"="Deine Position";
+//map
+"map"="Karte";
+"mapComment"="Kommentar zur Karte";
+"mapInfoHeader"="Kartenansicht";
+"mapStartSize"="Anfangsgröße für Kartensnapshots";
+"mapTopInfo"="Die Kartenansicht zeigt alle Einträge, deren Position gespeichert wurde. Die Einträge werden duch eine Nadel dargestellt. Durch Antippen der Nadel wird der gesamte Eintrag angezeigt.";
 
-//places
-
-//tour
-"tour"="Tour";
 
 //camera
 "cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
@@ -83,47 +113,6 @@
 "photoShared"="Foto wurde kopiert.";
 "shareImage"="Bild kopieren";
 
-//configuration
-"cartoUrl"="OpenStreetMap Tileserver URL:";
-"topoUrl"="OpenTopoMap Tileserver URL:";
-"startWithLastPosition"="Mit letzter Position starten";
-"showUserLocation"="Aktuelle Position anzeigen";
+// search
 
-//data/files
-"deleteData" = "Einträge löschen";
-"deleteItemApproveInfo"="Wenn du zustimmst, wird dieses Element gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
-"exportImport"="Export/Import";
-"deleteAllDataApproveInfo"="Wenn du zustimmst, werden alle Daten und Medien gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
-"deleteDocumentsApproveInfo"="Wenn du zustimmst, werden alle öfftlichen Dateien (Sicherungen und Exporte) gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
-"deleteDocuments" = "Alle exportierten Dateien löschen";
-"documentsDeleted"="Alle exportierten Dateien (Sicherungen und Exporte) wurden gelöscht.";
-"files"="Dateien";
-"fullBackupData"="Alle Einträge sichern";
-"imageLibrary"="Fotos";
-"ownDocuments"="Dateien - Auf meinem iPhone/iPad";
-"reallyDeleteAllData"="Wirklich alle Daten löschen?";
-"reallyDeleteEntry"="Wirklich diesen Eintrag löschen?";
-"reallyDeleteItem"="Wirklich dieses Element löschen?";
-"reallyDeleteDocuments"="Wirklich alle exportierten Dateien löschen?";
-"restoreData"="Einträge wiederherstellen";
-"restoreInfo"="Du kannst den ersten und letzten Tag für die Wiederherstellung wählen. Nach der Auswahl der Tage werden sie zu den bestehenden Tagen hinzugefügt oder mit ihnen zusammengelegt.";
-"restore"="Wiederherstellen";
-
-//privacy
-"privacyInfoText1"="Diese App ist für private Daten erstellt.";
-"privacyInfoText2"="Keine eingegebenen Daten verlassen das iPhone oder iPad, solange sie nicht explizit exportiert werden.";
-"privacyInfoText3"="Es gibt keine Werbung.";
-"privacyInfoText4"="Das Netzwerk wird lediglich genutzt, um Kartenkacheln zu laden oder den Ort deiner Einträge auf Karten darzustellen.";
-"privacyInfoText5"="Es werden nur Apple-APIs und -Services benutzt, mit Ausnahme des Open-Source-Projekts Zip, das für die Sicherung und Wiederherstellung eingebunden ist.";
-"privacyInfoText6"="Der Code dieser App ist bei Github unter https://github.com/mr-elbe5/myprivatetrack.git offengelegt.";
-"privacyExportHeader"="Exportierte Daten";
-"privacyExportText"="Diese App ermöglicht es, Sicherungen anzulegen und Dateien in das 'Dateien'-Verzeichnis dieser App zu kopieren. Dabei sollte beachtet werden, das diese exportierten Dateien auch für andere laufende Apps auf dem iPhone/iPad sichtbar sind. Je nach Bedarf sollten sie nach der Nutzung wieder gelöscht werden.";
-
-//settings
-"settingsFilesInfo"="Löschen aller öffentlichen Datein bedeutet das Löschen aller Sicherungen und aller Dateien, die in das Exportverzeichnis der App kopiert wurden.";
-"settingsFullBackupInfo"="Mit 'Alles sichern' kannst du eine Sicherung aller Einträge herstellen. Es ist dann unter Dateien > Auf meinem IPhone/iPad > My Private Track > Backups mit dem aktuellen Datum in seinem Namen zu finden.";
-"settingsPartialBackupInfo"="Mit 'Einträge einer Zeitspanne sichern' kannst du eine Sicherung von Einträge einer gewählten Zeitspanne herstellen. Es ist dann unter Dateien > Auf meinem IPhone/iPad > My Private Track > Backups mit den Daten der Zeitspanne in seinem Namen zu finden.";
-"settingsMapSizeInfo"="Mit 'Anfangsgröße für Kartensnapshots' kannst du die Anfangsgröße des Kartenausschnitts wählen, wenn du einen Kartenschnappschuss machst. Du kann aber trotzdem die Karte verschieben und in der Größe verändern.";
-"settingsResetInfo"="Mit 'Einträge löschen' löschst du alle Einträge und dazgehörige Medien. Wenn du diese Daten nicht verlieren willst, solltest du vorher eine Sicherung erstellen.";
-"settingsRestoreInfo"="Mit 'Wiederherstellen' kannst du vorher gesicherte Einträge und Medien wiederherstellen (alle oder aus einem bestimmten Zeitraum).";
-
+"search"="Suche";

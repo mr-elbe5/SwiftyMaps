@@ -175,6 +175,10 @@ class MapView: UIView {
         getCoordinate(screenPoint: getVisibleCenter())
     }
     
+    func mapTypeHasChanged(){
+        contentView.setNeedsDisplay()
+    }
+    
 }
 
 extension MapView : UIScrollViewDelegate{

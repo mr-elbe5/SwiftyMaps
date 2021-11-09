@@ -38,8 +38,8 @@ class LabeledSwitchView : UIView{
         switcher.isOn = isOn
         switcher.addTarget(self, action: #selector(valueDidChange), for: .valueChanged)
         addSubview(switcher)
-        label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: centerXAnchor, bottom: bottomAnchor, insets: .zero)
-        switcher.setAnchors(top: topAnchor, leading: label.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: .zero)
+        label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: bottomAnchor, insets: .zero)
+        switcher.setAnchors(top: topAnchor, leading: nil, trailing: trailingAnchor, bottom: bottomAnchor, insets: .zero)
     }
     
     func setEnabled(_ flag: Bool){
