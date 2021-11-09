@@ -25,6 +25,7 @@ class MapControlView: UIView {
     
     var toggleCrossControl = IconButton(icon: "plus.circle")
     var crossControl = IconButton(icon: "plus.circle")
+    var licenseView = UIView()
     
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
@@ -59,7 +60,7 @@ class MapControlView: UIView {
         bottomStackView.setupHorizontal(distribution: .equalSpacing, spacing: 0)
         bottomStackView.backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.33)
         addSubview(bottomStackView)
-        bottomStackView.setAnchors(top: nil, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: Insets.doubleInsets)
+        bottomStackView.setAnchors(top: nil, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*Insets.defaultInset, bottom: 2*Insets.defaultInset, right: 2*Insets.defaultInset))
         
         let focusUserLocationControl = IconButton(icon: "record.circle")
         bottomStackView.addArrangedSubview(focusUserLocationControl)
@@ -79,12 +80,18 @@ class MapControlView: UIView {
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
         crossControl.setAnchors(centerX: centerXAnchor, centerY: centerYAnchor)
+        crossControl.addTarget(self, action: #selector(annotationCrossTouched), for: .touchDown)
         crossControl.isHidden = true
+        
+        addSubview(licenseView)
+        licenseView.setAnchors(top: bottomStackView.bottomAnchor, leading: nil, trailing: layoutGuide.trailingAnchor, bottom: nil, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: 0, right: Insets.defaultInset))
+        
+        MapType.current.fillLicenseView(licenseView)
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
-            ($0 is UIStackView || $0 is IconButton) && $0.point(inside: self.convert(point, to: $0), with: event)
+            ($0 is UIStackView || $0 is IconButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
         })
     }
     
@@ -95,12 +102,11 @@ class MapControlView: UIView {
     @objc func toggleCross(){
         if crossControl.isHidden{
             crossControl.isHidden = false
-            toggleCrossControl.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
+            toggleCrossControl.setImage(UIImage(systemName: "minus.circle"), for: .normal)
         }
         else{
             crossControl.isHidden = true
             toggleCrossControl.setImage(UIImage(systemName: "plus.circle"), for: .normal)
-            delegate?.addAnnotationAtCross()
         }
     }
     
