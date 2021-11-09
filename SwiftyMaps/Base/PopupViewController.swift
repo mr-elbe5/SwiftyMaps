@@ -15,6 +15,7 @@ class PopupViewController: UIViewController {
     var contentView = UIView()
     
     override func loadView() {
+        modalPresentationStyle = .fullScreen
         super.loadView()
         view.backgroundColor = .systemGroupedBackground
         let guide = view.safeAreaLayoutGuide
@@ -26,10 +27,6 @@ class PopupViewController: UIViewController {
         scrollView.setAnchors(top: headerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
         scrollView.addSubview(contentView)
         contentView.setAnchors(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, trailing: scrollView.trailingAnchor, bottom: scrollView.bottomAnchor, insets: .zero)
-        //needed? 
-        /*let scflg = scrollView.contentLayoutGuide
-        let svflg = scrollView.frameLayoutGuide
-        scflg.widthAnchor.constraint(equalTo: svflg.widthAnchor).isActive = true*/
     }
     
     func setupHeaderView(){

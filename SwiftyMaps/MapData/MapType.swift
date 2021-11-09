@@ -70,7 +70,6 @@ class CartoMapType : MapType{
     }
     
     @objc func openOSMUrl() {
-        print("link")
         UIApplication.shared.open(URL(string: "https://www.openstreetmap.org/copyright")!)
     }
 }
@@ -118,7 +117,6 @@ class TopoMapType : MapType{
     }
     
     @objc func openOSMUrl() {
-        print("link")
         UIApplication.shared.open(URL(string: "https://www.openstreetmap.org/copyright")!)
     }
         

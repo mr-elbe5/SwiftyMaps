@@ -79,6 +79,7 @@
 		4E24F48927345D11004E69C2 /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47127345D11004E69C2 /* TextButton.swift */; };
 		4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47227345D11004E69C2 /* UIScrollView.swift */; };
 		4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */; };
+		4E4B758D273AA28100CB4B41 /* MapAnnotationPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B758C273AA28100CB4B41 /* MapAnnotationPhoto.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E89173F273688580046AC91 /* EditAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* EditAnnotationViewController.swift */; };
 		4E89174127368AF00046AC91 /* MapAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89174027368AF00046AC91 /* MapAnnotationViewController.swift */; };
@@ -165,6 +166,7 @@
 		4E24F47127345D11004E69C2 /* TextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
 		4E24F47227345D11004E69C2 /* UIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
 		4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
+		4E4B758C273AA28100CB4B41 /* MapAnnotationPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationPhoto.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* EditAnnotationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnnotationViewController.swift; sourceTree = "<group>"; };
 		4E89174027368AF00046AC91 /* MapAnnotationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				4E1B80FE2732ED83003ED6B0 /* Preferences */,
 				4E0BD99C26EA0074005A4A94 /* Info */,
 				4E14E43127354C4F00DBEECA /* MapData */,
+				4E4B758E273AAFBE00CB4B41 /* MapAnnotation */,
 				4E4D69FD27391B91006CD741 /* MapCache */,
 				4E3BE7EA26EA7E57000F9069 /* MapView */,
 				4E0D092C26F90D5D00FABB17 /* Tour */,
@@ -296,8 +299,6 @@
 			children = (
 				4E1B81112732EDC5003ED6B0 /* MapStatics.swift */,
 				4E1B810A2732EDC5003ED6B0 /* MapCalculator.swift */,
-				4E1B81102732EDC5003ED6B0 /* MapAnnotation.swift */,
-				4E1B810C2732EDC5003ED6B0 /* MapAnnotationCache.swift */,
 				4E1B810B2732EDC5003ED6B0 /* NormalizedPlanetPoint.swift */,
 				4E1B810E2732EDC5003ED6B0 /* NormalizedPlanetRect.swift */,
 				4E0BD9DF26EA04EE005A4A94 /* MapError.swift */,
@@ -342,8 +343,6 @@
 		4E3BE7EA26EA7E57000F9069 /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				4E1B81092732EDC5003ED6B0 /* MapAnnotationControl.swift */,
-				4E1B81082732EDC4003ED6B0 /* MapAnnotationView.swift */,
 				4E1B81042732EDC4003ED6B0 /* MapContentView.swift */,
 				4E1B81052732EDC4003ED6B0 /* MapControlView.swift */,
 				4E1B810D2732EDC5003ED6B0 /* MapTile.swift */,
@@ -351,8 +350,6 @@
 				4E1B81032732EDC4003ED6B0 /* UserLocationView.swift */,
 				4E0BD9B126EA0170005A4A94 /* MapViewController.swift */,
 				4ECFC99E26FBB8AF0083977B /* MapDownloadViewController.swift */,
-				4E89173E273688580046AC91 /* EditAnnotationViewController.swift */,
-				4E89174027368AF00046AC91 /* MapAnnotationViewController.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -379,6 +376,20 @@
 				4E0BD9C426EA02BA005A4A94 /* LocationService.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		4E4B758E273AAFBE00CB4B41 /* MapAnnotation */ = {
+			isa = PBXGroup;
+			children = (
+				4E1B81102732EDC5003ED6B0 /* MapAnnotation.swift */,
+				4E4B758C273AA28100CB4B41 /* MapAnnotationPhoto.swift */,
+				4E1B810C2732EDC5003ED6B0 /* MapAnnotationCache.swift */,
+				4E1B81092732EDC5003ED6B0 /* MapAnnotationControl.swift */,
+				4E1B81082732EDC4003ED6B0 /* MapAnnotationView.swift */,
+				4E89174027368AF00046AC91 /* MapAnnotationViewController.swift */,
+				4E89173E273688580046AC91 /* EditAnnotationViewController.swift */,
+			);
+			path = MapAnnotation;
 			sourceTree = "<group>";
 		};
 		4E4D69FD27391B91006CD741 /* MapCache */ = {
@@ -545,6 +556,7 @@
 				4E89174127368AF00046AC91 /* MapAnnotationViewController.swift in Sources */,
 				3324D415B2595FDFBCBA2998 /* MapType.swift in Sources */,
 				4E1B81022732EDA2003ED6B0 /* MapPreferences.swift in Sources */,
+				4E4B758D273AA28100CB4B41 /* MapAnnotationPhoto.swift in Sources */,
 				4E1B811B2732EDC5003ED6B0 /* MapAnnotationCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

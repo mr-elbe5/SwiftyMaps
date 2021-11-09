@@ -12,32 +12,31 @@ import Photos
 
 
 protocol PhotoCaptureDelegate{
-    func photoCaptured(image: UIImage)
+    func photoCaptured(photo: MapAnnotationPhoto)
 }
 
 class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     static var qualityItems : Array<String> = ["speed".localize(),"balanced".localize(),"quality".localize()]
     
-    //var data : PhotoItemData!
+    var data : MapAnnotationPhoto!
     
     var delegate: PhotoCaptureDelegate? = nil
     
     var captureButton = CaptureButton()
     var photoQualityControl = UISegmentedControl(items: qualityItems)
-    var libraryButton = IconButton(icon: "photo", tintColor: .white)
     var flashButton = IconButton(icon: "bolt.badge.a", tintColor: .white)
     var cameraButton = IconButton(icon: "camera.rotate", tintColor: .white)
     
     private let photoOutput = AVCapturePhotoOutput()
     private var photoQuality: AVCapturePhotoOutput.QualityPrioritization = .balanced
-    //private var flashMode : AVCaptureDevice.FlashMode = Settings.shared.flashMode
+    private var flashMode : AVCaptureDevice.FlashMode = Preferences.instance.flashMode
     
     override func addButtons(){
         buttonView.backgroundColor = .black
         captureButton.addTarget(self, action: #selector(capturePhoto), for: .touchDown)
         bodyView.addSubview(captureButton)
-        captureButton.setAnchors()
-            .bottom(buttonView.topAnchor,inset: Insets.defaultInset)
+        captureButton.setAnchors(top: nil, leading: nil, trailing: nil, bottom: buttonView.topAnchor, insets: Insets.defaultInsets)
             .centerX(bodyView.centerXAnchor)
             .width(50)
             .height(50)
@@ -47,26 +46,22 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         photoQualityControl.selectedSegmentTintColor = UIColor.systemGray2
         photoQualityControl.addTarget(self, action: #selector(togglePhotoQuality), for: .valueChanged)
         buttonView.addSubview(photoQualityControl)
-        photoQualityControl.setAnchors(top: buttonView.topAnchor, leading: buttonView.leftAnchor, trailing: buttonView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
+        photoQualityControl.setAnchors(top: buttonView.topAnchor, leading: buttonView.leadingAnchor, trailing: buttonView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
         let bottomView = UIView()
         bottomView.backgroundColor = .clear
         buttonView.addSubview(bottomView)
-        bottomView.setAnchors(top: photoQualityControl.bottomAnchor, leading: buttonView.leftAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: Insets.defaultInsets)
-        libraryButton.addTarget(self, action: #selector(selectImage), for: .touchDown)
-        bottomView.addSubview(libraryButton)
-        libraryButton.setAnchors(top: bottomView.topAnchor, leading: bottomView.leadingAnchor, trailing: nil, bottom: nil, insets: .zero)
+        bottomView.setAnchors(top: photoQualityControl.bottomAnchor, leading: buttonView.leadingAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: Insets.defaultInsets)
         cameraButton.setImage(UIImage(systemName: "camera.rotate"), for: .normal)
         cameraButton.addTarget(self, action: #selector(changeCamera), for: .touchDown)
         bottomView.addSubview(cameraButton)
-        cameraButton.setAnchors(top: bottomView.topAnchor, leading: nil, trailing: bottomView.trailingAnchor, bottom: nil, insets: .zero)
+        cameraButton.setAnchors(top: bottomView.topAnchor, leading: nil, trailing: bottomView.trailingAnchor, bottom: bottomView.bottomAnchor, insets: .zero)
         flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
         flashButton.addTarget(self, action: #selector(toggleFlash), for: .touchDown)
         bottomView.addSubview(flashButton)
-        cameraButton.setAnchors(top: bottomView.topAnchor, leading: nil, trailing: cameraButton.leadingAnchor, bottom: nil, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: Insets.defaultInset, right: 2*Insets.defaultInset))
+        flashButton.setAnchors(top: bottomView.topAnchor, leading: nil, trailing: cameraButton.leadingAnchor, bottom: bottomView.bottomAnchor, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: Insets.defaultInset, right: 2*Insets.defaultInset))
     }
     
     override func enableButtons(flag: Bool){
-        libraryButton.isEnabled = flag
         enableCameraButtons(flag: flag)
     }
     
@@ -143,7 +138,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     }
     
     @objc func toggleFlash() {
-        /*switch flashMode{
+        switch flashMode{
         case .auto:
             flashMode = .on
             self.flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
@@ -156,9 +151,9 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             flashMode = .auto
             self.flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
             break
-        }*/
-        //Settings.shared.flashMode = flashMode
-        //Settings.shared.save()
+        }
+        Preferences.instance.flashMode = flashMode
+        Preferences.instance.save()
     }
     
     @objc func capturePhoto() {
@@ -199,7 +194,8 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             print("Error capturing photo: \(error)")
         } else {
             if let imageData = photo.fileDataRepresentation(), let image = UIImage(data: imageData){
-                delegate?.photoCaptured(image: image)
+                data.image = image
+                delegate?.photoCaptured(photo: data)
                 self.dismiss(animated: true)
             }
         }
@@ -233,29 +229,6 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         }
         keyValueObservations.append(keyValueObservation)
         super.addObservers()
-    }
-    
-    @objc func selectImage(){
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.allowsEditing = true
-        pickerController.mediaTypes = ["public.image"]
-        pickerController.sourceType = .photoLibrary
-        pickerController.modalPresentationStyle = .fullScreen
-        self.present(pickerController, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        /*guard let imageURL = info[.imageURL] as? URL else {return}
-        if FileController.copyFile(fromURL: imageURL, toURL: data.fileURL){
-            delegate?.photoCaptured(data: data)
-            picker.dismiss(animated: false){
-                self.dismiss(animated: true)
-            }
-        }
-        else{
-            picker.dismiss(animated: true, completion: nil)
-        }*/
     }
     
 }

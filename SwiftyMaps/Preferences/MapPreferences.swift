@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import AVKit
 
 class Preferences: Identifiable, Codable{
     
@@ -31,6 +32,7 @@ class Preferences: Identifiable, Codable{
         case startWithLastPosition
         case showUserDirection
         case showAnnotations
+        case flashMode
     }
 
     var mapTypeName : String = MapType.current.name
@@ -39,6 +41,7 @@ class Preferences: Identifiable, Codable{
     var startWithLastPosition : Bool = false
     var showUserDirection : Bool = true
     var showAnnotations : Bool = true
+    var flashMode : AVCaptureDevice.FlashMode = .off
     
     init(){
     }
@@ -51,6 +54,7 @@ class Preferences: Identifiable, Codable{
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         showUserDirection = try values.decodeIfPresent(Bool.self, forKey: .showUserDirection) ?? true
         showAnnotations = try values.decodeIfPresent(Bool.self, forKey: .showAnnotations) ?? true
+        flashMode = AVCaptureDevice.FlashMode(rawValue: try values.decode(Int.self, forKey: .flashMode)) ?? .off
         if let mapType = MapType.getMapType(name: mapTypeName){
             MapType.current = mapType
         }
@@ -64,6 +68,7 @@ class Preferences: Identifiable, Codable{
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(showUserDirection, forKey: .showUserDirection)
         try container.encode(showAnnotations, forKey: .showAnnotations)
+        try container.encode(flashMode.rawValue, forKey: .flashMode)
     }
     
     func save(){

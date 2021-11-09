@@ -6,6 +6,7 @@
 
 import UIKit
 import CoreLocation
+import AVKit
 
 class MainViewController: UIViewController {
     
@@ -40,13 +41,14 @@ extension MainViewController: MapAnnotationViewDelegate{
     
     func showAnnotation(annotation: MapAnnotation) {
         let controller = MapAnnotationViewController()
-        controller.modalPresentationStyle = .fullScreen
+        controller.annotation = annotation
         present(controller, animated: true)
     }
     
     func editAnnotation(annotation: MapAnnotation) {
         let controller = EditAnnotationViewController()
-        controller.modalPresentationStyle = .fullScreen
+        controller.annotation = annotation
+        
         present(controller, animated: true)
     }
     
@@ -76,7 +78,6 @@ extension MainViewController: MapControlDelegate{
     }
     
     func changeMap(){
-        print("changeMap")
         if MapType.current.name == MapType.carto.name{
             MapType.current = .topo
         }
@@ -88,25 +89,38 @@ extension MainViewController: MapControlDelegate{
     
     func openInfo() {
         let controller = InfoViewController()
-        controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
     func openCamera() {
-        let controller = PhotoViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        AVCaptureDevice.askCameraAuthorization(){ result in
+            switch result{
+            case .success(()):
+                DispatchQueue.main.async {
+                    let data = MapAnnotationPhoto()
+                    let imageCaptureController = PhotoCaptureViewController()
+                    imageCaptureController.data = data
+                    imageCaptureController.delegate = self
+                    imageCaptureController.modalPresentationStyle = .fullScreen
+                    self.present(imageCaptureController, animated: true)
+                }
+                return
+            case .failure:
+                DispatchQueue.main.async {
+                    self.showAlert(title: "error".localize(), text: "cameraNotAuthorized".localize())
+                }
+                return
+            }
+        }
     }
     
     func openTour() {
         let controller = TourViewController()
-        controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
     func openSearch() {
         let controller = SearchViewController()
-        controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
@@ -128,6 +142,15 @@ extension MainViewController: PreferencesDelegate{
     func removeAnnotations() {
         MapAnnotationCache.instance.annotations.removeAll()
         mapView.annotationView.setupAnnotations()
+    }
+    
+}
+
+extension MainViewController: PhotoCaptureDelegate{
+    
+    func photoCaptured(photo: MapAnnotationPhoto) {
+        print("photo captured")
+        //todo
     }
     
 }

@@ -24,6 +24,7 @@ class MapAnnotation : Hashable, Codable{
         case longitude
         case description
         case timestamp
+        case photos
     }
     
     var id : UUID
@@ -31,6 +32,7 @@ class MapAnnotation : Hashable, Codable{
     var planetPosition : CGPoint
     var description : String
     var timestamp : Date
+    var photos : Array<MapAnnotationPhoto>
     
     var delegate: MapAnnotationDelegate? = nil
     
@@ -40,12 +42,14 @@ class MapAnnotation : Hashable, Codable{
         description = ""
         timestamp = Date()
         planetPosition = MapCalculator.pointInScaledSize(coordinate: coordinate, scaledSize: MapStatics.planetSize)
+        photos = Array<MapAnnotationPhoto>()
         LocationService.shared.getLocationDescription(coordinate: coordinate){ description in
             self.description = description
             DispatchQueue.main.async {
                 self.delegate?.descriptionChanged(annotation: self)
             }
         }
+        
     }
     
     required init(from decoder: Decoder) throws {
@@ -61,6 +65,7 @@ class MapAnnotation : Hashable, Codable{
         planetPosition = MapCalculator.pointInScaledSize(coordinate: coordinate, scaledSize: MapStatics.planetSize)
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
+        photos = try values.decodeIfPresent(Array<MapAnnotationPhoto>.self, forKey: .photos) ?? Array<MapAnnotationPhoto>()
     }
     
     func encode(to encoder: Encoder) throws {
@@ -70,6 +75,7 @@ class MapAnnotation : Hashable, Codable{
         try container.encode(coordinate.longitude, forKey: .longitude)
         try container.encode(description, forKey: .description)
         try container.encode(timestamp, forKey: .timestamp)
+        try container.encode(photos, forKey: .photos)
     }
     
     func hash(into hasher: inout Hasher) {

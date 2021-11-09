@@ -22,6 +22,11 @@ class FileController {
     static var documentURL : URL = FileManager.default.urls(for: .documentDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var imageLibraryPath: String = NSSearchPathForDirectoriesInDomains(.picturesDirectory,.userDomainMask,true).first!
     static var imageLibraryURL : URL = FileManager.default.urls(for: .picturesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
+    static var privatePath : String{
+        get{
+            privateURL.path
+        }
+    }
     static var temporaryPath : String {
         get{
             return tempDir
