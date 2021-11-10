@@ -8,8 +8,8 @@ import UIKit
 
 protocol MapControlDelegate{
     func focusUserLocation()
-    func addPlaceMarkerAtCross()
-    func addPlaceMarkerAtUserPosition()
+    func addPlaceAtCross()
+    func addPlaceAtUserPosition()
     func changeMap()
     func openInfo()
     func openCamera()
@@ -21,7 +21,6 @@ protocol MapControlDelegate{
 class MapControlView: UIView {
     
     var delegate : MapControlDelegate? = nil
-    
     
     var toggleCrossControl = IconButton(icon: "plus.circle")
     var crossControl = IconButton(icon: "plus.circle")
@@ -68,7 +67,7 @@ class MapControlView: UIView {
         
         let addPlaceMarkerControl = IconButton(icon: "mappin.circle")
         bottomStackView.addArrangedSubview(addPlaceMarkerControl)
-        addPlaceMarkerControl.addTarget(self, action: #selector(addPlaceMarkerAtUserPosition), for: .touchDown)
+        addPlaceMarkerControl.addTarget(self, action: #selector(addPlaceAtUserPosition), for: .touchDown)
         
         bottomStackView.addArrangedSubview(toggleCrossControl)
         toggleCrossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
@@ -80,7 +79,7 @@ class MapControlView: UIView {
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
         crossControl.setAnchors(centerX: centerXAnchor, centerY: centerYAnchor)
-        crossControl.addTarget(self, action: #selector(placeMarkerCrossTouched), for: .touchDown)
+        crossControl.addTarget(self, action: #selector(placeCrossTouched), for: .touchDown)
         crossControl.isHidden = true
         
         addSubview(licenseView)
@@ -131,12 +130,12 @@ class MapControlView: UIView {
         delegate?.openSearch()
     }
     
-    @objc func addPlaceMarkerAtUserPosition(){
-        delegate?.addPlaceMarkerAtUserPosition()
+    @objc func addPlaceAtUserPosition(){
+        delegate?.addPlaceAtUserPosition()
     }
     
-    @objc func placeMarkerCrossTouched(){
-        delegate?.addPlaceMarkerAtCross()
+    @objc func placeCrossTouched(){
+        delegate?.addPlaceAtCross()
     }
     
     @objc func openPreferences(){

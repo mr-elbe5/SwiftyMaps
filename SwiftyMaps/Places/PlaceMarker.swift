@@ -6,23 +6,23 @@
 
 import UIKit
 
-protocol PlaceMarkerControlDelegate{
-    func detailAction(sender: PlaceMarkerControl)
-    func editAction(sender: PlaceMarkerControl)
-    func deleteAction(sender: PlaceMarkerControl)
+protocol PlaceMarkerDelegate{
+    func detailAction(sender: PlaceMarker)
+    func editAction(sender: PlaceMarker)
+    func deleteAction(sender: PlaceMarker)
 }
 
-class PlaceMarkerControl : UIButton{
+class PlaceMarker : UIButton{
     
     static var baseFrame = CGRect(x: -MapStatics.mapPinRadius, y: -2*MapStatics.mapPinRadius, width: 2*MapStatics.mapPinRadius, height: 2*MapStatics.mapPinRadius)
     
     var place : PlaceData
     
-    var delegate: PlaceMarkerControlDelegate? = nil
+    var delegate: PlaceMarkerDelegate? = nil
     
     init(place: PlaceData){
         self.place = place
-        super.init(frame: PlaceMarkerControl.baseFrame)
+        super.init(frame: PlaceMarker.baseFrame)
         place.delegate = self
         setImage(MapStatics.mapPinImage, for: .normal)
     }
@@ -50,14 +50,14 @@ class PlaceMarkerControl : UIButton{
     }
     
     func updatePosition(to pos: CGPoint){
-        frame = PlaceMarkerControl.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
+        frame = PlaceMarker.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
         //print("new frame = \(frame) in \(superview!.bounds)")
         setNeedsDisplay()
     }
     
 }
 
-extension PlaceMarkerControl: PlaceDelegate{
+extension PlaceMarker: PlaceDelegate{
     
     func descriptionChanged(place: PlaceData) {
         createMenu()

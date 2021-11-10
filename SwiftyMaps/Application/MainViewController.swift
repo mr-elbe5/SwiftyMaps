@@ -21,8 +21,8 @@ class MainViewController: UIViewController {
         mapView.setupScrollView(minimalZoom: minZoom)
         mapView.setupContentView()
         mapView.setupUserLocationView()
-        mapView.setupPlaceMarkerView()
-        mapView.placeMarkerView.delegate = self
+        mapView.setupPlacesView()
+        mapView.placesView.delegate = self
         mapView.setupControlView()
         mapView.controlView.delegate = self
     }
@@ -37,10 +37,10 @@ class MainViewController: UIViewController {
     
 }
 
-extension MainViewController: PlaceMarkerViewDelegate{
+extension MainViewController: PlacesViewDelegate{
     
     func showPlaceDetails(place: PlaceData) {
-        let controller = PlaceViewController()
+        let controller = PlaceDetailViewController()
         controller.place = place
         present(controller, animated: true)
     }
@@ -52,7 +52,7 @@ extension MainViewController: PlaceMarkerViewDelegate{
         present(controller, animated: true)
     }
     
-    func deletePlaceData(place: PlaceData) {
+    func deletePlace(place: PlaceData) {
         PlaceCache.instance.removePlace(place)
         PlaceCache.instance.save()
     }
@@ -65,15 +65,15 @@ extension MainViewController: MapControlDelegate{
         mapView.focusUserLocation()
     }
     
-    func addPlaceMarkerAtCross(){
+    func addPlaceAtCross(){
         let place = PlaceCache.instance.addPlace(coordinate: mapView.getVisibleCenterCoordinate())
-        mapView.addPlaceMarker(place: place)
+        mapView.addPlace(place: place)
     }
     
-    func addPlaceMarkerAtUserPosition(){
+    func addPlaceAtUserPosition(){
         if let location = LocationService.shared.location{
             let place = PlaceData(coordinate: location.coordinate)
-            mapView.addPlaceMarker(place: place)
+            mapView.addPlace(place: place)
         }
     }
     
@@ -141,7 +141,7 @@ extension MainViewController: PreferencesDelegate{
     
     func removePlaces() {
         PlaceCache.instance.places.removeAll()
-        mapView.placeMarkerView.setupPlaceMarkers()
+        mapView.placesView.setupPlaceMarkers()
     }
     
 }

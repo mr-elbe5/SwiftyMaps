@@ -11,7 +11,7 @@ class MapView: UIView {
     
     var scrollView : UIScrollView!
     var contentView = MapContentView()
-    var placeMarkerView = PlaceMarkerView()
+    var placesView = PlacesView()
     var userLocationView = UserLocationView()
     var controlView = MapControlView()
     
@@ -66,11 +66,11 @@ class MapView: UIView {
         contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
     }
     
-    func setupPlaceMarkerView(){
-        addSubview(placeMarkerView)
-        placeMarkerView.fillView(view: self)
-        placeMarkerView.setupPlaceMarkers()
-        placeMarkerView.isHidden = !Preferences.instance.showPlaceMarkers
+    func setupPlacesView(){
+        addSubview(placesView)
+        placesView.fillView(view: self)
+        placesView.setupPlaceMarkers()
+        placesView.isHidden = !Preferences.instance.showPlaceMarkers
     }
     
     func setupUserLocationView(){
@@ -161,10 +161,10 @@ class MapView: UIView {
         userLocationView.updateDirection(direction: direction)
     }
     
-    func addPlaceMarker(place: PlaceData){
-        placeMarkerView.addPlaceMarkerControl(place: place)
+    func addPlace(place: PlaceData){
+        placesView.addPlaceMarker(place: place)
         PlaceCache.instance.save()
-        placeMarkerView.updatePosition(offset: contentOffset, scale: scale)
+        placesView.updatePosition(offset: contentOffset, scale: scale)
     }
     
     func getVisibleCenter() -> CGPoint{
@@ -190,7 +190,7 @@ extension MapView : UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         assertCenteredContent(scrollView: scrollView)
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
-        placeMarkerView.updatePosition(offset: contentOffset, scale: scale)
+        placesView.updatePosition(offset: contentOffset, scale: scale)
     }
     
     // for infinite scroll using 3 * content width

@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class PlaceViewController: PopupViewController{
+class PlaceDetailViewController: PopupViewController{
     
     var stackView = UIStackView()
     

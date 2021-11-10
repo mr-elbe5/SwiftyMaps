@@ -6,15 +6,15 @@
 
 import UIKit
 
-protocol PlaceMarkerViewDelegate{
+protocol PlacesViewDelegate{
     func showPlaceDetails(place: PlaceData)
     func editPlaceData(place: PlaceData)
-    func deletePlaceData(place: PlaceData)
+    func deletePlace(place: PlaceData)
 }
 
-class PlaceMarkerView: UIView {
+class PlacesView: UIView {
     
-    var delegate : PlaceMarkerViewDelegate? = nil
+    var delegate : PlacesViewDelegate? = nil
     
     func setupPlaceMarkers(){
         for subview in subviews {
@@ -22,12 +22,12 @@ class PlaceMarkerView: UIView {
         }
         let places = PlaceCache.instance.placesInPlanetRect(MapStatics.planetRect)
         for place in places{
-            addPlaceMarkerControl(place: place)
+            addPlaceMarker(place: place)
         }
     }
     
-    func addPlaceMarkerControl(place: PlaceData){
-        let control = PlaceMarkerControl(place: place)
+    func addPlaceMarker(place: PlaceData){
+        let control = PlaceMarker(place: place)
         addSubview(control)
         control.delegate = self
         control.createMenu()
@@ -35,14 +35,14 @@ class PlaceMarkerView: UIView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
-            $0 is PlaceMarkerControl && $0.point(inside: self.convert(point, to: $0), with: event)
+            $0 is PlaceMarker && $0.point(inside: self.convert(point, to: $0), with: event)
         })
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
         let normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint(x: offset.x/scale, y: offset.y/scale))
         for sv in subviews{
-            if let av = sv as? PlaceMarkerControl{
+            if let av = sv as? PlaceMarker{
                 av.updatePosition(to: CGPoint(x: (av.place.planetPosition.x - normalizedOffset.point.x)*scale , y: (av.place.planetPosition.y - normalizedOffset.point.y)*scale))
             }
         }
@@ -50,19 +50,19 @@ class PlaceMarkerView: UIView {
     
 }
 
-extension PlaceMarkerView: PlaceMarkerControlDelegate{
+extension PlacesView: PlaceMarkerDelegate{
     
-    func detailAction(sender: PlaceMarkerControl) {
+    func detailAction(sender: PlaceMarker) {
         delegate?.showPlaceDetails(place: sender.place)
     }
     
-    func editAction(sender: PlaceMarkerControl) {
+    func editAction(sender: PlaceMarker) {
         delegate?.editPlaceData(place: sender.place)
     }
     
-    func deleteAction(sender: PlaceMarkerControl) {
+    func deleteAction(sender: PlaceMarker) {
         subviews.first(where: {$0 == sender})?.removeFromSuperview()
-        delegate?.deletePlaceData(place: sender.place)
+        delegate?.deletePlace(place: sender.place)
     }
     
     
