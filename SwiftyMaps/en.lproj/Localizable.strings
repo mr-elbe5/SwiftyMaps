@@ -71,12 +71,7 @@
 "tour"="Tour";
 
 // map menu
-"defaultMapStyle"="Standard";
-"openStreetMapStyle"="OpenStreetMap";
-"openTopoMapStyle"="OpenTopoMap";
-"satelliteMapStyle"="Satellite";
 "preloadMap"="Preload Map";
-"mapConfiguration"="Map Configuration";
 //marker menu
 "hideMarkers"="Hide Markers";
 "showMarkers"="Show Markers";

@@ -161,7 +161,7 @@ class MapView: UIView {
         userLocationView.updateDirection(direction: direction)
     }
     
-    func addPlace(place: PlaceData){
+    func addPlaceMarker(place: PlaceData){
         placesView.addPlaceMarker(place: place)
         PlaceCache.instance.save()
         placesView.updatePosition(offset: contentOffset, scale: scale)

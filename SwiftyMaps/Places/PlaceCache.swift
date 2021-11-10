@@ -46,10 +46,10 @@ class PlaceCache: Codable{
     }
     
     @discardableResult
-    func addPlace(coordinate: CLLocationCoordinate2D) -> PlaceData{
+    func addPlace(location: CLLocation) -> PlaceData{
         lock.wait()
         defer{lock.signal()}
-        let place = PlaceData(coordinate: coordinate)
+        let place = PlaceData(location: location)
         places.append(place)
         return place
     }

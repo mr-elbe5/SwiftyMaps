@@ -66,14 +66,15 @@ extension MainViewController: MapControlDelegate{
     }
     
     func addPlaceAtCross(){
-        let place = PlaceCache.instance.addPlace(coordinate: mapView.getVisibleCenterCoordinate())
-        mapView.addPlace(place: place)
+        let location = CLLocation(coordinate: mapView.getVisibleCenterCoordinate(), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())
+        let place = PlaceCache.instance.addPlace(location: location)
+        mapView.addPlaceMarker(place: place)
     }
     
     func addPlaceAtUserPosition(){
         if let location = LocationService.shared.location{
-            let place = PlaceData(coordinate: location.coordinate)
-            mapView.addPlace(place: place)
+            let place = PlaceData(location: location)
+            mapView.addPlaceMarker(place: place)
         }
     }
     

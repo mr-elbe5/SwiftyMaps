@@ -25,7 +25,6 @@
 		4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */; };
 		4E0BD9CE26EA02BA005A4A94 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C426EA02BA005A4A94 /* LocationService.swift */; };
 		4E0BD9CF26EA02BA005A4A94 /* MediaCommentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C526EA02BA005A4A94 /* MediaCommentLabel.swift */; };
-		4E0BD9D226EA02BA005A4A94 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C826EA02BA005A4A94 /* Location.swift */; };
 		4E0BD9D326EA02BA005A4A94 /* AVCaptureVideoOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C926EA02BA005A4A94 /* AVCaptureVideoOrientation.swift */; };
 		4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */; };
 		4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9D526EA037F005A4A94 /* DataController.swift */; };
@@ -110,7 +109,6 @@
 		4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
 		4E0BD9C426EA02BA005A4A94 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		4E0BD9C526EA02BA005A4A94 /* MediaCommentLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCommentLabel.swift; sourceTree = "<group>"; };
-		4E0BD9C826EA02BA005A4A94 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		4E0BD9C926EA02BA005A4A94 /* AVCaptureVideoOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureVideoOrientation.swift; sourceTree = "<group>"; };
 		4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureDevice.swift; sourceTree = "<group>"; };
 		4E0BD9D526EA037F005A4A94 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -367,7 +365,6 @@
 		4E3BE7EE26EC9841000F9069 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				4E0BD9C826EA02BA005A4A94 /* Location.swift */,
 				4E0BD9E126EA04EE005A4A94 /* LocationError.swift */,
 				4E0BD9C426EA02BA005A4A94 /* LocationService.swift */,
 			);
@@ -489,7 +486,6 @@
 				4E0D093026F90DC600FABB17 /* TourViewController.swift in Sources */,
 				4E0BD9AA26EA0159005A4A94 /* PopupViewController.swift in Sources */,
 				4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */,
-				4E0BD9D226EA02BA005A4A94 /* Location.swift in Sources */,
 				4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,
 				4E24F47A27345D11004E69C2 /* UILabel.swift in Sources */,
