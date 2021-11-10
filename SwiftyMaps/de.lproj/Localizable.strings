@@ -37,6 +37,7 @@
 "locationNotAuthorized"="Die App darf deinen Standort nicht feststellen. Bitte ändere die entsprechenden Einstellungen.";
 "saveLocation"="Position speichern";
 "yourPosition"="Deine Position";
+"useLocation"="Vorhandenen Ort benutzen?";
 
 //preferences
 "preferences"="Voreinstellungen";

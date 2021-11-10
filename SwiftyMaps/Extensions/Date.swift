@@ -34,6 +34,10 @@ extension Date{
         return DateFormats.fileDateFormatter.string(from: self)
     }
     
+    func shortFileDate() -> String{
+        return DateFormats.shortFileDateFormatter.string(from: self)
+    }
+    
     func timeString() -> String{
         return DateFormats.timeOnlyFormatter.string(from: self)
     }
@@ -85,6 +89,15 @@ class DateFormats{
             let dateFormatter = DateFormatter()
             dateFormatter.timeZone = .none
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
+            return dateFormatter
+        }
+    }
+    
+    static var shortFileDateFormatter : DateFormatter{
+        get{
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = .none
+            dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm"
             return dateFormatter
         }
     }

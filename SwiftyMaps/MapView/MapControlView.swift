@@ -8,8 +8,8 @@ import UIKit
 
 protocol MapControlDelegate{
     func focusUserLocation()
-    func addPlaceAtCross()
-    func addPlaceAtUserPosition()
+    func addSelectedPlace()
+    func addCurrentPlace()
     func changeMap()
     func openInfo()
     func openCamera()
@@ -67,7 +67,7 @@ class MapControlView: UIView {
         
         let addPlaceMarkerControl = IconButton(icon: "mappin.circle")
         bottomStackView.addArrangedSubview(addPlaceMarkerControl)
-        addPlaceMarkerControl.addTarget(self, action: #selector(addPlaceAtUserPosition), for: .touchDown)
+        addPlaceMarkerControl.addTarget(self, action: #selector(addCurrentPlace), for: .touchDown)
         
         bottomStackView.addArrangedSubview(toggleCrossControl)
         toggleCrossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
@@ -130,12 +130,12 @@ class MapControlView: UIView {
         delegate?.openSearch()
     }
     
-    @objc func addPlaceAtUserPosition(){
-        delegate?.addPlaceAtUserPosition()
+    @objc func addCurrentPlace(){
+        delegate?.addCurrentPlace()
     }
     
     @objc func placeCrossTouched(){
-        delegate?.addPlaceAtCross()
+        delegate?.addSelectedPlace()
     }
     
     @objc func openPreferences(){

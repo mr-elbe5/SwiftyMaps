@@ -65,6 +65,19 @@ class PlaceCache: Codable{
         }
     }
     
+    func placeNextTo(location: CLLocation) -> PlaceData?{
+        var distance : CLLocationDistance = Double.infinity
+        var nextPlace : PlaceData? = nil
+        for place in places{
+            let dist = location.distance(from: place.location)
+            if dist <= location.horizontalAccuracy && dist<distance{
+                distance = dist
+                nextPlace = place
+            }
+        }
+        return nextPlace
+    }
+    
     func placesInPlanetRect(_ rect: CGRect) -> [PlaceData]{
         var result = [PlaceData]()
         for place in places{
@@ -77,6 +90,8 @@ class PlaceCache: Codable{
     }
     
     func save(){
+        lock.wait()
+        defer{lock.signal()}
         DataController.shared.save(forKey: .places, value: self)
     }
     

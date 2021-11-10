@@ -37,6 +37,7 @@
 "locationNotAuthorized"="Finding your location is not authorized. Please change your settings.";
 "saveLocation"="Save Location";
 "yourPosition"="Your Position";
+"useLocation"="Use existing Location?";
 
 //preferences
 "preferences"="Preferences";

@@ -42,5 +42,8 @@ struct MapStatics{
     
     static var locationRadius : CGFloat = 16
     
+    static var minHorizontalAccuracy : CLLocationDistance = 20
+    static var minVerticalAccuracy : CLLocationDistance = 10
+    
 }
 

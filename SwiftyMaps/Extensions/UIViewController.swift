@@ -30,5 +30,27 @@ extension UIViewController{
         self.present(alertController, animated: true)
     }
     
+    func showDecision(title: String, text: String, onDecision: ((Bool) -> Void)? = nil){
+        let alertController = UIAlertController(title: title, message: text, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "yes".localize(), style: .default) { action in
+            onDecision?(true)
+        })
+        alertController.addAction(UIAlertAction(title: "no".localize(), style: .cancel) { action in
+            onDecision?(false)
+        })
+        self.present(alertController, animated: true)
+    }
+    
+    func showNegativeDecision(title: String, text: String, onDecision: ((Bool) -> Void)? = nil){
+        let alertController = UIAlertController(title: title, message: text, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
+            onDecision?(false)
+        })
+        alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
+            onDecision?(true)
+        })
+        self.present(alertController, animated: true)
+    }
+    
 }
 

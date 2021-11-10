@@ -8,7 +8,7 @@ import UIKit
 import CoreLocation
 import AVKit
 
-class MainViewController: UIViewController {
+class MapViewController: UIViewController {
     
     var mapView = MapView()
     
@@ -35,9 +35,45 @@ class MainViewController: UIViewController {
         mapView.disconnectLocationService()
     }
     
+    private func assertPlace(location: CLLocation, onComplete: ((PlaceData) -> Void)? = nil){
+        if let nextPlace = PlaceCache.instance.placeNextTo(location: location){
+            var txt = nextPlace.description
+            if !txt.isEmpty{
+                txt += ", "
+            }
+            txt += nextPlace.coordinateString
+            showNegativeDecision(title: "useLocation".localize(), text: txt){ ok in
+                if ok{
+                    onComplete?(nextPlace)
+                }
+                else{
+                    let place = PlaceCache.instance.addPlace(location: location)
+                    self.mapView.addPlaceMarker(place: place)
+                    onComplete?(place)
+                }
+            }
+        }
+        else{
+            let place = PlaceCache.instance.addPlace(location: location)
+            self.mapView.addPlaceMarker(place: place)
+            onComplete?(place)
+        }
+    }
+    
+    private func assertPhotoPlace(location: CLLocation, onComplete: ((PlaceData) -> Void)? = nil){
+        if let nextPlace = PlaceCache.instance.placeNextTo(location: location){
+            onComplete?(nextPlace)
+        }
+        else{
+            let place = PlaceCache.instance.addPlace(location: location)
+            self.mapView.addPlaceMarker(place: place)
+            onComplete?(place)
+        }
+    }
+    
 }
 
-extension MainViewController: PlacesViewDelegate{
+extension MapViewController: PlacesViewDelegate{
     
     func showPlaceDetails(place: PlaceData) {
         let controller = PlaceDetailViewController()
@@ -59,22 +95,24 @@ extension MainViewController: PlacesViewDelegate{
     
 }
 
-extension MainViewController: MapControlDelegate{
+extension MapViewController: MapControlDelegate{
     
     func focusUserLocation() {
         mapView.focusUserLocation()
     }
     
-    func addPlaceAtCross(){
-        let location = CLLocation(coordinate: mapView.getVisibleCenterCoordinate(), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())
-        let place = PlaceCache.instance.addPlace(location: location)
-        mapView.addPlaceMarker(place: place)
+    func addSelectedPlace(){
+        let location = CLLocation(coordinate: mapView.getVisibleCenterCoordinate(), altitude: 0, horizontalAccuracy: MapStatics.minHorizontalAccuracy, verticalAccuracy: MapStatics.minVerticalAccuracy, timestamp: Date())
+        assertPlace(location: location){ place in
+            
+        }
     }
     
-    func addPlaceAtUserPosition(){
+    func addCurrentPlace(){
         if let location = LocationService.shared.location{
-            let place = PlaceData(location: location)
-            mapView.addPlaceMarker(place: place)
+            assertPlace(location: location){ place in
+                
+            }
         }
     }
     
@@ -98,7 +136,7 @@ extension MainViewController: MapControlDelegate{
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let data = PlaceImage()
+                    let data = Photo()
                     let imageCaptureController = PhotoCaptureViewController()
                     imageCaptureController.data = data
                     imageCaptureController.delegate = self
@@ -134,7 +172,7 @@ extension MainViewController: MapControlDelegate{
     
 }
 
-extension MainViewController: PreferencesDelegate{
+extension MapViewController: PreferencesDelegate{
     
     func clearTileCache() {
         MapTileCache.clear()
@@ -147,11 +185,15 @@ extension MainViewController: PreferencesDelegate{
     
 }
 
-extension MainViewController: PhotoCaptureDelegate{
+extension MapViewController: PhotoCaptureDelegate{
     
-    func photoCaptured(photo: PlaceImage) {
-        print("photo captured")
-        //todo
+    func photoCaptured(photo: Photo) {
+        if let location = LocationService.shared.location{
+            assertPhotoPlace(location: location){ place in
+                place.addPhoto(photo: photo)
+                PlaceCache.instance.save()
+            }
+        }
     }
     
 }

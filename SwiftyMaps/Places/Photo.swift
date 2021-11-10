@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class PlaceImage : Identifiable, Codable{
+class Photo : Identifiable, Codable{
     
     private enum CodingKeys: CodingKey{
         case id
@@ -19,13 +19,11 @@ class PlaceImage : Identifiable, Codable{
     var creationDate: Date
     var title: String = ""
     
-    var image : UIImage? = nil
-    
     var isNew = false
     
     var fileName : String {
         get{
-            return "img_\(id)\(creationDate.fileDate()).jpg"
+            return "img_\(id)_\(creationDate.shortFileDate()).jpg"
         }
     }
     

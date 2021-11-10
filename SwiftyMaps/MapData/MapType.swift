@@ -9,7 +9,7 @@ class MapType{
     
     static var carto = CartoMapType()
     static var topo = TopoMapType()
-    static var current : MapType = topo
+    static var current : MapType = carto
     
     static func getMapType(name: String) -> MapType?{
         switch name{

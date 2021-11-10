@@ -12,14 +12,14 @@ import Photos
 
 
 protocol PhotoCaptureDelegate{
-    func photoCaptured(photo: PlaceImage)
+    func photoCaptured(photo: Photo)
 }
 
 class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     static var qualityItems : Array<String> = ["speed".localize(),"balanced".localize(),"quality".localize()]
     
-    var data : PlaceImage!
+    var data : Photo!
     
     var delegate: PhotoCaptureDelegate? = nil
     
@@ -194,7 +194,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             print("Error capturing photo: \(error)")
         } else {
             if let imageData = photo.fileDataRepresentation(), let image = UIImage(data: imageData){
-                data.image = image
+                data.saveImage(uiImage: image)
                 delegate?.photoCaptured(photo: data)
                 self.dismiss(animated: true)
             }
