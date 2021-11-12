@@ -23,13 +23,19 @@ class Location : Hashable, Codable{
         case latitude
         case longitude
         case name
-        case locality
+        case street
+        case zipCode
+        case city
+        case country
     }
     
     var coordinate : CLLocationCoordinate2D
     var planetPosition : CGPoint
     var name : String = ""
-    var locality : String = ""
+    var street : String = ""
+    var zipCode : String = ""
+    var city : String = ""
+    var country : String = ""
     
     var delegate : LocationDelegate? = nil
     
@@ -37,12 +43,22 @@ class Location : Hashable, Codable{
         CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
     
-    var address : String{
+    var description : String{
         var s = name
-        if !locality.isEmpty{
+        if !s.isEmpty{
+            s += " - "
+        }
+        if !street.isEmpty{
+            s += street
             s += ", "
         }
-        s += locality
+        if !zipCode.isEmpty{
+            s += zipCode
+            s += " "
+        }
+        if !city.isEmpty{
+            s += city
+        }
         return s
     }
     
@@ -76,7 +92,10 @@ class Location : Hashable, Codable{
         let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
-        locality = try values.decodeIfPresent(String.self, forKey: .locality) ?? ""
+        street = try values.decodeIfPresent(String.self, forKey: .street) ?? ""
+        zipCode = try values.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
+        city = try values.decodeIfPresent(String.self, forKey: .city) ?? ""
+        country = try values.decodeIfPresent(String.self, forKey: .country) ?? ""
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         planetPosition = MapCalculator.planetPointFromCoordinate(coordinate: coordinate)
     }
@@ -86,12 +105,32 @@ class Location : Hashable, Codable{
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)
         try container.encode(name, forKey: .name)
-        try container.encode(locality, forKey: .locality)
+        try container.encode(street, forKey: .street)
+        try container.encode(zipCode, forKey: .zipCode)
+        try container.encode(city, forKey: .city)
+        try container.encode(country, forKey: .country)
     }
     
     func addPlacemarkInfo(placemark: CLPlacemark){
-        name = placemark.name ?? ""
-        locality = placemark.locality ?? ""
+        street = placemark.thoroughfare ?? ""
+        if let number = placemark.subThoroughfare{
+            if !street.isEmpty{
+                street += " "
+            }
+            street += number
+        }
+        if let name = placemark.name{
+            self.name = (name == street) ? "" : name
+        }
+        zipCode = placemark.postalCode ?? ""
+        city = placemark.locality ?? ""
+        country = placemark.country ?? ""
+        print("name = \(name)")
+        print("street = \(street)")
+        print("zipCode = \(zipCode)")
+        print("city = \(city)")
+        print("country = \(country)")
+        print("description = \(description)")
     }
     
     func hash(into hasher: inout Hasher) {
