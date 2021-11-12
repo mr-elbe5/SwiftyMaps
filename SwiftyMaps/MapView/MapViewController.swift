@@ -41,7 +41,7 @@ class MapViewController: UIViewController {
             if !txt.isEmpty{
                 txt += ", "
             }
-            txt += nextPlace.coordinateString
+            txt += nextPlace.location.coordinateString
             showNegativeDecision(title: "useLocation".localize(), text: txt){ ok in
                 if ok{
                     onComplete?(nextPlace)

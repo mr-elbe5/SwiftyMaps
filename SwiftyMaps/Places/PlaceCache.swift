@@ -69,7 +69,7 @@ class PlaceCache: Codable{
         var distance : CLLocationDistance = Double.infinity
         var nextPlace : PlaceData? = nil
         for place in places{
-            let dist = location.distance(from: place.location)
+            let dist = location.distance(from: place.location.cllocation)
             if dist <= location.horizontalAccuracy && dist<distance{
                 distance = dist
                 nextPlace = place
@@ -81,7 +81,7 @@ class PlaceCache: Codable{
     func placesInPlanetRect(_ rect: CGRect) -> [PlaceData]{
         var result = [PlaceData]()
         for place in places{
-            if place.planetPosition.x >= rect.minX && place.planetPosition.x < rect.minX + rect.width && place.planetPosition.y >= rect.minY && place.planetPosition.y < rect.minY + rect.height{
+            if place.location.planetPosition.x >= rect.minX && place.location.planetPosition.x < rect.minX + rect.width && place.location.planetPosition.y >= rect.minY && place.location.planetPosition.y < rect.minY + rect.height{
                 result.append(place)
                 //print("found place at \(place.planetPosition) in \(rect)")
             }

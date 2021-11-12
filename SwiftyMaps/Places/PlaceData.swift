@@ -12,47 +12,59 @@ protocol PlaceDelegate{
     func descriptionChanged(place: PlaceData)
 }
 
-class PlaceData : Location{
+class PlaceData : Hashable, Codable{
+    
+    static func == (lhs: PlaceData, rhs: PlaceData) -> Bool {
+        lhs.location == rhs.location
+    }
     
     private enum CodingKeys: String, CodingKey {
+        case location
         case description
         case photos
     }
     
+    var location : Location
     var description : String
     var photos : Array<PhotoData>
     
     var delegate: PlaceDelegate? = nil
     
-    override init(coordinate: CLLocationCoordinate2D){
+    init(coordinate: CLLocationCoordinate2D){
         description = ""
         photos = Array<PhotoData>()
-        super.init(coordinate: coordinate)
-        LocationService.shared.getLocationDescription(coordinate: coordinate){ description in
-            self.description = description
-            DispatchQueue.main.async {
-                self.delegate?.descriptionChanged(place: self)
-            }
-        }
-        
+        location = Location(coordinate: coordinate)
+        location.delegate = self
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        location = try values.decodeIfPresent(Location.self, forKey: .location) ?? Location()
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         photos = try values.decodeIfPresent(Array<PhotoData>.self, forKey: .photos) ?? Array<PhotoData>()
-        try super.init(from: decoder)
     }
     
-    override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(location, forKey: .location)
         try container.encode(description, forKey: .description)
         try container.encode(photos, forKey: .photos)
     }
     
     func addPhoto(photo: PhotoData){
         photos.append(photo)
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(location)
+    }
+    
+}
+
+extension PlaceData : LocationDelegate{
+    
+    func placemarkChanged(location: Location) {
+        delegate?.descriptionChanged(place: self)
     }
     
 }

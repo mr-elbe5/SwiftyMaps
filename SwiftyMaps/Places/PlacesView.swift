@@ -43,7 +43,7 @@ class PlacesView: UIView {
         let normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint(x: offset.x/scale, y: offset.y/scale))
         for sv in subviews{
             if let av = sv as? PlaceMarker{
-                av.updatePosition(to: CGPoint(x: (av.place.planetPosition.x - normalizedOffset.point.x)*scale , y: (av.place.planetPosition.y - normalizedOffset.point.y)*scale))
+                av.updatePosition(to: CGPoint(x: (av.place.location.planetPosition.x - normalizedOffset.point.x)*scale , y: (av.place.location.planetPosition.y - normalizedOffset.point.y)*scale))
             }
         }
     }

@@ -44,41 +44,14 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         }
     }
     
-    func getLocationDescription(placemark: CLPlacemark) -> String {
-        var s = ""
-        if let name = placemark.name{
-            s += name
-        }
-        if let locality = placemark.locality{
-            if !s.isEmpty{
-                s += ", "
-            }
-            s += locality
-        }
-        return s
-    }
-    
-    func getLocationDescription() -> String {
-        if let place = placemark{
-            return getLocationDescription(placemark: place)
-        }
-        return ""
-    }
-    
-    func getLocationDescription(coordinate: CLLocationCoordinate2D, completion: @escaping(String) -> ()){
-        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        getLocationDescription(location: location, completion: completion)
-    }
-    
-    func getLocationDescription(location: CLLocation, completion: @escaping(String) -> ()){
-        var description = ""
-        geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
+    func getPlacemarkInfo(for location: Location, completion: @escaping(Bool) -> ()){
+        geocoder.reverseGeocodeLocation(location.cllocation, completionHandler: { (placemarks, error) in
             if error == nil, let placemark =  placemarks?[0]{
-                description = self.getLocationDescription(placemark: placemark)
-                completion(description)
+                location.addPlacemarkInfo(placemark: placemark)
+                completion(true)
             }
             else{
-                completion("")
+                completion(false)
             }
         })
     }
