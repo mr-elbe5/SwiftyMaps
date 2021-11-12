@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class Photo : Identifiable, Codable{
+class PhotoData : Identifiable, Codable{
     
     private enum CodingKeys: CodingKey{
         case id

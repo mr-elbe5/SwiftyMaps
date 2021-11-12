@@ -15,7 +15,6 @@ class PopupViewController: UIViewController {
     var contentView = UIView()
     
     override func loadView() {
-        modalPresentationStyle = .fullScreen
         super.loadView()
         view.backgroundColor = .systemGroupedBackground
         let guide = view.safeAreaLayoutGuide

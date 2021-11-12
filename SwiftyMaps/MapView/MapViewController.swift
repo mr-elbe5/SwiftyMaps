@@ -78,13 +78,14 @@ extension MapViewController: PlacesViewDelegate{
     func showPlaceDetails(place: PlaceData) {
         let controller = PlaceDetailViewController()
         controller.place = place
+        controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
     func editPlaceData(place: PlaceData) {
         let controller = PlaceEditViewController()
         controller.place = place
-        
+        controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
@@ -101,18 +102,10 @@ extension MapViewController: MapControlDelegate{
         mapView.focusUserLocation()
     }
     
-    func addSelectedPlace(){
+    func addPlace(){
         let location = CLLocation(coordinate: mapView.getVisibleCenterCoordinate(), altitude: 0, horizontalAccuracy: MapStatics.minHorizontalAccuracy, verticalAccuracy: MapStatics.minVerticalAccuracy, timestamp: Date())
         assertPlace(location: location){ place in
             
-        }
-    }
-    
-    func addCurrentPlace(){
-        if let location = LocationService.shared.location{
-            assertPlace(location: location){ place in
-                
-            }
         }
     }
     
@@ -128,6 +121,7 @@ extension MapViewController: MapControlDelegate{
     
     func openInfo() {
         let controller = InfoViewController()
+        controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
@@ -136,7 +130,7 @@ extension MapViewController: MapControlDelegate{
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let data = Photo()
+                    let data = PhotoData()
                     let imageCaptureController = PhotoCaptureViewController()
                     imageCaptureController.data = data
                     imageCaptureController.delegate = self
@@ -155,11 +149,7 @@ extension MapViewController: MapControlDelegate{
     
     func openTour() {
         let controller = TourViewController()
-        present(controller, animated: true)
-    }
-    
-    func openSearch() {
-        let controller = SearchViewController()
+        controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
@@ -187,7 +177,7 @@ extension MapViewController: PreferencesDelegate{
 
 extension MapViewController: PhotoCaptureDelegate{
     
-    func photoCaptured(photo: Photo) {
+    func photoCaptured(photo: PhotoData) {
         if let location = LocationService.shared.location{
             assertPhotoPlace(location: location){ place in
                 place.addPhoto(photo: photo)

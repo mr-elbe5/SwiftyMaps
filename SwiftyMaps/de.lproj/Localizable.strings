@@ -3,6 +3,7 @@
 "cancel" = "Abbrechen";
 "comment"="Kommentar";
 "delete"="Löschen";
+"description"="Beschreibung";
 "done"="Fertig";
 "edit"="Ändern";
 "ok"="Ok";
@@ -66,6 +67,8 @@
 
 // places
 "place"="Ort";
+"places"="Orte";
+"photos"="Fotos";
 
 //tour
 "tour"="Tour";
@@ -109,6 +112,3 @@
 "photoShared"="Foto wurde kopiert.";
 "shareImage"="Bild kopieren";
 
-// search
-
-"search"="Suche";

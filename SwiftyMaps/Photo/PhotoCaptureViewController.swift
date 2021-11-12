@@ -12,14 +12,14 @@ import Photos
 
 
 protocol PhotoCaptureDelegate{
-    func photoCaptured(photo: Photo)
+    func photoCaptured(photo: PhotoData)
 }
 
 class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     static var qualityItems : Array<String> = ["speed".localize(),"balanced".localize(),"quality".localize()]
     
-    var data : Photo!
+    var data : PhotoData!
     
     var delegate: PhotoCaptureDelegate? = nil
     

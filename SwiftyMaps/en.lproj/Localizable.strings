@@ -3,6 +3,7 @@
 "cancel" = "Cancel";
 "comment"="Comment";
 "delete"="Delete";
+"description"="Description";
 "done"="Done";
 "edit"="Edit";
 "ok"="Ok";
@@ -67,6 +68,8 @@
 
 // places
 "place"="Place";
+"places"="Places";
+"photos"="Photos";
 
 //tour
 "tour"="Tour";
@@ -108,8 +111,5 @@
 "photoShared"="Photo has been copied.";
 "shareImage"="Share image";
 
-// search
-
-"search"="Search";
 
 

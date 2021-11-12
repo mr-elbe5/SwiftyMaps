@@ -18,8 +18,22 @@ class PlaceDetailViewController: PopupViewController{
         super.loadView()
         scrollView.setupVertical()
         contentView.addSubview(stackView)
-        stackView.fillView(view: scrollView, insets: UIEdgeInsets(top: Insets.defaultInset, left: .zero, bottom: Insets.defaultInset, right: .zero))
+        stackView.fillView(view: scrollView, insets: Insets.narrowInsets)
+        setupContent()
         stackView.setupVertical()
+    }
+    
+    func setupContent(){
+        if let place = place{
+            let descriptionView = TextView.fromData(text: place.description)
+            stackView.addArrangedSubview(descriptionView)
+            if !place.photos.isEmpty{
+                for photo in place.photos{
+                    let imageView = PhotoView.fromData(data: photo)
+                    stackView.addArrangedSubview(imageView)
+                }
+            }
+        }
     }
     
 }

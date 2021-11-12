@@ -34,7 +34,7 @@ class PlaceData : Hashable, Codable{
     var location : CLLocation
     var planetPosition : CGPoint
     var description : String
-    var photos : Array<Photo>
+    var photos : Array<PhotoData>
     
     var coordinate : CLLocationCoordinate2D{
         location.coordinate
@@ -62,7 +62,7 @@ class PlaceData : Hashable, Codable{
         id = UUID()
         self.location = location
         description = ""
-        photos = Array<Photo>()
+        photos = Array<PhotoData>()
         planetPosition = MapCalculator.pointInScaledSize(coordinate: location.coordinate, scaledSize: MapStatics.planetSize)
         LocationService.shared.getLocationDescription(coordinate: coordinate){ description in
             self.description = description
@@ -84,7 +84,7 @@ class PlaceData : Hashable, Codable{
         let timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
         location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, timestamp: timestamp)
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
-        photos = try values.decodeIfPresent(Array<Photo>.self, forKey: .photos) ?? Array<Photo>()
+        photos = try values.decodeIfPresent(Array<PhotoData>.self, forKey: .photos) ?? Array<PhotoData>()
         planetPosition = MapCalculator.pointInScaledSize(coordinate: location.coordinate, scaledSize: MapStatics.planetSize)
     }
     
@@ -105,7 +105,7 @@ class PlaceData : Hashable, Codable{
         hasher.combine(id)
     }
     
-    func addPhoto(photo: Photo){
+    func addPhoto(photo: PhotoData){
         photos.append(photo)
     }
     
