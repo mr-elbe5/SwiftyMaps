@@ -83,6 +83,7 @@
 		4ECFC99B26FB551B0083977B /* DownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* DownloadOperation.swift */; };
 		4ECFC99D26FB6FFB0083977B /* URLPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99C26FB6FFB0083977B /* URLPair.swift */; };
 		4ECFC99F26FBB8AF0083977B /* MapDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* MapDownloadViewController.swift */; };
+		4ED5DF44273E831B00549AF8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5DF43273E831B00549AF8 /* Location.swift */; };
 		4EDDE78E26FA6E7B00184130 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDE78D26FA6E7B00184130 /* AsynchronousOperation.swift */; };
 		4EDDE79026FA72CB00184130 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDE78F26FA72CB00184130 /* DownloadManager.swift */; };
 /* End PBXBuildFile section */
@@ -167,6 +168,7 @@
 		4ECFC99A26FB551B0083977B /* DownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99C26FB6FFB0083977B /* URLPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPair.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* MapDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDownloadViewController.swift; sourceTree = "<group>"; };
+		4ED5DF43273E831B00549AF8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		4EDDE78D26FA6E7B00184130 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		4EDDE78F26FA72CB00184130 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -355,6 +357,7 @@
 			children = (
 				4E0BD9E126EA04EE005A4A94 /* LocationError.swift */,
 				4E0BD9C426EA02BA005A4A94 /* LocationService.swift */,
+				4ED5DF43273E831B00549AF8 /* Location.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */,
 				4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,
+				4ED5DF44273E831B00549AF8 /* Location.swift in Sources */,
 				4E24F47A27345D11004E69C2 /* UILabel.swift in Sources */,
 				4E0BD9BF26EA0239005A4A94 /* URL.swift in Sources */,
 				4ECFC99F26FBB8AF0083977B /* MapDownloadViewController.swift in Sources */,

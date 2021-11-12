@@ -35,8 +35,8 @@ class MapViewController: UIViewController {
         mapView.disconnectLocationService()
     }
     
-    private func assertPlace(location: CLLocation, onComplete: ((PlaceData) -> Void)? = nil){
-        if let nextPlace = PlaceCache.instance.placeNextTo(location: location){
+    private func assertPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
+        if let nextPlace = PlaceCache.instance.placeNextTo(location: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){
             var txt = nextPlace.description
             if !txt.isEmpty{
                 txt += ", "
@@ -47,25 +47,26 @@ class MapViewController: UIViewController {
                     onComplete?(nextPlace)
                 }
                 else{
-                    let place = PlaceCache.instance.addPlace(location: location)
+                    let place = PlaceCache.instance.addPlace(coordinate: coordinate)
                     self.mapView.addPlaceMarker(place: place)
                     onComplete?(place)
                 }
             }
         }
         else{
-            let place = PlaceCache.instance.addPlace(location: location)
+            let place = PlaceCache.instance.addPlace(coordinate: coordinate)
             self.mapView.addPlaceMarker(place: place)
             onComplete?(place)
         }
     }
     
-    private func assertPhotoPlace(location: CLLocation, onComplete: ((PlaceData) -> Void)? = nil){
+    private func assertPhotoPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
+        let location = CLLocation(coordinate: coordinate, altitude: 0, horizontalAccuracy: MapStatics.minHorizontalAccuracy, verticalAccuracy: MapStatics.minVerticalAccuracy, timestamp: Date())
         if let nextPlace = PlaceCache.instance.placeNextTo(location: location){
             onComplete?(nextPlace)
         }
         else{
-            let place = PlaceCache.instance.addPlace(location: location)
+            let place = PlaceCache.instance.addPlace(coordinate: location.coordinate)
             self.mapView.addPlaceMarker(place: place)
             onComplete?(place)
         }
@@ -103,8 +104,8 @@ extension MapViewController: MapControlDelegate{
     }
     
     func addPlace(){
-        let location = CLLocation(coordinate: mapView.getVisibleCenterCoordinate(), altitude: 0, horizontalAccuracy: MapStatics.minHorizontalAccuracy, verticalAccuracy: MapStatics.minVerticalAccuracy, timestamp: Date())
-        assertPlace(location: location){ place in
+        let coordinate = mapView.getVisibleCenterCoordinate()
+        assertPlace(coordinate: coordinate){ place in
             
         }
     }
@@ -179,7 +180,7 @@ extension MapViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
         if let location = LocationService.shared.location{
-            assertPhotoPlace(location: location){ place in
+            assertPhotoPlace(coordinate: location.coordinate){ place in
                 place.addPhoto(photo: photo)
                 PlaceCache.instance.save()
             }

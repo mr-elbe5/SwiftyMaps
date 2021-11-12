@@ -46,10 +46,10 @@ class PlaceCache: Codable{
     }
     
     @discardableResult
-    func addPlace(location: CLLocation) -> PlaceData{
+    func addPlace(coordinate: CLLocationCoordinate2D) -> PlaceData{
         lock.wait()
         defer{lock.signal()}
-        let place = PlaceData(location: location)
+        let place = PlaceData(coordinate: coordinate)
         places.append(place)
         return place
     }
@@ -58,7 +58,7 @@ class PlaceCache: Codable{
         lock.wait()
         defer{lock.signal()}
         for idx in 0..<places.count{
-            if places[idx].id == place.id{
+            if places[idx] == place{
                 places.remove(at: idx)
                 return
             }

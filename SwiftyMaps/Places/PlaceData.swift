@@ -12,58 +12,22 @@ protocol PlaceDelegate{
     func descriptionChanged(place: PlaceData)
 }
 
-class PlaceData : Hashable, Codable{
+class PlaceData : Location{
     
-    static func == (lhs: PlaceData, rhs: PlaceData) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case latitude
-        case longitude
-        case horizontalAccuracy
-        case verticalAccuracy
-        case altitude
-        case timestamp
+    private enum CodingKeys: String, CodingKey {
         case description
         case photos
     }
     
-    var id : UUID
-    var location : CLLocation
-    var planetPosition : CGPoint
     var description : String
     var photos : Array<PhotoData>
     
-    var coordinate : CLLocationCoordinate2D{
-        location.coordinate
-    }
-    
-    var altitude: CLLocationDistance{
-        location.altitude
-    }
-    
-    var timestamp : Date{
-        location.timestamp
-    }
-    
-    var coordinateString : String{
-        get{
-            let latitudeText = coordinate.latitude > 0 ? "north".localize() : "south".localize()
-            let longitudeText = coordinate.longitude > 0 ? "east".localize() : "west".localize()
-            return String(format: "%.04f", abs(coordinate.latitude)) + "° " + latitudeText + ", " + String(format: "%.04f", abs(coordinate.longitude)) + "° "  + longitudeText
-        }
-    }
-    
     var delegate: PlaceDelegate? = nil
     
-    init(location: CLLocation){
-        id = UUID()
-        self.location = location
+    override init(coordinate: CLLocationCoordinate2D){
         description = ""
         photos = Array<PhotoData>()
-        planetPosition = MapCalculator.pointInScaledSize(coordinate: location.coordinate, scaledSize: MapStatics.planetSize)
+        super.init(coordinate: coordinate)
         LocationService.shared.getLocationDescription(coordinate: coordinate){ description in
             self.description = description
             DispatchQueue.main.async {
@@ -75,34 +39,16 @@ class PlaceData : Hashable, Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(UUID.self, forKey: .id)
-        let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
-        let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
-        let horizontalAccuracy = try values.decodeIfPresent(Double.self, forKey: .horizontalAccuracy) ?? 0
-        let verticalAccuracy = try values.decodeIfPresent(Double.self, forKey: .verticalAccuracy) ?? 0
-        let altitude = try values.decodeIfPresent(Double.self, forKey: .altitude) ?? 0
-        let timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
-        location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, timestamp: timestamp)
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         photos = try values.decodeIfPresent(Array<PhotoData>.self, forKey: .photos) ?? Array<PhotoData>()
-        planetPosition = MapCalculator.pointInScaledSize(coordinate: location.coordinate, scaledSize: MapStatics.planetSize)
+        try super.init(from: decoder)
     }
     
-    func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(coordinate.latitude, forKey: .latitude)
-        try container.encode(coordinate.longitude, forKey: .longitude)
-        try container.encode(location.horizontalAccuracy, forKey: .horizontalAccuracy)
-        try container.encode(location.verticalAccuracy, forKey: .verticalAccuracy)
-        try container.encode(location.altitude, forKey: .altitude)
-        try container.encode(location.timestamp, forKey: .timestamp)
         try container.encode(description, forKey: .description)
         try container.encode(photos, forKey: .photos)
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
     }
     
     func addPhoto(photo: PhotoData){

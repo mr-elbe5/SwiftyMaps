@@ -142,13 +142,13 @@ class MapView: UIView {
             print("location initialized")
             setZoom(zoomLevel: MapStatics.startZoom, animated: false)
             focusUserLocation()
-            setLocation(loc)
+            setLocation(coordinate: loc.coordinate)
             directionDidChange(direction: LocationService.shared.direction)
         }
     }
     
-    func setLocation(_ location: CLLocation){
-        userLocationView.updateLocation(location: MapCalculator.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
+    func setLocation(coordinate: CLLocationCoordinate2D){
+        userLocationView.updateLocation(location: MapCalculator.planetPointFromCoordinate(coordinate: coordinate), offset: contentOffset, scale: scale)
     }
     
     func focusUserLocation() {
@@ -218,7 +218,7 @@ extension MapView: LocationServiceDelegate{
             initLocation()
         }
         else{
-            setLocation(location)
+            setLocation(coordinate: location.coordinate)
         }
         
     }
