@@ -10,7 +10,6 @@ import UIKit
 
 class MapDownloadViewController: UIViewController, DownloadProcessProtocol{
     
-    var mapType: MapType? = nil
     var mapRegion: MapRegion? = nil
     var mainView = UIView()
     
@@ -163,13 +162,8 @@ class MapDownloadViewController: UIViewController, DownloadProcessProtocol{
     }
     
     func prepareDownload(){
-        allTiles = 0
-        existingTiles = 0
-        tilesToLoad = 0
-        loadedTiles = 0
-        errors = 0
         urlPairs.removeAll()
-        if let mapType = mapType, let region = mapRegion{
+        if let region = mapRegion{
             allTiles = region.size
             allTilesInfo.text = String(allTiles)
             for zoom in region.tiles.keys{
@@ -182,7 +176,7 @@ class MapDownloadViewController: UIViewController, DownloadProcessProtocol{
                                     existingTiles += 1
                                     continue
                                 }
-                                if let url = MapTileLoader.url(tile: tile, urlTemplate: mapType.tileUrl){
+                                if let url = MapTileLoader.url(tile: tile, urlTemplate: MapType.current.tileUrl){
                                     urlPairs.append(URLPair(source: url, target: fileUrl))
                                 }
                             }
@@ -196,7 +190,6 @@ class MapDownloadViewController: UIViewController, DownloadProcessProtocol{
             tilesToLoadInfo.text = String(tilesToLoad)
             sizeToLoadInfo.text = "\(tilesToLoad * MapStatics.averageTileLoadSize / 1024 / 1024) MB"
             loadedTilesSlider.maximumValue = Float(tilesToLoad)
-            
         }
     }
     

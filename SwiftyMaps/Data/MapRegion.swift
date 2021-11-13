@@ -58,16 +58,23 @@ class MapRegion{
     
 }
 
-struct TileSet{
+class TileSet{
     
     var minX = 0
     var minY = 0
     var maxX = 0
     var maxY = 0
     
+    init(minX: Int, minY: Int, maxX: Int, maxY: Int){
+        self.minX = min(minX, maxX)
+        self.maxX = max(maxX, minX)
+        self.minY = min(minY, maxY)
+        self.maxY = max(maxY, minY)
+    }
+    
     var size : Int{
         get{
-            (abs(maxX - minX) + 1) * (abs(maxY - minY) + 1)
+            (maxX - minX + 1) * (maxY - minY + 1)
         }
     }
     
