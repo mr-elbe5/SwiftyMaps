@@ -7,7 +7,6 @@ enum DownloadError: Error {
 }
 
 protocol DownloadProcessProtocol {
-    func downloadingProgress(_ percent: Float, fileName: String)
     func downloadSucceeded(_ fileName: String)
     func downloadWithError(_ error: Error?, fileName: String)
 }
@@ -16,7 +15,9 @@ class DownloadManager: NSObject {
     
     fileprivate var operations = [Int: DownloadOperation]()
     
-    static var maxOperationCount = 1
+    static var maxOperationCount = 10
+    
+    var lock = DispatchSemaphore(value: 1)
     
     private let queue: OperationQueue = {
         let _queue = OperationQueue()
@@ -34,6 +35,8 @@ class DownloadManager: NSObject {
     
     @discardableResult
     func addDownloadOperation(_ urlPair: URLPair) -> DownloadOperation {
+        lock.wait()
+        defer{ lock.signal()}
         let operation = DownloadOperation(session: session, urlPair: urlPair)
         operations[operation.task.taskIdentifier] = operation
         queue.addOperation(operation)
@@ -48,8 +51,9 @@ class DownloadManager: NSObject {
 extension DownloadManager: URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        lock.wait()
+        defer{lock.signal()}
         operations[downloadTask.taskIdentifier]?.trackDownloadByOperation(session, downloadTask: downloadTask, didFinishDownloadingTo: location)
-        
         if let downloadUrl = downloadTask.originalRequest!.url {
             DispatchQueue.main.async { [self] in
                 processDelegate?.downloadSucceeded(downloadUrl.lastPathComponent)
@@ -57,16 +61,9 @@ extension DownloadManager: URLSessionDownloadDelegate {
         }
     }
     
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        if let downloadUrl = downloadTask.originalRequest!.url {
-            let percent = Double(totalBytesWritten)/Double(totalBytesExpectedToWrite)
-            DispatchQueue.main.async { [self] in
-                processDelegate?.downloadingProgress(Float(percent), fileName:  downloadUrl.lastPathComponent)
-            }
-        }
-    }
-    
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        lock.wait()
+        defer{lock.signal()}
         let key = task.taskIdentifier
         operations[key]?.trackDownloadByOperation(session, task: task, didCompleteWithError: error)
         operations.removeValue(forKey: key)

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MapDownloadViewController: UIViewController, DownloadProcessProtocol{
+class MapDownloadViewController: UIViewController{
     
     var mapRegion: MapRegion? = nil
     var mainView = UIView()
@@ -227,9 +227,9 @@ class MapDownloadViewController: UIViewController, DownloadProcessProtocol{
         self.dismiss(animated: true, completion: {
         })
     }
-    
-    func downloadingProgress(_ percent: Float, fileName: String) {
-    }
+}
+
+extension MapDownloadViewController: DownloadProcessProtocol{
     
     func downloadSucceeded(_ fileName: String) {
         DispatchQueue.main.async{

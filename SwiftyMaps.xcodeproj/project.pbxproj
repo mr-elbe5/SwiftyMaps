@@ -79,13 +79,13 @@
 		4E4B758D273AA28100CB4B41 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B758C273AA28100CB4B41 /* PhotoData.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E52F3E8273FD2F30046DC98 /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3E7273FD2F30046DC98 /* MapRegion.swift */; };
+		4E52F3EA274032FE0046DC98 /* NSLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3E9274032FE0046DC98 /* NSLock.swift */; };
 		4E89173F273688580046AC91 /* PlaceEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceEditViewController.swift */; };
 		4E89174127368AF00046AC91 /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89174027368AF00046AC91 /* PlaceDetailViewController.swift */; };
 		4ECFC99B26FB551B0083977B /* DownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* DownloadOperation.swift */; };
 		4ECFC99D26FB6FFB0083977B /* URLPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99C26FB6FFB0083977B /* URLPair.swift */; };
 		4ECFC99F26FBB8AF0083977B /* MapDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* MapDownloadViewController.swift */; };
 		4ED5DF44273E831B00549AF8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5DF43273E831B00549AF8 /* Location.swift */; };
-		4EDDE78E26FA6E7B00184130 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDE78D26FA6E7B00184130 /* AsynchronousOperation.swift */; };
 		4EDDE79026FA72CB00184130 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDE78F26FA72CB00184130 /* DownloadManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -165,13 +165,13 @@
 		4E4B758C273AA28100CB4B41 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E52F3E7273FD2F30046DC98 /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
+		4E52F3E9274032FE0046DC98 /* NSLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLock.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* PlaceEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceEditViewController.swift; sourceTree = "<group>"; };
 		4E89174027368AF00046AC91 /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* DownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99C26FB6FFB0083977B /* URLPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPair.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* MapDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDownloadViewController.swift; sourceTree = "<group>"; };
 		4ED5DF43273E831B00549AF8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		4EDDE78D26FA6E7B00184130 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		4EDDE78F26FA72CB00184130 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -263,7 +263,6 @@
 		4E0BD99E26EA010A005A4A94 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				4EDDE78D26FA6E7B00184130 /* AsynchronousOperation.swift */,
 				4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */,
 				4E24F45C27345D11004E69C2 /* IconButton.swift */,
 				4E24F46427345D11004E69C2 /* Indicator.swift */,
@@ -316,6 +315,7 @@
 				4E24F46A27345D11004E69C2 /* UIView.swift */,
 				4E0BD99F26EA0159005A4A94 /* UIViewController.swift */,
 				4E0BD9BA26EA0239005A4A94 /* URL.swift */,
+				4E52F3E9274032FE0046DC98 /* NSLock.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -512,12 +512,12 @@
 				4E1B81012732EDA2003ED6B0 /* MapPreferencesViewController.swift in Sources */,
 				4E24F47727345D11004E69C2 /* InfoText.swift in Sources */,
 				4E1B811A2732EDC5003ED6B0 /* NormalizedPlanetPoint.swift in Sources */,
+				4E52F3EA274032FE0046DC98 /* NSLock.swift in Sources */,
 				4ECFC99B26FB551B0083977B /* DownloadOperation.swift in Sources */,
 				4E24F48227345D11004E69C2 /* UIView.swift in Sources */,
 				4E42393D273D2290005B2E5F /* TextView.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* MapTileView.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
-				4EDDE78E26FA6E7B00184130 /* AsynchronousOperation.swift in Sources */,
 				4E1B80F12732ED43003ED6B0 /* MapViewController.swift in Sources */,
 				4E24F47927345D11004E69C2 /* InfoHeader.swift in Sources */,
 				4E1B81162732EDC5003ED6B0 /* MapTileCache.swift in Sources */,
