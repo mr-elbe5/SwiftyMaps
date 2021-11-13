@@ -123,6 +123,7 @@ class MapView: UIView {
     
     func setZoom(zoomLevel: Int, animated: Bool){
         scrollView.setZoomScale(MapCalculator.zoomScale(at: zoomLevel - MapStatics.maxZoom), animated: animated)
+        controlView.checkPreloadScale(scale: scrollView.contentScaleFactor)
     }
     
     func connectLocationService(){
@@ -191,6 +192,7 @@ extension MapView : UIScrollViewDelegate{
         assertCenteredContent(scrollView: scrollView)
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
         placesView.updatePosition(offset: contentOffset, scale: scale)
+        controlView.checkPreloadScale(scale: scrollView.zoomScale)
     }
     
     // for infinite scroll using 3 * content width

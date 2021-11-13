@@ -10,6 +10,7 @@ protocol MapControlDelegate{
     func focusUserLocation()
     func addPlace()
     func changeMap()
+    func preloadMap()
     func openInfo()
     func openCamera()
     func openTour()
@@ -20,6 +21,7 @@ class MapControlView: UIView {
     
     var delegate : MapControlDelegate? = nil
     
+    var preloadMapControl = IconButton(icon: "square.and.arrow.down")
     var toggleCrossControl = IconButton(icon: "mappin.and.ellipse")
     var crossControl = IconButton(icon: "plus.circle")
     var licenseView = UIView()
@@ -37,6 +39,11 @@ class MapControlView: UIView {
         changeMapControl.setAnchors(top: topControlLine.topAnchor, leading: topControlLine.leadingAnchor, trailing: nil, bottom: topControlLine.bottomAnchor, insets: Insets.flatInsets)
         changeMapControl.addTarget(self, action: #selector(changeMap), for: .touchDown)
         
+        topControlLine.addSubview(preloadMapControl)
+        preloadMapControl.setAnchors(top: topControlLine.topAnchor, leading: changeMapControl.trailingAnchor, trailing: nil, bottom: topControlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*Insets.defaultInset, bottom: 0, right: 0))
+        preloadMapControl.addTarget(self, action: #selector(preloadMap), for: .touchDown)
+        preloadMapControl.isHidden = true
+        
         let focusUserLocationControl = IconButton(icon: "record.circle")
         topControlLine.addSubview(focusUserLocationControl)
         focusUserLocationControl.setAnchors(top: topControlLine.topAnchor, leading: nil, trailing: nil, bottom: topControlLine.bottomAnchor, insets: Insets.flatInsets)
@@ -50,7 +57,7 @@ class MapControlView: UIView {
         
         let openPreferencesControl = IconButton(icon: "gearshape")
         topControlLine.addSubview(openPreferencesControl)
-        openPreferencesControl.setAnchors(top: topControlLine.topAnchor, leading: nil, trailing: openInfoControl.leadingAnchor, bottom: topControlLine.bottomAnchor, insets: Insets.flatInsets)
+        openPreferencesControl.setAnchors(top: topControlLine.topAnchor, leading: nil, trailing: openInfoControl.leadingAnchor, bottom: topControlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 2*Insets.defaultInset))
         openPreferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
 
         let bottomControlLine = MapControlLine()
@@ -91,6 +98,11 @@ class MapControlView: UIView {
         })
     }
     
+    func checkPreloadScale(scale: CGFloat){
+        //print("preloadScale \(scale) compared to \(MapStatics.minPreloadScale)")
+        preloadMapControl.isHidden = scale < MapStatics.minPreloadScale
+    }
+    
     @objc func focusUserLocation(){
         delegate?.focusUserLocation()
     }
@@ -109,6 +121,10 @@ class MapControlView: UIView {
     @objc func changeMap(){
         delegate?.changeMap()
         MapType.current.fillLicenseView(licenseView)
+    }
+    
+    @objc func preloadMap(){
+        delegate?.preloadMap()
     }
     
     @objc func openInfo(){

@@ -120,6 +120,10 @@ extension MapViewController: MapControlDelegate{
         mapView.mapTypeHasChanged()
     }
     
+    func preloadMap() {
+        print("preload")
+    }
+    
     func openInfo() {
         let controller = InfoViewController()
         controller.modalPresentationStyle = .fullScreen
