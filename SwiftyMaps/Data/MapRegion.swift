@@ -17,6 +17,7 @@ class MapRegion{
     var minLongitude : CLLocationDegrees
     var maxLongitude : CLLocationDegrees
     var maxZoom : Int
+    var size : Int
     
     var tiles = Dictionary<Int, TileSet>()
     
@@ -26,8 +27,15 @@ class MapRegion{
         minLongitude = topLeft.longitude
         maxLongitude = bottomRight.longitude
         self.maxZoom = maxZoom
+        size = 0
         updateTileSets()
-        dump()
+        for zoom in tiles.keys{
+            if let tileSet = tiles[zoom]{
+                //print("zoom \(zoom): \(tileSet) with size \(tileSet.size)")
+                size += tileSet.size
+            }
+        }
+        //dump()
     }
     
     func updateTileSets(){
@@ -45,14 +53,7 @@ class MapRegion{
         print("maxLatitude = \(maxLatitude)")
         print("minLongitude = \(minLongitude)")
         print("maxLongitude = \(maxLongitude)")
-        var size = 0
-        for zoom in tiles.keys{
-            if let tileSet = tiles[zoom]{
-                print("zoom \(zoom): \(tileSet) with size \(tileSet.size)")
-                size += tileSet.size
-            }
-        }
-        print("full size = \(size)")
+        print("size = \(size)")
     }
     
 }

@@ -121,8 +121,10 @@ extension MapViewController: MapControlDelegate{
     }
     
     func preloadMap() {
-        let region = mapView.currentMapRegion
-        print("preload")
+        let controller = MapDownloadViewController()
+        controller.mapRegion = mapView.currentMapRegion
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
     
     func openInfo() {

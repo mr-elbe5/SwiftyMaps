@@ -11,6 +11,7 @@ import UIKit
 class MapDownloadViewController: UIViewController, DownloadProcessProtocol{
     
     var mapType: MapType? = nil
+    var mapRegion: MapRegion? = nil
     var mainView = UIView()
     
     var downloadManager = DownloadManager()
@@ -168,26 +169,34 @@ class MapDownloadViewController: UIViewController, DownloadProcessProtocol{
         loadedTiles = 0
         errors = 0
         urlPairs.removeAll()
-        if let mapType = mapType{
-            /*
-            let list = region.getTileList(minZoom: 6, maxZoom: 18)
-            allTiles = list.count
+        if let mapType = mapType, let region = mapRegion{
+            allTiles = region.size
             allTilesInfo.text = String(allTiles)
-            for tile in list{
-                guard let fileUrl = tile.fileUrl(type: mapType.name.rawValue) else {print("error creating file url"); return}
-                if MapCache.instance.tileExists(url: fileUrl){
-                    existingTiles += 1
-                    continue
+            for zoom in region.tiles.keys{
+                if let tileSet = region.tiles[zoom]{
+                    for x in tileSet.minX...tileSet.maxX{
+                        for y in tileSet.minY...tileSet.maxY{
+                            let tile = MapTile(zoom: zoom, x: x, y: y)
+                            if let fileUrl = MapTileCache.fileUrl(tile: tile){
+                                if MapTileCache.tileExists(url: fileUrl){
+                                    existingTiles += 1
+                                    continue
+                                }
+                                if let url = MapTileLoader.url(tile: tile, urlTemplate: mapType.tileUrl){
+                                    urlPairs.append(URLPair(source: url, target: fileUrl))
+                                }
+                            }
+                            
+                        }
+                    }
                 }
-                guard let url = tile.url(urlTemplate: urlTemplate) else {print("error creating download url"); return}
-                urlPairs.append(URLPair(source: url, target: fileUrl))
             }
             existingTilesInfo.text = String(existingTiles)
             tilesToLoad = allTiles - existingTiles
             tilesToLoadInfo.text = String(tilesToLoad)
-            sizeToLoadInfo.text = "\(tilesToLoad * Statics.tilesSize / 1024 / 1024) MB"
+            sizeToLoadInfo.text = "\(tilesToLoad * MapStatics.averageTileLoadSize / 1024 / 1024) MB"
             loadedTilesSlider.maximumValue = Float(tilesToLoad)
-             */
+            
         }
     }
     
