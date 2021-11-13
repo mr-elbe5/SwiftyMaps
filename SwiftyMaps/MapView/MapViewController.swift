@@ -121,6 +121,7 @@ extension MapViewController: MapControlDelegate{
     }
     
     func preloadMap() {
+        let region = mapView.currentMapRegion
         print("preload")
     }
     

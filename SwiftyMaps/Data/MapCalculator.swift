@@ -104,6 +104,13 @@ struct MapCalculator{
         pointInScaledSize(coordinate: coordinate, scaledSize: MapStatics.planetSize)
     }
     
+    static func tileCoordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees, zoom: Int) -> (x: Int, y: Int){
+        let scale = zoomScale(at: zoom)
+        let x = floor((longitude + 180)/360.0*scale)
+        let y = floor((1 - log(tan(latitude*CGFloat.pi/180.0) + 1/cos(latitude*CGFloat.pi/180.0 ))/CGFloat.pi )/2*scale)
+        return (x: Int(x), y: Int(y))
+    }
+    
     static func metersPerPixel(latitude: CGFloat, zoom: Int) -> CGFloat{
         156543.03 * cos(latitude) / zoomScale(at: zoom)
     }

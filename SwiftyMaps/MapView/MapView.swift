@@ -24,6 +24,12 @@ class MapView: UIView {
         }
     }
     
+    var currentMapRegion : MapRegion{
+        get{
+            MapRegion(topLeft: getCoordinate(screenPoint: CGPoint(x: 0, y: 0)), bottomRight: getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width, y: scrollView.visibleSize.height)), maxZoom: MapType.current.maxZoom)
+        }
+    }
+    
     var contentDrawScale : CGFloat{
         get{
             scale*contentView.layer.contentsScale
