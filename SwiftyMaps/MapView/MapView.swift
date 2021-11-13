@@ -10,8 +10,8 @@ import CoreLocation
 class MapView: UIView {
     
     var scrollView : UIScrollView!
-    var contentView = MapContentView()
-    var placesView = PlacesView()
+    var contentView = MapTileView()
+    var placesView = MapLocationView()
     var userLocationView = UserLocationView()
     var controlView = MapControlView()
     

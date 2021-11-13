@@ -12,7 +12,7 @@ protocol PlacesViewDelegate{
     func deletePlace(place: PlaceData)
 }
 
-class PlacesView: UIView {
+class MapLocationView: UIView {
     
     var delegate : PlacesViewDelegate? = nil
     
@@ -50,7 +50,7 @@ class PlacesView: UIView {
     
 }
 
-extension PlacesView: PlaceMarkerDelegate{
+extension MapLocationView: PlaceMarkerDelegate{
     
     func detailAction(sender: PlaceMarker) {
         delegate?.showPlaceDetails(place: sender.place)

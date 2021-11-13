@@ -6,7 +6,7 @@
 
 import UIKit
 
-class MapContentView: UIView {
+class MapTileView: UIView {
     
     var screenScale : CGFloat = 1.0
     
