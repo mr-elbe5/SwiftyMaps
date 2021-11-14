@@ -36,7 +36,6 @@ class AsyncOperation : Operation{
     override var isAsynchronous: Bool { true }
     
     override func start() {
-        print("start")
         guard !isCancelled else { return }
         state = .isExecuting
         startExecution()

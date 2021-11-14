@@ -14,6 +14,8 @@ protocol DownloadDelegate {
 
 class DownloadQueue : OperationQueue{
     
+    fileprivate var operationMap = SafeMap<Int, DownloadOperation>()
+    
     lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
@@ -35,6 +37,7 @@ class DownloadQueue : OperationQueue{
     @discardableResult
     func addDownloadOperation(_ urlPair: URLPair) -> DownloadOperation {
         let operation = DownloadOperation(session: session, urlPair: urlPair)
+        operationMap.add(at: operation.task.taskIdentifier, operation)
         addOperation(operation)
         return operation
     }
@@ -44,24 +47,19 @@ class DownloadQueue : OperationQueue{
 extension DownloadQueue: URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        if let operation = operations[downloadTask.taskIdentifier] as? DownloadOperation{
-            operation.trackDownloadByOperation(session, downloadTask: downloadTask, didFinishDownloadingTo: location)
-        }
+        operationMap.get(at: downloadTask.taskIdentifier)?.trackDownloadByOperation(session, downloadTask: downloadTask, didFinishDownloadingTo: location)
         if let downloadUrl = downloadTask.originalRequest!.url {
             DispatchQueue.main.async { [self] in
-                print("ok")
                 delegate?.downloadSucceeded(downloadUrl.lastPathComponent)
             }
         }
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionTask, didCompleteWithError error: Error?) {
-        if let operation = operations[downloadTask.taskIdentifier] as? DownloadOperation{
-            operation.trackDownloadByOperation(session, task: downloadTask, didCompleteWithError: error)
-        }
+        let key = downloadTask.taskIdentifier
+        operationMap.get(at: key)?.trackDownloadByOperation(session, task: downloadTask, didCompleteWithError: error)
         if let downloadUrl = downloadTask.originalRequest!.url, error != nil {
             DispatchQueue.main.async { [self] in
-                print("err")
                 delegate?.downloadWithError(error, fileName: downloadUrl.lastPathComponent)
             }
         }

@@ -17,7 +17,6 @@ class DownloadOperation : AsyncOperation {
     
     func trackDownloadByOperation(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         do {
-            print("finish")
             let manager = FileManager.default
             if manager.fileExists(atPath:  targetUrl.path) {
                 try manager.removeItem(at: targetUrl)

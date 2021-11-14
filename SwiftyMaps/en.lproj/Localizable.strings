@@ -94,6 +94,7 @@
 "tilesToLoad"="Numer of tiles to load:";
 "sizeToLoad"="Full size of tiles to load (est.):";
 "unloadedTiles"="Number of not loaded tiles:";
+"maxZoom"="Maximal zoom level:";
 
 //map
 "mapComment"="Map comment";

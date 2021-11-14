@@ -93,6 +93,7 @@
 "tilesToLoad"="Zahl zu ladender Kacheln:";
 "sizeToLoad"="Gesamtgröße zu ladender Kacheln (ca):";
 "unloadedTiles"="Zahl nicht geladener Kacheln:";
+"maxZoom"="Maximale Zoomebene:";
 
 //map
 "map"="Karte";

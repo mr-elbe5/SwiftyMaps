@@ -13,7 +13,9 @@ class MapDownloadViewController: UIViewController{
     var mapRegion: MapRegion? = nil
     var mainView = UIView()
     
-    var downloadManager = DownloadManager()
+    var downloadQueue = DownloadQueue()
+    
+    var maxZoom = MapType.current.maxZoom
     
     var allTiles = 0
     var existingTiles = 0
@@ -29,6 +31,9 @@ class MapDownloadViewController: UIViewController{
     var existingTilesInfo = UILabel()
     var tilesToLoadInfo = UILabel()
     var sizeToLoadInfo = UILabel()
+    
+    var maxZoomSlider = UISlider()
+    var maxZoomValueLabel = UILabel()
     
     var startButton = UIButton()
     var cancelButton = UIButton()
@@ -103,6 +108,28 @@ class MapDownloadViewController: UIViewController{
             .leading(sizeToLoadLabel.trailingAnchor,inset: 2 * Insets.defaultInset)
             .top(tilesToLoadLabel.bottomAnchor, inset: Insets.defaultInset)
         
+        let maxZoomLabel = UILabel()
+        maxZoomLabel.text = "maxZoom".localize()
+        mainView.addSubview(maxZoomLabel)
+        maxZoomLabel.setAnchors()
+            .leading(mainView.leadingAnchor, inset: Insets.defaultInset)
+            .top(sizeToLoadInfo.bottomAnchor, inset: Insets.defaultInset)
+        maxZoomValueLabel.text = String(maxZoom)
+        mainView.addSubview(maxZoomValueLabel)
+        maxZoomValueLabel.setAnchors()
+            .leading(maxZoomLabel.trailingAnchor, inset: Insets.defaultInset)
+            .top(sizeToLoadInfo.bottomAnchor, inset: Insets.defaultInset)
+        maxZoomSlider.minimumValue = 0
+        maxZoomSlider.maximumValue = Float(maxZoom)
+        maxZoomSlider.value = Float(maxZoom)
+        maxZoomSlider.isContinuous = true
+        maxZoomSlider.addTarget(self, action: #selector(zoomChanged), for: .valueChanged)
+        mainView.addSubview(maxZoomSlider)
+        maxZoomSlider.setAnchors()
+            .leading(mainView.leadingAnchor, inset: 2 * Insets.defaultInset)
+            .top(maxZoomLabel.bottomAnchor, inset: Insets.defaultInset)
+            .trailing(mainView.trailingAnchor, inset: -2 * Insets.defaultInset)
+        
         startButton.setTitle("start".localize(), for: .normal)
         startButton.setTitleColor(.systemBlue, for: .normal)
         startButton.setTitleColor(.systemGray, for: .disabled)
@@ -111,7 +138,7 @@ class MapDownloadViewController: UIViewController{
         startButton.setAnchors()
             .leading(mainView.leadingAnchor,inset: Insets.defaultInset)
             .trailing(mainView.centerXAnchor, inset: Insets.defaultInset)
-            .top(sizeToLoadLabel.bottomAnchor, inset: Insets.defaultInset)
+            .top(maxZoomSlider.bottomAnchor, inset: Insets.defaultInset)
         cancelButton.setTitle("cancel".localize(), for: .normal)
         cancelButton.setTitleColor(.systemBlue, for: .normal)
         cancelButton.setTitleColor(.systemGray, for: .disabled)
@@ -120,7 +147,7 @@ class MapDownloadViewController: UIViewController{
         cancelButton.setAnchors()
             .leading(mainView.centerXAnchor,inset: Insets.defaultInset)
             .trailing(mainView.trailingAnchor,inset: Insets.defaultInset)
-            .top(sizeToLoadLabel.bottomAnchor, inset: Insets.defaultInset)
+            .top(maxZoomSlider.bottomAnchor, inset: Insets.defaultInset)
         
         loadedTilesSlider.minimumValue = 0
         loadedTilesSlider.maximumValue = Float(tilesToLoad)
@@ -129,7 +156,8 @@ class MapDownloadViewController: UIViewController{
         loadedTilesSlider.setAnchors()
             .leading(mainView.leadingAnchor, inset: 2 * Insets.defaultInset)
             .top(startButton.bottomAnchor, inset: Insets.defaultInset)
-            .trailing(mainView.trailingAnchor, inset: 2 * Insets.defaultInset)
+            .trailing(mainView.trailingAnchor, inset: -2 * Insets.defaultInset)
+        
         errorsInfo.text = "unloadedTiles".localize() + " " + String(errors)
         mainView.addSubview(errorsInfo)
         errorsInfo.setAnchors()
@@ -146,7 +174,7 @@ class MapDownloadViewController: UIViewController{
             .top(errorsInfo.bottomAnchor, inset: Insets.defaultInset)
             .bottom(mainView.bottomAnchor, inset: Insets.defaultInset)
         
-        downloadManager.processDelegate = self
+        downloadQueue.delegate = self
         
         prepareDownload()
         if tilesToLoad == 0{
@@ -164,13 +192,17 @@ class MapDownloadViewController: UIViewController{
     func prepareDownload(){
         urlPairs.removeAll()
         if let region = mapRegion{
-            allTiles = region.size
-            allTilesInfo.text = String(allTiles)
+            allTiles = 0
+            existingTiles = 0
             for zoom in region.tiles.keys{
+                if zoom > maxZoom{
+                    continue
+                }
                 if let tileSet = region.tiles[zoom]{
                     for x in tileSet.minX...tileSet.maxX{
                         for y in tileSet.minY...tileSet.maxY{
                             let tile = MapTile(zoom: zoom, x: x, y: y)
+                            allTiles += 1
                             if let fileUrl = MapTileCache.fileUrl(tile: tile){
                                 if MapTileCache.tileExists(url: fileUrl){
                                     existingTiles += 1
@@ -185,11 +217,21 @@ class MapDownloadViewController: UIViewController{
                     }
                 }
             }
+            allTilesInfo.text = String(allTiles)
             existingTilesInfo.text = String(existingTiles)
             tilesToLoad = allTiles - existingTiles
             tilesToLoadInfo.text = String(tilesToLoad)
             sizeToLoadInfo.text = "\(tilesToLoad * MapStatics.averageTileLoadSize / 1024 / 1024) MB"
             loadedTilesSlider.maximumValue = Float(tilesToLoad)
+        }
+    }
+    
+    @objc func zoomChanged(){
+        let zoom = Int(round(maxZoomSlider.value))
+        if zoom != maxZoom{
+            maxZoom = zoom
+            maxZoomValueLabel.text = String(maxZoom)
+            prepareDownload()
         }
     }
     
@@ -202,22 +244,22 @@ class MapDownloadViewController: UIViewController{
         cancelButton.isEnabled = true
         closeButton.isEnabled = false
         let completion = BlockOperation {
-            print("All of the download completed!")
             DispatchQueue.main.async{
-                self.startButton.isEnabled = true
+                self.loadedTilesSlider.thumbTintColor = .systemGreen
+                self.startButton.isEnabled = self.errors > 0
                 self.cancelButton.isEnabled = false
                 self.closeButton.isEnabled = true
             }
         }
         self.urlPairs.forEach { urlPair in
-            let downloadOperation = self.downloadManager.addDownloadOperation(urlPair)
+            let downloadOperation = self.downloadQueue.addDownloadOperation(urlPair)
             completion.addDependency(downloadOperation)
         }
         OperationQueue.main.addOperation(completion)
     }
     
     @objc func cancelDownload(){
-        downloadManager.cancelAll()
+        downloadQueue.cancelAllOperations()
         startButton.isEnabled = true
         cancelButton.isEnabled = false
         closeButton.isEnabled = true
@@ -229,7 +271,7 @@ class MapDownloadViewController: UIViewController{
     }
 }
 
-extension MapDownloadViewController: DownloadProcessProtocol{
+extension MapDownloadViewController: DownloadDelegate{
     
     func downloadSucceeded(_ fileName: String) {
         DispatchQueue.main.async{
