@@ -79,9 +79,10 @@
 		4E4B758D273AA28100CB4B41 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B758C273AA28100CB4B41 /* PhotoData.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E52F3E8273FD2F30046DC98 /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3E7273FD2F30046DC98 /* MapRegion.swift */; };
-		4E52F3EA274032FE0046DC98 /* NSLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3E9274032FE0046DC98 /* NSLock.swift */; };
 		4E89173F273688580046AC91 /* PlaceEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceEditViewController.swift */; };
 		4E89174127368AF00046AC91 /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89174027368AF00046AC91 /* PlaceDetailViewController.swift */; };
+		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
+		4E92113D27412BD700DC5226 /* DownloadQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113C27412BD700DC5226 /* DownloadQueue.swift */; };
 		4ECFC99B26FB551B0083977B /* DownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* DownloadOperation.swift */; };
 		4ECFC99D26FB6FFB0083977B /* URLPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99C26FB6FFB0083977B /* URLPair.swift */; };
 		4ECFC99F26FBB8AF0083977B /* MapDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* MapDownloadViewController.swift */; };
@@ -165,9 +166,10 @@
 		4E4B758C273AA28100CB4B41 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E52F3E7273FD2F30046DC98 /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
-		4E52F3E9274032FE0046DC98 /* NSLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLock.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* PlaceEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceEditViewController.swift; sourceTree = "<group>"; };
 		4E89174027368AF00046AC91 /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
+		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		4E92113C27412BD700DC5226 /* DownloadQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueue.swift; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* DownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99C26FB6FFB0083977B /* URLPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPair.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* MapDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDownloadViewController.swift; sourceTree = "<group>"; };
@@ -263,7 +265,10 @@
 		4E0BD99E26EA010A005A4A94 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4E92113A2741127500DC5226 /* AsyncOperation.swift */,
 				4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */,
+				4ECFC99A26FB551B0083977B /* DownloadOperation.swift */,
+				4E92113C27412BD700DC5226 /* DownloadQueue.swift */,
 				4E24F45C27345D11004E69C2 /* IconButton.swift */,
 				4E24F46427345D11004E69C2 /* Indicator.swift */,
 				4E24F46727345D11004E69C2 /* Insets.swift */,
@@ -315,7 +320,6 @@
 				4E24F46A27345D11004E69C2 /* UIView.swift */,
 				4E0BD99F26EA0159005A4A94 /* UIViewController.swift */,
 				4E0BD9BA26EA0239005A4A94 /* URL.swift */,
-				4E52F3E9274032FE0046DC98 /* NSLock.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -358,7 +362,6 @@
 			children = (
 				4E0BD9D526EA037F005A4A94 /* DataController.swift */,
 				4EDDE78F26FA72CB00184130 /* DownloadManager.swift */,
-				4ECFC99A26FB551B0083977B /* DownloadOperation.swift */,
 				4E0BD9D626EA037F005A4A94 /* FileController.swift */,
 				4E0BD9E226EA04EE005A4A94 /* FileError.swift */,
 				4E0BD9E126EA04EE005A4A94 /* LocationError.swift */,
@@ -493,10 +496,12 @@
 				4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */,
 				4E42393B273D19C6005B2E5F /* PhotoView.swift in Sources */,
 				4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */,
+				4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */,
 				4E24F47627345D11004E69C2 /* CGSize.swift in Sources */,
 				4E24F47B27345D11004E69C2 /* UIStackView.swift in Sources */,
 				4E24F47C27345D11004E69C2 /* Indicator.swift in Sources */,
 				4E0BD9D826EA037F005A4A94 /* FileController.swift in Sources */,
+				4E92113D27412BD700DC5226 /* DownloadQueue.swift in Sources */,
 				4E24F47427345D11004E69C2 /* IconButton.swift in Sources */,
 				4E24F48127345D11004E69C2 /* TextEditArea.swift in Sources */,
 				4E1B811C2732EDC5003ED6B0 /* MapTile.swift in Sources */,
@@ -512,7 +517,6 @@
 				4E1B81012732EDA2003ED6B0 /* MapPreferencesViewController.swift in Sources */,
 				4E24F47727345D11004E69C2 /* InfoText.swift in Sources */,
 				4E1B811A2732EDC5003ED6B0 /* NormalizedPlanetPoint.swift in Sources */,
-				4E52F3EA274032FE0046DC98 /* NSLock.swift in Sources */,
 				4ECFC99B26FB551B0083977B /* DownloadOperation.swift in Sources */,
 				4E24F48227345D11004E69C2 /* UIView.swift in Sources */,
 				4E42393D273D2290005B2E5F /* TextView.swift in Sources */,
