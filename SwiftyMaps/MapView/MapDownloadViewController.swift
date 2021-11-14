@@ -221,7 +221,7 @@ class MapDownloadViewController: UIViewController{
             existingTilesInfo.text = String(existingTiles)
             tilesToLoad = allTiles - existingTiles
             tilesToLoadInfo.text = String(tilesToLoad)
-            sizeToLoadInfo.text = "\(tilesToLoad * MapStatics.averageTileLoadSize / 1024 / 1024) MB"
+            sizeToLoadInfo.text = "\(tilesToLoad * MapStatics.averageTileLoadSize) kB"
             loadedTilesSlider.maximumValue = Float(tilesToLoad)
         }
     }
