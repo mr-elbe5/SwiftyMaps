@@ -20,5 +20,9 @@ class MapTile{
         self.x = x
         self.y = y
     }
+    
+    var id : String{
+        "\(zoom)-\(x)-\(y)"
+    }
         
 }

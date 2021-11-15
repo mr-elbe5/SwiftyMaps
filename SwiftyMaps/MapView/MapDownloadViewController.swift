@@ -13,17 +13,15 @@ class MapDownloadViewController: UIViewController{
     var mapRegion: MapRegion? = nil
     var mainView = UIView()
     
-    var downloadQueue : DownloadQueue?
+    var downloadQueue : OperationQueue?
     
     var maxZoom = MapType.current.maxZoom
     
     var allTiles = 0
     var existingTiles = 0
-    var tilesToLoad = 0
-    var loadedTiles = 0
     var errors = 0
     
-    var urlPairs = [URLPair]()
+    var tiles = [MapTile]()
     
     var scrollView = UIScrollView()
     
@@ -121,7 +119,7 @@ class MapDownloadViewController: UIViewController{
         cancelButton.setAnchors(top: maxZoomSlider.bottomAnchor, leading: mainView.centerXAnchor, trailing: mainView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
         
         loadedTilesSlider.minimumValue = 0
-        loadedTilesSlider.maximumValue = Float(tilesToLoad)
+        loadedTilesSlider.maximumValue = Float(allTiles)
         loadedTilesSlider.value = 0
         mainView.addSubview(loadedTilesSlider)
         loadedTilesSlider.setAnchors(top: startButton.bottomAnchor, leading: mainView.leadingAnchor, trailing: mainView.trailingAnchor, bottom: nil, insets: Insets.doubleInsets)
@@ -145,7 +143,7 @@ class MapDownloadViewController: UIViewController{
         prepareDownload()
         updateValueViews()
         
-        if tilesToLoad == 0{
+        if existingTiles == allTiles{
             startButton.isEnabled = false
             cancelButton.isEnabled = false
             closeButton.isEnabled = true
@@ -160,15 +158,13 @@ class MapDownloadViewController: UIViewController{
     func reset(){
         allTiles = 0
         existingTiles = 0
-        tilesToLoad = 0
-        loadedTiles = 0
         errors = 0
     }
     
     func updateValueViews(){
         allTilesValueLabel.text = String(allTiles)
         existingTilesValueLabel.text = String(existingTiles)
-        tilesToLoadValueLabel.text = String(tilesToLoad)
+        tilesToLoadValueLabel.text = String(allTiles - existingTiles)
         errorsValueLabel.text = String(errors)
         loadedTilesSlider.maximumValue = Float(allTiles)
         updateSliderValue()
@@ -176,15 +172,15 @@ class MapDownloadViewController: UIViewController{
     }
     
     func updateSliderValue(){
-        loadedTilesSlider.value = Float(existingTiles + loadedTiles + errors)
+        loadedTilesSlider.value = Float(existingTiles + errors)
     }
     
     func updateSliderColor(){
-        loadedTilesSlider.thumbTintColor = (existingTiles + loadedTiles + errors == allTiles) ? (errors > 0 ? .systemRed : .systemGreen) : .systemGray
+        loadedTilesSlider.thumbTintColor = (existingTiles + errors == allTiles) ? (errors > 0 ? .systemRed : .systemGreen) : .systemGray
     }
     
     func prepareDownload(){
-        urlPairs.removeAll()
+        tiles.removeAll()
         if let region = mapRegion{
             reset()
             for zoom in region.tiles.keys{
@@ -201,9 +197,7 @@ class MapDownloadViewController: UIViewController{
                                     existingTiles += 1
                                     continue
                                 }
-                                guard let url = MapTileLoader.url(tile: tile, urlTemplate: MapType.current.tileUrl) else {print("could not create map url"); return}
-                                urlPairs.append(URLPair(source: url, target: fileUrl))
-                                tilesToLoad += 1
+                                tiles.append(tile)
                             }
                         }
                     }
@@ -222,6 +216,9 @@ class MapDownloadViewController: UIViewController{
     }
     
     @objc func startDownload(){
+        if tiles.isEmpty{
+            return
+        }
         if errors > 0{
             errors = 0
             updateValueViews()
@@ -229,15 +226,18 @@ class MapDownloadViewController: UIViewController{
         startButton.isEnabled = false
         cancelButton.isEnabled = true
         closeButton.isEnabled = false
-        downloadQueue = DownloadQueue(maxConcurrent: 2)
-        downloadQueue!.delegate = self
-        self.urlPairs.forEach { urlPair in
-            downloadQueue!.addDownloadOperation(urlPair)
+        downloadQueue = OperationQueue()
+        downloadQueue!.name = "downloadQueue"
+        downloadQueue!.maxConcurrentOperationCount = 2
+        tiles.forEach { tile in
+            let operation = TileDownloadOperation(tile: tile)
+            operation.delegate = self
+            downloadQueue!.addOperation(operation)
         }
     }
     
     @objc func cancelDownload(){
-        downloadQueue?.reset()
+        downloadQueue?.cancelAllOperations()
         reset()
         prepareDownload()
         updateValueViews()
@@ -256,11 +256,9 @@ extension MapDownloadViewController: DownloadDelegate{
     
     func downloadSucceeded() {
         existingTiles += 1
-        loadedTiles += 1
-        tilesToLoad -= 1
         updateSliderValue()
         self.existingTilesValueLabel.text = String(self.existingTiles)
-        self.tilesToLoadValueLabel.text = String(self.tilesToLoad)
+        self.tilesToLoadValueLabel.text = String(self.allTiles - self.existingTiles)
         checkCompletion()
     }
     
@@ -272,12 +270,12 @@ extension MapDownloadViewController: DownloadDelegate{
     }
     
     private func checkCompletion(){
-        if existingTiles + loadedTiles + errors == allTiles{
+        if existingTiles + errors == allTiles{
             updateSliderColor()
             startButton.isEnabled = errors > 0
             cancelButton.isEnabled = false
             closeButton.isEnabled = true
-            downloadQueue?.reset()
+            downloadQueue?.cancelAllOperations()
             downloadQueue = nil
         }
     }

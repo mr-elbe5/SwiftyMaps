@@ -20,7 +20,7 @@ struct MapTileLoader{
     
     static func loadTileImage(url: URL, result: @escaping (Data?) -> Void) {
         //print("loading tile image \(url)")
-        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60.0)
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 300.0)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             var statusCode = 0
             if (response != nil && response is HTTPURLResponse){

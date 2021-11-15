@@ -34,7 +34,7 @@ struct MapStatics{
     static var planetRect = CGRect(x: 0, y: 0, width: planetPixels, height: planetPixels)
     static var scrollablePlanetSize = CGSize(width: scrollWidthFactor*planetPixels, height: planetPixels)
     static var scrollablePlanetRect = CGRect(x: 0, y: 0, width: scrollWidthFactor*planetPixels, height: planetPixels)
-    static var minPreloadZoom : Int = 12
+    static var minPreloadZoom : Int = 14
     static var minPreloadScale : CGFloat = MapCalculator.zoomScaleFromPlanet(to: minPreloadZoom)
     
     static var equatorInMeters : CGFloat = 40075.016686 * 1000
