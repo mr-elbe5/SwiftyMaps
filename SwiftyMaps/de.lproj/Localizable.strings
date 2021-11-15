@@ -88,6 +88,7 @@
 
 //mapDownload
 "mapDownload"="Karten-Download";
+"mapDownloadNote"="BITTE BEACHTEN! Wenn Sie Kartenkacheln vorladen, müssen Sie das Recht haben, Massendownloads von dem konfigurierten Server für den aktuellen Kartentyp zu machen! Sie sollten auch beachten, dass diese Operation lange dauern kann (1 Kachel hat ungefähr 10 kB).";
 "allTilesForDownload"="Zahl aller Kacheln:";
 "existingTiles"="Zahl vorhandener Kacheln:";
 "tilesToLoad"="Zahl zu ladender Kacheln:";

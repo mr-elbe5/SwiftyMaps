@@ -1,52 +1,40 @@
 import Foundation
 
+protocol DownloadDelegate {
+    func downloadSucceeded()
+    func downloadWithError()
+}
+
 class DownloadOperation : AsyncOperation {
     
-    var task: URLSessionTask!
-    var targetUrl: URL!
+    var id: UUID
+    var sourceUrl: URL
+    var targetUrl: URL
     
-    init(session: URLSession, urlPair: URLPair) {
-        task = session.downloadTask(with: urlPair.source)
+    var delegate : DownloadDelegate? = nil
+    
+    init(urlPair: URLPair) {
+        id = UUID()
+        sourceUrl = urlPair.source
         targetUrl = urlPair.target
         super.init()
     }
     
     override func startExecution(){
-        task.resume()
-    }
-    
-    func trackDownloadByOperation(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        do {
-            let manager = FileManager.default
-            if manager.fileExists(atPath:  targetUrl.path) {
-                try manager.removeItem(at: targetUrl)
+        MapTileLoader.loadTileImage(url: sourceUrl){ data in
+            if let data = data, MapTileCache.saveTile(fileUrl: self.targetUrl, data: data){
+                DispatchQueue.main.async { [self] in
+                    delegate?.downloadSucceeded()
+                }
             }
-            assertDirectory(for: targetUrl)
-            try manager.moveItem(at: location, to: targetUrl)
-        }
-        catch {
-            print("\(error)")
+            else{
+                DispatchQueue.main.async { [self] in
+                    delegate?.downloadWithError()
+                }
+            }
         }
         self.state = .isFinished
-    }
-    
-    func trackDownloadByOperation(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        if error != nil {
-            print("\(String(describing: error))")
-        }
-        self.state = .isFinished
-    }
-    
-    func assertDirectory(for fileUrl: URL){
-        let dirURL = fileUrl.deletingLastPathComponent()
-        if !FileManager.default.fileExists(atPath: dirURL.path){
-            do{
-                try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: true)
-            }
-            catch{
-                print("could not create directory for: \(targetUrl.path)")
-            }
-        }
     }
     
 }
+

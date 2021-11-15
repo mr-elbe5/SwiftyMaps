@@ -14,28 +14,32 @@ struct MapTileLoader{
     
     static func loadTileImage(tile: MapTile, result: @escaping (Data?) -> Void) {
         //print("loading tile image \(tile.zoom)/\(tile.x)/\(tile.y)")
-        if let url = url(tile: tile, urlTemplate: MapType.current.tileUrl){
-            let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60.0)
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                var statusCode = 0
-                if (response != nil && response is HTTPURLResponse){
-                    let httpResponse = response! as! HTTPURLResponse
-                    statusCode = httpResponse.statusCode
-                }
-                if let error = error {
-                    print("error loading tile from \(url.path), error: \(error.localizedDescription)")
-                    result(nil)
-                } else if statusCode == 200{
-                    //print("tile image \(tile.zoom)/\(tile.x)/\(tile.y) loaded")
-                    result(data)
-                }
-                else{
-                    print("error loading tile from \(url.path), statusCode=\(statusCode)")
-                    result(nil)
-                }
+        guard let url = url(tile: tile, urlTemplate: MapType.current.tileUrl) else {print("counld not crate map url"); return}
+        loadTileImage(url: url, result: result)
+    }
+    
+    static func loadTileImage(url: URL, result: @escaping (Data?) -> Void) {
+        //print("loading tile image \(url)")
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60.0)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            var statusCode = 0
+            if (response != nil && response is HTTPURLResponse){
+                let httpResponse = response! as! HTTPURLResponse
+                statusCode = httpResponse.statusCode
             }
-            task.resume()
+            if let error = error {
+                print("error loading tile from \(url.path), error: \(error.localizedDescription)")
+                result(nil)
+            } else if statusCode == 200{
+                //print("tile image \(tile.zoom)/\(tile.x)/\(tile.y) loaded")
+                result(data)
+            }
+            else{
+                print("error loading tile from \(url.path), statusCode=\(statusCode)")
+                result(nil)
+            }
         }
+        task.resume()
     }
     
 }

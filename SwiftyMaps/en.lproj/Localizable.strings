@@ -89,6 +89,7 @@
 
 //mapDownload
 "mapDownload"="Map Download";
+"mapDownloadNote"="PLEASE NOTE! When you preload map tiles, you must be sure to have rights for making mass downloads from the configured server for the current map type! Also be aware that depending on the state of the server this may take long (1 tile is about 10 kB).";
 "allTilesForDownload"="Number of all tiles:";
 "existingTiles"="Number of existing tiles:";
 "tilesToLoad"="Numer of tiles to load:";
