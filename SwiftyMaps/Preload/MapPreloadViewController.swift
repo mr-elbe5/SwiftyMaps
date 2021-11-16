@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MapDownloadViewController: UIViewController{
+class MapPreloadViewController: UIViewController{
     
     var mapRegion: MapRegion? = nil
     var mainView = UIView()
@@ -252,7 +252,7 @@ class MapDownloadViewController: UIViewController{
     }
 }
 
-extension MapDownloadViewController: DownloadDelegate{
+extension MapPreloadViewController: DownloadDelegate{
     
     func downloadSucceeded() {
         existingTiles += 1

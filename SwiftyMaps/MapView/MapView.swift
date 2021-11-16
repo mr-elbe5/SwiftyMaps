@@ -10,10 +10,11 @@ import CoreLocation
 class MapView: UIView {
     
     var scrollView : UIScrollView!
-    var contentView = MapTileView()
-    var placesView = MapLocationView()
+    var tileLayerView = TileLayerView()
+    var trackLayerView = TrackLayerView()
+    var placeMarkersLayerView = PlaceMarkersLayerView()
     var userLocationView = UserLocationView()
-    var controlView = MapControlView()
+    var controlLayerView = ControlLayerView()
     
     var locationInitialized = false
     
@@ -32,7 +33,7 @@ class MapView: UIView {
     
     var contentDrawScale : CGFloat{
         get{
-            scale*contentView.layer.contentsScale
+            scale*tileLayerView.layer.contentsScale
         }
     }
     
@@ -67,16 +68,22 @@ class MapView: UIView {
     }
     
     func setupContentView(){
-        contentView.backgroundColor = .white
-        scrollView.addSubview(contentView)
-        contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+        tileLayerView.backgroundColor = .white
+        scrollView.addSubview(tileLayerView)
+        tileLayerView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+    }
+    
+    func setupTrackView(){
+        addSubview(trackLayerView)
+        trackLayerView.fillView(view: self)
+        trackLayerView.isHidden = false
     }
     
     func setupPlacesView(){
-        addSubview(placesView)
-        placesView.fillView(view: self)
-        placesView.setupPlaceMarkers()
-        placesView.isHidden = !Preferences.instance.showPlaceMarkers
+        addSubview(placeMarkersLayerView)
+        placeMarkersLayerView.fillView(view: self)
+        placeMarkersLayerView.setupPlaceMarkers()
+        placeMarkersLayerView.isHidden = !Preferences.instance.showPlaceMarkers
     }
     
     func setupUserLocationView(){
@@ -84,9 +91,9 @@ class MapView: UIView {
     }
     
     func setupControlView(){
-        addSubview(controlView)
-        controlView.fillView(view: self)
-        controlView.setup()
+        addSubview(controlLayerView)
+        controlLayerView.fillView(view: self)
+        controlLayerView.setup()
     }
     
     func getCoordinate(screenPoint: CGPoint) -> CLLocationCoordinate2D{
@@ -129,7 +136,7 @@ class MapView: UIView {
     
     func setZoom(zoomLevel: Int, animated: Bool){
         scrollView.setZoomScale(MapCalculator.zoomScale(at: zoomLevel - MapStatics.maxZoom), animated: animated)
-        controlView.checkPreloadScale(scale: scrollView.contentScaleFactor)
+        controlLayerView.checkPreloadScale(scale: scrollView.contentScaleFactor)
     }
     
     func connectLocationService(){
@@ -169,9 +176,9 @@ class MapView: UIView {
     }
     
     func addPlaceMarker(place: PlaceData){
-        placesView.addPlaceMarker(place: place)
+        placeMarkersLayerView.addPlaceMarker(place: place)
         PlaceCache.instance.save()
-        placesView.updatePosition(offset: contentOffset, scale: scale)
+        placeMarkersLayerView.updatePosition(offset: contentOffset, scale: scale)
     }
     
     func getVisibleCenter() -> CGPoint{
@@ -183,7 +190,7 @@ class MapView: UIView {
     }
     
     func mapTypeHasChanged(){
-        contentView.setNeedsDisplay()
+        tileLayerView.setNeedsDisplay()
     }
     
 }
@@ -191,14 +198,14 @@ class MapView: UIView {
 extension MapView : UIScrollViewDelegate{
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        contentView
+        tileLayerView
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         assertCenteredContent(scrollView: scrollView)
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
-        placesView.updatePosition(offset: contentOffset, scale: scale)
-        controlView.checkPreloadScale(scale: scrollView.zoomScale)
+        placeMarkersLayerView.updatePosition(offset: contentOffset, scale: scale)
+        controlLayerView.checkPreloadScale(scale: scrollView.zoomScale)
     }
     
     // for infinite scroll using 3 * content width

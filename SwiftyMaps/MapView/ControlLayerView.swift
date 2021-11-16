@@ -6,7 +6,7 @@
 
 import UIKit
 
-protocol MapControlDelegate{
+protocol ControlLayerDelegate{
     func focusUserLocation()
     func addPlace()
     func changeMap()
@@ -17,9 +17,9 @@ protocol MapControlDelegate{
     func openPreferences()
 }
 
-class MapControlView: UIView {
+class ControlLayerView: UIView {
     
-    var delegate : MapControlDelegate? = nil
+    var delegate : ControlLayerDelegate? = nil
     
     var preloadMapControl = IconButton(icon: "square.and.arrow.down")
     var toggleCrossControl = IconButton(icon: "mappin.and.ellipse")

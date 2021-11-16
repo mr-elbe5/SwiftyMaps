@@ -16,7 +16,7 @@ class Preferences: Identifiable, Codable{
     static var instance = Preferences()
     
     static func loadInstance(){
-        if let prefs : Preferences = DataController.shared.load(forKey: .settings){
+        if let prefs : Preferences = DataController.shared.load(forKey: .preferences){
             instance = prefs
         }
         else{
@@ -41,6 +41,7 @@ class Preferences: Identifiable, Codable{
     var startWithLastPosition : Bool = false
     var showUserDirection : Bool = true
     var showPlaceMarkers : Bool = true
+    
     var flashMode : AVCaptureDevice.FlashMode = .off
     
     init(){
@@ -72,7 +73,7 @@ class Preferences: Identifiable, Codable{
     }
     
     func save(){
-        DataController.shared.save(forKey: .settings, value: self)
+        DataController.shared.save(forKey: .preferences, value: self)
     }
     
     func dump(){

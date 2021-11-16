@@ -20,11 +20,12 @@ class MapViewController: UIViewController {
         let minZoom = MapCalculator.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
         mapView.setupScrollView(minimalZoom: minZoom)
         mapView.setupContentView()
+        mapView.setupTrackView()
         mapView.setupUserLocationView()
         mapView.setupPlacesView()
-        mapView.placesView.delegate = self
+        mapView.placeMarkersLayerView.delegate = self
         mapView.setupControlView()
-        mapView.controlView.delegate = self
+        mapView.controlLayerView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,7 +75,7 @@ class MapViewController: UIViewController {
     
 }
 
-extension MapViewController: PlacesViewDelegate{
+extension MapViewController: PlaceMarkersLayerViewDelegate{
     
     func showPlaceDetails(place: PlaceData) {
         let controller = PlaceDetailViewController()
@@ -97,7 +98,7 @@ extension MapViewController: PlacesViewDelegate{
     
 }
 
-extension MapViewController: MapControlDelegate{
+extension MapViewController: ControlLayerDelegate{
     
     func focusUserLocation() {
         mapView.focusUserLocation()
@@ -121,7 +122,7 @@ extension MapViewController: MapControlDelegate{
     }
     
     func preloadMap() {
-        let controller = MapDownloadViewController()
+        let controller = MapPreloadViewController()
         controller.mapRegion = mapView.currentMapRegion
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -178,7 +179,7 @@ extension MapViewController: PreferencesDelegate{
     
     func removePlaces() {
         PlaceCache.instance.places.removeAll()
-        mapView.placesView.setupPlaceMarkers()
+        mapView.placeMarkersLayerView.setupPlaceMarkers()
     }
     
 }

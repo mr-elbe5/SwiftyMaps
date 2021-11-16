@@ -10,10 +10,9 @@ import Foundation
 class DataController{
     
     enum StoreKey: String, CaseIterable {
-        case settings
-        case region
-        case data
+        case preferences
         case places
+        case tours
     }
     
     static var shared = DataController()

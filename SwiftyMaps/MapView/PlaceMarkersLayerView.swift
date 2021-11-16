@@ -6,15 +6,15 @@
 
 import UIKit
 
-protocol PlacesViewDelegate{
+protocol PlaceMarkersLayerViewDelegate{
     func showPlaceDetails(place: PlaceData)
     func editPlaceData(place: PlaceData)
     func deletePlace(place: PlaceData)
 }
 
-class MapLocationView: UIView {
+class PlaceMarkersLayerView: UIView {
     
-    var delegate : PlacesViewDelegate? = nil
+    var delegate : PlaceMarkersLayerViewDelegate? = nil
     
     func setupPlaceMarkers(){
         for subview in subviews {
@@ -50,7 +50,7 @@ class MapLocationView: UIView {
     
 }
 
-extension MapLocationView: PlaceMarkerDelegate{
+extension PlaceMarkersLayerView: PlaceMarkerDelegate{
     
     func detailAction(sender: PlaceMarker) {
         delegate?.showPlaceDetails(place: sender.place)
