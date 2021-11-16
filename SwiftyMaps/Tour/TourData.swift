@@ -11,6 +11,8 @@ import UIKit
 
 class TourData : Hashable, Codable{
     
+    static var activeTour : TourData? = nil
+    
     static func == (lhs: TourData, rhs: TourData) -> Bool {
         lhs.id == rhs.id
     }
@@ -23,19 +25,19 @@ class TourData : Hashable, Codable{
     
     var id : UUID
     var description : String
-    var trackpoints : Array<Location>
+    var trackpoints : Array<TrackPoint>
     
     init(){
         id = UUID()
         description = ""
-        trackpoints = Array<Location>()
+        trackpoints = Array<TrackPoint>()
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
-        trackpoints = try values.decodeIfPresent(Array<Location>.self, forKey: .trackpoints) ?? Array<Location>()
+        trackpoints = try values.decodeIfPresent(Array<TrackPoint>.self, forKey: .trackpoints) ?? Array<TrackPoint>()
     }
     
     func encode(to encoder: Encoder) throws {
@@ -47,6 +49,17 @@ class TourData : Hashable, Codable{
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+    
+    func updateTrack(_ location: CLLocation){
+        if let lastTP = trackpoints.last{
+            if lastTP.coordinate.closeTo(location.coordinate, maxDistance: 10){
+                print("too close")
+                return
+            }
+        }
+        print("adding trackpoint")
+        trackpoints.append(TrackPoint(location: location))
     }
     
 }

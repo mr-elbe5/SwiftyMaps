@@ -56,6 +56,8 @@
 		4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088DE27439C440097BFBA /* TrackLayerView.swift */; };
 		4E2088E32743A24E0097BFBA /* TourData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E22743A24E0097BFBA /* TourData.swift */; };
 		4E2088E52743A4280097BFBA /* TourCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E42743A4280097BFBA /* TourCache.swift */; };
+		4E2088E72743AA670097BFBA /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E62743AA670097BFBA /* TrackPoint.swift */; };
+		4E2088E92743AD920097BFBA /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */; };
 		4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45B27345D11004E69C2 /* IconInfoText.swift */; };
 		4E24F47427345D11004E69C2 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45C27345D11004E69C2 /* IconButton.swift */; };
 		4E24F47527345D11004E69C2 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45D27345D11004E69C2 /* CGRect.swift */; };
@@ -145,6 +147,8 @@
 		4E2088DE27439C440097BFBA /* TrackLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLayerView.swift; sourceTree = "<group>"; };
 		4E2088E22743A24E0097BFBA /* TourData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourData.swift; sourceTree = "<group>"; };
 		4E2088E42743A4280097BFBA /* TourCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourCache.swift; sourceTree = "<group>"; };
+		4E2088E62743AA670097BFBA /* TrackPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPoint.swift; sourceTree = "<group>"; };
+		4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		4E24F45B27345D11004E69C2 /* IconInfoText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconInfoText.swift; sourceTree = "<group>"; };
 		4E24F45C27345D11004E69C2 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		4E24F45D27345D11004E69C2 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
@@ -292,6 +296,7 @@
 				4E0D092F26F90DC600FABB17 /* TourViewController.swift */,
 				4E2088E22743A24E0097BFBA /* TourData.swift */,
 				4E2088E42743A4280097BFBA /* TourCache.swift */,
+				4E2088E62743AA670097BFBA /* TrackPoint.swift */,
 			);
 			path = Tour;
 			sourceTree = "<group>";
@@ -333,6 +338,7 @@
 				4E24F45D27345D11004E69C2 /* CGRect.swift */,
 				4E24F45E27345D11004E69C2 /* CGSize.swift */,
 				4E0BD9C126EA02BA005A4A94 /* CLLocationManager.swift */,
+				4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */,
 				4E0BD9B726EA0239005A4A94 /* Codable.swift */,
 				4E0BD9B826EA0239005A4A94 /* Date.swift */,
 				4E0BD9B926EA0239005A4A94 /* String.swift */,
@@ -472,6 +478,7 @@
 			files = (
 				4EA9B7CE27413F0B00C91B68 /* SafeMap.swift in Sources */,
 				4E24F47D27345D11004E69C2 /* UIButton.swift in Sources */,
+				4E2088E72743AA670097BFBA /* TrackPoint.swift in Sources */,
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E1B811F2732EDC5003ED6B0 /* PlaceData.swift in Sources */,
@@ -502,6 +509,7 @@
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,
 				4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */,
 				4E1B811D2732EDC5003ED6B0 /* NormalizedPlanetRect.swift in Sources */,
+				4E2088E92743AD920097BFBA /* CLLocationCoordinate2D.swift in Sources */,
 				4E24F48927345D11004E69C2 /* TextButton.swift in Sources */,
 				4E0BD9E326EA04EE005A4A94 /* MapError.swift in Sources */,
 				4E1B81122732EDC5003ED6B0 /* UserLocationView.swift in Sources */,

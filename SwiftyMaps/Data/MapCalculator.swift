@@ -115,5 +115,14 @@ struct MapCalculator{
         156543.03 * cos(latitude) / zoomScale(at: zoom)
     }
     
+    static func distanceBetween(coord1: CLLocationCoordinate2D, coord2: CLLocationCoordinate2D) -> CLLocationDistance{
+        let latMid = (coord1.latitude + coord2.latitude) / 2
+        let latMetersPerDegree = 111132.954 - 559.822 * cos( 2 * latMid ) + 1.175 * cos( 4 * latMid)
+        let lonMetersPerDegree = 111132.954 * cos ( latMid )
+        let latDelta = abs(coord1.latitude - coord2.latitude)
+        let lonDelta = abs(coord1.longitude - coord2.longitude)
+        return sqrt(pow( latDelta * latMetersPerDegree,2) + pow( lonDelta * lonMetersPerDegree,2))
+    }
+    
 }
 

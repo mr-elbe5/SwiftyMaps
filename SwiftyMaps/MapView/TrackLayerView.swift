@@ -10,7 +10,7 @@ import CoreLocation
 
 class TrackLayerView: UIView {
     
-    var locationPoint : CGPoint = .zero
+    var tour : TourData? = nil
     
     init(){
         super.init(frame: UserLocationView.baseFrame)
@@ -21,15 +21,10 @@ class TrackLayerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateLocation(location: CGPoint, offset: CGPoint, scale: CGFloat){
-        locationPoint = location
-        updatePosition(offset: offset, scale: scale)
-    }
-    
-    func updatePosition(offset: CGPoint, scale: CGFloat){
-        let normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint(x: offset.x/scale, y: offset.y/scale))
-        let pnt = CGPoint(x: (locationPoint.x - normalizedOffset.point.x)*scale , y: (locationPoint.y - normalizedOffset.point.y)*scale)
-        frame = UserLocationView.baseFrame.offsetBy(dx: pnt.x, dy: pnt.y)
+    func updateTrack(_ location: CLLocation){
+        if let tour = tour{
+            tour.updateTrack(location)
+        }
     }
     
     override func draw(_ rect: CGRect) {

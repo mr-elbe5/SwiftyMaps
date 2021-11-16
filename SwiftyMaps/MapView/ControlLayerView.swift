@@ -21,7 +21,7 @@ class ControlLayerView: UIView {
     
     var delegate : ControlLayerDelegate? = nil
     
-    var preloadMapControl = IconButton(icon: "square.and.arrow.down")
+    var preloadMapControl = IconButton(icon: "square.and.arrow.down", tintColor: .darkGray, disabledTintColor: .lightGray)
     var toggleCrossControl = IconButton(icon: "mappin.and.ellipse")
     var crossControl = IconButton(icon: "plus.circle")
     var licenseView = UIView()
@@ -42,7 +42,7 @@ class ControlLayerView: UIView {
         topControlLine.addSubview(preloadMapControl)
         preloadMapControl.setAnchors(top: topControlLine.topAnchor, leading: changeMapControl.trailingAnchor, trailing: nil, bottom: topControlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*Insets.defaultInset, bottom: 0, right: 0))
         preloadMapControl.addTarget(self, action: #selector(preloadMap), for: .touchDown)
-        preloadMapControl.isHidden = true
+        preloadMapControl.isEnabled = false
         
         let focusUserLocationControl = IconButton(icon: "record.circle")
         topControlLine.addSubview(focusUserLocationControl)
@@ -100,7 +100,7 @@ class ControlLayerView: UIView {
     
     func checkPreloadScale(scale: CGFloat){
         //print("preloadScale \(scale) compared to \(MapStatics.minPreloadScale)")
-        preloadMapControl.isHidden = scale < MapStatics.minPreloadScale
+        preloadMapControl.isEnabled = scale >= MapStatics.minPreloadScale
     }
     
     @objc func focusUserLocation(){

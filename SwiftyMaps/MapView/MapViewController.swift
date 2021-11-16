@@ -159,6 +159,7 @@ extension MapViewController: ControlLayerDelegate{
     func openTour() {
         let controller = TourViewController()
         controller.modalPresentationStyle = .fullScreen
+        controller.delegate = self
         present(controller, animated: true)
     }
     
@@ -195,4 +196,17 @@ extension MapViewController: PhotoCaptureDelegate{
         }
     }
     
+}
+
+extension MapViewController: TourDelegate{
+    
+    //todo
+    func startTour() {
+        TourData.activeTour = TourData()
+    }
+    
+    func stopTour() {
+        TourData.activeTour = nil
+    }
+
 }

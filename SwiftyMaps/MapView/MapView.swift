@@ -49,6 +49,10 @@ class MapView: UIView {
         }
     }
     
+    var isTracking : Bool{
+        TourData.activeTour != nil
+    }
+    
     func setupScrollView(minimalZoom: Int){
         scrollView = UIScrollView(frame: bounds)
         scrollView.backgroundColor = .white
@@ -76,7 +80,7 @@ class MapView: UIView {
     func setupTrackView(){
         addSubview(trackLayerView)
         trackLayerView.fillView(view: self)
-        trackLayerView.isHidden = false
+        trackLayerView.isHidden = !isTracking
     }
     
     func setupPlacesView(){
@@ -234,6 +238,9 @@ extension MapView: LocationServiceDelegate{
         }
         else{
             setLocation(coordinate: location.coordinate)
+            if isTracking{
+                trackLayerView.updateTrack(location)
+            }
         }
         
     }

@@ -73,8 +73,6 @@
 //tour
 "tour"="Tour";
 
-// map menu
-"preloadMap"="Karte vorladen";
 //marker menu
 "hideMarkers"="Markierungen nicht anzeigen";
 "showMarkers"="Markierungen anzeigen";
@@ -86,9 +84,10 @@
 "saveTour"="Tour speichern";
 "searchTour"="Tour-Suche";
 
-//mapDownload
-"mapDownload"="Karten-Download";
-"mapDownloadNote"="BITTE BEACHTEN! Wenn Sie Kartenkacheln vorladen, müssen Sie das Recht haben, Massendownloads von dem konfigurierten Server für den aktuellen Kartentyp zu machen! Sie sollten auch beachten, dass diese Operation lange dauern kann (1 Kachel hat etwa 10 - 20 kB).";
+//mapPreload
+"mapPreload"="Kartenkacheln vorladen";
+"mapPreloadNote1"="BITTE BEACHTEN! Wenn Sie Kartenkacheln vorladen, müssen Sie das Recht haben, Massendownloads von dem konfigurierten Server für den aktuellen Kartentyp zu machen! ";
+"mapPreloadNote2"="Sie sollten auch beachten, dass diese Operation lange dauern kann (1 Kachel hat etwa 10 - 20 kB). Sie können die Anzahl zu ladender Kacheln durch das Verringern der maximalen Zoomebene reduzieren.";
 "allTilesForDownload"="Zahl aller Kacheln:";
 "existingTiles"="Zahl vorhandener Kacheln:";
 "tilesToLoad"="Zahl zu ladender Kacheln:";

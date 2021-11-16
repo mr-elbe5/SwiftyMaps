@@ -8,18 +8,51 @@
 import Foundation
 import UIKit
 
+protocol TourDelegate{
+    func startTour()
+    func stopTour()
+}
+
 class TourViewController: PopupViewController{
     
-    var stackView = UIStackView()
+    var delegate : TourDelegate? = nil
+    
+    var currentTour : TourData? = nil
+    
+    var toggleTourButton = UIButton()
     
     override func loadView() {
         title = "tour".localize()
         super.loadView()
-        scrollView.setupVertical()
-        contentView.addSubview(stackView)
-        stackView.fillView(view: scrollView, insets: UIEdgeInsets(top: Insets.defaultInset, left: .zero, bottom: Insets.defaultInset, right: .zero))
-        stackView.setupVertical()
-        setupKeyboard()
+        currentTour = TourData.activeTour
+        
+        updateToggleButton()
+        toggleTourButton.setTitleColor(.systemBlue, for: .normal)
+        toggleTourButton.addTarget(self, action: #selector(toggleTour), for: .touchDown)
+        contentView.addSubview(toggleTourButton)
+        toggleTourButton.setAnchors(top: contentView.bottomAnchor, leading: nil, trailing: nil, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
+            .centerX(contentView.centerXAnchor)
+        
+    }
+    
+    func updateToggleButton(){
+        if currentTour == nil{
+            toggleTourButton.setTitle("startTour".localize(), for: .normal)
+        }
+        else{
+            toggleTourButton.setTitle("stopTour".localize(), for: .normal)
+        }
+    }
+    
+    @objc func toggleTour(){
+        if currentTour == nil{
+            delegate?.startTour()
+        }
+        else{
+            delegate?.stopTour()
+        }
+        currentTour = TourData.activeTour
+        updateToggleButton()
     }
     
 }
