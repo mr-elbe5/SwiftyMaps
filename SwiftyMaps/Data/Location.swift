@@ -9,10 +9,6 @@ import Foundation
 import CoreLocation
 import UIKit
 
-protocol LocationDelegate{
-    func placemarkChanged(location: Location)
-}
-
 class Location : Hashable, Codable{
     
     static func == (lhs: Location, rhs: Location) -> Bool {
@@ -38,8 +34,6 @@ class Location : Hashable, Codable{
     var zipCode : String = ""
     var city : String = ""
     var country : String = ""
-    
-    var delegate : LocationDelegate? = nil
     
     var cllocation : CLLocation{
         CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -135,7 +129,6 @@ class Location : Hashable, Codable{
         print("country = \(country)")
         print("description = \(locationString)")
         hasPlacemark = true
-        delegate?.placemarkChanged(location: self)
     }
     
     func hash(into hasher: inout Hasher) {

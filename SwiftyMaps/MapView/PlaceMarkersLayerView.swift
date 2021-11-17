@@ -30,7 +30,6 @@ class PlaceMarkersLayerView: UIView {
         let placeMarker = PlaceMarker(place: place)
         addSubview(placeMarker)
         placeMarker.delegate = self
-        placeMarker.createMenu()
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

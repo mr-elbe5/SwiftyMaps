@@ -23,31 +23,13 @@ class PlaceMarker : UIButton{
     init(place: PlaceData){
         self.place = place
         super.init(frame: PlaceMarker.baseFrame)
-        place.delegate = self
         setImage(MapStatics.mapPinImage, for: .normal)
-    }
-    
-    deinit{
-        place.delegate = nil
+        let interaction = UIContextMenuInteraction(delegate: self)
+        addInteraction(interaction)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func createMenu(){
-        let detailAction = UIAction(title: "showDetails".localize(), image: UIImage(systemName: "rectangle.and.text.magnifyingglass")){ action in
-            self.delegate?.detailAction(sender: self)
-        }
-        let editAction = UIAction(title: "edit".localize(), image: UIImage(systemName: "pencil")){ action in
-            self.delegate?.editAction(sender: self)
-        }
-        let deleteAction = UIAction(title: "delete".localize(), image: UIImage(systemName: "mappin.slash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.deleteAction(sender: self)
-        }
-        let title = "\(place.locationString)\n(\(place.coordinateString))\n\(place.description)"
-        self.menu = UIMenu(title: title, children: [detailAction, editAction, deleteAction])
-        showsMenuAsPrimaryAction = true
     }
     
     func updatePosition(to pos: CGPoint){
@@ -56,14 +38,24 @@ class PlaceMarker : UIButton{
         setNeedsDisplay()
     }
     
-}
-
-extension PlaceMarker: PlaceDelegate{
-    
-    func descriptionChanged(place: PlaceData) {
-        print("desc ch")
-        createMenu()
+    override func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+                                configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: { suggestedActions in
+            print("create menu")
+            let detailAction = UIAction(title: "showDetails".localize(), image: UIImage(systemName: "rectangle.and.text.magnifyingglass")){ action in
+                self.delegate?.detailAction(sender: self)
+            }
+            let editAction = UIAction(title: "edit".localize(), image: UIImage(systemName: "pencil")){ action in
+                self.delegate?.editAction(sender: self)
+            }
+            let deleteAction = UIAction(title: "delete".localize(), image: UIImage(systemName: "mappin.slash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
+                self.delegate?.deleteAction(sender: self)
+            }
+            let title = "\(self.place.locationString)\n(\(self.place.coordinateString))\n\(self.place.description)"
+            return UIMenu(title: title, children: [detailAction, editAction, deleteAction])
+        })
     }
     
 }
+
 

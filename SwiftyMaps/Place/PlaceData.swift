@@ -8,10 +8,6 @@ import Foundation
 import CoreLocation
 import UIKit
 
-protocol PlaceDelegate{
-    func descriptionChanged(place: PlaceData)
-}
-
 class PlaceData : Hashable, Codable{
     
     static func == (lhs: PlaceData, rhs: PlaceData) -> Bool {
@@ -28,8 +24,6 @@ class PlaceData : Hashable, Codable{
     var description : String
     var photos : Array<PhotoData>
     
-    var delegate: PlaceDelegate? = nil
-    
     var locationString : String{
         location.locationString
     }
@@ -42,7 +36,6 @@ class PlaceData : Hashable, Codable{
         description = ""
         photos = Array<PhotoData>()
         location = Location(coordinate: coordinate)
-        location.delegate = self
     }
     
     required init(from decoder: Decoder) throws {
@@ -75,10 +68,3 @@ class PlaceData : Hashable, Codable{
     
 }
 
-extension PlaceData : LocationDelegate{
-    
-    func placemarkChanged(location: Location) {
-        delegate?.descriptionChanged(place: self)
-    }
-    
-}
