@@ -18,7 +18,6 @@ class TextView : UIView{
     
     var textView = UILabel()
     
-    
     func setupView(text: String){
         textView.numberOfLines = 0
         addSubview(textView)
@@ -41,6 +40,10 @@ class TextEditView : UIView, UITextViewDelegate{
     }
     
     var textView = TextEditArea()
+    
+    var text : String{
+        textView.text
+    }
     
     var delegate : TextEditDelegate? = nil
     

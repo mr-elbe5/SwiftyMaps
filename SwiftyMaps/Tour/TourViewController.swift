@@ -26,12 +26,12 @@ class TourViewController: PopupViewController{
         super.loadView()
         currentTour = TourData.activeTour
         
-        updateToggleButton()
         toggleTourButton.setTitleColor(.systemBlue, for: .normal)
         toggleTourButton.addTarget(self, action: #selector(toggleTour), for: .touchDown)
         contentView.addSubview(toggleTourButton)
-        toggleTourButton.setAnchors(top: contentView.bottomAnchor, leading: nil, trailing: nil, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
+        toggleTourButton.setAnchors(top: contentView.topAnchor, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
             .centerX(contentView.centerXAnchor)
+        updateToggleButton()
         
     }
     

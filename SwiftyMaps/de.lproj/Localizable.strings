@@ -68,6 +68,7 @@
 // places
 "place"="Ort";
 "places"="Orte";
+"placeData"="Ortsangaben";
 "photos"="Fotos";
 
 //tour

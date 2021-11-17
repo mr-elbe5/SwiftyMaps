@@ -23,12 +23,12 @@ class PopupViewController: UIViewController {
         let guide = view.safeAreaLayoutGuide
         setupHeaderView()
         view.addSubview(headerView)
-        headerView.setAnchors(top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: nil, insets: .zero)
+        headerView.setAnchors(top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor)
         self.view.addSubview(scrollView)
         scrollView.backgroundColor = .systemBackground
         scrollView.setAnchors(top: headerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
         scrollView.addSubview(contentView)
-        contentView.setAnchors(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, trailing: nil, bottom: scrollView.bottomAnchor, insets: .zero)
+        contentView.setAnchors(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor)
         if scrollVertical{
             contentView.bottom(scrollView.bottomAnchor)
         }
@@ -50,13 +50,13 @@ class PopupViewController: UIViewController {
             label.text = title
             label.textColor = .white
             headerView.addSubview(label)
-            label.setAnchors(top: headerView.topAnchor, leading: nil, trailing: nil, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
+            label.setAnchors(top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
                 .centerX(headerView.centerXAnchor)
         }
         let closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
         headerView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        closeButton.setAnchors(top: headerView.topAnchor, leading: nil, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
+        closeButton.setAnchors(top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
     }
     
     func setupKeyboard(){

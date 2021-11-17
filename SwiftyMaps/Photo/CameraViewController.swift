@@ -36,18 +36,18 @@ class CameraViewController: UIViewController {
     override func loadView() {
         super.loadView()
         view.addSubview(bodyView)
-        bodyView.fillSafeAreaOf(view: view, insets: .zero)
+        bodyView.fillSafeAreaOf(view: view)
         bodyView.backgroundColor = .black
         let closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
         bodyView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        closeButton.setAnchors(top: bodyView.topAnchor, leading: nil, trailing: bodyView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
+        closeButton.setAnchors(top: bodyView.topAnchor, trailing: bodyView.trailingAnchor, insets: Insets.defaultInsets)
         bodyView.addSubview(preview)
         preview.backgroundColor = .black
-        preview.setAnchors(top: closeButton.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
+        preview.setAnchors(top: closeButton.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, insets: Insets.defaultInsets)
         buttonView.backgroundColor = .black
         bodyView.addSubview(buttonView)
-        buttonView.setAnchors(top: preview.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, bottom: bodyView.bottomAnchor, insets: .zero)
+        buttonView.setAnchors(top: preview.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, bottom: bodyView.bottomAnchor)
         addButtons()
         AVCaptureDevice.askCameraAuthorization(){ result in
             self.preview.session = self.session

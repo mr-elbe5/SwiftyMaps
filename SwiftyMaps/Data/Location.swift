@@ -22,6 +22,7 @@ class Location : Hashable, Codable{
     private enum CodingKeys: String, CodingKey {
         case latitude
         case longitude
+        case hasPlacemark
         case name
         case street
         case zipCode
@@ -31,6 +32,7 @@ class Location : Hashable, Codable{
     
     var coordinate : CLLocationCoordinate2D
     var planetPosition : CGPoint
+    var hasPlacemark : Bool
     var name : String = ""
     var street : String = ""
     var zipCode : String = ""
@@ -43,7 +45,7 @@ class Location : Hashable, Codable{
         CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
     
-    var description : String{
+    var locationString : String{
         var s = name
         if !s.isEmpty{
             s += " - "
@@ -73,24 +75,21 @@ class Location : Hashable, Codable{
     init(){
         coordinate = CLLocationCoordinate2D()
         planetPosition = CGPoint()
+        hasPlacemark = false
     }
     
     init(coordinate: CLLocationCoordinate2D){
         self.coordinate = coordinate
         planetPosition = MapCalculator.planetPointFromCoordinate(coordinate: coordinate)
-        LocationService.shared.getPlacemarkInfo(for: self){ success in
-            if success {
-                DispatchQueue.main.async {
-                    self.delegate?.placemarkChanged(location: self)
-                }
-            }
-        }
+        hasPlacemark = false
+        LocationService.shared.getPlacemarkInfo(for: self)
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
+        hasPlacemark = try values.decodeIfPresent(Bool.self, forKey: .hasPlacemark) ?? false
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         street = try values.decodeIfPresent(String.self, forKey: .street) ?? ""
         zipCode = try values.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
@@ -98,12 +97,16 @@ class Location : Hashable, Codable{
         country = try values.decodeIfPresent(String.self, forKey: .country) ?? ""
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         planetPosition = MapCalculator.planetPointFromCoordinate(coordinate: coordinate)
+        if !hasPlacemark{
+            LocationService.shared.getPlacemarkInfo(for: self)
+        }
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)
+        try container.encode(hasPlacemark, forKey: .hasPlacemark)
         try container.encode(name, forKey: .name)
         try container.encode(street, forKey: .street)
         try container.encode(zipCode, forKey: .zipCode)
@@ -130,7 +133,9 @@ class Location : Hashable, Codable{
         print("zipCode = \(zipCode)")
         print("city = \(city)")
         print("country = \(country)")
-        print("description = \(description)")
+        print("description = \(locationString)")
+        hasPlacemark = true
+        delegate?.placemarkChanged(location: self)
     }
     
     func hash(into hasher: inout Hasher) {

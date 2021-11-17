@@ -27,10 +27,10 @@ class PlaceMarkersLayerView: UIView {
     }
     
     func addPlaceMarker(place: PlaceData){
-        let control = PlaceMarker(place: place)
-        addSubview(control)
-        control.delegate = self
-        control.createMenu()
+        let placeMarker = PlaceMarker(place: place)
+        addSubview(placeMarker)
+        placeMarker.delegate = self
+        placeMarker.createMenu()
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

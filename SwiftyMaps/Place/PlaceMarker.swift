@@ -45,7 +45,8 @@ class PlaceMarker : UIButton{
         let deleteAction = UIAction(title: "delete".localize(), image: UIImage(systemName: "mappin.slash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteAction(sender: self)
         }
-        self.menu = UIMenu(title: place.description, children: [detailAction, editAction, deleteAction])
+        let title = "\(place.locationString)\n(\(place.coordinateString))\n\(place.description)"
+        self.menu = UIMenu(title: title, children: [detailAction, editAction, deleteAction])
         showsMenuAsPrimaryAction = true
     }
     
@@ -60,6 +61,7 @@ class PlaceMarker : UIButton{
 extension PlaceMarker: PlaceDelegate{
     
     func descriptionChanged(place: PlaceData) {
+        print("desc ch")
         createMenu()
     }
     

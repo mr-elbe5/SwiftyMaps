@@ -32,12 +32,12 @@ class LabeledTextField : UIView, UITextFieldDelegate{
         addSubview(textField)
         textField.setKeyboardToolbar(doneTitle: "done".localize())
         if isHorizontal{
-            label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: centerXAnchor, bottom: bottomAnchor, insets: .zero)
-            textField.setAnchors(top: topAnchor, leading: centerXAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: .zero)
+            label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: centerXAnchor, bottom: bottomAnchor)
+            textField.setAnchors(top: topAnchor, leading: centerXAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
         }
         else{
-            label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: nil, insets: .zero)
-            textField.setAnchors(top: label.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: .zero)
+            label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor)
+            textField.setAnchors(top: label.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
         }
     }
     

@@ -202,6 +202,7 @@ extension MapViewController: TourDelegate{
     
     //todo
     func startTour() {
+        print("start tour")
         TourData.activeTour = TourData()
     }
     

@@ -30,6 +30,14 @@ class PlaceData : Hashable, Codable{
     
     var delegate: PlaceDelegate? = nil
     
+    var locationString : String{
+        location.locationString
+    }
+    
+    var coordinateString : String{
+        location.coordinateString
+    }
+    
     init(coordinate: CLLocationCoordinate2D){
         description = ""
         photos = Array<PhotoData>()
@@ -49,6 +57,12 @@ class PlaceData : Hashable, Codable{
         try container.encode(location, forKey: .location)
         try container.encode(description, forKey: .description)
         try container.encode(photos, forKey: .photos)
+    }
+    
+    func assertDescription(){
+        if description.isEmpty{
+            description = location.locationString
+        }
     }
     
     func addPhoto(photo: PhotoData){

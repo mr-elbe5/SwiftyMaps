@@ -1,5 +1,5 @@
 //
-//  InfoText.swift
+//  InfoHeader.swift
 //
 //  Created by Michael Rönnau on 12.08.20.
 //  Copyright © 2020 Michael Rönnau. All rights reserved.
@@ -9,15 +9,15 @@ import Foundation
 
 import UIKit
 
-class InfoText : UIView{
+class HeaderLabel : UIView{
     
     let label = UILabel()
     
-    init(text: String){
+    init(text: String, paddingTop: CGFloat = Insets.defaultInset){
         super.init(frame: .zero)
         label.text = text
-        label.numberOfLines = 0
         label.textColor = .label
+        label.font = .preferredFont(forTextStyle: .headline)
         addSubview(label)
         label.fillView(view: self, insets: defaultInsets)
     }

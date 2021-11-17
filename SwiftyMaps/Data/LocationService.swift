@@ -23,7 +23,6 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     
     var location : CLLocation? = nil
     var direction : CLLocationDirection = 0
-    var placemark : CLPlacemark? = nil
     var running = false
     var delegate : LocationServiceDelegate? = nil
     
@@ -44,26 +43,12 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         }
     }
     
-    func getPlacemarkInfo(for location: Location, completion: @escaping(Bool) -> ()){
+    func getPlacemarkInfo(for location: Location){
         geocoder.reverseGeocodeLocation(location.cllocation, completionHandler: { (placemarks, error) in
             if error == nil, let placemark =  placemarks?[0]{
                 location.addPlacemarkInfo(placemark: placemark)
-                completion(true)
-            }
-            else{
-                completion(false)
             }
         })
-    }
-    
-    func lookUpCurrentLocation() {
-        if let lastLocation = location {
-            geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
-                if error == nil {
-                    self.placemark = placemarks?[0]
-                }
-            })
-        }
     }
     
     func start(){
@@ -105,7 +90,6 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         guard let newLocation = locations.last else { return }
         if location == nil || newLocation.distance(from: location!) > LocationService.locationDeviation {
             location = newLocation
-            lookUpCurrentLocation()
             delegate?.locationDidChange(location: location!)
         }
     }

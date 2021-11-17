@@ -36,7 +36,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         buttonView.backgroundColor = .black
         captureButton.addTarget(self, action: #selector(capturePhoto), for: .touchDown)
         bodyView.addSubview(captureButton)
-        captureButton.setAnchors(top: nil, leading: nil, trailing: nil, bottom: buttonView.topAnchor, insets: Insets.defaultInsets)
+        captureButton.setAnchors(bottom: buttonView.topAnchor, insets: Insets.defaultInsets)
             .centerX(bodyView.centerXAnchor)
             .width(50)
             .height(50)
@@ -46,7 +46,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         photoQualityControl.selectedSegmentTintColor = UIColor.systemGray2
         photoQualityControl.addTarget(self, action: #selector(togglePhotoQuality), for: .valueChanged)
         buttonView.addSubview(photoQualityControl)
-        photoQualityControl.setAnchors(top: buttonView.topAnchor, leading: buttonView.leadingAnchor, trailing: buttonView.trailingAnchor, bottom: nil, insets: Insets.defaultInsets)
+        photoQualityControl.setAnchors(top: buttonView.topAnchor, leading: buttonView.leadingAnchor, trailing: buttonView.trailingAnchor, insets: Insets.defaultInsets)
         let bottomView = UIView()
         bottomView.backgroundColor = .clear
         buttonView.addSubview(bottomView)
@@ -54,11 +54,11 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         cameraButton.setImage(UIImage(systemName: "camera.rotate"), for: .normal)
         cameraButton.addTarget(self, action: #selector(changeCamera), for: .touchDown)
         bottomView.addSubview(cameraButton)
-        cameraButton.setAnchors(top: bottomView.topAnchor, leading: nil, trailing: bottomView.trailingAnchor, bottom: bottomView.bottomAnchor, insets: .zero)
+        cameraButton.setAnchors(top: bottomView.topAnchor, trailing: bottomView.trailingAnchor, bottom: bottomView.bottomAnchor)
         flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
         flashButton.addTarget(self, action: #selector(toggleFlash), for: .touchDown)
         bottomView.addSubview(flashButton)
-        flashButton.setAnchors(top: bottomView.topAnchor, leading: nil, trailing: cameraButton.leadingAnchor, bottom: bottomView.bottomAnchor, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: Insets.defaultInset, right: 2*Insets.defaultInset))
+        flashButton.setAnchors(top: bottomView.topAnchor, trailing: cameraButton.leadingAnchor, bottom: bottomView.bottomAnchor, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: Insets.defaultInset, right: 2*Insets.defaultInset))
     }
     
     override func enableButtons(flag: Bool){

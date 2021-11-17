@@ -8,10 +8,9 @@
 import Foundation
 import UIKit
 
-class PlaceEditViewController: PopupViewController, UITextViewDelegate{
+class PlaceEditViewController: PopupViewController{
     
-    var stackView = UIStackView()
-    var descriptionView : TextEditView? = nil
+    var descriptionView = TextEditView()
     
     var place: PlaceData? = nil
     
@@ -19,47 +18,55 @@ class PlaceEditViewController: PopupViewController, UITextViewDelegate{
         title = "place".localize()
         super.loadView()
         scrollView.setupVertical()
-        contentView.addSubview(stackView)
-        stackView.fillView(view: scrollView, insets: Insets.narrowInsets)
-        stackView.setupVertical()
         setupContent()
         setupKeyboard()
     }
     
     func setupContent(){
         if let place = place{
-            let header = TextView.fromData(text: "description".localize())
-            stackView.addArrangedSubview(header)
+            var header = HeaderLabel(text: "placeData".localize())
+            contentView.addSubview(header)
+            header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor)
+            let locationLabel = TextLabel(text: place.locationString)
+            contentView.addSubview(locationLabel)
+            locationLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+            let coordinateLabel = TextLabel(text: place.coordinateString)
+            contentView.addSubview(coordinateLabel)
+            coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+            header = HeaderLabel(text: "description".localize())
+            contentView.addSubview(header)
+            header.setAnchors(top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor)
             descriptionView = TextEditView.fromData(text: place.description)
-            descriptionView?.delegate = self
-            stackView.addArrangedSubview(descriptionView!)
+            contentView.addSubview(descriptionView)
+            descriptionView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+            var lastControl : UIView = descriptionView
             if !place.photos.isEmpty{
-                let header = TextView.fromData(text: "photos".localize())
-                stackView.addArrangedSubview(header)
+                header = HeaderLabel(text: "photos".localize())
+                contentView.addSubview(header)
+                header.setAnchors(top: descriptionView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+                let stackView = UIStackView()
+                stackView.setupVertical()
+                contentView.addSubview(stackView)
+                stackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+                lastControl = stackView
                 for photo in place.photos{
                     let imageView = PhotoEditView.fromData(data: photo)
                     stackView.addArrangedSubview(imageView)
                 }
             }
+            let saveButton = UIButton()
+            saveButton.setTitle("save".localize(), for: .normal)
+            saveButton.setTitleColor(.systemBlue, for: .normal)
+            saveButton.addTarget(self, action: #selector(save), for: .touchDown)
+            contentView.addSubview(saveButton)
+            saveButton.setAnchors(top: lastControl.bottomAnchor, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
+                .centerX(contentView.centerXAnchor)
         }
     }
     
-    @objc func textViewDidChange(_ textView: UITextView) {
-        if place != nil{
-            place!.description = textView.text!.trim()
-        }
-        (textView as! TextEditArea).textDidChange()
-    }
-
-    
-}
-
-extension PlaceEditViewController : TextEditDelegate{
-    
-    func textDidChange(sender: TextEditView, text: String) {
-        if sender == descriptionView{
-            place?.description = text
-        }
+    @objc func save(){
+        place?.description = descriptionView.text
+        PlaceCache.instance.save()
     }
     
 }
