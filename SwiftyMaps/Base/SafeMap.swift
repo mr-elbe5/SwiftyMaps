@@ -7,7 +7,6 @@
 
 import Foundation
 
-//unused
 struct SafeMap<K: Hashable,V: AnyObject>{
     
     private var map = Dictionary<K,V>()

@@ -89,7 +89,6 @@
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
 		4EA9B7CE27413F0B00C91B68 /* SafeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */; };
 		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
-		4ECFC99D26FB6FFB0083977B /* URLPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99C26FB6FFB0083977B /* URLPair.swift */; };
 		4ECFC99F26FBB8AF0083977B /* MapPreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */; };
 		4ED5DF44273E831B00549AF8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5DF43273E831B00549AF8 /* Location.swift */; };
 /* End PBXBuildFile section */
@@ -180,7 +179,6 @@
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeMap.swift; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
-		4ECFC99C26FB6FFB0083977B /* URLPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLPair.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPreloadViewController.swift; sourceTree = "<group>"; };
 		4ED5DF43273E831B00549AF8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -291,7 +289,6 @@
 				4E24F47127345D11004E69C2 /* TextButton.swift */,
 				4E24F46927345D11004E69C2 /* TextEditArea.swift */,
 				4E42393C273D2290005B2E5F /* TextView.swift */,
-				4ECFC99C26FB6FFB0083977B /* URLPair.swift */,
 				4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */,
 			);
 			path = Base;
@@ -474,7 +471,6 @@
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E1B811F2732EDC5003ED6B0 /* PlaceData.swift in Sources */,
-				4ECFC99D26FB6FFB0083977B /* URLPair.swift in Sources */,
 				4E24F48827345D11004E69C2 /* UIImage.swift in Sources */,
 				4E24F47E27345D11004E69C2 /* UITextField.swift in Sources */,
 				4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */,
