@@ -8,8 +8,8 @@
 "edit"="Ändern";
 "ok"="Ok";
 "no"="Nein";
-"reset" = "Zurücksetzen";
-"save" = "Speichern";
+"reset"="Zurücksetzen";
+"save"="Speichern";
 "title"="Titel";
 "title/text"="Titel/Text";
 "success"="Erfolg";
@@ -56,10 +56,35 @@
 
 //info
 "appInfoHeader"="Allgemeines";
-"appInfoText"="Diese App basiert auf Daten von OpenStreetMap und OpenTopoMap. Das Laden der Kartenkacheln von den konfigurierten Servern sollte nur im Einklang mit den dort veröffentlichten Nutzungsbedingungen erfolgen.";
+"appInfoText"="Diese App basiert auf Daten von OpenStreetMap und OpenTopoMap. Das Laden der Kartenkacheln von den konfigurierten Servern sollte nur im Einklang mit den dort veröffentlichten Nutzungsbedingungen erfolgen. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
 "appIconsHeader"="Symbole";
+"userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck)";
+"placeMarkerInfoText"="Markierung mit Ortsangabe und ggf. zugeordneten Fotos";
 "mapIconInfoText"="Wechsel zwischen OpenStreetMap- und OpenTopoMap-Karten";
-
+"preloadIconInfoText"="Vorladen des aktuellen Kartenausschnitts einleiten (nur bei höheren Zoomebenen aktiv)";
+"centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
+"gearIconInfoText"="Voreinstellungen ändern";
+"infoIconInfoText"="Diese Information";
+"cameraIconInfoText"="Ein Foto machen und dem aktuellen Ort zordnen";
+"pinIconInfoText"="Fadenkreuz zum Setzen einer Markierung anzeigen";
+"noPinIconInfoText"="Fadenkreuz zum Setzen einer Markierung ausblenden";
+"tourIconInfoText"="Toureinstellungen öffnen";
+//place info
+"placeDetailsInfoText"="Anzeigen der Ortsangaben und zugeordneten Fotos";
+"placeEditInfoText"="Ändern der Beschreibung und die Möglichkeit zugeordnete Fotos zu löschen";
+"placeDeleteInfoText"="Löschen der Markierung und der aller zugeordneten Fotos";
+"placeMenuInfoText"="Durch langes Antippen einer Markierung wird deren Kontextmenü geöffnet.";
+//preload info
+"preloadInfoText"="Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert. Hier können Kacheln des aktuellen Kartenausschnitts für eine Offline-Nutzung vorgeladen werden. Je höher die maximale Zoomebene, des größer das zu ladende Datenvolumen (pro Zoomschritt ein Faktor von 4). Die maximale Zoomebene unterhalb der Zoomanzeige einstellbar. Sollte ein Abbruch erfolgen oder Ladefehler auftreten, kann der Vorgang wiederholt werden.";
+//preferences info
+"urlInfoText"="Die URL Templates sind serverspezifisch und müssen png-Dateien (Kacheln) liefern. Es muss sichergestellt sein, dass die Rechte zum Download der Kacheln vorliegen und dass keine unangemessenen Massendownloads erfolgen.";
+"showPlacesInfoText"="Die Anzeige von Ortsmarkierungen (Nadeln) ein- und ausschalten";
+"deleteTilesInfoText"="Alle geladenen Kacheln beider Kartenarten sofort löschen";
+"deletePlacesInfoText"="Alle Ortsmarkierungen inklusive der zugeordneten Bilder sofort löschen";
+// camera info
+"addFotoInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Ortsmarkierung erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird das Foto dieser Markierung zugeordnet.";
+//places info
+"addPlaceInfoText"="Wenn das Fadenkreuz aktiviert ist, kann durch Tippen auf das Kreuz dort eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
 
 // map
 "showDetails"="Details anzeigen";

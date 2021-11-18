@@ -13,13 +13,13 @@ class TextLabel : UIView{
     
     let label = UILabel()
     
-    init(text: String){
+    init(text: String, insetLeft: CGFloat = 0){
         super.init(frame: .zero)
         label.text = text
         label.numberOfLines = 0
         label.textColor = .label
         addSubview(label)
-        label.fillView(view: self, insets: defaultInsets)
+        label.fillView(view: self, insets: insetLeft == 0 ? defaultInsets : UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset + insetLeft, bottom: Insets.defaultInset, right: Insets.defaultInset))
     }
     
     required init?(coder: NSCoder) {

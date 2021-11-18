@@ -14,7 +14,7 @@ class IconInfoText : UIView{
     let iconView = UIImageView()
     let iconText = UILabel()
     
-    init(icon: String, text: String, iconColor : UIColor = .systemBlue){
+    init(icon: String, text: String, iconColor : UIColor = .darkGray){
         super.init(frame: .zero)
         iconView.image = UIImage(systemName: icon)
         iconView.tintColor = iconColor

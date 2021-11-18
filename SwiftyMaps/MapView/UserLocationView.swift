@@ -10,6 +10,9 @@ import CoreLocation
 
 class UserLocationView : UIView{
     
+    static var userLocationColor = UIColor.systemBlue
+    static var userDirectionColor = UIColor.red
+    
     static var baseFrame = CGRect(x: -MapStatics.locationRadius, y: -MapStatics.locationRadius, width: 2*MapStatics.locationRadius, height: 2*MapStatics.locationRadius)
     
     var locationPoint : CGPoint = .zero
@@ -42,7 +45,7 @@ class UserLocationView : UIView{
     
     override func draw(_ rect: CGRect) {
         //MapStatics.directionImage?.draw(in: rect)
-        let color = UIColor.systemBlue.cgColor
+        let color = UserLocationView.userLocationColor.cgColor
         let ctx = UIGraphicsGetCurrentContext()!
         ctx.beginPath()
         ctx.addEllipse(in: rect.scaleCenteredBy(0.4))
@@ -58,7 +61,7 @@ class UserLocationView : UIView{
             let angle1 = (direction - 15)*CGFloat.pi/180
             let angle2 = (direction + 15)*CGFloat.pi/180
             ctx.beginPath()
-            ctx.setFillColor(UIColor.red.cgColor)
+            ctx.setFillColor(UserLocationView.userDirectionColor.cgColor)
             let center = CGPoint(x: rect.midX, y: rect.midY)
             ctx.move(to: center)
             ctx.addLine(to: CGPoint(x: center.x + MapStatics.locationRadius * sin(angle1), y: center.y - MapStatics.locationRadius * cos(angle1)))
