@@ -48,6 +48,7 @@ class InfoViewController: PopupViewController {
         stackView.addArrangedSubview(IconInfoText(icon: "info.circle", text: "infoIconInfoText".localize()))
         
         stackView.addArrangedSubview(IconInfoText(icon: "camera", text: "cameraIconInfoText".localize()))
+        stackView.addArrangedSubview(TextLabel(text: "addPlaceInfoText".localize(), insetLeft: subInset))
         
         stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "pinIconInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "circle.slash", text: "noPinIconInfoText".localize()))

@@ -59,19 +59,19 @@
 "appInfoText"="Diese App basiert auf Daten von OpenStreetMap und OpenTopoMap. Das Laden der Kartenkacheln von den konfigurierten Servern sollte nur im Einklang mit den dort veröffentlichten Nutzungsbedingungen erfolgen. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
 "appIconsHeader"="Symbole";
 "userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck)";
-"placeMarkerInfoText"="Markierung mit Ortsangabe und ggf. zugeordneten Fotos";
+"placeMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos";
 "mapIconInfoText"="Wechsel zwischen OpenStreetMap- und OpenTopoMap-Karten";
 "preloadIconInfoText"="Vorladen des aktuellen Kartenausschnitts einleiten (nur bei höheren Zoomebenen aktiv)";
 "centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
 "gearIconInfoText"="Voreinstellungen ändern";
 "infoIconInfoText"="Diese Information";
-"cameraIconInfoText"="Ein Foto machen und dem aktuellen Ort zordnen";
+"cameraIconInfoText"="Ein Foto machen und dem aktuellen Ort zuordnen";
 "pinIconInfoText"="Fadenkreuz zum Setzen einer Markierung anzeigen";
 "noPinIconInfoText"="Fadenkreuz zum Setzen einer Markierung ausblenden";
 "tourIconInfoText"="Toureinstellungen öffnen";
 //place info
 "placeDetailsInfoText"="Anzeigen der Ortsangaben und zugeordneten Fotos";
-"placeEditInfoText"="Ändern der Beschreibung und die Möglichkeit zugeordnete Fotos zu löschen";
+"placeEditInfoText"="Ändern der Beschreibung und zugeordnete Fotos löschen";
 "placeDeleteInfoText"="Löschen der Markierung und der aller zugeordneten Fotos";
 "placeMenuInfoText"="Durch langes Antippen einer Markierung wird deren Kontextmenü geöffnet.";
 //preload info

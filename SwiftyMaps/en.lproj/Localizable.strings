@@ -58,33 +58,33 @@
 "appInfoHeader"="General";
 "appInfoText"="This App is based on data from OpenStreetMap and OpenTopoMap. Loading of map tiles from the configured servers should only take place in accordance with their terms of use.";
 "appIconsHeader"="Icons";
+"userLocationInfoText"="Shows the current position and direction (red triangle)";
+"placeMarkerInfoText"="Place marker with location details and assigned photos";
 "mapIconInfoText"="Change between OpenStreetMap and OpenTopoMap tiles";
-"userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck)";
-"placeMarkerInfoText"="Markierung mit Ortsangabe und ggf. zugeordneten Fotos";
-"preloadIconInfoText"="Vorladen des aktuellen Kartenausschnitts einleiten (nur bei höheren Zoomebenen aktiv)";
-"centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
-"gearIconInfoText"="Voreinstellungen ändern";
-"infoIconInfoText"="Dies Information";
-"cameraIconInfoText"="Ein Foto machen und dem aktuellen Ort zordnen";
-"pinIconInfoText"="Fadenkreuz zum Setzen einer Markierung anzeigen";
-"noPinIconInfoText"="Fadenkreuz zum Setzen einer Markierung ausblenden";
-"tourIconInfoText"="Toureinstellungen öffnen";
+"preloadIconInfoText"="Prepares preloading the current map section (active only for higher zoom levels)";
+"centerIconInfoText"="Center the current position on the map";
+"gearIconInfoText"="Change references";
+"infoIconInfoText"="This information";
+"cameraIconInfoText"="Take a photo and assign it to the current location";
+"pinIconInfoText"="Show crosshairs for setting a place marker";
+"noPinIconInfoText"="Hide crosshairs for setting a place marker";
+"tourIconInfoText"="Open tour settings";
 //place info
-"placeDetailsInfoText"="Anzeigen der Ortsangaben und zugeordneten Fotos";
-"placeEditInfoText"="Ändern der Beschreibung und die Möglichkeit zugeordnete Fotos zu löschen";
-"placeDeleteInfoText"="Löschen der Markierung und der aller zugeordneten Fotos";
-"placeMenuInfoText"="Durch langes Antippen einer Markierung wird deren Kontextmenü geöffnet.";
+"placeDetailsInfoText"="Show location details and assigned photos";
+"placeEditInfoText"="Change the description and delete assigned photos";
+"placeDeleteInfoText"="Delete the place marker and all assigned photos";
+"placeMenuInfoText"="By long pressing a marker the context menu is opened.";
 //preload info
-"preloadInfoText"="Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert. Hier können Kacheln des aktuellen Kartenausschnitts für eine Offline-Nutzung vorgeladen werden. Je höher die maximale Zoomebene, des größer das zu ladende Datenvolumen (pro Zoomschritt ein Faktor von 4). Die maximale Zoomebene unterhalb der Zoomanzeige einstellbar. Sollte ein Abbruch erfolgen oder Ladefehler auftreten, kann der Vorgang wiederholt werden.";
+"preloadInfoText"="Once loaded tiles are stored in the app until all tiles are deleted. Here tiles for the current map section can be perloaded. The higher the zoom level, the higher the data size to load (per zoom level it is a factor of 4). The maximal zoom level can be set below the zoom note. Should you cancel or a load error should occur, the action can be repeated.";
 //preferences info
-"urlInfoText"="Die URL Templates sind serverspezifisch und müssen png-Dateien (Kacheln) liefern. Es muss sichergestellt sein, dass die Rechte zum Download der Kacheln vorliegen und dass keine unangemessenen Massendownloads erfolgen.";
-"showPlacesInfoText"="Die Anzeige von Ortsmarkierungen (Nadeln) ein- und ausschalten";
-"deleteTilesInfoText"="Alle geladenen Kacheln beider Kartenarten sofort löschen";
-"deletePlacesInfoText"="Alle Ortsmarkierungen inklusive der zugeordneten Bilder sofort löschen";
+"urlInfoText"="The URL templates are server specific and have to return png files (tiles). You must be sure to have the rights for downloading the tiles and that you do not start inappropriate mass downloads.";
+"showPlacesInfoText"="Show or hide place markers (needles)";
+"deleteTilesInfoText"="Delete all stored tiles immediately";
+"deletePlacesInfoText"="Delete all place markers including assigned photos";
 // camera info
-"addFotoInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Ortsmarkierung erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird das Foto dieser Markierung zugeordnet.";
+"addFotoInfoText"="When you take a photo, a place marker for that location is created and the photo is assigned to this place mark. If a place marker already exists in the direct vicinity (below the location accuracy) the photo is assigned to this place.";
 //places info
-"addPlaceInfoText"="Wenn das Fadenkreuz aktiviert ist, kann durch Tippen auf das Kreuz dort eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
+"addPlaceInfoText"="If the crosshairs are active, a place marker can be created by tapping on the crosshairs. If a place marker already exists in the direct vicinity (below the location accuracy), no new place marker is created.";
 
 
 
