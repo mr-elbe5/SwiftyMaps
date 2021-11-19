@@ -61,7 +61,8 @@
 "userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck)";
 "placeMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos";
 "mapIconInfoText"="Wechsel zwischen OpenStreetMap- und OpenTopoMap-Karten";
-"preloadIconInfoText"="Vorladen des aktuellen Kartenausschnitts einleiten (nur bei höheren Zoomebenen aktiv)";
+"preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts einleiten (nur bei Zoomebenen 13 und höher aktiv)";
+"zoomIconInfoText"="Aktuelle Zoomebene der Karte";
 "centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
 "gearIconInfoText"="Voreinstellungen ändern";
 "infoIconInfoText"="Diese Information";

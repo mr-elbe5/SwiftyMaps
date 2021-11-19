@@ -19,12 +19,12 @@ class MapViewController: UIViewController {
         mapView.fillView(view: view)
         let minZoom = MapCalculator.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
         mapView.setupScrollView(minimalZoom: minZoom)
-        mapView.setupContentView()
-        mapView.setupTrackView()
+        mapView.setupTileLayerView()
+        mapView.setupTrackLayerView()
         mapView.setupUserLocationView()
-        mapView.setupPlacesView()
+        mapView.setupPlaceMarkersLayerView()
         mapView.placeMarkersLayerView.delegate = self
-        mapView.setupControlView()
+        mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
     }
     

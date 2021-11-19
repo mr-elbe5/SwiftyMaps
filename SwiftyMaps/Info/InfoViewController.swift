@@ -36,7 +36,8 @@ class InfoViewController: PopupViewController {
         
         stackView.addArrangedSubview(IconInfoText(icon: "map", text: "mapIconInfoText".localize()))
         
-        stackView.addArrangedSubview(IconInfoText(icon: "square.and.arrow.down", text: "preloadIconInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "arrow.down.square", text: "preloadIconInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "12.square", text: "zoomIconInfoText".localize()))
         
         stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "centerIconInfoText".localize()))
         

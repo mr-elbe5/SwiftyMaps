@@ -61,7 +61,8 @@
 "userLocationInfoText"="Shows the current position and direction (red triangle)";
 "placeMarkerInfoText"="Place marker with location details and assigned photos";
 "mapIconInfoText"="Change between OpenStreetMap and OpenTopoMap tiles";
-"preloadIconInfoText"="Prepares preloading the current map section (active only for higher zoom levels)";
+"preloadIconInfoText"="Initiates preloading the currently visible map section (active only for zoom levels of 13 and above)";
+"zoomIconInfoText"="Shows the current zoom level of the map";
 "centerIconInfoText"="Center the current position on the map";
 "gearIconInfoText"="Change references";
 "infoIconInfoText"="This information";

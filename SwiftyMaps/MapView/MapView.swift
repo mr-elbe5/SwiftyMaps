@@ -18,6 +18,8 @@ class MapView: UIView {
     
     var locationInitialized = false
     
+    var zoom : Int = 0
+    
     var scale : CGFloat{
         get{
             scrollView.zoomScale
@@ -71,19 +73,20 @@ class MapView: UIView {
         scrollView.delegate = self
     }
     
-    func setupContentView(){
+    func setupTileLayerView(){
         tileLayerView.backgroundColor = .white
         scrollView.addSubview(tileLayerView)
         tileLayerView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+        tileLayerView.delegate = self
     }
     
-    func setupTrackView(){
+    func setupTrackLayerView(){
         addSubview(trackLayerView)
         trackLayerView.fillView(view: self)
         trackLayerView.isHidden = !isTracking
     }
     
-    func setupPlacesView(){
+    func setupPlaceMarkersLayerView(){
         addSubview(placeMarkersLayerView)
         placeMarkersLayerView.fillView(view: self)
         placeMarkersLayerView.setupPlaceMarkers()
@@ -94,7 +97,7 @@ class MapView: UIView {
         addSubview(userLocationView)
     }
     
-    func setupControlView(){
+    func setupControlLayerView(){
         addSubview(controlLayerView)
         controlLayerView.fillView(view: self)
         controlLayerView.setup()
@@ -140,7 +143,8 @@ class MapView: UIView {
     
     func setZoom(zoomLevel: Int, animated: Bool){
         scrollView.setZoomScale(MapCalculator.zoomScale(at: zoomLevel - MapStatics.maxZoom), animated: animated)
-        controlLayerView.checkPreloadScale(scale: scrollView.contentScaleFactor)
+        zoom = zoomLevel
+        controlLayerView.zoomLevelHasChanged(zoom: zoom)
     }
     
     func connectLocationService(){
@@ -209,7 +213,6 @@ extension MapView : UIScrollViewDelegate{
         assertCenteredContent(scrollView: scrollView)
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
         placeMarkersLayerView.updatePosition(offset: contentOffset, scale: scale)
-        controlLayerView.checkPreloadScale(scale: scrollView.zoomScale)
     }
     
     // for infinite scroll using 3 * content width
@@ -222,6 +225,15 @@ extension MapView : UIScrollViewDelegate{
         }
     }
     
+}
+
+extension MapView: TileLayerDelegate{
+    
+    func zoomDidChange(zoom: Int) {
+        self.zoom = zoom
+        controlLayerView.zoomLevelHasChanged(zoom: zoom)
+    }
+
 }
 
 extension MapView: LocationServiceDelegate{
