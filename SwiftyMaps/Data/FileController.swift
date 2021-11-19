@@ -22,6 +22,8 @@ class FileController {
     static var documentURL : URL = FileManager.default.urls(for: .documentDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var imageLibraryPath: String = NSSearchPathForDirectoriesInDomains(.picturesDirectory,.userDomainMask,true).first!
     static var imageLibraryURL : URL = FileManager.default.urls(for: .picturesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
+    static var gpxDirURL = documentURL.appendingPathComponent("gpx")
+    
     static var privatePath : String{
         get{
             privateURL.path
@@ -40,6 +42,7 @@ class FileController {
     
     static func initialize() {
         try! FileManager.default.createDirectory(at: FileController.privateURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileController.gpxDirURL, withIntermediateDirectories: true, attributes: nil)
     }
     
     static func getPath(dirPath: String, fileName: String ) -> String

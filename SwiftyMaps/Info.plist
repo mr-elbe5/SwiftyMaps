@@ -2,18 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is needed for showing and saving your current position.</string>
-	<key>NSDocumentsFolderUsageDescription</key>
-	<string>The documents folder is used for export and import.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>The photo library is used for exporting pictures on demand.</string>
-	<key>NSLocationUsageDescription</key>
-	<string>Your location is needed for showing and saving your current position.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>The camera is needed for taking pictures and recording videos.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Your location is needed for showing your current position and record it on demand.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -32,6 +20,20 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
+	<key>NSCameraUsageDescription</key>
+	<string>The camera is needed for taking pictures and recording videos.</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>The documents folder is used for export and import.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Your location is needed for showing your current position and record it on demand.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Your location is needed for showing and saving your current position.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location is needed for showing and saving your current position.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The photo library is used for exporting pictures on demand.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -49,6 +51,8 @@
 			</array>
 		</dict>
 	</dict>
+    <key>UIFileSharingEnabled</key>
+    <true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -69,6 +73,30 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>GPS Exchange Format (GPX)</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.topografix.gpx</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.topografix.com/GPX/1/1</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>gpx</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/gpx+xml</string>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>

@@ -87,6 +87,7 @@
 		4E89173F273688580046AC91 /* PlaceEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceEditViewController.swift */; };
 		4E89174127368AF00046AC91 /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89174027368AF00046AC91 /* PlaceDetailViewController.swift */; };
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
+		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
 		4EA9B7CE27413F0B00C91B68 /* SafeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */; };
 		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
 		4ECFC99F26FBB8AF0083977B /* MapPreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */; };
@@ -177,6 +178,7 @@
 		4E89173E273688580046AC91 /* PlaceEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceEditViewController.swift; sourceTree = "<group>"; };
 		4E89174027368AF00046AC91 /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeMap.swift; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPreloadViewController.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				4E1B81062732EDC4003ED6B0 /* MapTileLoader.swift */,
 				4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */,
 				4E0BD9DF26EA04EE005A4A94 /* MapError.swift */,
+				4EA45A632747CA22001F3533 /* GPXParser.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				4E0BD9B326EA0170005A4A94 /* InfoViewController.swift in Sources */,
 				4E0D093026F90DC600FABB17 /* TourViewController.swift in Sources */,
 				4E0BD9AA26EA0159005A4A94 /* PopupViewController.swift in Sources */,
+				4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */,
 				4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */,
 				4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,

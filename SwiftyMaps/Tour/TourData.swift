@@ -62,5 +62,12 @@ class TourData : Hashable, Codable{
         trackpoints.append(TrackPoint(location: location))
     }
     
+    func dump(){
+        print(description)
+        for tp in trackpoints{
+            print("coord: \(tp.coordinateString), altitude: \(tp.location.altitude), time: \(tp.location.timestamp)")
+        }
+    }
+    
 }
 
