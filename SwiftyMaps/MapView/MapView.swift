@@ -73,7 +73,6 @@ class MapView: UIView {
         tileLayerView.backgroundColor = .white
         scrollView.addSubview(tileLayerView)
         tileLayerView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
-        tileLayerView.delegate = self
     }
     
     func setupTrackLayerView(){
@@ -207,6 +206,11 @@ extension MapView : UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         assertCenteredContent(scrollView: scrollView)
+        let newZoom = MapStatics.maxZoom + MapCalculator.zoomLevelFromScale(scale: scale)
+        if zoom != newZoom{
+            zoom = newZoom
+            controlLayerView.zoomLevelHasChanged(zoom: zoom)
+        }
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
         placeMarkersLayerView.updatePosition(offset: contentOffset, scale: scale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scale)
@@ -222,15 +226,6 @@ extension MapView : UIScrollViewDelegate{
         }
     }
     
-}
-
-extension MapView: TileLayerDelegate{
-    
-    func zoomDidChange(zoom: Int) {
-        self.zoom = zoom
-        controlLayerView.zoomLevelHasChanged(zoom: zoom)
-    }
-
 }
 
 extension MapView: LocationServiceDelegate{

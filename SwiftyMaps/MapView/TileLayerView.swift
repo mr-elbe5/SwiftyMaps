@@ -6,10 +6,6 @@
 
 import UIKit
 
-protocol TileLayerDelegate{
-    func zoomDidChange(zoom : Int)
-}
-
 class TileLayerView: UIView {
     
     var screenScale : CGFloat = 1.0
@@ -24,19 +20,11 @@ class TileLayerView: UIView {
         set{
             if _scaleToPlanet  != newValue{
                 _scaleToPlanet = newValue
-                let newZoom = MapStatics.maxZoom - MapCalculator.zoomLevelFromScale(scale: _scaleToPlanet)
-                if zoom != newZoom{
-                    zoom = newZoom
-                    DispatchQueue.main.async {
-                        self.delegate?.zoomDidChange(zoom: self.zoom)
-                    }
-                }
+                zoom = MapStatics.maxZoom - MapCalculator.zoomLevelFromScale(scale: _scaleToPlanet)
             }
         }
     }
     var zoom : Int = 0
-    
-    var delegate : TileLayerDelegate? = nil
     
     override init(frame: CGRect){
         super.init(frame: frame)
