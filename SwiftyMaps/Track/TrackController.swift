@@ -11,13 +11,42 @@ import UIKit
 
 class TrackController: Codable{
     
-    static var storeKey = "tracks"
-    
     static var currentTrack : TrackData? = nil
-    
+    static var activeTrack : TrackData? = nil
     static var isTracking : Bool = false
     
+    static func startTracking(){
+        if activeTrack == nil{
+            activeTrack = TrackData()
+            currentTrack = activeTrack
+        }
+        isTracking = true
+    }
+    
+    static func finishTracking(){
+        if let track = activeTrack{
+            isTracking = false
+            instance.addTrack(track)
+            instance.save()
+            activeTrack = nil
+        }
+    }
+    
+    static func cancelTracking(){
+        if let track = activeTrack{
+            isTracking = false
+            if currentTrack == track{
+                currentTrack = nil
+            }
+            activeTrack = nil
+        }
+    }
+    
+    // instance
+
     static var instance : TrackController!
+    
+    static var storeKey = "tracks"
     
     static func loadInstance(){
         if let cache : TrackController = DataController.shared.load(forKey: .tracks){
@@ -50,13 +79,10 @@ class TrackController: Codable{
         try container.encode(tracks, forKey: .tracks)
     }
     
-    @discardableResult
-    func addTrack() -> TrackData{
+    func addTrack(_ track: TrackData){
         lock.wait()
         defer{lock.signal()}
-        let track = TrackData()
         tracks.append(track)
-        return track
     }
     
     func removeTrack(_ track: TrackData){
