@@ -54,7 +54,7 @@ class InfoViewController: PopupViewController {
         stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "pinIconInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "circle.slash", text: "noPinIconInfoText".localize()))
         
-        stackView.addArrangedSubview(IconInfoText(icon: "figure.walk", text: "tourIconInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "figure.walk", text: "trackIconInfoText".localize()))
     }
     
 }

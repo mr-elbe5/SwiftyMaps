@@ -69,7 +69,7 @@
 "cameraIconInfoText"="Take a photo and assign it to the current location";
 "pinIconInfoText"="Show crosshairs for setting a place marker";
 "noPinIconInfoText"="Hide crosshairs for setting a place marker";
-"tourIconInfoText"="Open tour settings";
+"trackIconInfoText"="Open track settings";
 //place info
 "placeDetailsInfoText"="Show location details and assigned photos";
 "placeEditInfoText"="Change the description and delete assigned photos";
@@ -98,19 +98,19 @@
 "placeData"="Place data";
 "photos"="Photos";
 
-//tour
-"tour"="Tour";
+//track
+"track"="Track";
 
 //marker menu
 "hideMarkers"="Hide Markers";
 "showMarkers"="Show Markers";
 "addMarker"="Add Marker";
 "searchMarker"="Search Marker";
-//tour menu
+//track menu
 "startTracking"="Start Tracking";
 "stopTracking"="Stop Tracking";
-"saveTour"="Save Tour";
-"searchTour"="Search Tour";
+"saveTrack"="Save Track";
+"searchTrack"="Search Track";
 
 //mapPreload
 "mapPreload"="Preload Map Tiles";

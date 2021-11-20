@@ -69,7 +69,7 @@
 "cameraIconInfoText"="Ein Foto machen und dem aktuellen Ort zuordnen";
 "pinIconInfoText"="Fadenkreuz zum Setzen einer Markierung anzeigen";
 "noPinIconInfoText"="Fadenkreuz zum Setzen einer Markierung ausblenden";
-"tourIconInfoText"="Toureinstellungen öffnen";
+"trackIconInfoText"="Tracking-Einstellungen öffnen";
 //place info
 "placeDetailsInfoText"="Anzeigen der Ortsangaben und zugeordneten Fotos";
 "placeEditInfoText"="Ändern der Beschreibung und zugeordnete Fotos löschen";
@@ -96,19 +96,19 @@
 "placeData"="Ortsangaben";
 "photos"="Fotos";
 
-//tour
-"tour"="Tour";
+//track
+"track"="Track";
 
 //marker menu
 "hideMarkers"="Markierungen nicht anzeigen";
 "showMarkers"="Markierungen anzeigen";
 "addMarker"="Markierung hinzufügen";
 "searchMarker"="Marker suchen";
-//tour menu
+//track menu
 "startTracking"="Aufzeichnen starten";
 "stopTracking"="Aufzeichnen beenden";
-"saveTour"="Tour speichern";
-"searchTour"="Tour-Suche";
+"saveTrack"="Aufzeichnung speichern";
+"searchTrack"="Aufzeichnung-Suche";
 
 //mapPreload
 "mapPreload"="Kartenkacheln vorladen";

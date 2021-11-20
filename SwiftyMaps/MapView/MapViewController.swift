@@ -37,7 +37,7 @@ class MapViewController: UIViewController {
     }
     
     private func assertPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
-        if let nextPlace = PlaceCache.instance.placeNextTo(location: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){
+        if let nextPlace = PlaceController.instance.placeNextTo(location: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){
             var txt = nextPlace.description
             if !txt.isEmpty{
                 txt += ", "
@@ -48,14 +48,14 @@ class MapViewController: UIViewController {
                     onComplete?(nextPlace)
                 }
                 else{
-                    let place = PlaceCache.instance.addPlace(coordinate: coordinate)
+                    let place = PlaceController.instance.addPlace(coordinate: coordinate)
                     self.mapView.addPlaceMarker(place: place)
                     onComplete?(place)
                 }
             }
         }
         else{
-            let place = PlaceCache.instance.addPlace(coordinate: coordinate)
+            let place = PlaceController.instance.addPlace(coordinate: coordinate)
             self.mapView.addPlaceMarker(place: place)
             onComplete?(place)
         }
@@ -63,11 +63,11 @@ class MapViewController: UIViewController {
     
     private func assertPhotoPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
         let location = CLLocation(coordinate: coordinate, altitude: 0, horizontalAccuracy: MapStatics.minHorizontalAccuracy, verticalAccuracy: MapStatics.minVerticalAccuracy, timestamp: Date())
-        if let nextPlace = PlaceCache.instance.placeNextTo(location: location){
+        if let nextPlace = PlaceController.instance.placeNextTo(location: location){
             onComplete?(nextPlace)
         }
         else{
-            let place = PlaceCache.instance.addPlace(coordinate: location.coordinate)
+            let place = PlaceController.instance.addPlace(coordinate: location.coordinate)
             self.mapView.addPlaceMarker(place: place)
             onComplete?(place)
         }
@@ -92,8 +92,8 @@ extension MapViewController: PlaceMarkersLayerViewDelegate{
     }
     
     func deletePlace(place: PlaceData) {
-        PlaceCache.instance.removePlace(place)
-        PlaceCache.instance.save()
+        PlaceController.instance.removePlace(place)
+        PlaceController.instance.save()
     }
     
 }
@@ -156,8 +156,8 @@ extension MapViewController: ControlLayerDelegate{
         }
     }
     
-    func openTour() {
-        let controller = TourViewController()
+    func openTracking() {
+        let controller = TrackViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
@@ -179,7 +179,7 @@ extension MapViewController: PreferencesDelegate{
     }
     
     func removePlaces() {
-        PlaceCache.instance.places.removeAll()
+        PlaceController.instance.places.removeAll()
         mapView.placeMarkersLayerView.setupPlaceMarkers()
     }
     
@@ -191,23 +191,28 @@ extension MapViewController: PhotoCaptureDelegate{
         if let location = LocationService.shared.location{
             assertPhotoPlace(coordinate: location.coordinate){ place in
                 place.addPhoto(photo: photo)
-                PlaceCache.instance.save()
+                PlaceController.instance.save()
             }
         }
     }
     
 }
 
-extension MapViewController: TourDelegate{
+extension MapViewController: TrackDelegate{
     
-    //todo
-    func startTour() {
-        print("start tour")
-        TourData.activeTour = TourData()
+    func startTracking() {
+        print("start track")
+        TrackController.currentTrack = TrackData()
+        TrackController.isTracking = true
     }
     
-    func stopTour() {
-        TourData.activeTour = nil
+    func stopTracking() {
+        TrackController.currentTrack = nil
+        TrackController.isTracking = false
+    }
+    
+    func trackLoaded() {
+        mapView.trackLayerView.setNeedsDisplay()
     }
 
 }

@@ -13,7 +13,7 @@ protocol ControlLayerDelegate{
     func preloadMap()
     func openInfo()
     func openCamera()
-    func openTour()
+    func openTracking()
     func openPreferences()
 }
 
@@ -74,10 +74,10 @@ class ControlLayerView: UIView {
         openCameraControl.setAnchors(top: bottomControlLine.topAnchor, leading: bottomControlLine.leadingAnchor, bottom: bottomControlLine.bottomAnchor, insets: Insets.flatInsets)
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
-        let openTourControl = IconButton(icon: "figure.walk")
-        bottomControlLine.addSubview(openTourControl)
-        openTourControl.setAnchors(top: bottomControlLine.topAnchor, trailing: bottomControlLine.trailingAnchor, bottom: bottomControlLine.bottomAnchor, insets: Insets.flatInsets)
-        openTourControl.addTarget(self, action: #selector(openTour), for: .touchDown)
+        let openTrackingControl = IconButton(icon: "figure.walk")
+        bottomControlLine.addSubview(openTrackingControl)
+        openTrackingControl.setAnchors(top: bottomControlLine.topAnchor, trailing: bottomControlLine.trailingAnchor, bottom: bottomControlLine.bottomAnchor, insets: Insets.flatInsets)
+        openTrackingControl.addTarget(self, action: #selector(openTracking), for: .touchDown)
         
         bottomControlLine.addSubview(toggleCrossControl)
         toggleCrossControl.setAnchors(top: bottomControlLine.topAnchor, bottom: bottomControlLine.bottomAnchor, insets: Insets.flatInsets)
@@ -139,8 +139,8 @@ class ControlLayerView: UIView {
         delegate?.openCamera()
     }
     
-    @objc func openTour(){
-        delegate?.openTour()
+    @objc func openTracking(){
+        delegate?.openTracking()
     }
     
     @objc func placeCrossTouched(){

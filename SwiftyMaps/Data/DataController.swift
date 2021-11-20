@@ -12,7 +12,7 @@ class DataController{
     enum StoreKey: String, CaseIterable {
         case preferences
         case places
-        case tours
+        case tracks
     }
     
     static var shared = DataController()

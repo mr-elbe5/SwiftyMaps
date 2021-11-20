@@ -1,5 +1,5 @@
 //
-//  TourData.swift
+//  TrackData.swift
 //  SwiftyMaps
 //
 //  Created by Michael Rönnau on 16.11.21.
@@ -9,11 +9,9 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class TourData : Hashable, Codable{
+class TrackData : Hashable, Codable{
     
-    static var activeTour : TourData? = nil
-    
-    static func == (lhs: TourData, rhs: TourData) -> Bool {
+    static func == (lhs: TrackData, rhs: TrackData) -> Bool {
         lhs.id == rhs.id
     }
     

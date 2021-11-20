@@ -10,7 +10,7 @@ import CoreLocation
 
 class TrackLayerView: UIView {
     
-    var tour : TourData? = nil
+    var track : TrackData? = nil
     
     var offset = CGPoint()
     var scale : CGFloat = 1.0
@@ -30,8 +30,8 @@ class TrackLayerView: UIView {
     }
     
     func updateTrack(_ location: CLLocation){
-        if let tour = tour{
-            tour.updateTrack(location)
+        if let track = track{
+            track.updateTrack(location)
         }
     }
     
@@ -43,14 +43,14 @@ class TrackLayerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        if let tour = TourData.activeTour{
-            if !tour.trackpoints.isEmpty{
+        if let track = TrackController.currentTrack{
+            if !track.trackpoints.isEmpty{
                 let color = UIColor.systemOrange.cgColor
                 let ctx = UIGraphicsGetCurrentContext()!
                 ctx.beginPath()
-                ctx.move(to: getPoint(tour.trackpoints[0]))
-                for idx in 1..<tour.trackpoints.count{
-                    ctx.addLine(to: getPoint(tour.trackpoints[idx]))
+                ctx.move(to: getPoint(track.trackpoints[0]))
+                for idx in 1..<track.trackpoints.count{
+                    ctx.addLine(to: getPoint(track.trackpoints[idx]))
                 }
                 ctx.setStrokeColor(color)
                 ctx.setLineWidth(4.0)
