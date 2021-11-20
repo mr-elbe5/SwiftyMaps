@@ -200,17 +200,6 @@ extension MapViewController: PhotoCaptureDelegate{
 
 extension MapViewController: TrackDelegate{
     
-    func startTracking() {
-        print("start track")
-        TrackController.currentTrack = TrackData()
-        TrackController.isTracking = true
-    }
-    
-    func stopTracking() {
-        TrackController.currentTrack = nil
-        TrackController.isTracking = false
-    }
-    
     func trackLoaded() {
         mapView.trackLayerView.setNeedsDisplay()
     }

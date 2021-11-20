@@ -11,8 +11,6 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol TrackDelegate{
-    func startTracking()
-    func stopTracking()
     func trackLoaded()
 }
 
@@ -20,47 +18,19 @@ class TrackViewController: PopupViewController{
     
     var delegate : TrackDelegate? = nil
     
-    var toggleTrackingButton = UIButton()
-    
     var loadTrackButton = UIButton()
     
     override func loadView() {
         title = "track".localize()
         super.loadView()
         
-        toggleTrackingButton.setTitleColor(.systemBlue, for: .normal)
-        toggleTrackingButton.addTarget(self, action: #selector(toggleTracking), for: .touchDown)
-        contentView.addSubview(toggleTrackingButton)
-        toggleTrackingButton.setAnchors(top: contentView.topAnchor, insets: Insets.doubleInsets)
-            .centerX(contentView.centerXAnchor)
-        updateToggleButton()
-        
         loadTrackButton.setTitle("Load track", for: .normal)
         loadTrackButton.setTitleColor(.systemBlue, for: .normal)
         loadTrackButton.addTarget(self, action: #selector(loadTrack), for: .touchDown)
         contentView.addSubview(loadTrackButton)
-        loadTrackButton.setAnchors(top: toggleTrackingButton.topAnchor, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
+        loadTrackButton.setAnchors(top: contentView.topAnchor, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
             .centerX(contentView.centerXAnchor)
         
-    }
-    
-    func updateToggleButton(){
-        if !TrackController.isTracking{
-            toggleTrackingButton.setTitle("startTracking".localize(), for: .normal)
-        }
-        else{
-            toggleTrackingButton.setTitle("stopTracking".localize(), for: .normal)
-        }
-    }
-    
-    @objc func toggleTracking(){
-        if !TrackController.isTracking{
-            delegate?.startTracking()
-        }
-        else{
-            delegate?.stopTracking()
-        }
-        updateToggleButton()
     }
     
     @objc func loadTrack(){

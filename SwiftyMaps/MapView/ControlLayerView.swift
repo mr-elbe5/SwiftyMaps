@@ -25,6 +25,7 @@ class ControlLayerView: UIView {
     var zoomIcon = IconButton(icon: "square", tintColor: .gray)
     var toggleCrossControl = IconButton(icon: "mappin.and.ellipse")
     var crossControl = IconButton(icon: "plus.circle")
+    var trackingControl = IconButton(icon: "figure.walk")
     var licenseView = UIView()
     
     func setup(){
@@ -74,10 +75,10 @@ class ControlLayerView: UIView {
         openCameraControl.setAnchors(top: bottomControlLine.topAnchor, leading: bottomControlLine.leadingAnchor, bottom: bottomControlLine.bottomAnchor, insets: Insets.flatInsets)
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
-        let openTrackingControl = IconButton(icon: "figure.walk")
-        bottomControlLine.addSubview(openTrackingControl)
-        openTrackingControl.setAnchors(top: bottomControlLine.topAnchor, trailing: bottomControlLine.trailingAnchor, bottom: bottomControlLine.bottomAnchor, insets: Insets.flatInsets)
-        openTrackingControl.addTarget(self, action: #selector(openTracking), for: .touchDown)
+        bottomControlLine.addSubview(trackingControl)
+        trackingControl.setAnchors(top: bottomControlLine.topAnchor, trailing: bottomControlLine.trailingAnchor, bottom: bottomControlLine.bottomAnchor, insets: Insets.flatInsets)
+        trackingControl.menu = getTrackingMenu()
+        trackingControl.showsMenuAsPrimaryAction = true
         
         bottomControlLine.addSubview(toggleCrossControl)
         toggleCrossControl.setAnchors(top: bottomControlLine.topAnchor, bottom: bottomControlLine.bottomAnchor, insets: Insets.flatInsets)
@@ -94,6 +95,28 @@ class ControlLayerView: UIView {
         licenseView.setAnchors(top: bottomControlLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: 0, right: Insets.defaultInset))
         
         MapType.current.fillLicenseView(licenseView)
+    }
+    
+    func getTrackingMenu() -> UIMenu{
+        var trackingAction : UIAction!
+        if TrackController.isTracking{
+            trackingAction = UIAction(title: "stopTracking".localize(), image: UIImage(systemName: "figure.stand")){ action in
+                TrackController.isTracking = false
+                self.trackingControl.menu = self.getTrackingMenu()
+                self.trackingControl.setImage(UIImage(systemName: "figure.walk"), for: .normal)
+            }
+        }
+        else{
+            trackingAction = UIAction(title: "startTracking".localize(), image: UIImage(systemName: "figure.walk")){ action in
+                TrackController.isTracking = true
+                self.trackingControl.menu = self.getTrackingMenu()
+                self.trackingControl.setImage(UIImage(systemName: "figure.stand"), for: .normal)
+            }
+        }
+        let trackListAction = UIAction(title: "trackList".localize(), image: UIImage(systemName: "location.magnifyingglass")){ action in
+            self.delegate?.openTracking()
+        }
+        return UIMenu(title: "", children: [trackingAction, trackListAction])
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -137,10 +160,6 @@ class ControlLayerView: UIView {
     
     @objc func openCamera(){
         delegate?.openCamera()
-    }
-    
-    @objc func openTracking(){
-        delegate?.openTracking()
     }
     
     @objc func placeCrossTouched(){
