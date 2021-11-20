@@ -86,7 +86,9 @@ extension TourViewController : UIDocumentPickerDelegate{
                 for location in locations{
                     tour.trackpoints.append(TrackPoint(location: location))
                 }
-                tour.dump()
+                //tour.dump()
+                TourData.activeTour = tour
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }

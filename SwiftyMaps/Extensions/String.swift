@@ -26,5 +26,15 @@ extension String {
         return trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
+    func removeTimeStringMilliseconds() -> String{
+        if self.hasSuffix("Z"), let idx = self.lastIndex(of: "."){
+            return self[self.startIndex ..< idx] + "Z"
+        }
+        return self
+    }
+    
+    func ISO8601Date() -> Date?{
+        ISO8601DateFormatter().date(from: self.removeTimeStringMilliseconds())
+    }
 
 }

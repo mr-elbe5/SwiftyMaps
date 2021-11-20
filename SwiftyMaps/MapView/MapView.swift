@@ -83,7 +83,7 @@ class MapView: UIView {
     func setupTrackLayerView(){
         addSubview(trackLayerView)
         trackLayerView.fillView(view: self)
-        trackLayerView.isHidden = !isTracking
+        //trackLayerView.isHidden = !isTracking
     }
     
     func setupPlaceMarkersLayerView(){
@@ -213,6 +213,7 @@ extension MapView : UIScrollViewDelegate{
         assertCenteredContent(scrollView: scrollView)
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
         placeMarkersLayerView.updatePosition(offset: contentOffset, scale: scale)
+        trackLayerView.updatePosition(offset: contentOffset, scale: scale)
     }
     
     // for infinite scroll using 3 * content width
