@@ -56,7 +56,7 @@ class UserLocationView : UIView{
         ctx.addEllipse(in: rect.scaleCenteredBy(0.7))
         ctx.setStrokeColor(color)
         ctx.drawPath(using: .stroke)
-        if Preferences.instance.showUserDirection{
+        if MapPreferences.instance.showUserDirection{
             //print("direction= \(direction)")
             let angle1 = (direction - 15)*CGFloat.pi/180
             let angle2 = (direction + 15)*CGFloat.pi/180

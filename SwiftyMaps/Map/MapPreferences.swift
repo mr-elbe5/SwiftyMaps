@@ -9,24 +9,23 @@ import Foundation
 import UIKit
 import AVKit
 
-class Preferences: Identifiable, Codable{
+class MapPreferences: Identifiable, Codable{
     
     static var storeKey = "preferences"
     
-    static var instance = Preferences()
+    static var instance = MapPreferences()
     
     static func loadInstance(){
-        if let prefs : Preferences = DataController.shared.load(forKey: .preferences){
+        if let prefs : MapPreferences = DataController.shared.load(forKey: .preferences){
             instance = prefs
         }
         else{
-            instance = Preferences()
+            instance = MapPreferences()
         }
         instance.dump()
     }
     
     enum CodingKeys: String, CodingKey {
-        case mapTypeName
         case urlTemplate
         case startWithLastPosition
         case showUserDirection

@@ -7,13 +7,18 @@
 import UIKit
 
 protocol ControlLayerDelegate{
-    func focusUserLocation()
-    func addPlace()
     func preloadMap()
+    func deleteTiles()
+    func openMapPreferences()
+    func focusUserLocation()
+    func openGeneralPreferences()
     func openInfo()
     func openCamera()
-    func openTracking()
-    func openPreferences()
+    func addPlace()
+    func openCurrentTrack()
+    func openTrackList()
+    func openTrackingPreferences()
+    
 }
 
 class ControlLayerView: UIView {
@@ -54,7 +59,7 @@ class ControlLayerView: UIView {
         let openPreferencesControl = IconButton(icon: "gearshape")
         topControlLine.addSubview(openPreferencesControl)
         openPreferencesControl.setAnchors(top: topControlLine.topAnchor, trailing: openInfoControl.leadingAnchor, bottom: topControlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 2*Insets.defaultInset))
-        openPreferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
+        openPreferencesControl.addTarget(self, action: #selector(openGeneralPreferences), for: .touchDown)
 
         let bottomControlLine = MapControlLine()
         bottomControlLine.setup()
@@ -106,10 +111,16 @@ class ControlLayerView: UIView {
     }
     
     func getMapMenu() -> UIMenu{
-        let preloadMapAction = UIAction(title: "mapPreload".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
+        let preloadMapAction = UIAction(title: "preloadMaps".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
             self.delegate?.preloadMap()
         }
-        return UIMenu(title: "", children: [preloadMapAction])
+        let deleteTilesAction = UIAction(title: "deleteTiles".localize(), image: UIImage(systemName: "trash")){ action in
+            self.delegate?.deleteTiles()
+        }
+        let mapConfigAction = UIAction(title: "configureMap".localize(), image: UIImage(systemName: "gearshape")){ action in
+            self.delegate?.openMapPreferences()
+        }
+        return UIMenu(title: "", children: [preloadMapAction, deleteTilesAction, mapConfigAction])
     }
     
     func getTrackingMenu() -> UIMenu{
@@ -128,10 +139,16 @@ class ControlLayerView: UIView {
                 self.trackMenuControl.setImage(UIImage(systemName: "figure.stand"), for: .normal)
             }
         }
-        let trackListAction = UIAction(title: "trackList".localize(), image: UIImage(systemName: "location.magnifyingglass")){ action in
-            self.delegate?.openTracking()
+        let currentTrackAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "magifyingglass")){ action in
+            self.delegate?.openCurrentTrack()
         }
-        return UIMenu(title: "", children: [trackingAction, trackListAction])
+        let trackListAction = UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+            self.delegate?.openTrackList()
+        }
+        let trackPreferencesAction = UIAction(title: "configureTracks".localize(), image: UIImage(systemName: "gearshape")){ action in
+            self.delegate?.openTrackingPreferences()
+        }
+        return UIMenu(title: "", children: [trackingAction, currentTrackAction, trackListAction, trackPreferencesAction])
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -171,8 +188,8 @@ class ControlLayerView: UIView {
         delegate?.addPlace()
     }
     
-    @objc func openPreferences(){
-        delegate?.openPreferences()
+    @objc func openGeneralPreferences(){
+        delegate?.openGeneralPreferences()
     }
     
 }

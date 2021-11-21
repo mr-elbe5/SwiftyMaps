@@ -8,6 +8,7 @@
 "edit"="Ändern";
 "ok"="Ok";
 "no"="Nein";
+"pleaseNote"="Bitte beachten";
 "reset"="Zurücksetzen";
 "save"="Speichern";
 "title"="Titel";
@@ -17,6 +18,58 @@
 "yourText"="Dein Text...";
 "start"="Start";
 "close"="Schliessen";
+
+//map menu
+"preloadMaps"="Kartenkacheln vorladen...";
+"preloadMapsAlert"="Sie versuchen, %@ Kacheln vorzuladen. Die maximale Menge ist %@ Kacheln. Bitte wählen Sie eine kleinere Region aus.";
+"deleteTiles"="Geladene Kacheln löschen";
+"configureMap"="Karte konfigurieren...";
+
+//map preload
+"mapPreload"="Kartenkacheln vorladen";
+"mapPreloadNote1"="BITTE BEACHTEN! Wenn Sie Kartenkacheln vorladen, müssen Sie das Recht haben, Massendownloads von dem konfigurierten Server für den aktuellen Kartentyp zu machen! ";
+"mapPreloadNote2"="Sie sollten auch beachten, dass diese Operation lange dauern kann (1 Kachel hat etwa 10 - 20 kB). Sie können die Anzahl zu ladender Kacheln durch das Verringern der maximalen Zoomebene reduzieren.";
+"allTilesForDownload"="Zahl aller Kacheln:";
+"existingTiles"="Zahl vorhandener Kacheln:";
+"tilesToLoad"="Zahl zu ladender Kacheln:";
+"sizeToLoad"="Gesamtgröße zu ladender Kacheln (ca):";
+"unloadedTiles"="Zahl von Ladefehlern:";
+
+//map preferences
+"mapPreferences"="Karteneinstellungen";
+"urlTemplate"="URL Template für OpenStreetMap Kacheln:";
+"startWithLastPosition"="Mit der letzten Position starten";
+"showUserDirection"="Aktuelle Richtung anzeigen";
+"showPlaces"="Orte anzeigen";
+
+//general preferences
+"generalPreferences"="Allgemeine Einstellungen";
+
+// track menu
+"startTracking"="Routenaufzeichnung starten";
+"stopTracking"="Routenaufzeichnung stoppen";
+"showCurrentTrack"="Aktuelle Route...";
+"showTrackList"="Aufgezeichnete Routen...";
+"configureTracks"="Routen-Einstellungen...";
+
+// current track
+"currentTrack"="Aktuelle Route";
+
+// track list
+"trackList"="Aufgezeichnete Routen";
+
+// track preferences
+"trackPreferences"="Routen-Einstellungen";
+
+//location
+"east"="Ost";
+"north"="Nord";
+"south"="Süd";
+"west"="West";
+"locationNotAuthorized"="Die App darf deinen Standort nicht feststellen. Bitte ändere die entsprechenden Einstellungen.";
+"saveLocation"="Position speichern";
+"yourPosition"="Deine Position";
+"useLocation"="Vorhandenen Ort benutzen?";
 
 //error
 "error"="Fehler";
@@ -30,23 +83,10 @@
 "unauthorizedError"="Diese Aktion wurde nicht autorisiert.";
 "unexpectedError"="Ein unerwarteter Fehler ist aufgetreten.";
 
-//location
-"east"="Ost";
-"north"="Nord";
-"south"="Süd";
-"west"="West";
-"locationNotAuthorized"="Die App darf deinen Standort nicht feststellen. Bitte ändere die entsprechenden Einstellungen.";
-"saveLocation"="Position speichern";
-"yourPosition"="Deine Position";
-"useLocation"="Vorhandenen Ort benutzen?";
+
 
 //preferences
-"preferences"="Voreinstellungen";
-"cartoUrl"="URL Template für OpenStreetMap-Carto-Stil:";
-"topoUrl"="URL Template für OpenTopoMap-Stil:";
-"startWithLastPosition"="Mit der letzten Position starten";
-"showUserDirection"="Aktuelle Richtung anzeigen";
-"showPlaces"="Orte anzeigen";
+
 "clearTileCache"="Gespeicherte Kartenkacheln löschen";
 "deletePlaces"="Alle Ortsmarkierungen löschen";
 "reallyClearTileCache"="Wollen Sie alle Kartenkacheln löschen?";
@@ -110,17 +150,6 @@
 "stopTracking"="Aufzeichnen beenden";
 "saveTrack"="Aufzeichnung speichern";
 "searchTrack"="Aufzeichnung-Suche";
-
-//mapPreload
-"mapPreload"="Kartenkacheln vorladen";
-"mapPreloadNote1"="BITTE BEACHTEN! Wenn Sie Kartenkacheln vorladen, müssen Sie das Recht haben, Massendownloads von dem konfigurierten Server für den aktuellen Kartentyp zu machen! ";
-"mapPreloadNote2"="Sie sollten auch beachten, dass diese Operation lange dauern kann (1 Kachel hat etwa 10 - 20 kB). Sie können die Anzahl zu ladender Kacheln durch das Verringern der maximalen Zoomebene reduzieren.";
-"allTilesForDownload"="Zahl aller Kacheln:";
-"existingTiles"="Zahl vorhandener Kacheln:";
-"tilesToLoad"="Zahl zu ladender Kacheln:";
-"sizeToLoad"="Gesamtgröße zu ladender Kacheln (ca):";
-"unloadedTiles"="Zahl von Ladefehlern:";
-"maxZoom"="Maximale Zoomebene:";
 
 //map
 "map"="Karte";

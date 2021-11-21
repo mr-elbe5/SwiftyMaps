@@ -36,7 +36,7 @@ struct MapController{
     static var planetRect = CGRect(x: 0, y: 0, width: planetPixels, height: planetPixels)
     static var scrollablePlanetSize = CGSize(width: scrollWidthFactor*planetPixels, height: planetPixels)
     static var scrollablePlanetRect = CGRect(x: 0, y: 0, width: scrollWidthFactor*planetPixels, height: planetPixels)
-    static var minPreloadZoom : Int = 13
+    static var maxPreloadTiles : Int = 5000
     
     static var equatorInMeters : CGFloat = 40075.016686 * 1000
     

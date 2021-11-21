@@ -14,8 +14,6 @@ class MapPreloadViewController: PopupViewController{
     
     var downloadQueue : OperationQueue?
     
-    var maxZoom = MapController.maxZoom
-    
     var allTiles = 0
     var existingTiles = 0
     var errors = 0
@@ -25,9 +23,6 @@ class MapPreloadViewController: PopupViewController{
     var allTilesValueLabel = UILabel()
     var existingTilesValueLabel = UILabel()
     var tilesToLoadValueLabel = UILabel()
-    
-    var maxZoomSlider = UISlider()
-    var maxZoomValueLabel = UILabel()
     
     var startButton = UIButton()
     var cancelButton = UIButton()
@@ -80,34 +75,18 @@ class MapPreloadViewController: PopupViewController{
         contentView.addSubview(tilesToLoadValueLabel)
         tilesToLoadValueLabel.setAnchors(top: existingTilesLabel.bottomAnchor, leading: tilesToLoadLabel.trailingAnchor, insets: Insets.defaultInsets)
         
-        let maxZoomLabel = UILabel()
-        maxZoomLabel.text = "maxZoom".localize()
-        contentView.addSubview(maxZoomLabel)
-        maxZoomLabel.setAnchors(top: tilesToLoadLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: Insets.defaultInsets)
-        maxZoomValueLabel.text = String(maxZoom)
-        contentView.addSubview(maxZoomValueLabel)
-        maxZoomValueLabel.setAnchors(top: tilesToLoadLabel.bottomAnchor, leading: maxZoomLabel.trailingAnchor, insets: Insets.defaultInsets)
-        
-        maxZoomSlider.minimumValue = 0
-        maxZoomSlider.maximumValue = Float(maxZoom)
-        maxZoomSlider.value = Float(maxZoom)
-        maxZoomSlider.isContinuous = true
-        maxZoomSlider.addTarget(self, action: #selector(zoomChanged), for: .valueChanged)
-        contentView.addSubview(maxZoomSlider)
-        maxZoomSlider.setAnchors(top: maxZoomLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: Insets.defaultInsets)
-        
         startButton.setTitle("start".localize(), for: .normal)
         startButton.setTitleColor(.systemBlue, for: .normal)
         startButton.setTitleColor(.systemGray, for: .disabled)
         startButton.addTarget(self, action: #selector(startDownload), for: .touchDown)
         contentView.addSubview(startButton)
-        startButton.setAnchors(top: maxZoomSlider.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.centerXAnchor, insets: Insets.defaultInsets)
+        startButton.setAnchors(top: tilesToLoadLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.centerXAnchor, insets: Insets.defaultInsets)
         cancelButton.setTitle("cancel".localize(), for: .normal)
         cancelButton.setTitleColor(.systemBlue, for: .normal)
         cancelButton.setTitleColor(.systemGray, for: .disabled)
         cancelButton.addTarget(self, action: #selector(cancelDownload), for: .touchDown)
         contentView.addSubview(cancelButton)
-        cancelButton.setAnchors(top: maxZoomSlider.bottomAnchor, leading: contentView.centerXAnchor, trailing: contentView.trailingAnchor, insets: Insets.defaultInsets)
+        cancelButton.setAnchors(top: tilesToLoadLabel.bottomAnchor, leading: contentView.centerXAnchor, trailing: contentView.trailingAnchor, insets: Insets.defaultInsets)
         
         loadedTilesSlider.minimumValue = 0
         loadedTilesSlider.maximumValue = Float(allTiles)
@@ -175,9 +154,6 @@ class MapPreloadViewController: PopupViewController{
         if let region = mapRegion{
             reset()
             for zoom in region.tiles.keys{
-                if zoom > maxZoom{
-                    continue
-                }
                 if let tileSet = region.tiles[zoom]{
                     for x in tileSet.minX...tileSet.maxX{
                         for y in tileSet.minY...tileSet.maxY{
@@ -194,16 +170,6 @@ class MapPreloadViewController: PopupViewController{
                     }
                 }
             }
-        }
-    }
-    
-    @objc func zoomChanged(){
-        let zoom = Int(round(maxZoomSlider.value))
-        if zoom != maxZoom{
-            maxZoom = zoom
-            maxZoomValueLabel.text = String(maxZoom)
-            prepareDownload()
-            updateValueViews()
         }
     }
     

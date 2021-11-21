@@ -8,7 +8,7 @@ import UIKit
 import CoreLocation
 import AVKit
 
-class MapViewController: UIViewController {
+class MainViewController: UIViewController {
     
     var mapView = MapView()
     
@@ -43,16 +43,16 @@ class MapViewController: UIViewController {
                 txt += ", "
             }
             txt += nextPlace.location.coordinateString
-            showNegativeDecision(title: "useLocation".localize(), text: txt){ ok in
-                if ok{
-                    onComplete?(nextPlace)
-                }
-                else{
-                    let place = PlaceController.instance.addPlace(coordinate: coordinate)
-                    self.mapView.addPlaceMarker(place: place)
-                    onComplete?(place)
-                }
-            }
+            let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
+                let place = PlaceController.instance.addPlace(coordinate: coordinate)
+                self.mapView.addPlaceMarker(place: place)
+                onComplete?(place)
+            })
+            alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
+                onComplete?(nextPlace)
+            })
+            self.present(alertController, animated: true)
         }
         else{
             let place = PlaceController.instance.addPlace(coordinate: coordinate)
@@ -75,7 +75,7 @@ class MapViewController: UIViewController {
     
 }
 
-extension MapViewController: PlaceMarkersLayerViewDelegate{
+extension MainViewController: PlaceMarkersLayerViewDelegate{
     
     func showPlaceDetails(place: PlaceData) {
         let controller = PlaceDetailViewController()
@@ -98,7 +98,7 @@ extension MapViewController: PlaceMarkersLayerViewDelegate{
     
 }
 
-extension MapViewController: ControlLayerDelegate{
+extension MainViewController: ControlLayerDelegate{
     
     func focusUserLocation() {
         mapView.focusUserLocation()
@@ -112,8 +112,28 @@ extension MapViewController: ControlLayerDelegate{
     }
     
     func preloadMap() {
-        let controller = MapPreloadViewController()
-        controller.mapRegion = mapView.currentMapRegion
+        let region = mapView.currentMapRegion
+        if region.size > MapController.maxPreloadTiles{
+            let text = "preloadMapsAlert".localize(param1: String(region.size), param2: String(MapController.maxPreloadTiles))
+            showAlert(title: "pleaseNote".localize(), text: text, onOk: nil)
+        }
+        else{
+            let controller = MapPreloadViewController()
+            controller.mapRegion = region
+            controller.modalPresentationStyle = .fullScreen
+            present(controller, animated: true)
+        }
+    }
+    
+    func deleteTiles() {
+        showApprove(title: "reallyClearTileCache".localize(), text: "clearTileCacheHint".localize()){
+            MapTileFiles.clear()
+        }
+    }
+    
+    func openMapPreferences() {
+        let controller = MapPreferencesViewController()
+        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -146,15 +166,29 @@ extension MapViewController: ControlLayerDelegate{
         }
     }
     
-    func openTracking() {
+    func openCurrentTrack() {
         let controller = TrackViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
     }
     
-    func openPreferences(){
-        let controller = MapPreferencesViewController()
+    func openTrackList() {
+        let controller = TrackViewController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.delegate = self
+        present(controller, animated: true)
+    }
+    
+    func openTrackingPreferences() {
+        let controller = TrackViewController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.delegate = self
+        present(controller, animated: true)
+    }
+    
+    func openGeneralPreferences(){
+        let controller = GeneralPreferencesViewController()
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -162,11 +196,15 @@ extension MapViewController: ControlLayerDelegate{
     
 }
 
-extension MapViewController: PreferencesDelegate{
+extension MainViewController: MapPreferencesDelegate{
     
     func clearTileCache() {
         MapTileFiles.clear()
     }
+    
+}
+
+extension MainViewController: GeneralPreferencesDelegate{
     
     func removePlaces() {
         PlaceController.instance.places.removeAll()
@@ -175,7 +213,7 @@ extension MapViewController: PreferencesDelegate{
     
 }
 
-extension MapViewController: PhotoCaptureDelegate{
+extension MainViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
         if let location = LocationService.shared.location{
@@ -188,7 +226,7 @@ extension MapViewController: PhotoCaptureDelegate{
     
 }
 
-extension MapViewController: TrackDelegate{
+extension MainViewController: TrackDelegate{
     
     func trackLoaded() {
         mapView.trackLayerView.setNeedsDisplay()

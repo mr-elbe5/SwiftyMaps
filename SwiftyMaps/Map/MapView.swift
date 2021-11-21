@@ -83,7 +83,7 @@ class MapView: UIView {
         addSubview(placeMarkersLayerView)
         placeMarkersLayerView.fillView(view: self)
         placeMarkersLayerView.setupPlaceMarkers()
-        placeMarkersLayerView.isHidden = !Preferences.instance.showPlaceMarkers
+        placeMarkersLayerView.isHidden = !MapPreferences.instance.showPlaceMarkers
     }
     
     func setupUserLocationView(){

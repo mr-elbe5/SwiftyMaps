@@ -8,6 +8,7 @@
 "edit"="Edit";
 "ok"="Ok";
 "no"="No";
+"pleaseNote"="Please note";
 "reset" = "Reset";
 "save" = "Save";
 "title"="Title";
@@ -17,6 +18,58 @@
 "yourText"="Your text...";
 "start"="Start";
 "close"="Close";
+
+//map menu
+"preloadMaps"="Preload map tiles...";
+"preloadMapsAlert"="You are tying to preload %@ tiles. The maximum size for preloads is %@ tiles. Please use a smaller map region.";
+"deleteTiles"="Delete loaded map tiles";
+"configureMap"="Configure map...";
+
+//map preload
+"mapPreload"="Preload Map Tiles";
+"mapPreloadNote1"="PLEASE NOTE! When you preload map tiles, you must be sure to have rights for making mass downloads from the configured server for the current map type!";
+"mapPreloadNote2"="Also be aware that depending on the state of the server this may take long (1 tile is about 10 - 20 kB). You can decrease the amount of loaded tiles by decreasing the maximum zoom level.";
+"allTilesForDownload"="Number of all tiles:";
+"existingTiles"="Number of existing tiles:";
+"tilesToLoad"="Numer of tiles to load:";
+"sizeToLoad"="Full size of tiles to load (est.):";
+"unloadedTiles"="Number load errors:";
+
+//map preferences
+"mapPreferences"="Map Preferences";
+"urlTemplate"="URL Template for OpenStreetMap tiles:";
+"startWithLastPosition"="Start with last Position";
+"showUserDirection"="Show current Direction";
+"showPlaces"="Show Places";
+
+//general preferences
+"generalPreferences"="General Preferences";
+
+// track menu
+"startTracking"="Start Tracking";
+"stopTracking"="Stop Tracking";
+"showCurrentTrack"="Current track...";
+"showTrackList"="Track list...";
+"configureTracks"="Configure tracks...";
+
+// current track
+"currentTrack"="Current Track";
+
+// track list
+"trackList"="Track List";
+
+// track preferences
+"trackPreferences"="Track Preferences";
+
+//location
+"east"="East";
+"north"="North";
+"south"="South";
+"west"="West";
+"locationNotAuthorized"="Finding your location is not authorized. Please change your settings.";
+"saveLocation"="Save Location";
+"yourPosition"="Your Position";
+"useLocation"="Use existing Location?";
 
 //error
 "error"="Error";
@@ -29,16 +82,6 @@
 "readError"="The file could not be read.";
 "unauthorizedError"="This action has not been authorized.";
 "unexpectedError"="There has been an unexpected error.";
-
-//location
-"east"="East";
-"north"="North";
-"south"="South";
-"west"="West";
-"locationNotAuthorized"="Finding your location is not authorized. Please change your settings.";
-"saveLocation"="Save Location";
-"yourPosition"="Your Position";
-"useLocation"="Use existing Location?";
 
 //preferences
 "preferences"="Preferences";
@@ -108,21 +151,9 @@
 "addMarker"="Add Marker";
 "searchMarker"="Search Marker";
 //track menu
-"startTracking"="Start Tracking";
-"stopTracking"="Stop Tracking";
+
 "saveTrack"="Save Track";
 "searchTrack"="Search Track";
-
-//mapPreload
-"mapPreload"="Preload Map Tiles";
-"mapPreloadNote1"="PLEASE NOTE! When you preload map tiles, you must be sure to have rights for making mass downloads from the configured server for the current map type!";
-"mapPreloadNote2"="Also be aware that depending on the state of the server this may take long (1 tile is about 10 - 20 kB). You can decrease the amount of loaded tiles by decreasing the maximum zoom level.";
-"allTilesForDownload"="Number of all tiles:";
-"existingTiles"="Number of existing tiles:";
-"tilesToLoad"="Numer of tiles to load:";
-"sizeToLoad"="Full size of tiles to load (est.):";
-"unloadedTiles"="Number load errors:";
-"maxZoom"="Maximal zoom level:";
 
 //map
 "mapComment"="Map comment";

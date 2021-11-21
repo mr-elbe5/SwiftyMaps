@@ -30,7 +30,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     
     private let photoOutput = AVCapturePhotoOutput()
     private var photoQuality: AVCapturePhotoOutput.QualityPrioritization = .balanced
-    private var flashMode : AVCaptureDevice.FlashMode = Preferences.instance.flashMode
+    private var flashMode : AVCaptureDevice.FlashMode = MapPreferences.instance.flashMode
     
     override func addButtons(){
         buttonView.backgroundColor = .black
@@ -152,8 +152,8 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             self.flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
             break
         }
-        Preferences.instance.flashMode = flashMode
-        Preferences.instance.save()
+        MapPreferences.instance.flashMode = flashMode
+        MapPreferences.instance.save()
     }
     
     @objc func capturePhoto() {

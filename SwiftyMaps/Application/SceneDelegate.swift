@@ -13,13 +13,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         FileController.initialize()
-        Preferences.loadInstance()
+        MapPreferences.loadInstance()
         PlaceController.loadInstance()
         TrackController.loadInstance()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        mainController = MapViewController()
+        mainController = MainViewController()
         window?.rootViewController = mainController
         window?.makeKeyAndVisible()
         LocationService.shared.requestWhenInUseAuthorization()
@@ -45,11 +45,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         TrackController.instance.save()
         PlaceController.instance.save()
         LocationService.shared.stop()
-        Preferences.instance.save()
+        MapPreferences.instance.save()
     }
 
 
 }
 
-var mainController : MapViewController? = nil
+var mainController : MainViewController? = nil
 

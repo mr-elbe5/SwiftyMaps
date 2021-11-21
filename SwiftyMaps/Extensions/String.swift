@@ -22,6 +22,14 @@ extension String {
         return String(format: NSLocalizedString(self,comment: ""), s)
     }
     
+    func localize(param: String) -> String{
+        return String.localizedStringWithFormat(self, param)
+    }
+    
+    func localize(param1: String, param2: String) -> String{
+        return String(format: self.localize(), param1, param2)
+    }
+    
     func trim() -> String{
         return trimmingCharacters(in: .whitespacesAndNewlines)
     }
