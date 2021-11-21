@@ -14,7 +14,7 @@ class MapPreloadViewController: PopupViewController{
     
     var downloadQueue : OperationQueue?
     
-    var maxZoom = MapType.current.maxZoom
+    var maxZoom = MapController.maxZoom
     
     var allTiles = 0
     var existingTiles = 0
@@ -183,8 +183,8 @@ class MapPreloadViewController: PopupViewController{
                         for y in tileSet.minY...tileSet.maxY{
                             let tile = MapTile(zoom: zoom, x: x, y: y)
                             allTiles += 1
-                            if let fileUrl = MapTileCache.fileUrl(tile: tile){
-                                if MapTileCache.tileExists(url: fileUrl){
+                            if let fileUrl = MapTileFiles.fileUrl(tile: tile){
+                                if MapTileFiles.tileExists(url: fileUrl){
                                     existingTiles += 1
                                     continue
                                 }

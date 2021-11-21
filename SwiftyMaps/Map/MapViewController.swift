@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
         view.addSubview(mapView)
         mapView.frame = view.bounds
         mapView.fillView(view: view)
-        let minZoom = MapCalculator.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
+        let minZoom = MapController.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
         mapView.setupScrollView(minimalZoom: minZoom)
         mapView.setupTileLayerView()
         mapView.setupTrackLayerView()
@@ -62,7 +62,7 @@ class MapViewController: UIViewController {
     }
     
     private func assertPhotoPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
-        let location = CLLocation(coordinate: coordinate, altitude: 0, horizontalAccuracy: MapStatics.minHorizontalAccuracy, verticalAccuracy: MapStatics.minVerticalAccuracy, timestamp: Date())
+        let location = CLLocation(coordinate: coordinate, altitude: 0, horizontalAccuracy: MapController.minHorizontalAccuracy, verticalAccuracy: MapController.minVerticalAccuracy, timestamp: Date())
         if let nextPlace = PlaceController.instance.placeNextTo(location: location){
             onComplete?(nextPlace)
         }
@@ -109,16 +109,6 @@ extension MapViewController: ControlLayerDelegate{
         assertPlace(coordinate: coordinate){ place in
             
         }
-    }
-    
-    func changeMap(){
-        if MapType.current.name == MapType.carto.name{
-            MapType.current = .topo
-        }
-        else{
-            MapType.current = .carto
-        }
-        mapView.mapTypeHasChanged()
     }
     
     func preloadMap() {
@@ -175,7 +165,7 @@ extension MapViewController: ControlLayerDelegate{
 extension MapViewController: PreferencesDelegate{
     
     func clearTileCache() {
-        MapTileCache.clear()
+        MapTileFiles.clear()
     }
     
     func removePlaces() {

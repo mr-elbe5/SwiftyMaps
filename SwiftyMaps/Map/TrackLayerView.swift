@@ -60,7 +60,7 @@ class TrackLayerView: UIView {
     }
     
     func getPoint(_ trackPoint: TrackPoint) -> CGPoint{
-        let locationPoint = MapCalculator.planetPointFromCoordinate(coordinate: trackPoint.coordinate)
+        let locationPoint = MapController.planetPointFromCoordinate(coordinate: trackPoint.coordinate)
         return CGPoint(x: (locationPoint.x - normalizedOffset.point.x)*scale , y: (locationPoint.y - normalizedOffset.point.y)*scale)
     }
     

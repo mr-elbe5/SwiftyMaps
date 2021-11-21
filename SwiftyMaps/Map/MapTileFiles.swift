@@ -7,14 +7,14 @@
 import Foundation
 import UIKit
 
-struct MapTileCache{
+struct MapTileFiles{
     
     static var tilesDirectory = "files"
     
     static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     
     static func fileUrl(tile: MapTile) -> URL?{
-        URL(string: "\(tilesDirectory)/\(MapType.current.name)/\(tile.zoom)/\(tile.x)/\(tile.y).png", relativeTo: MapTileCache.privateURL)
+        URL(string: "\(tilesDirectory)/\(tile.zoom)/\(tile.x)/\(tile.y).png", relativeTo: MapTileFiles.privateURL)
     }
     
     static func shortPath(_ url: URL?) -> String{
@@ -82,7 +82,7 @@ struct MapTileCache{
     
     static func getTilePaths() -> Array<String>{
         var paths = Array<String>()
-        if let url = URL(string: tilesDirectory, relativeTo: MapTileCache.privateURL){
+        if let url = URL(string: tilesDirectory, relativeTo: MapTileFiles.privateURL){
             if let subpaths = FileManager.default.subpaths(atPath: url.path){
                 for path in subpaths{
                     if !path.hasSuffix(".png"){
@@ -98,7 +98,7 @@ struct MapTileCache{
     
     @discardableResult
     static func clear() -> Bool{
-        if let url = URL(string: tilesDirectory, relativeTo: MapTileCache.privateURL){
+        if let url = URL(string: tilesDirectory, relativeTo: MapTileFiles.privateURL){
             do{
                 try FileManager.default.removeItem(at: url)
                 print("tile directory deleted")

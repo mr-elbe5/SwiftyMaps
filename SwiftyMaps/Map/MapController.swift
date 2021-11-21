@@ -20,14 +20,41 @@ import CoreLocation
  coordinate: coordinates in latitude/longitude with latitude from -90° to +90° and longitude from -180° to +180°
  */
 
-struct MapCalculator{
+struct MapController{
+    
+    static var defaultUrl = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
+    
+    static var tilePixels : CGFloat = 256
+    static var tileSize = CGSize(width: tilePixels, height: tilePixels)
+    static var tileRect = CGRect(x: 0, y: 0, width: tilePixels, height: tilePixels)
+    static var averageTileLoadSize = 12
+    static var maxZoom : Int = 18
+    static var startZoom : Int = 10
+    static var scrollWidthFactor : CGFloat = 3
+    static var planetPixels = zoomScale(at: maxZoom) * tilePixels
+    static var planetSize = CGSize(width: planetPixels, height: planetPixels)
+    static var planetRect = CGRect(x: 0, y: 0, width: planetPixels, height: planetPixels)
+    static var scrollablePlanetSize = CGSize(width: scrollWidthFactor*planetPixels, height: planetPixels)
+    static var scrollablePlanetRect = CGRect(x: 0, y: 0, width: scrollWidthFactor*planetPixels, height: planetPixels)
+    static var minPreloadZoom : Int = 13
+    
+    static var equatorInMeters : CGFloat = 40075.016686 * 1000
+    
+    static var mapGearImage = UIImage(named: "gear.grey")
+    static var mapPinImage = UIImage(named: "mappin")
+    static var mapPinRadius : CGFloat = 16
+    
+    static var locationRadius : CGFloat = 16
+    
+    static var minHorizontalAccuracy : CLLocationDistance = 20
+    static var minVerticalAccuracy : CLLocationDistance = 10
     
     static func zoomScale(at zoom: Int) -> CGFloat{
         pow(2.0, CGFloat(zoom))
     }
     
     static func zoomPixels(at zoom: Int) -> CGFloat{
-        zoomScale(at: zoom)*MapStatics.tilePixels
+        zoomScale(at: zoom)*tilePixels
     }
     
     static func zoomLevelFromScale(scale: CGFloat) -> Int{
@@ -37,23 +64,23 @@ struct MapCalculator{
     static func scrollShift(x: CGFloat) -> CGFloat{
         var normalizedX = x
         var shift : CGFloat = 0.0
-        while normalizedX >= MapStatics.planetSize.width{
-            normalizedX -= MapStatics.planetSize.width
-            shift += MapStatics.planetSize.width
+        while normalizedX >= planetSize.width{
+            normalizedX -= planetSize.width
+            shift += planetSize.width
         }
         return shift
     }
     
     static func normalizedX(x: CGFloat) -> CGFloat{
         var normalizedX = x
-        while normalizedX >= MapStatics.planetSize.width{
-            normalizedX -= MapStatics.planetSize.width
+        while normalizedX >= planetSize.width{
+            normalizedX -= planetSize.width
         }
         return normalizedX
     }
     
     static func zoomScaleToPlanet(from zoom: Int) -> CGFloat{
-        zoomScale(at: MapStatics.maxZoom - zoom)
+        zoomScale(at: maxZoom - zoom)
     }
     
     static func zoomScaleFromPlanet(to zoom: Int) -> CGFloat{
@@ -62,11 +89,11 @@ struct MapCalculator{
     
     static func rectInPlanetFromZoom(rect: CGRect, zoom: Int) -> CGRect{
         let scale = zoomScaleToPlanet(from: zoom)
-        let xScale = MapStatics.tilePixels*scale/rect.width
-        let yScale = MapStatics.tilePixels*scale/rect.height
-        var rect = CGRect(x: rect.minX*xScale, y: rect.minY*yScale, width: MapStatics.tilePixels*scale, height: MapStatics.tilePixels*scale)
-        while rect.minX >= MapStatics.planetPixels{
-            rect = rect.offsetBy(dx: -MapStatics.planetPixels, dy: 0)
+        let xScale = tilePixels*scale/rect.width
+        let yScale = tilePixels*scale/rect.height
+        var rect = CGRect(x: rect.minX*xScale, y: rect.minY*yScale, width: tilePixels*scale, height: tilePixels*scale)
+        while rect.minX >= planetPixels{
+            rect = rect.offsetBy(dx: -planetPixels, dy: 0)
         }
         return rect
     }
@@ -91,7 +118,7 @@ struct MapCalculator{
     }
     
     static func coordinateFromPlanetPoint(point: CGPoint) -> CLLocationCoordinate2D{
-        coordinateFromPointInScaledPlanetSize(point: point, scaledSize: MapStatics.planetSize)
+        coordinateFromPointInScaledPlanetSize(point: point, scaledSize: planetSize)
     }
     
     static func pointInScaledSize(coordinate: CLLocationCoordinate2D, scaledSize: CGSize) -> CGPoint{
@@ -101,7 +128,7 @@ struct MapCalculator{
     }
     
     static func planetPointFromCoordinate(coordinate: CLLocationCoordinate2D) -> CGPoint{
-        pointInScaledSize(coordinate: coordinate, scaledSize: MapStatics.planetSize)
+        pointInScaledSize(coordinate: coordinate, scaledSize: planetSize)
     }
     
     static func tileCoordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees, zoom: Int) -> (x: Int, y: Int){

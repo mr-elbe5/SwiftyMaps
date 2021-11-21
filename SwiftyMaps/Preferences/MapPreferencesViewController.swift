@@ -28,13 +28,9 @@ class MapPreferencesViewController: PopupViewController{
         super.loadView()
         
         
-        cartoUrlTemplateField.setupView(labelText: "cartoUrl".localize(), text: MapType.carto.tileUrl, isHorizontal: false)
+        cartoUrlTemplateField.setupView(labelText: "cartoUrl".localize(), text: MapController.defaultUrl, isHorizontal: false)
         contentView.addSubview(cartoUrlTemplateField)
         cartoUrlTemplateField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: Insets.defaultInsets)
-        
-        topoUrlTemplateField.setupView(labelText: "topoUrl".localize(), text: MapType.topo.tileUrl, isHorizontal: false)
-        contentView.addSubview(topoUrlTemplateField)
-        topoUrlTemplateField.setAnchors(top: cartoUrlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: Insets.defaultInsets)
         
         startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: Preferences.instance.startWithLastPosition)
         contentView.addSubview(startWithLastPositionSwitch)
@@ -87,14 +83,9 @@ class MapPreferencesViewController: PopupViewController{
     
     @objc func ok(){
         var newTemplate = cartoUrlTemplateField.text
-        if newTemplate != MapType.carto.tileUrl{
-            MapType.carto.tileUrl = newTemplate
-            _ = MapTileCache.clear()
-        }
-        newTemplate = topoUrlTemplateField.text
-        if newTemplate != MapType.topo.tileUrl{
-            MapType.topo.tileUrl = newTemplate
-            _ = MapTileCache.clear()
+        if newTemplate != MapController.defaultUrl{
+            MapController.defaultUrl = newTemplate
+            _ = MapTileFiles.clear()
         }
         Preferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
         Preferences.instance.showUserDirection = showUserDirectionSwitch.isOn

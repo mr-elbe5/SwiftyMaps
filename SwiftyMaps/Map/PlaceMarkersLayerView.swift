@@ -20,7 +20,7 @@ class PlaceMarkersLayerView: UIView {
         for subview in subviews {
             subview.removeFromSuperview()
         }
-        let places = PlaceController.instance.placesInPlanetRect(MapStatics.planetRect)
+        let places = PlaceController.instance.placesInPlanetRect(MapController.planetRect)
         for place in places{
             addPlaceMarker(place: place)
         }

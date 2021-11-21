@@ -14,7 +14,7 @@ protocol PlaceMarkerDelegate{
 
 class PlaceMarker : UIButton{
     
-    static var baseFrame = CGRect(x: -MapStatics.mapPinRadius, y: -2*MapStatics.mapPinRadius, width: 2*MapStatics.mapPinRadius, height: 2*MapStatics.mapPinRadius)
+    static var baseFrame = CGRect(x: -MapController.mapPinRadius, y: -2*MapController.mapPinRadius, width: 2*MapController.mapPinRadius, height: 2*MapController.mapPinRadius)
     
     var place : PlaceData
     
@@ -23,7 +23,7 @@ class PlaceMarker : UIButton{
     init(place: PlaceData){
         self.place = place
         super.init(frame: PlaceMarker.baseFrame)
-        setImage(MapStatics.mapPinImage, for: .normal)
+        setImage(MapController.mapPinImage, for: .normal)
         let interaction = UIContextMenuInteraction(delegate: self)
         addInteraction(interaction)
     }

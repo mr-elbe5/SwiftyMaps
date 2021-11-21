@@ -15,7 +15,7 @@ extension CLLocationCoordinate2D : Equatable{
     }
     
     public func closeTo(_ otherCoordinate: CLLocationCoordinate2D, maxDistance: CLLocationDistance = 10) -> Bool{
-        MapCalculator.distanceBetween(coord1: self, coord2: otherCoordinate) < maxDistance
+        MapController.distanceBetween(coord1: self, coord2: otherCoordinate) < maxDistance
     }
     
 }

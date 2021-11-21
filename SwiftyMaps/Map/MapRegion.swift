@@ -41,8 +41,8 @@ class MapRegion{
     func updateTileSets(){
         tiles.removeAll()
         for zoom in 0...maxZoom{
-            let bottomLeftTile = MapCalculator.tileCoordinate(latitude: minLatitude, longitude: minLongitude, zoom: zoom)
-            let topRightTile = MapCalculator.tileCoordinate(latitude: maxLatitude, longitude: maxLongitude, zoom: zoom)
+            let bottomLeftTile = MapController.tileCoordinate(latitude: minLatitude, longitude: minLongitude, zoom: zoom)
+            let topRightTile = MapController.tileCoordinate(latitude: maxLatitude, longitude: maxLongitude, zoom: zoom)
             let tileSet = TileSet(minX: bottomLeftTile.x, minY: bottomLeftTile.y, maxX: topRightTile.x, maxY: topRightTile.y)
             tiles[zoom] = tileSet
         }

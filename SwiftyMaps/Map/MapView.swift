@@ -18,8 +18,6 @@ class MapView: UIView {
     
     var locationInitialized = false
     
-    var zoom : Int = 0
-    
     var scale : CGFloat{
         get{
             scrollView.zoomScale
@@ -29,7 +27,7 @@ class MapView: UIView {
     
     var currentMapRegion : MapRegion{
         get{
-            MapRegion(topLeft: getCoordinate(screenPoint: CGPoint(x: 0, y: 0)), bottomRight: getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width, y: scrollView.visibleSize.height)), maxZoom: MapType.current.maxZoom)
+            MapRegion(topLeft: getCoordinate(screenPoint: CGPoint(x: 0, y: 0)), bottomRight: getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width, y: scrollView.visibleSize.height)), maxZoom: MapController.maxZoom)
         }
     }
     
@@ -62,10 +60,10 @@ class MapView: UIView {
         scrollView.bounces = false
         scrollView.bouncesZoom = false
         scrollView.maximumZoomScale = 1.0
-        scrollView.minimumZoomScale = 1.0/MapCalculator.zoomScale(at: MapStatics.maxZoom - minimalZoom)
+        scrollView.minimumZoomScale = 1.0/MapController.zoomScale(at: MapController.maxZoom - minimalZoom)
         addSubview(scrollView)
         scrollView.fillView(view: self)
-        scrollView.contentSize = MapStatics.scrollablePlanetSize
+        scrollView.contentSize = MapController.scrollablePlanetSize
         scrollView.delegate = self
     }
     
@@ -106,7 +104,7 @@ class MapView: UIView {
         }
         point.x += scrollView.contentOffset.x
         point.y += scrollView.contentOffset.y
-        return MapCalculator.coordinateFromPointInScaledPlanetSize(point: point, scaledSize: size)
+        return MapController.coordinateFromPointInScaledPlanetSize(point: point, scaledSize: size)
     }
     
     func getScreenPoint(coordinate: CLLocationCoordinate2D) -> CGPoint{
@@ -115,7 +113,7 @@ class MapView: UIView {
         while xOffset > size.width{
             xOffset -= size.width
         }
-        var point = MapCalculator.pointInScaledSize(coordinate: coordinate, scaledSize: size)
+        var point = MapController.pointInScaledSize(coordinate: coordinate, scaledSize: size)
         point.x -= xOffset
         point.y -= scrollView.contentOffset.y
         return point
@@ -137,9 +135,7 @@ class MapView: UIView {
     }
     
     func setZoom(zoomLevel: Int, animated: Bool){
-        scrollView.setZoomScale(MapCalculator.zoomScale(at: zoomLevel - MapStatics.maxZoom), animated: animated)
-        zoom = zoomLevel
-        controlLayerView.zoomLevelHasChanged(zoom: zoom)
+        scrollView.setZoomScale(MapController.zoomScale(at: zoomLevel - MapController.maxZoom), animated: animated)
     }
     
     func connectLocationService(){
@@ -157,7 +153,7 @@ class MapView: UIView {
         if !locationInitialized, let loc = LocationService.shared.location{
             locationInitialized = true
             print("location initialized")
-            setZoom(zoomLevel: MapStatics.startZoom, animated: false)
+            setZoom(zoomLevel: MapController.startZoom, animated: false)
             focusUserLocation()
             setLocation(coordinate: loc.coordinate)
             directionDidChange(direction: LocationService.shared.direction)
@@ -165,7 +161,7 @@ class MapView: UIView {
     }
     
     func setLocation(coordinate: CLLocationCoordinate2D){
-        userLocationView.updateLocation(location: MapCalculator.planetPointFromCoordinate(coordinate: coordinate), offset: contentOffset, scale: scale)
+        userLocationView.updateLocation(location: MapController.planetPointFromCoordinate(coordinate: coordinate), offset: contentOffset, scale: scale)
     }
     
     func focusUserLocation() {
@@ -206,11 +202,6 @@ extension MapView : UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         assertCenteredContent(scrollView: scrollView)
-        let newZoom = MapStatics.maxZoom + MapCalculator.zoomLevelFromScale(scale: scale)
-        if zoom != newZoom{
-            zoom = newZoom
-            controlLayerView.zoomLevelHasChanged(zoom: zoom)
-        }
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
         placeMarkersLayerView.updatePosition(offset: contentOffset, scale: scale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scale)
