@@ -7,6 +7,7 @@
 "done"="Fertig";
 "edit"="Ändern";
 "ok"="Ok";
+"name"="Name";
 "no"="Nein";
 "pleaseNote"="Bitte beachten";
 "reset"="Zurücksetzen";
@@ -54,6 +55,8 @@
 
 // current track
 "currentTrack"="Aktuelle Route";
+"pause"="Pausieren";
+"resume"="Fortsetzen";
 
 // track list
 "trackList"="Aufgezeichnete Routen";
@@ -138,7 +141,10 @@
 
 //track
 "track"="Track";
+
+// track list
 "trackList"="Aufgezeichnete Tracks";
+"nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Aufzeichnung ein";
 
 //marker menu
 "hideMarkers"="Markierungen nicht anzeigen";

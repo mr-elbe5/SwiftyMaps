@@ -6,23 +6,23 @@
 
 import UIKit
 
-protocol PlaceMarkerDelegate{
-    func detailAction(sender: PlaceMarker)
-    func editAction(sender: PlaceMarker)
-    func deleteAction(sender: PlaceMarker)
+protocol PlaceDelegate{
+    func detailAction(sender: PlaceView)
+    func editAction(sender: PlaceView)
+    func deleteAction(sender: PlaceView)
 }
 
-class PlaceMarker : UIButton{
+class PlaceView : UIButton{
     
     static var baseFrame = CGRect(x: -MapController.mapPinRadius, y: -2*MapController.mapPinRadius, width: 2*MapController.mapPinRadius, height: 2*MapController.mapPinRadius)
     
     var place : PlaceData
     
-    var delegate: PlaceMarkerDelegate? = nil
+    var delegate: PlaceDelegate? = nil
     
     init(place: PlaceData){
         self.place = place
-        super.init(frame: PlaceMarker.baseFrame)
+        super.init(frame: PlaceView.baseFrame)
         setImage(MapController.mapPinImage, for: .normal)
         let interaction = UIContextMenuInteraction(delegate: self)
         addInteraction(interaction)
@@ -33,7 +33,7 @@ class PlaceMarker : UIButton{
     }
     
     func updatePosition(to pos: CGPoint){
-        frame = PlaceMarker.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
+        frame = PlaceView.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
         //print("new frame = \(frame) in \(superview!.bounds)")
         setNeedsDisplay()
     }

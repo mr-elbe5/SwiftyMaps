@@ -11,7 +11,7 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol TrackListDelegate{
-    func trackLoaded()
+    func updateTrackLayer()
 }
 
 class TrackListViewController: UIViewController{
@@ -98,9 +98,7 @@ class TrackListViewController: UIViewController{
         filePicker.allowsMultipleSelection = false
         filePicker.delegate = self
         filePicker.modalPresentationStyle = .fullScreen
-        self.present(filePicker, animated: true){
-            self.delegate?.trackLoaded()
-        }
+        self.present(filePicker, animated: true)
     }
     
     @objc func toggleEditMode(){
@@ -174,17 +172,18 @@ extension TrackListViewController : UIDocumentPickerDelegate{
         if let url = urls.first{
             if let locations = GPXParser.parseFile(url: url){
                 let track = TrackData()
-                track.description = url.lastPathComponent
                 for location in locations{
                     track.trackpoints.append(TrackPoint(location: location))
                 }
-                //track.dump()
-                TrackController.currentTrack = track
-                TrackController.instance.addTrack(track)
-                TrackController.instance.save()
-                self.dismiss(animated: true){
+                let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
+                alertController.addTextField()
+                alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
+                    track.description = alertController.textFields![0].text ?? url.lastPathComponent
+                    TrackController.instance.addTrack(track)
+                    TrackController.instance.save()
                     self.tableView.reloadData()
-                }
+                })
+                self.present(alertController, animated: true)
             }
         }
     }

@@ -12,7 +12,7 @@ class MapView: UIView {
     var scrollView : UIScrollView!
     var tileLayerView = TileLayerView()
     var trackLayerView = TrackLayerView()
-    var placeMarkersLayerView = PlaceMarkersLayerView()
+    var placeLayerView = PlaceLayerView()
     var userLocationView = UserLocationView()
     var controlLayerView = ControlLayerView()
     
@@ -80,10 +80,10 @@ class MapView: UIView {
     }
     
     func setupPlaceMarkersLayerView(){
-        addSubview(placeMarkersLayerView)
-        placeMarkersLayerView.fillView(view: self)
-        placeMarkersLayerView.setupPlaceMarkers()
-        placeMarkersLayerView.isHidden = !MapPreferences.instance.showPlaceMarkers
+        addSubview(placeLayerView)
+        placeLayerView.fillView(view: self)
+        placeLayerView.setupPlaceMarkers()
+        placeLayerView.isHidden = !MapPreferences.instance.showPlaceMarkers
     }
     
     func setupUserLocationView(){
@@ -175,9 +175,9 @@ class MapView: UIView {
     }
     
     func addPlaceMarker(place: PlaceData){
-        placeMarkersLayerView.addPlaceMarker(place: place)
+        placeLayerView.addPlaceView(place: place)
         PlaceController.instance.save()
-        placeMarkersLayerView.updatePosition(offset: contentOffset, scale: scale)
+        placeLayerView.updatePosition(offset: contentOffset, scale: scale)
     }
     
     func getVisibleCenter() -> CGPoint{
@@ -203,7 +203,7 @@ extension MapView : UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         assertCenteredContent(scrollView: scrollView)
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
-        placeMarkersLayerView.updatePosition(offset: contentOffset, scale: scale)
+        placeLayerView.updatePosition(offset: contentOffset, scale: scale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scale)
     }
     

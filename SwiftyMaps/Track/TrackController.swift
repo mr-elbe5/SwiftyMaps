@@ -23,21 +23,31 @@ class TrackController: Codable{
         isTracking = true
     }
     
-    static func finishTracking(){
-        if let track = activeTrack{
-            isTracking = false
-            instance.addTrack(track)
-            instance.save()
-            activeTrack = nil
+    static func pauseTracking(){
+        isTracking = false
+    }
+    
+    static func resumeTracking(){
+        if activeTrack != nil{
+            isTracking = true
         }
     }
     
-    static func cancelTracking(){
+    static func cancelCurrentTrack(){
         if let track = activeTrack{
             isTracking = false
             if currentTrack == track{
                 currentTrack = nil
             }
+            activeTrack = nil
+        }
+    }
+    
+    static func saveTrackCurrentTrack(){
+        if let track = activeTrack{
+            isTracking = false
+            instance.addTrack(track)
+            instance.save()
             activeTrack = nil
         }
     }

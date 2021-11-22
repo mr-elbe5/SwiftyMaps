@@ -6,6 +6,7 @@
 "done"="Done";
 "edit"="Edit";
 "ok"="Ok";
+"name"="Name";
 "no"="No";
 "pleaseNote"="Please note";
 "reset" = "Reset";
@@ -47,20 +48,22 @@
 "showPlaces"="Show Places";
 
 // track menu
-"startTracking"="Start Tracking";
-"stopTracking"="Stop Tracking";
-"showCurrentTrack"="Current track...";
-"showTrackList"="Track list...";
+"startNewTrack"="Start new Route";
+"showCurrentTrack"="Current route...";
+"showTrackList"="Route list...";
 "configureTracks"="Configure tracks...";
 
 // current track
-"currentTrack"="Current Track";
+"currentTrack"="Current Route";
+"pause"="Pause";
+"resume"="Resume";
 
 // track list
-"trackList"="Track List";
+"trackList"="Route List";
+"nameOrDescriptionHint"="Please enter a name or description for this route";
 
 // track preferences
-"trackPreferences"="Track Preferences";
+"trackPreferences"="Route Preferences";
 
 //location
 "east"="East";
@@ -129,12 +132,10 @@
 //places info
 "addPlaceInfoText"="If the crosshairs are active, a place marker can be created by tapping on the crosshairs. If a place marker already exists in the direct vicinity (below the location accuracy), no new place marker is created.";
 
-
-
-
-
 //track
 "track"="Track";
+
+//track list
 "trackList"="Recorded Tracks";
 
 //marker menu
