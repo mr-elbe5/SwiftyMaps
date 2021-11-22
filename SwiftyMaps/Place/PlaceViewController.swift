@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class PlaceDetailViewController: PopupViewController{
+class PlaceViewController: PopupViewController{
     
     var place: PlaceData? = nil
     

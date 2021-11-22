@@ -78,7 +78,7 @@ class MainViewController: UIViewController {
 extension MainViewController: PlaceLayerViewDelegate{
     
     func showPlaceDetails(place: PlaceData) {
-        let controller = PlaceDetailViewController()
+        let controller = PlaceViewController()
         controller.place = place
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -93,7 +93,7 @@ extension MainViewController: PlaceLayerViewDelegate{
     
     func deletePlace(place: PlaceData) {
         showApprove(title: "confirmDeletPlaceMarker".localize(), text: "deletePlaceMarkerHint".localize()){
-            PlaceController.instance.removePlace(place)
+            PlaceController.instance.deletePlace(place)
             PlaceController.instance.save()
         }
     }

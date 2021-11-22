@@ -54,7 +54,7 @@ class PlaceController: Codable{
         return place
     }
     
-    func removePlace(_ place: PlaceData){
+    func deletePlace(_ place: PlaceData){
         lock.wait()
         defer{lock.signal()}
         for idx in 0..<places.count{

@@ -1,5 +1,5 @@
 //
-//  TrackListViewController.swift
+//  PlaceListViewController.swift
 //  SwiftyMaps
 //
 //  Created by Michael Rönnau on 22.11.21.
@@ -10,13 +10,13 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol TrackListDelegate{
-    func updateTrackLayer()
+protocol PlaceListDelegate{
+    func updatePlaceLayer()
 }
 
-class TrackListViewController: UIViewController{
+class PlaceListViewController: UIViewController{
 
-    private static let CELL_IDENT = "trackCell"
+    private static let CELL_IDENT = "placeCell"
     
     var firstAppearance = true
     
@@ -24,10 +24,10 @@ class TrackListViewController: UIViewController{
     var editButton = IconButton(icon: "pencil.circle", tintColor: .white)
     var tableView = UITableView()
     
-    var delegate: TrackListDelegate? = nil
+    var delegate: PlaceListDelegate? = nil
     
     override open func loadView() {
-        title = "trackList".localize()
+        title = "placeList".localize()
         super.loadView()
         view.backgroundColor = .systemGray5
         let guide = view.safeAreaLayoutGuide
@@ -42,7 +42,7 @@ class TrackListViewController: UIViewController{
         tableView.setAnchors(top: headerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: .zero)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TrackCell.self, forCellReuseIdentifier: TrackListViewController.CELL_IDENT)
+        tableView.register(TrackCell.self, forCellReuseIdentifier: PlaceListViewController.CELL_IDENT)
         tableView.allowsSelection = false
         tableView.allowsSelectionDuringEditing = false
         tableView.separatorStyle = .none
@@ -70,10 +70,6 @@ class TrackListViewController: UIViewController{
         editButton.addTarget(self, action: #selector(toggleEditMode), for: .touchDown)
         editButton.setAnchors(top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
         
-        let loadButton = IconButton(icon: "arrow.down.square", tintColor: .white)
-        headerView.addSubview(loadButton)
-        loadButton.addTarget(self, action: #selector(loadTrack), for: .touchDown)
-        loadButton.setAnchors(top: headerView.topAnchor, trailing: editButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
     }
     
     func setNeedsUpdate(){
@@ -82,20 +78,11 @@ class TrackListViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         if firstAppearance{
-            if TrackController.instance.tracks.count > 0{
-                tableView.scrollToRow(at: .init(row: TrackController.instance.tracks.count - 1, section: 0), at: .bottom, animated: true)
+            if PlaceController.instance.places.count > 0{
+                tableView.scrollToRow(at: .init(row: PlaceController.instance.places.count - 1, section: 0), at: .bottom, animated: true)
             }
             firstAppearance = false
         }
-    }
-    
-    @objc func loadTrack(){
-        let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "gpx")!])
-        filePicker.directoryURL = FileController.gpxDirURL
-        filePicker.allowsMultipleSelection = false
-        filePicker.delegate = self
-        filePicker.modalPresentationStyle = .fullScreen
-        self.present(filePicker, animated: true)
     }
     
     @objc func toggleEditMode(){
@@ -116,20 +103,20 @@ class TrackListViewController: UIViewController{
     
 }
 
-extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
+extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        TrackController.instance.tracks.count
+        PlaceController.instance.places.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TrackListViewController.CELL_IDENT, for: indexPath) as! TrackCell
-        let track = TrackController.instance.tracks[indexPath.row]
-        cell.track = track
+        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceListViewController.CELL_IDENT, for: indexPath) as! PlaceCell
+        let track = PlaceController.instance.places[indexPath.row]
+        cell.place = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
@@ -145,44 +132,21 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension TrackListViewController : TrackCellActionDelegate{
+extension PlaceListViewController : PlaceCellActionDelegate{
     
-    func deleteTrack(track: TrackData) {
-        showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
-            TrackController.instance.deleteTrack(track)
+    func deletePlace(place: PlaceData) {
+        showApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceInfo".localize()){
+            PlaceController.instance.deletePlace(place)
             self.tableView.reloadData()
         }
     }
     
-    func viewTrack(track: TrackData) {
-        let trackController = TrackViewController()
-        trackController.track = track
-        trackController.modalPresentationStyle = .fullScreen
-        self.present(trackController, animated: true)
+    func viewPlace(place: PlaceData) {
+        let placeController = PlaceViewController()
+        placeController.place = place
+        placeController.modalPresentationStyle = .fullScreen
+        self.present(placeController, animated: true)
     }
     
 }
 
-extension TrackListViewController : UIDocumentPickerDelegate{
-    
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        if let url = urls.first{
-            if let locations = GPXParser.parseFile(url: url){
-                let track = TrackData()
-                for location in locations{
-                    track.trackpoints.append(TrackPoint(location: location))
-                }
-                let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-                alertController.addTextField()
-                alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                    track.description = alertController.textFields![0].text ?? url.lastPathComponent
-                    TrackController.instance.addTrack(track)
-                    TrackController.instance.save()
-                    self.tableView.reloadData()
-                })
-                self.present(alertController, animated: true)
-            }
-        }
-    }
-    
-}
