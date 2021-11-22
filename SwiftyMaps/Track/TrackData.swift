@@ -17,23 +17,27 @@ class TrackData : Hashable, Codable{
     
     private enum CodingKeys: String, CodingKey {
         case id
+        case creationDate
         case description
         case trackpoints
     }
     
     var id : UUID
+    var creationDate : Date
     var description : String
     var trackpoints : Array<TrackPoint>
     
     init(){
         id = UUID()
         description = ""
+        creationDate = Date()
         trackpoints = Array<TrackPoint>()
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        creationDate = try values.decodeIfPresent(Date.self, forKey: .creationDate) ?? Date()
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         trackpoints = try values.decodeIfPresent(Array<TrackPoint>.self, forKey: .trackpoints) ?? Array<TrackPoint>()
     }
@@ -41,6 +45,7 @@ class TrackData : Hashable, Codable{
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
+        try container.encode(creationDate, forKey: .creationDate)
         try container.encode(description, forKey: .description)
         try container.encode(trackpoints, forKey: .trackpoints)
     }

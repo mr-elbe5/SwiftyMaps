@@ -16,6 +16,8 @@ protocol TrackDelegate{
 
 class TrackViewController: PopupViewController{
     
+    var track : TrackData? = nil
+    
     var delegate : TrackDelegate? = nil
     
     var loadTrackButton = UIButton()

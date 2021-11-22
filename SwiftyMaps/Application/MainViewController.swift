@@ -92,8 +92,10 @@ extension MainViewController: PlaceMarkersLayerViewDelegate{
     }
     
     func deletePlace(place: PlaceData) {
-        PlaceController.instance.removePlace(place)
-        PlaceController.instance.save()
+        showApprove(title: "confirmDeletPlaceMarker".localize(), text: "deletePlaceMarkerHint".localize()){
+            PlaceController.instance.removePlace(place)
+            PlaceController.instance.save()
+        }
     }
     
 }
@@ -126,14 +128,20 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func deleteTiles() {
-        showApprove(title: "reallyClearTileCache".localize(), text: "clearTileCacheHint".localize()){
+        showApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
             MapTileFiles.clear()
+        }
+    }
+    
+    func deletePlaceMarkers() {
+        showApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
+            PlaceController.instance.places.removeAll()
+            self.mapView.placeMarkersLayerView.setupPlaceMarkers()
         }
     }
     
     func openMapPreferences() {
         let controller = MapPreferencesViewController()
-        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -174,41 +182,17 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func openTrackList() {
-        let controller = TrackViewController()
+        let controller = TrackListViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
     }
     
     func openTrackingPreferences() {
-        let controller = TrackViewController()
+        let controller = TrackPreferencesViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
-    }
-    
-    func openGeneralPreferences(){
-        let controller = GeneralPreferencesViewController()
-        controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
-}
-
-extension MainViewController: MapPreferencesDelegate{
-    
-    func clearTileCache() {
-        MapTileFiles.clear()
-    }
-    
-}
-
-extension MainViewController: GeneralPreferencesDelegate{
-    
-    func removePlaces() {
-        PlaceController.instance.places.removeAll()
-        mapView.placeMarkersLayerView.setupPlaceMarkers()
     }
     
 }
@@ -227,9 +211,17 @@ extension MainViewController: PhotoCaptureDelegate{
 }
 
 extension MainViewController: TrackDelegate{
+
+}
+
+extension MainViewController: TrackListDelegate{
     
     func trackLoaded() {
         mapView.trackLayerView.setNeedsDisplay()
     }
+
+}
+
+extension MainViewController: TrackPreferencesDelegate{
 
 }

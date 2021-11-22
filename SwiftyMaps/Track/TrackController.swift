@@ -85,7 +85,7 @@ class TrackController: Codable{
         tracks.append(track)
     }
     
-    func removeTrack(_ track: TrackData){
+    func deleteTrack(_ track: TrackData){
         lock.wait()
         defer{lock.signal()}
         for idx in 0..<tracks.count{

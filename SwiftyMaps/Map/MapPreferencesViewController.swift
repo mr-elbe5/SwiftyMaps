@@ -8,19 +8,12 @@
 import Foundation
 import UIKit
 
-protocol MapPreferencesDelegate{
-    func clearTileCache()
-    func removePlaces()
-}
-
 class MapPreferencesViewController: PopupViewController{
     
     var urlTemplateField = LabeledTextField()
     var startWithLastPositionSwitch = LabeledSwitchView()
     var showUserDirectionSwitch = LabeledSwitchView()
     var showPlaceMarkersSwitch = LabeledSwitchView()
-    
-    var delegate : MapPreferencesDelegate? = nil
     
     override func loadView() {
         title = "mapPreferences".localize()

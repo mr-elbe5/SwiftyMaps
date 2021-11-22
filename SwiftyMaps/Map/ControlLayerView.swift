@@ -9,9 +9,9 @@ import UIKit
 protocol ControlLayerDelegate{
     func preloadMap()
     func deleteTiles()
+    func deletePlaceMarkers()
     func openMapPreferences()
     func focusUserLocation()
-    func openGeneralPreferences()
     func openInfo()
     func openCamera()
     func addPlace()
@@ -56,11 +56,6 @@ class ControlLayerView: UIView {
         openInfoControl.setAnchors(top: topControlLine.topAnchor, trailing: topControlLine.trailingAnchor, bottom: topControlLine.bottomAnchor, insets: Insets.flatInsets)
         openInfoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
-        let openPreferencesControl = IconButton(icon: "gearshape")
-        topControlLine.addSubview(openPreferencesControl)
-        openPreferencesControl.setAnchors(top: topControlLine.topAnchor, trailing: openInfoControl.leadingAnchor, bottom: topControlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 2*Insets.defaultInset))
-        openPreferencesControl.addTarget(self, action: #selector(openGeneralPreferences), for: .touchDown)
-
         let bottomControlLine = MapControlLine()
         bottomControlLine.setup()
         addSubview(bottomControlLine)
@@ -117,10 +112,13 @@ class ControlLayerView: UIView {
         let deleteTilesAction = UIAction(title: "deleteTiles".localize(), image: UIImage(systemName: "trash")){ action in
             self.delegate?.deleteTiles()
         }
+        let deletePlaceMarkersAction = UIAction(title: "deletePlaceMarkers".localize(), image: UIImage(systemName: "trash")){ action in
+            self.delegate?.deletePlaceMarkers()
+        }
         let mapConfigAction = UIAction(title: "configureMap".localize(), image: UIImage(systemName: "gearshape")){ action in
             self.delegate?.openMapPreferences()
         }
-        return UIMenu(title: "", children: [preloadMapAction, deleteTilesAction, mapConfigAction])
+        return UIMenu(title: "", children: [preloadMapAction, deleteTilesAction, deletePlaceMarkersAction, mapConfigAction])
     }
     
     func getTrackingMenu() -> UIMenu{
@@ -186,10 +184,6 @@ class ControlLayerView: UIView {
     
     @objc func placeCrossTouched(){
         delegate?.addPlace()
-    }
-    
-    @objc func openGeneralPreferences(){
-        delegate?.openGeneralPreferences()
     }
     
 }
