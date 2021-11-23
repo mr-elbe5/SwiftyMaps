@@ -24,9 +24,11 @@
 "preloadMaps"="Kartenkacheln vorladen...";
 "preloadMapsAlert"="Sie versuchen, %@ Kacheln vorzuladen. Die maximale Menge ist %@ Kacheln. Bitte wählen Sie eine kleinere Region aus.";
 "deleteTiles"="Geladene Kacheln löschen";
+"confirmDeleteTiles"="Wollen Sie alle geladenen Kartenkacheln löschen?";
+"deleteTilesHint"="Die Kacheln müssen anschliessend neu geladen werden.";
 "configureMap"="Karte konfigurieren...";
 
-//map preload
+//map preload view
 "mapPreload"="Kartenkacheln vorladen";
 "mapPreloadNote1"="BITTE BEACHTEN! Wenn Sie Kartenkacheln vorladen, müssen Sie das Recht haben, Massendownloads von dem konfigurierten Server für den aktuellen Kartentyp zu machen! ";
 "mapPreloadNote2"="Sie sollten auch beachten, dass diese Operation lange dauern kann (1 Kachel hat etwa 10 - 20 kB). Sie können die Anzahl zu ladender Kacheln durch das Verringern der maximalen Zoomebene reduzieren.";
@@ -36,21 +38,30 @@
 "sizeToLoad"="Gesamtgröße zu ladender Kacheln (ca):";
 "unloadedTiles"="Zahl von Ladefehlern:";
 
-//map preferences
+//map preferences view
 "mapPreferences"="Karteneinstellungen";
 "urlTemplate"="URL Template für OpenStreetMap Kacheln:";
 "startWithLastPosition"="Mit der letzten Position starten";
 "showUserDirection"="Aktuelle Richtung anzeigen";
-"showPlaces"="Orte anzeigen";
+"showPlaces"="Orte (Nadeln) anzeigen";
 
-//general preferences
-"generalPreferences"="Allgemeine Einstellungen";
+// place menu
+"addPlace"="Ort hinzufügen";
+"showPlaceList"="Ortsliste anzeigen";
+"deletePlaces"="Alle Orte löschen";
+"confirmDeletePlaces"="Wollen Sie alle Orte löschen?";
+"deletePlacesHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Photos werden ebenfalls gelöscht.";
+
+// place list
+"placeList"="Orte";
 
 // track menu
-"startTracking"="Routenaufzeichnung starten";
-"stopTracking"="Routenaufzeichnung stoppen";
+"startNewTrack"="Neue Route starten";
 "showCurrentTrack"="Aktuelle Route...";
-"showTrackList"="Aufgezeichnete Routen...";
+"showTrackList"="Gespeicherte Routen...";
+"deleteTracks"="Alle Routen löschen";
+"confirmDeleteTracks"="Wollen Sie alle Routen löschen?";
+"deleteTracksHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
 "configureTracks"="Routen-Einstellungen...";
 
 // current track
@@ -59,10 +70,19 @@
 "resume"="Fortsetzen";
 
 // track list
-"trackList"="Aufgezeichnete Routen";
+"trackList"="Routen";
+"nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Route ein.";
 
 // track preferences
 "trackPreferences"="Routen-Einstellungen";
+
+
+//track menu
+"startTracking"="Aufzeichnen starten";
+"stopTracking"="Aufzeichnen beenden";
+"saveTrack"="Aufzeichnung speichern";
+"searchTrack"="Aufzeichnung-Suche";
+
 
 //location
 "east"="Ost";
@@ -73,6 +93,27 @@
 "saveLocation"="Position speichern";
 "yourPosition"="Deine Position";
 "useLocation"="Vorhandenen Ort benutzen?";
+
+// place marker menu
+"showDetails"="Details anzeigen";
+"confirmDeletePlace"="Wollen Sie diesen Ort löschen?";
+"deletePlaceHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos und kann nicht rückgängig gemacht werden.";
+
+// place view / editor view
+"place"="Ort";
+"placeData"="Ortsangaben";
+"description"="Beschreibung";
+"photos"="Fotos";
+
+//camera
+"cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
+"cameraNotAvailable"="Die Kamera steht nicht zur Verfügung.";
+"balanced"="Ausbalanciert";
+"quality"="Qualität";
+"speed"="Geschwindigkeit";
+"photoLibraryNotAuthorized"="Die Nutzung der Fotobibliothek ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
+"photoShared"="Foto wurde kopiert.";
+"shareImage"="Bild kopieren";
 
 //error
 "error"="Fehler";
@@ -85,17 +126,6 @@
 "readError"="Die Datei konnte nicht gelesen werden.";
 "unauthorizedError"="Diese Aktion wurde nicht autorisiert.";
 "unexpectedError"="Ein unerwarteter Fehler ist aufgetreten.";
-
-
-
-//preferences
-
-"clearTileCache"="Gespeicherte Kartenkacheln löschen";
-"deletePlaces"="Alle Ortsmarkierungen löschen";
-"reallyClearTileCache"="Wollen Sie alle Kartenkacheln löschen?";
-"clearTileCacheHint"="Die Karten müssen dann neu geladen werden.";
-"reallyDeletePlaces"="Wollen Sie alle Ortsmarkierungen löschen?";
-"deletePlacesHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
 
 //info
 "appInfoHeader"="Allgemeines";
@@ -130,48 +160,5 @@
 //places info
 "addPlaceInfoText"="Wenn das Fadenkreuz aktiviert ist, kann durch Tippen auf das Kreuz dort eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
 
-// map
-"showDetails"="Details anzeigen";
 
-// places
-"place"="Ort";
-"places"="Orte";
-"placeData"="Ortsangaben";
-"photos"="Fotos";
-
-//track
-"track"="Track";
-
-// track list
-"trackList"="Aufgezeichnete Tracks";
-"nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Aufzeichnung ein";
-
-//marker menu
-"hideMarkers"="Markierungen nicht anzeigen";
-"showMarkers"="Markierungen anzeigen";
-"addMarker"="Markierung hinzufügen";
-"searchMarker"="Marker suchen";
-//track menu
-"startTracking"="Aufzeichnen starten";
-"stopTracking"="Aufzeichnen beenden";
-"saveTrack"="Aufzeichnung speichern";
-"searchTrack"="Aufzeichnung-Suche";
-
-//map
-"map"="Karte";
-"mapComment"="Kommentar zur Karte";
-"mapInfoHeader"="Kartenansicht";
-"mapStartSize"="Anfangsgröße für Kartensnapshots";
-"mapTopInfo"="Die Kartenansicht zeigt alle Einträge, deren Position gespeichert wurde. Die Einträge werden duch eine Nadel dargestellt. Durch Antippen der Nadel wird der gesamte Eintrag angezeigt.";
-
-
-//camera
-"cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
-"cameraNotAvailable"="Die Kamera steht nicht zur Verfügung.";
-"balanced"="Ausbalanciert";
-"quality"="Qualität";
-"speed"="Geschwindigkeit";
-"photoLibraryNotAuthorized"="Die Nutzung der Fotobibliothek ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
-"photoShared"="Foto wurde kopiert.";
-"shareImage"="Bild kopieren";
 

@@ -11,47 +11,6 @@ import UIKit
 
 class TrackController: Codable{
     
-    static var currentTrack : TrackData? = nil
-    static var activeTrack : TrackData? = nil
-    static var isTracking : Bool = false
-    
-    static func startTracking(){
-        if activeTrack == nil{
-            activeTrack = TrackData()
-            currentTrack = activeTrack
-        }
-        isTracking = true
-    }
-    
-    static func pauseTracking(){
-        isTracking = false
-    }
-    
-    static func resumeTracking(){
-        if activeTrack != nil{
-            isTracking = true
-        }
-    }
-    
-    static func cancelCurrentTrack(){
-        if let track = activeTrack{
-            isTracking = false
-            if currentTrack == track{
-                currentTrack = nil
-            }
-            activeTrack = nil
-        }
-    }
-    
-    static func saveTrackCurrentTrack(){
-        if let track = activeTrack{
-            isTracking = false
-            instance.addTrack(track)
-            instance.save()
-            activeTrack = nil
-        }
-    }
-    
     // instance
 
     static var instance : TrackController!
@@ -72,6 +31,10 @@ class TrackController: Codable{
     }
     
     var tracks : [TrackData]
+    
+    var currentTrack : TrackData? = nil
+    var activeTrack : TrackData? = nil
+    var isTracking : Bool = false
     
     private var lock = DispatchSemaphore(value: 1)
     
@@ -106,6 +69,14 @@ class TrackController: Codable{
         }
     }
     
+    func deleteAllTracks(){
+        //todo
+        if currentTrack != activeTrack{
+            currentTrack = nil
+        }
+        tracks.removeAll()
+    }
+    
     /*func tracksInPlanetRect(_ rect: CGRect) -> [TrackData]{
         var result = [TrackData]()
         for track in tracks{
@@ -118,6 +89,43 @@ class TrackController: Codable{
         lock.wait()
         defer{lock.signal()}
         DataController.shared.save(forKey: .tracks, value: self)
+    }
+    
+    func startTracking(){
+        if activeTrack == nil{
+            activeTrack = TrackData()
+            currentTrack = activeTrack
+        }
+        isTracking = true
+    }
+    
+    func pauseTracking(){
+        isTracking = false
+    }
+    
+    func resumeTracking(){
+        if activeTrack != nil{
+            isTracking = true
+        }
+    }
+    
+    func cancelCurrentTrack(){
+        if let track = activeTrack{
+            isTracking = false
+            if currentTrack == track{
+                currentTrack = nil
+            }
+            activeTrack = nil
+        }
+    }
+    
+    func saveTrackCurrentTrack(){
+        if let track = activeTrack{
+            isTracking = false
+            addTrack(track)
+            save()
+            activeTrack = nil
+        }
     }
     
 }

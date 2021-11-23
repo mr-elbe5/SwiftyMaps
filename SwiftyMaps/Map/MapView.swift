@@ -233,7 +233,7 @@ extension MapView: LocationServiceDelegate{
         }
         else{
             setLocation(coordinate: location.coordinate)
-            if TrackController.isTracking{
+            if TrackController.instance.isTracking{
                 print("istracking")
                 trackLayerView.updateTrack(location)
             }

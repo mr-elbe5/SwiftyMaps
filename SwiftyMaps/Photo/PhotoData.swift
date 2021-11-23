@@ -7,7 +7,12 @@
 import Foundation
 import UIKit
 
-class PhotoData : Identifiable, Codable{
+class PhotoData : Equatable, Identifiable, Codable{
+    
+    static func == (lhs: PhotoData, rhs: PhotoData) -> Bool {
+        lhs.fileName == rhs.fileName
+    }
+    
     
     private enum CodingKeys: CodingKey{
         case id

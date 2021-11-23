@@ -42,7 +42,7 @@ class PlaceListViewController: UIViewController{
         tableView.setAnchors(top: headerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: .zero)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TrackCell.self, forCellReuseIdentifier: PlaceListViewController.CELL_IDENT)
+        tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceListViewController.CELL_IDENT)
         tableView.allowsSelection = false
         tableView.allowsSelectionDuringEditing = false
         tableView.separatorStyle = .none

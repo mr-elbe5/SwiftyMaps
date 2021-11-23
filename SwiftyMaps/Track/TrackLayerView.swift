@@ -43,7 +43,7 @@ class TrackLayerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        if let track = TrackController.currentTrack{
+        if let track = TrackController.instance.currentTrack{
             if !track.trackpoints.isEmpty{
                 let color = UIColor.systemOrange.cgColor
                 let ctx = UIGraphicsGetCurrentContext()!

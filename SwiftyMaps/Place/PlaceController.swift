@@ -59,10 +59,16 @@ class PlaceController: Codable{
         defer{lock.signal()}
         for idx in 0..<places.count{
             if places[idx] == place{
+                place.deleteAllPhotos()
                 places.remove(at: idx)
                 return
             }
         }
+    }
+    
+    func deleteAllPlaces(){
+        //todo
+        places.removeAll()
     }
     
     func placeNextTo(location: CLLocation) -> PlaceData?{

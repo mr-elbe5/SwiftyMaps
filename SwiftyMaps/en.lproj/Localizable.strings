@@ -25,9 +25,6 @@
 "deleteTiles"="Delete loaded map tiles";
 "confirmDeleteTiles"="Do you want to delete all map tiles?";
 "deleteTilesHint"="Maps will have to be reloaded then.";
-"deletePlaces"="Delete all Places";
-"confirmDeletePlaces"="Do you want to delete all places?";
-"deletePlacesHint"="This action cannot be undone.";
 "configureMap"="Configure map...";
 
 //map preload view
@@ -45,13 +42,26 @@
 "urlTemplate"="URL Template for OpenStreetMap tiles:";
 "startWithLastPosition"="Start with last Position";
 "showUserDirection"="Show current Direction";
-"showPlaces"="Show Places";
+"showPlaces"="Show Places (Needles)";
+
+// place menu
+"addPlace"="Add Place";
+"showPlaceList"="Show Place List";
+"deletePlaces"="Delete all Places";
+"confirmDeletePlaces"="Do you want to delete all places?";
+"deletePlacesHint"="This action cannot be undone. Associated photos will also be deleted.";
+
+// place list
+"placeList"="Places";
 
 // track menu
 "startNewTrack"="Start new Route";
 "showCurrentTrack"="Current route...";
-"showTrackList"="Route list...";
-"configureTracks"="Configure tracks...";
+"showTrackList"="Saved routes...";
+"deleteTracks"="Delete all routes";
+"confirmDeleteTracks"="Do you want to delete all routes?";
+"deleteTracksHint"="This action cannot be undone.";
+"configureTracks"="Configure routes...";
 
 // current track
 "currentTrack"="Current Route";
@@ -59,7 +69,7 @@
 "resume"="Resume";
 
 // track list
-"trackList"="Route List";
+"trackList"="Routes";
 "nameOrDescriptionHint"="Please enter a name or description for this route";
 
 // track preferences
@@ -75,17 +85,26 @@
 "yourPosition"="Your Position";
 "useLocation"="Use existing Location?";
 
-// place markers
-"showDetails"="Show Details";
-"confirmDeletePlaceMarker"="Do you want to delete this place marker?";
-"deletePlaceMarkerHint"="This action cannot be undone and includes all associated photos.";
+// place context menu
+"showDetails"="Show details";
+"confirmDeletePlace"="Do you want to delete this place?";
+"deletePlaceHint"="This action cannot be undone and includes associated photos.";
 
 // place view / editor view
 "place"="Place";
-"placeData"="Place data";
+"placeData"="Location Details";
 "description"="Description";
 "photos"="Photos";
 
+//camera
+"cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";
+"cameraNotAvailable"="Camera is not available.";
+"balanced"="Balanced";
+"quality"="Quality";
+"speed"="Speed";
+"photoLibraryNotAuthorized"="The use of the photo library is not authorized. Please change your settings.";
+"photoShared"="Photo has been copied.";
+"shareImage"="Share image";
 
 //error
 "error"="Error";
@@ -132,37 +151,8 @@
 //places info
 "addPlaceInfoText"="If the crosshairs are active, a place marker can be created by tapping on the crosshairs. If a place marker already exists in the direct vicinity (below the location accuracy), no new place marker is created.";
 
-//track
-"track"="Track";
 
-//track list
-"trackList"="Recorded Tracks";
 
-//marker menu
-"hideMarkers"="Hide Markers";
-"showMarkers"="Show Markers";
-"addMarker"="Add Marker";
-"searchMarker"="Search Marker";
-//track menu
-
-"saveTrack"="Save Track";
-"searchTrack"="Search Track";
-
-//map
-"mapComment"="Map comment";
-"mapInfoHeader"="Map view";
-"map"="Map";
-"mapTopInfo"="The map view shows all entries with a saved position represented by a needle. By tapping one of these needles the complete entry is shown.";
-
-//camera
-"cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";
-"cameraNotAvailable"="Camera is not available.";
-"balanced"="Balanced";
-"quality"="Quality";
-"speed"="Speed";
-"photoLibraryNotAuthorized"="The use of the photo library is not authorized. Please change your settings.";
-"photoShared"="Photo has been copied.";
-"shareImage"="Share image";
 
 
 

@@ -92,7 +92,7 @@ extension MainViewController: PlaceLayerViewDelegate{
     }
     
     func deletePlace(place: PlaceData) {
-        showApprove(title: "confirmDeletPlaceMarker".localize(), text: "deletePlaceMarkerHint".localize()){
+        showApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
             PlaceController.instance.deletePlace(place)
             PlaceController.instance.save()
         }
@@ -101,6 +101,14 @@ extension MainViewController: PlaceLayerViewDelegate{
 }
 
 extension MainViewController: ControlLayerDelegate{
+    
+    func openPlaceList() {
+        let controller = PlaceListViewController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.delegate = self
+        present(controller, animated: true)
+    }
+    
     
     func focusUserLocation() {
         mapView.focusUserLocation()
@@ -133,10 +141,17 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
-    func deletePlaceMarkers() {
+    func deletePlaces() {
         showApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
-            PlaceController.instance.places.removeAll()
+            PlaceController.instance.deleteAllPlaces()
             self.mapView.placeLayerView.setupPlaceMarkers()
+        }
+    }
+    
+    func deleteTracks() {
+        showApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
+            TrackController.instance.deleteAllTracks()
+            self.mapView.trackLayerView.setNeedsDisplay()
         }
     }
     
@@ -213,24 +228,24 @@ extension MainViewController: PhotoCaptureDelegate{
 extension MainViewController: CurrentTrackDelegate{
     
     func pauseCurrentTrack() {
-        TrackController.pauseTracking()
+        TrackController.instance.pauseTracking()
     }
     
     func resumeCurrentTrack() {
-        TrackController.resumeTracking()
+        TrackController.instance.resumeTracking()
     }
     
     func cancelCurrentTrack() {
-        TrackController.cancelCurrentTrack()
+        TrackController.instance.cancelCurrentTrack()
     }
     
     func saveCurrentTrack() {
         let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
         alertController.addTextField()
         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-            if let track = TrackController.activeTrack{
+            if let track = TrackController.instance.activeTrack{
                 track.description = alertController.textFields![0].text ?? "Route"
-                TrackController.saveTrackCurrentTrack()
+                TrackController.instance.saveTrackCurrentTrack()
             }
         })
         present(alertController, animated: true)
@@ -247,5 +262,13 @@ extension MainViewController: TrackListDelegate{
 }
 
 extension MainViewController: TrackPreferencesDelegate{
+
+}
+
+extension MainViewController: PlaceListDelegate{
+    
+    func updatePlaceLayer() {
+        mapView.placeLayerView.setNeedsDisplay()
+    }
 
 }

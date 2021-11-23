@@ -81,6 +81,7 @@ class FileController {
         }
     }
     
+    @discardableResult
     static func saveFile(data: Data, url: URL) -> Bool{
         do{
             try data.write(to: url, options: .atomic)
@@ -91,6 +92,7 @@ class FileController {
         }
     }
     
+    @discardableResult
     static func saveFile(text: String, url: URL) -> Bool{
         do{
             try text.write(to: url, atomically: true, encoding: .utf8)
@@ -101,6 +103,7 @@ class FileController {
         }
     }
     
+    @discardableResult
     static func copyFile(name: String,fromDir: URL, toDir: URL, replace: Bool = false) -> Bool{
         do{
             if replace && fileExists(url: getURL(dirURL: toDir, fileName: name)){
@@ -114,6 +117,7 @@ class FileController {
         }
     }
     
+    @discardableResult
     static func copyFile(fromURL: URL, toURL: URL, replace: Bool = false) -> Bool{
         do{
             if replace && fileExists(url: toURL){
@@ -226,6 +230,7 @@ class FileController {
         }
     }
     
+    @discardableResult
     static func renameFile(dirURL: URL, fromName: String, toName: String) -> Bool{
         do{
             try FileManager.default.moveItem(at: getURL(dirURL: dirURL, fileName: fromName),to: getURL(dirURL: dirURL, fileName: toName))
@@ -236,6 +241,7 @@ class FileController {
         }
     }
     
+    @discardableResult
     static func deleteFile(dirURL: URL, fileName: String) -> Bool{
         do{
             try FileManager.default.removeItem(at: getURL(dirURL: dirURL, fileName: fileName))
@@ -247,6 +253,7 @@ class FileController {
         }
     }
     
+    @discardableResult
     static func deleteFile(url: URL) -> Bool{
         do{
             try FileManager.default.removeItem(at: url)

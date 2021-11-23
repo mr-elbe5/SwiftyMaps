@@ -24,6 +24,8 @@ class PlaceData : Hashable, Codable{
     var description : String
     var photos : Array<PhotoData>
     
+    private var lock = DispatchSemaphore(value: 1)
+    
     var locationString : String{
         location.locationString
     }
@@ -60,6 +62,22 @@ class PlaceData : Hashable, Codable{
     
     func addPhoto(photo: PhotoData){
         photos.append(photo)
+    }
+    
+    func deletePhoto(photo: PhotoData){
+        lock.wait()
+        defer{lock.signal()}
+        for idx in 0..<photos.count{
+            if photos[idx] == photo{
+                FileController.deleteFile(url: photo.fileURL)
+                photos.remove(at: idx)
+                return
+            }
+        }
+    }
+    
+    func deleteAllPhotos(){
+        
     }
     
     func hash(into hasher: inout Hasher) {
