@@ -79,7 +79,7 @@ class MapView: UIView {
         //trackLayerView.isHidden = !isTracking
     }
     
-    func setupPlaceMarkersLayerView(){
+    func setupPlaceLayerView(){
         addSubview(placeLayerView)
         placeLayerView.fillView(view: self)
         placeLayerView.setupPlaceMarkers()

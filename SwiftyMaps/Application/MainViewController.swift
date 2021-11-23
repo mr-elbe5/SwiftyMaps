@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
         mapView.setupTileLayerView()
         mapView.setupTrackLayerView()
         mapView.setupUserLocationView()
-        mapView.setupPlaceMarkersLayerView()
+        mapView.setupPlaceLayerView()
         mapView.placeLayerView.delegate = self
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
@@ -102,25 +102,6 @@ extension MainViewController: PlaceLayerViewDelegate{
 
 extension MainViewController: ControlLayerDelegate{
     
-    func openPlaceList() {
-        let controller = PlaceListViewController()
-        controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
-        present(controller, animated: true)
-    }
-    
-    
-    func focusUserLocation() {
-        mapView.focusUserLocation()
-    }
-    
-    func addPlace(){
-        let coordinate = mapView.getVisibleCenterCoordinate()
-        assertPlace(coordinate: coordinate){ place in
-            
-        }
-    }
-    
     func preloadMap() {
         let region = mapView.currentMapRegion
         if region.size > MapController.maxPreloadTiles{
@@ -141,11 +122,50 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
+    func openMapPreferences() {
+        let controller = MapPreferencesViewController()
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
+    func addPlace(){
+        let coordinate = mapView.getVisibleCenterCoordinate()
+        assertPlace(coordinate: coordinate){ place in
+            
+        }
+    }
+    
+    func openPlaceList() {
+        let controller = PlaceListViewController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.delegate = self
+        present(controller, animated: true)
+    }
+    
+    func showPlaces(_ show: Bool) {
+        MapPreferences.instance.showPlaceMarkers = show
+        mapView.placeLayerView.isHidden = !MapPreferences.instance.showPlaceMarkers
+    }
+    
     func deletePlaces() {
         showApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
             PlaceController.instance.deleteAllPlaces()
             self.mapView.placeLayerView.setupPlaceMarkers()
         }
+    }
+    
+    func openCurrentTrack() {
+        let controller = CurrentTrackViewController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.delegate = self
+        present(controller, animated: true)
+    }
+    
+    func openTrackList() {
+        let controller = TrackListViewController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.delegate = self
+        present(controller, animated: true)
     }
     
     func deleteTracks() {
@@ -155,10 +175,15 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
-    func openMapPreferences() {
-        let controller = MapPreferencesViewController()
+    func openTrackingPreferences() {
+        let controller = TrackPreferencesViewController()
         controller.modalPresentationStyle = .fullScreen
+        controller.delegate = self
         present(controller, animated: true)
+    }
+    
+    func focusUserLocation() {
+        mapView.focusUserLocation()
     }
     
     func openInfo() {
@@ -189,26 +214,11 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
-    func openCurrentTrack() {
-        let controller = CurrentTrackViewController()
-        controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
-        present(controller, animated: true)
-    }
     
-    func openTrackList() {
-        let controller = TrackListViewController()
-        controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
-        present(controller, animated: true)
-    }
     
-    func openTrackingPreferences() {
-        let controller = TrackPreferencesViewController()
-        controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
-        present(controller, animated: true)
-    }
+    
+    
+    
     
 }
 

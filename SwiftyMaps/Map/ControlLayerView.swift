@@ -11,6 +11,7 @@ protocol ControlLayerDelegate{
     func deleteTiles()
     func openMapPreferences()
     func openPlaceList()
+    func showPlaces(_ show: Bool)
     func deletePlaces()
     func focusUserLocation()
     func openInfo()
@@ -124,13 +125,27 @@ class ControlLayerView: UIView {
         let addPlaceAction = UIAction(title: "addPlace".localize(), image: UIImage(systemName: "plus.circle")){ action in
             self.activateCross()
         }
-        let placeListAction = UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+        var showPlacesAction : UIAction!
+        if MapPreferences.instance.showPlaceMarkers{
+            showPlacesAction = UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
+                self.delegate?.showPlaces(false)
+                self.placeMenuControl.menu = self.getPlaceMenu()
+            }
+        }
+        else{
+            showPlacesAction = UIAction(title: "showPlaces".localize(), image: UIImage(systemName: "mappin")){ action in
+                self.delegate?.showPlaces(true)
+                self.placeMenuControl.menu = self.getPlaceMenu()
+                
+            }
+        }
+        let showPlaceListAction = UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "mappin")){ action in
             self.delegate?.openPlaceList()
         }
         let deletePlacesAction = UIAction(title: "deletePlaces".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deletePlaces()
         }
-        return UIMenu(title: "", children: [addPlaceAction, placeListAction, deletePlacesAction])
+        return UIMenu(title: "", children: [addPlaceAction, showPlaceListAction, showPlacesAction, deletePlacesAction])
     }
     
     func getTrackingMenu() -> UIMenu{

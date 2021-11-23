@@ -11,8 +11,11 @@ import UIKit
 class PlaceEditViewController: PopupViewController{
     
     var descriptionView = TextEditView()
+    let photoStackView = UIStackView()
     
     var place: PlaceData? = nil
+    
+    var deletedPhotos = [PhotoData]()
     
     override func loadView() {
         title = "place".localize()
@@ -44,14 +47,14 @@ class PlaceEditViewController: PopupViewController{
                 header = HeaderLabel(text: "photos".localize())
                 contentView.addSubview(header)
                 header.setAnchors(top: descriptionView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-                let stackView = UIStackView()
-                stackView.setupVertical()
-                contentView.addSubview(stackView)
-                stackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-                lastControl = stackView
+                photoStackView.setupVertical()
+                contentView.addSubview(photoStackView)
+                photoStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+                lastControl = photoStackView
                 for photo in place.photos{
                     let imageView = PhotoEditView.fromData(data: photo)
-                    stackView.addArrangedSubview(imageView)
+                    imageView.delegate = self
+                    photoStackView.addArrangedSubview(imageView)
                 }
             }
             let saveButton = UIButton()
@@ -65,9 +68,30 @@ class PlaceEditViewController: PopupViewController{
     }
     
     @objc func save(){
-        place?.description = descriptionView.text
-        PlaceController.instance.save()
+        if let place = place{
+            place.description = descriptionView.text
+            for photo in deletedPhotos{
+                place.deletePhoto(photo: photo)
+            }
+            PlaceController.instance.save()
+        }
         self.dismiss(animated: true)
+    }
+    
+}
+
+extension PlaceEditViewController: PhotoEditDelegate{
+    
+    func deletePhoto(sender: PhotoEditView) {
+        if let photo = sender.photoData{
+            deletedPhotos.append(photo)
+            for subView in photoStackView.subviews{
+                if subView == sender{
+                    subView.isHidden = true
+                    break
+                }
+            }
+        }
     }
     
 }

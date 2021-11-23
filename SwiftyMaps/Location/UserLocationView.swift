@@ -56,19 +56,17 @@ class UserLocationView : UIView{
         ctx.addEllipse(in: rect.scaleCenteredBy(0.7))
         ctx.setStrokeColor(color)
         ctx.drawPath(using: .stroke)
-        if MapPreferences.instance.showUserDirection{
-            //print("direction= \(direction)")
-            let angle1 = (direction - 15)*CGFloat.pi/180
-            let angle2 = (direction + 15)*CGFloat.pi/180
-            ctx.beginPath()
-            ctx.setFillColor(UserLocationView.userDirectionColor.cgColor)
-            let center = CGPoint(x: rect.midX, y: rect.midY)
-            ctx.move(to: center)
-            ctx.addLine(to: CGPoint(x: center.x + MapController.locationRadius * sin(angle1), y: center.y - MapController.locationRadius * cos(angle1)))
-            ctx.addLine(to: CGPoint(x: center.x + MapController.locationRadius * sin(angle2), y: center.y - MapController.locationRadius * cos(angle2)))
-            ctx.closePath()
-            ctx.drawPath(using: .fill)
-        }
+        //print("direction= \(direction)")
+        let angle1 = (direction - 15)*CGFloat.pi/180
+        let angle2 = (direction + 15)*CGFloat.pi/180
+        ctx.beginPath()
+        ctx.setFillColor(UserLocationView.userDirectionColor.cgColor)
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        ctx.move(to: center)
+        ctx.addLine(to: CGPoint(x: center.x + MapController.locationRadius * sin(angle1), y: center.y - MapController.locationRadius * cos(angle1)))
+        ctx.addLine(to: CGPoint(x: center.x + MapController.locationRadius * sin(angle2), y: center.y - MapController.locationRadius * cos(angle2)))
+        ctx.closePath()
+        ctx.drawPath(using: .fill)
     }
     
 }

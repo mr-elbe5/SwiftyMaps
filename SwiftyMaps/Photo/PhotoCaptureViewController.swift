@@ -17,20 +17,17 @@ protocol PhotoCaptureDelegate{
 
 class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    static var qualityItems : Array<String> = ["speed".localize(),"balanced".localize(),"quality".localize()]
+    static var flashMode : AVCaptureDevice.FlashMode = .auto
     
     var data : PhotoData!
     
     var delegate: PhotoCaptureDelegate? = nil
     
     var captureButton = CaptureButton()
-    var photoQualityControl = UISegmentedControl(items: qualityItems)
     var flashButton = IconButton(icon: "bolt.badge.a", tintColor: .white)
     var cameraButton = IconButton(icon: "camera.rotate", tintColor: .white)
     
     private let photoOutput = AVCapturePhotoOutput()
-    private var photoQuality: AVCapturePhotoOutput.QualityPrioritization = .balanced
-    private var flashMode : AVCaptureDevice.FlashMode = MapPreferences.instance.flashMode
     
     override func addButtons(){
         buttonView.backgroundColor = .black
@@ -40,17 +37,10 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             .centerX(bodyView.centerXAnchor)
             .width(50)
             .height(50)
-        photoQualityControl.backgroundColor = .clear
-        photoQualityControl.setTitleTextAttributes([.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .regular)], for: .normal)
-        photoQualityControl.selectedSegmentIndex = 1
-        photoQualityControl.selectedSegmentTintColor = UIColor.systemGray2
-        photoQualityControl.addTarget(self, action: #selector(togglePhotoQuality), for: .valueChanged)
-        buttonView.addSubview(photoQualityControl)
-        photoQualityControl.setAnchors(top: buttonView.topAnchor, leading: buttonView.leadingAnchor, trailing: buttonView.trailingAnchor, insets: Insets.defaultInsets)
         let bottomView = UIView()
         bottomView.backgroundColor = .clear
         buttonView.addSubview(bottomView)
-        bottomView.setAnchors(top: photoQualityControl.bottomAnchor, leading: buttonView.leadingAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: Insets.defaultInsets)
+        bottomView.setAnchors(top: buttonView.topAnchor, leading: buttonView.leadingAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: Insets.defaultInsets)
         cameraButton.setImage(UIImage(systemName: "camera.rotate"), for: .normal)
         cameraButton.addTarget(self, action: #selector(changeCamera), for: .touchDown)
         bottomView.addSubview(cameraButton)
@@ -68,7 +58,6 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     override func enableCameraButtons(flag: Bool){
         captureButton.isEnabled = flag
         cameraButton.isEnabled = flag
-        photoQualityControl.isEnabled = flag
     }
     
     func configurePhoto(){
@@ -81,7 +70,6 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             photoOutput.isPortraitEffectsMatteDeliveryEnabled = false
             photoOutput.enabledSemanticSegmentationMatteTypes = []
             photoOutput.maxPhotoQualityPrioritization = .quality
-            photoQuality = .balanced
             
         } else {
             print("Could not add photo output to the session")
@@ -103,8 +91,6 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         if !isInputAvailable {
             return
         }
-        
-        photoQuality = .balanced
         session.commitConfiguration()
     }
     
@@ -138,22 +124,20 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     }
     
     @objc func toggleFlash() {
-        switch flashMode{
+        switch PhotoCaptureViewController.flashMode{
         case .auto:
-            flashMode = .on
+            PhotoCaptureViewController.flashMode = .on
             self.flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
             break
         case .on:
-            flashMode = .off
+            PhotoCaptureViewController.flashMode = .off
             self.flashButton.setImage(UIImage(systemName: "bolt.slash"), for: .normal)
             break
         default:
-            flashMode = .auto
+            PhotoCaptureViewController.flashMode = .auto
             self.flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
             break
         }
-        MapPreferences.instance.flashMode = flashMode
-        MapPreferences.instance.save()
     }
     
     @objc func capturePhoto() {
@@ -176,8 +160,8 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
                 photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.__availablePreviewPhotoPixelFormatTypes.first!]
             }
             photoSettings.isDepthDataDeliveryEnabled = false
-            
-            photoSettings.photoQualityPrioritization = self.photoQuality
+            photoSettings.photoQualityPrioritization = .quality
+            photoSettings.flashMode = PhotoCaptureViewController.flashMode
             // shutter animation
             DispatchQueue.main.async {
                 self.preview.videoPreviewLayer.opacity = 0
@@ -201,22 +185,6 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         }
     }
     
-    @objc func togglePhotoQuality() {
-        let selectedQuality = photoQualityControl.selectedSegmentIndex
-        sessionQueue.async {
-            switch selectedQuality {
-            case 0 :
-                self.photoQuality = .speed
-            case 1 :
-                self.photoQuality = .balanced
-            case 2 :
-                self.photoQuality = .quality
-            default:
-                break
-            }
-        }
-    }
-    
     override func addObservers(){
         let keyValueObservation = session.observe(\.isRunning, options: .new) { _, change in
             guard let isSessionRunning = change.newValue else { return }
@@ -224,7 +192,6 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
                 // Only enable the ability to change camera if the device has more than one camera.
                 self.cameraButton.isEnabled = isSessionRunning && self.videoDeviceDiscoverySession.uniqueDevicePositionsCount > 1
                 self.captureButton.isEnabled = isSessionRunning
-                self.photoQualityControl.isEnabled = isSessionRunning
             }
         }
         keyValueObservations.append(keyValueObservation)
