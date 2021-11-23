@@ -179,10 +179,8 @@ extension TrackListViewController : UIDocumentPickerDelegate{
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if let url = urls.first{
             if let locations = GPXParser.parseFile(url: url){
-                let track = TrackData()
-                for location in locations{
-                    track.trackpoints.append(TrackPoint(location: location))
-                }
+                guard !locations.isEmpty else {return}
+                let track = TrackData(locations: locations)
                 let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
                 alertController.addTextField()
                 alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in

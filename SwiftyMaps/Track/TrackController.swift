@@ -77,14 +77,6 @@ class TrackController: Codable{
         tracks.removeAll()
     }
     
-    /*func tracksInPlanetRect(_ rect: CGRect) -> [TrackData]{
-        var result = [TrackData]()
-        for track in tracks{
-            //todo
-        }
-        return result
-    }*/
-    
     func save(){
         lock.wait()
         defer{lock.signal()}
@@ -93,10 +85,17 @@ class TrackController: Codable{
     
     func startTracking(){
         if activeTrack == nil{
-            activeTrack = TrackData()
+            guard let location = LocationService.shared.location else {return}
+            activeTrack = TrackData(location: location)
             currentTrack = activeTrack
         }
         isTracking = true
+    }
+    
+    func updateCurrentTrack(with location: CLLocation){
+        if let track = currentTrack{
+            track.updateTrack(location)
+        }
     }
     
     func pauseTracking(){

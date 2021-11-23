@@ -10,8 +10,6 @@ import CoreLocation
 
 class TrackLayerView: UIView {
     
-    var track : TrackData? = nil
-    
     var offset = CGPoint()
     var scale : CGFloat = 1.0
     var normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint())
@@ -29,10 +27,8 @@ class TrackLayerView: UIView {
         return false
     }
     
-    func updateTrack(_ location: CLLocation){
-        if let track = track{
-            track.updateTrack(location)
-        }
+    func updateTrack(){
+        setNeedsDisplay()
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){

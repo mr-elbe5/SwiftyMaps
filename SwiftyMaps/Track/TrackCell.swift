@@ -66,7 +66,7 @@ class TrackCell: UITableViewCell{
                 viewButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
             }
             let timeLabel = UILabel()
-            timeLabel.text = track!.creationDate.timeString()
+            timeLabel.text = track!.startTime.timeString()
             timeLabel.textAlignment = .center
             cellBody.addSubview(timeLabel)
             timeLabel.setAnchors(top: cellBody.topAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
