@@ -50,6 +50,7 @@
 		4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810F2732EDC5003ED6B0 /* MapView.swift */; };
 		4E1B811F2732EDC5003ED6B0 /* PlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81102732EDC5003ED6B0 /* PlaceData.swift */; };
 		4E1B81202732EDC5003ED6B0 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81112732EDC5003ED6B0 /* MapController.swift */; };
+		4E1C3832274D40DA00411AD9 /* TrackEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C3831274D40DA00411AD9 /* TrackEditViewController.swift */; };
 		4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */; };
 		4E1D0E19274B9C6000F3D584 /* TrackPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E18274B9C6000F3D584 /* TrackPreferencesViewController.swift */; };
 		4E1D0E1B274BA72100F3D584 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1A274BA72100F3D584 /* TrackCell.swift */; };
@@ -145,6 +146,7 @@
 		4E1B810F2732EDC5003ED6B0 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4E1B81102732EDC5003ED6B0 /* PlaceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceData.swift; sourceTree = "<group>"; };
 		4E1B81112732EDC5003ED6B0 /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
+		4E1C3831274D40DA00411AD9 /* TrackEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackEditViewController.swift; sourceTree = "<group>"; };
 		4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
 		4E1D0E18274B9C6000F3D584 /* TrackPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPreferencesViewController.swift; sourceTree = "<group>"; };
 		4E1D0E1A274BA72100F3D584 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
 				4E1D0E1A274BA72100F3D584 /* TrackCell.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
+				4E1C3831274D40DA00411AD9 /* TrackEditViewController.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */,
 				4E1B811D2732EDC5003ED6B0 /* NormalizedPlanetRect.swift in Sources */,
 				4E2088E92743AD920097BFBA /* CLLocationCoordinate2D.swift in Sources */,
+				4E1C3832274D40DA00411AD9 /* TrackEditViewController.swift in Sources */,
 				4E24F48927345D11004E69C2 /* TextButton.swift in Sources */,
 				4E1B81122732EDC5003ED6B0 /* UserLocationView.swift in Sources */,
 				4E24F47527345D11004E69C2 /* CGRect.swift in Sources */,

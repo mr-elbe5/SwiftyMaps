@@ -277,6 +277,11 @@ extension MainViewController: TrackPreferencesDelegate{
 
 extension MainViewController: PlaceListDelegate{
     
+    func showOnMap(place: PlaceData) {
+        mapView.scrollToCenteredCoordinate(coordinate: place.location.coordinate)
+    }
+    
+    
     func updatePlaceLayer() {
         mapView.placeLayerView.setNeedsDisplay()
     }

@@ -151,6 +151,13 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension TrackListViewController : TrackCellActionDelegate{
     
+    func editTrack(track: TrackData) {
+        let trackController = TrackEditViewController()
+        trackController.track = track
+        trackController.modalPresentationStyle = .fullScreen
+        self.present(trackController, animated: true)
+    }
+    
     func deleteTrack(track: TrackData) {
         showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
             TrackController.instance.deleteTrack(track)

@@ -9,8 +9,10 @@ import UIKit
 
 
 protocol PlaceCellActionDelegate{
+    func editPlace(place: PlaceData)
     func deletePlace(place: PlaceData)
     func viewPlace(place: PlaceData)
+    func showOnMap(place: PlaceData)
 }
 
 class PlaceCell: UITableViewCell{
@@ -44,7 +46,7 @@ class PlaceCell: UITableViewCell{
     
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
-        if place != nil{
+        if let place = place{
             var nextAnchor : NSLayoutYAxisAnchor!
             if isEditing{
                 let deleteButton = IconButton(icon: "xmark.circle")
@@ -52,23 +54,62 @@ class PlaceCell: UITableViewCell{
                 deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
                 cellBody.addSubview(deleteButton)
                 deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
-                nextAnchor = deleteButton.bottomAnchor
+                
+                let editButton = IconButton(icon: "pencil.circle")
+                editButton.tintColor = UIColor.systemBlue
+                editButton.addTarget(self, action: #selector(editPlace), for: .touchDown)
+                cellBody.addSubview(editButton)
+                editButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: Insets.defaultInsets)
+                
+                nextAnchor = editButton.bottomAnchor
             }
             else{
                 let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
                 viewButton.addTarget(self, action: #selector(viewPlace), for: .touchDown)
                 cellBody.addSubview(viewButton)
                 viewButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
-                nextAnchor = viewButton.bottomAnchor
+                
+                let mapButton = IconButton(icon: "mappin")
+                mapButton.tintColor = UIColor.systemBlue
+                mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
+                cellBody.addSubview(mapButton)
+                mapButton.setAnchors(top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: Insets.defaultInsets)
+                
+                nextAnchor = mapButton.bottomAnchor
             }
-            let vw = UILabel()
-            var text = place!.description
-            if text.isEmpty{
-                text = "noDescription".localize()
+            var label = UILabel()
+            label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
+            label.text = place.locationString
+            cellBody.addSubview(label)
+            label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
+            nextAnchor = label.bottomAnchor
+            label = UILabel()
+            label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
+            label.text = place.coordinateString
+            cellBody.addSubview(label)
+            label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
+            nextAnchor = label.bottomAnchor
+            if !description.isEmpty{
+                label = UILabel()
+                label.numberOfLines = 0
+                label.lineBreakMode = .byWordWrapping
+                label.text = place.description
+                cellBody.addSubview(label)
+                label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
+                nextAnchor = label.bottomAnchor
             }
-            vw.text = text
-            cellBody.addSubview(vw)
-            vw.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
+            label = UILabel()
+            label.text = String(place.photos.count) + " " + "photos".localize()
+            cellBody.addSubview(label)
+            label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
+        }
+    }
+    
+    @objc func editPlace() {
+        if let place = place{
+            delegate?.editPlace(place: place)
         }
     }
     
@@ -81,6 +122,12 @@ class PlaceCell: UITableViewCell{
     @objc func viewPlace(){
         if place != nil{
             delegate?.viewPlace(place: place!)
+        }
+    }
+    
+    @objc func showOnMap(){
+        if place != nil{
+            delegate?.showOnMap(place: place!)
         }
     }
     

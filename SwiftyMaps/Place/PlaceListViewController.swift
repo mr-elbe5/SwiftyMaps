@@ -12,6 +12,7 @@ import CoreLocation
 
 protocol PlaceListDelegate{
     func updatePlaceLayer()
+    func showOnMap(place: PlaceData)
 }
 
 class PlaceListViewController: UIViewController{
@@ -137,6 +138,20 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
 }
 
 extension PlaceListViewController : PlaceCellActionDelegate{
+    
+    func showOnMap(place: PlaceData) {
+        self.dismiss(animated: true){
+            self.delegate?.showOnMap(place: place)
+        }
+    }
+    
+    
+    func editPlace(place: PlaceData) {
+        let placeController = PlaceEditViewController()
+        placeController.place = place
+        placeController.modalPresentationStyle = .fullScreen
+        self.present(placeController, animated: true)
+    }
     
     func deletePlace(place: PlaceData) {
         showApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceInfo".localize()){

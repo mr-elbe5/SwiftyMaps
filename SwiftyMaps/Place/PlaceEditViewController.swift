@@ -15,14 +15,21 @@ class PlaceEditViewController: PopupViewController{
     
     var place: PlaceData? = nil
     
-    var deletedPhotos = [PhotoData]()
-    
     override func loadView() {
         title = "place".localize()
         super.loadView()
         scrollView.setupVertical()
         setupContent()
         setupKeyboard()
+    }
+    
+    override func setupHeaderView(){
+        super.setupHeaderView()
+        
+        let addPhotoButton = IconButton(icon: "photo", tintColor: .white)
+        headerView.addSubview(addPhotoButton)
+        addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchDown)
+        addPhotoButton.setAnchors(top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
     }
     
     func setupContent(){
@@ -42,15 +49,13 @@ class PlaceEditViewController: PopupViewController{
             descriptionView = TextEditView.fromData(text: place.description)
             contentView.addSubview(descriptionView)
             descriptionView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-            var lastControl : UIView = descriptionView
+            header = HeaderLabel(text: "photos".localize())
+            contentView.addSubview(header)
+            header.setAnchors(top: descriptionView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+            photoStackView.setupVertical()
+            contentView.addSubview(photoStackView)
+            photoStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
             if !place.photos.isEmpty{
-                header = HeaderLabel(text: "photos".localize())
-                contentView.addSubview(header)
-                header.setAnchors(top: descriptionView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-                photoStackView.setupVertical()
-                contentView.addSubview(photoStackView)
-                photoStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-                lastControl = photoStackView
                 for photo in place.photos{
                     let imageView = PhotoEditView.fromData(data: photo)
                     imageView.delegate = self
@@ -62,17 +67,24 @@ class PlaceEditViewController: PopupViewController{
             saveButton.setTitleColor(.systemBlue, for: .normal)
             saveButton.addTarget(self, action: #selector(save), for: .touchDown)
             contentView.addSubview(saveButton)
-            saveButton.setAnchors(top: lastControl.bottomAnchor, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
+            saveButton.setAnchors(top: photoStackView.bottomAnchor, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
                 .centerX(contentView.centerXAnchor)
         }
+    }
+    
+    @objc func addPhoto(){
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        pickerController.allowsEditing = true
+        pickerController.mediaTypes = ["public.image"]
+        pickerController.sourceType = .photoLibrary
+        pickerController.modalPresentationStyle = .fullScreen
+        self.present(pickerController, animated: true, completion: nil)
     }
     
     @objc func save(){
         if let place = place{
             place.description = descriptionView.text
-            for photo in deletedPhotos{
-                place.deletePhoto(photo: photo)
-            }
             PlaceController.instance.save()
         }
         self.dismiss(animated: true)
@@ -83,15 +95,34 @@ class PlaceEditViewController: PopupViewController{
 extension PlaceEditViewController: PhotoEditDelegate{
     
     func deletePhoto(sender: PhotoEditView) {
-        if let photo = sender.photoData{
-            deletedPhotos.append(photo)
-            for subView in photoStackView.subviews{
-                if subView == sender{
-                    subView.isHidden = true
-                    break
+        showApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
+            if let place = self.place, let photo = sender.photoData{
+                place.deletePhoto(photo: photo)
+                for subView in self.photoStackView.subviews{
+                    if subView == sender{
+                        self.photoStackView.removeArrangedSubview(sender)
+                        self.photoStackView.removeSubview(sender)
+                        break
+                    }
                 }
             }
         }
+    }
+    
+}
+
+extension PlaceEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        guard let imageURL = info[.imageURL] as? URL else {return}
+        let photo = PhotoData()
+        if FileController.copyFile(fromURL: imageURL, toURL: photo.fileURL){
+            place?.photos.append(photo)
+            let imageView = PhotoEditView.fromData(data: photo)
+            imageView.delegate = self
+            photoStackView.addArrangedSubview(imageView)
+        }
+        picker.dismiss(animated: false)
     }
     
 }

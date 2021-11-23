@@ -9,6 +9,7 @@ import UIKit
 
 
 protocol TrackCellActionDelegate{
+    func editTrack(track: TrackData)
     func deleteTrack(track: TrackData)
     func viewTrack(track: TrackData)
 }
@@ -51,6 +52,12 @@ class TrackCell: UITableViewCell{
                 deleteButton.addTarget(self, action: #selector(deleteTrack), for: .touchDown)
                 cellBody.addSubview(deleteButton)
                 deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
+                
+                let editButton = IconButton(icon: "pencil.circle")
+                editButton.tintColor = UIColor.systemBlue
+                editButton.addTarget(self, action: #selector(editTrack), for: .touchDown)
+                cellBody.addSubview(editButton)
+                editButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: Insets.defaultInsets)
             }
             else{
                 let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
@@ -67,6 +74,12 @@ class TrackCell: UITableViewCell{
             vw.text = track?.description ?? "no description"
             cellBody.addSubview(vw)
             vw.setAnchors(top: timeLabel.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: Insets.defaultInsets)
+        }
+    }
+    
+    @objc func editTrack() {
+        if track != nil{
+            delegate?.editTrack(track: track!)
         }
     }
     

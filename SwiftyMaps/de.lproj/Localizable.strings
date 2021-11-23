@@ -46,8 +46,10 @@
 "showPlaces"="Orte (Nadeln) anzeigen";
 
 // place menu
-"addPlace"="Ort hinzufügen";
+"addPlace"="Ort (Nadel) hinzufügen";
 "showPlaceList"="Ortsliste anzeigen";
+"showPlaces"="Orte (Nadeln) anzeigen";
+"hidePlaces"="Orte (Nadeln) verstecken";
 "deletePlaces"="Alle Orte löschen";
 "confirmDeletePlaces"="Wollen Sie alle Orte löschen?";
 "deletePlacesHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Photos werden ebenfalls gelöscht.";
@@ -104,6 +106,8 @@
 "placeData"="Ortsangaben";
 "description"="Beschreibung";
 "photos"="Fotos";
+"confirmDeletePhoto"="Wollen Sie dieses Foto löschen??";
+"deletePhotoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden..";
 
 //camera
 "cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";

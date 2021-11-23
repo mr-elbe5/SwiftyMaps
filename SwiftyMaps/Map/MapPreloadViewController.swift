@@ -30,8 +30,6 @@ class MapPreloadViewController: PopupViewController{
     var loadedTilesSlider = UISlider()
     var errorsValueLabel = UILabel()
     
-    var closeButton = UIButton()
-    
     override func loadView() {
         super.loadView()
         let header = UILabel()
@@ -100,15 +98,7 @@ class MapPreloadViewController: PopupViewController{
         errorsInfo.setAnchors(top: loadedTilesSlider.bottomAnchor, leading: contentView.leadingAnchor, insets: Insets.defaultInsets)
         errorsValueLabel.text = String(errors)
         contentView.addSubview(errorsValueLabel)
-        errorsValueLabel.setAnchors(top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, insets: Insets.defaultInsets)
-        
-        closeButton.setTitle("close".localize(), for: .normal)
-        closeButton.setTitleColor(.systemBlue, for: .normal)
-        closeButton.setTitleColor(.systemGray, for: .disabled)
-        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        contentView.addSubview(closeButton)
-        closeButton.setAnchors(top: errorsInfo.bottomAnchor, bottom: contentView.bottomAnchor, insets: Insets.defaultInsets)
-            .centerX(contentView.centerXAnchor)
+        errorsValueLabel.setAnchors(top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: Insets.defaultInsets)
         
         prepareDownload()
         updateValueViews()
@@ -116,12 +106,10 @@ class MapPreloadViewController: PopupViewController{
         if existingTiles == allTiles{
             startButton.isEnabled = false
             cancelButton.isEnabled = false
-            closeButton.isEnabled = true
         }
         else{
             startButton.isEnabled = true
             cancelButton.isEnabled = false
-            closeButton.isEnabled = true
         }
     }
     
@@ -183,7 +171,6 @@ class MapPreloadViewController: PopupViewController{
         }
         startButton.isEnabled = false
         cancelButton.isEnabled = true
-        closeButton.isEnabled = false
         downloadQueue = OperationQueue()
         downloadQueue!.name = "downloadQueue"
         downloadQueue!.maxConcurrentOperationCount = 2
@@ -201,7 +188,6 @@ class MapPreloadViewController: PopupViewController{
         updateValueViews()
         startButton.isEnabled = true
         cancelButton.isEnabled = false
-        closeButton.isEnabled = true
     }
     
 }
@@ -228,7 +214,6 @@ extension MapPreloadViewController: DownloadDelegate{
             updateSliderColor()
             startButton.isEnabled = errors > 0
             cancelButton.isEnabled = false
-            closeButton.isEnabled = true
             downloadQueue?.cancelAllOperations()
             downloadQueue = nil
         }

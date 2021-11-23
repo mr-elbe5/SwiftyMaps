@@ -17,6 +17,8 @@ class PopupViewController: UIViewController {
     var scrollVertical : Bool = true
     var scrollHorizontal : Bool = false
     
+    var closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
+    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .systemGroupedBackground
@@ -53,7 +55,6 @@ class PopupViewController: UIViewController {
             label.setAnchors(top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
                 .centerX(headerView.centerXAnchor)
         }
-        let closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
         headerView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
         closeButton.setAnchors(top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)

@@ -45,8 +45,10 @@
 "showPlaces"="Show Places (Needles)";
 
 // place menu
-"addPlace"="Add Place";
+"addPlace"="Add Place (Needle)";
 "showPlaceList"="Show Place List";
+"showPlaces"="Show Places (Needles)";
+"hidePlaces"="Hide Places (Needles)";
 "deletePlaces"="Delete all Places";
 "confirmDeletePlaces"="Do you want to delete all places?";
 "deletePlacesHint"="This action cannot be undone. Associated photos will also be deleted.";
@@ -95,6 +97,8 @@
 "placeData"="Location Details";
 "description"="Description";
 "photos"="Photos";
+"confirmDeletePhoto"="Do you want to delete this photo?";
+"deletePhotoHint"="This action is executed immediately and cannot be undone.";
 
 //camera
 "cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";

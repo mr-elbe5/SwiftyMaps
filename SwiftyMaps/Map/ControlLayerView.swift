@@ -139,7 +139,7 @@ class ControlLayerView: UIView {
                 
             }
         }
-        let showPlaceListAction = UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "mappin")){ action in
+        let showPlaceListAction = UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openPlaceList()
         }
         let deletePlacesAction = UIAction(title: "deletePlaces".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
