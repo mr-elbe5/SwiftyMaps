@@ -29,10 +29,11 @@ class PlaceCell: UITableViewCell{
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         isUserInteractionEnabled = true
         backgroundColor = .clear
+        shouldIndentWhileEditing = false
         cellBody.backgroundColor = .white
         cellBody.layer.cornerRadius = 5
-        addSubview(cellBody)
-        cellBody.fillView(view: self, insets: Insets.defaultInsets)
+        contentView.addSubview(cellBody)
+        cellBody.fillView(view: contentView, insets: Insets.defaultInsets)
         accessoryType = .none
         updateCell()
     }
@@ -44,29 +45,36 @@ class PlaceCell: UITableViewCell{
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
         if place != nil{
+            var nextAnchor : NSLayoutYAxisAnchor!
             if isEditing{
                 let deleteButton = IconButton(icon: "xmark.circle")
                 deleteButton.tintColor = UIColor.systemRed
                 deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
                 cellBody.addSubview(deleteButton)
                 deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
+                nextAnchor = deleteButton.bottomAnchor
             }
             else{
                 let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
                 viewButton.addTarget(self, action: #selector(viewPlace), for: .touchDown)
                 cellBody.addSubview(viewButton)
                 viewButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
+                nextAnchor = viewButton.bottomAnchor
             }
             let vw = UILabel()
-            vw.text = place?.description ?? "no description"
+            var text = place!.description
+            if text.isEmpty{
+                text = "noDescription".localize()
+            }
+            vw.text = text
             cellBody.addSubview(vw)
-            vw.setAnchors(top: cellBody.topAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: Insets.defaultInsets)
+            vw.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
         }
     }
     
     @objc func deletePlace() {
-        if place != nil{
-            delegate?.deletePlace(place: place!)
+        if let place = place{
+            delegate?.deletePlace(place: place)
         }
     }
     

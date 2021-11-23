@@ -29,10 +29,11 @@ class TrackCell: UITableViewCell{
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         isUserInteractionEnabled = true
         backgroundColor = .clear
+        shouldIndentWhileEditing = false
         cellBody.backgroundColor = .white
         cellBody.layer.cornerRadius = 5
-        addSubview(cellBody)
-        cellBody.fillView(view: self, insets: Insets.defaultInsets)
+        contentView.addSubview(cellBody)
+        cellBody.fillView(view: contentView, insets: Insets.defaultInsets)
         accessoryType = .none
         updateCell()
     }

@@ -143,6 +143,10 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
         return .none
     }
     
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
 }
 
 extension TrackListViewController : TrackCellActionDelegate{
