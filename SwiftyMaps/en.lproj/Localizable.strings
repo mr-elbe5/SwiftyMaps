@@ -57,25 +57,32 @@
 "placeList"="Places";
 
 // track menu
-"startNewTrack"="Start new Route";
-"showCurrentTrack"="Current route...";
-"showTrackList"="Saved routes...";
-"deleteTracks"="Delete all routes";
-"confirmDeleteTracks"="Do you want to delete all routes?";
+"startNewTrack"="Start new Tour";
+"showCurrentTrack"="Current tour...";
+"showTrackList"="Saved tours...";
+"deleteTracks"="Delete all tours";
+"confirmDeleteTracks"="Do you want to delete all tours?";
 "deleteTracksHint"="This action cannot be undone.";
-"configureTracks"="Configure routes...";
+"configureTracks"="Configure tours...";
 
-// current track
-"currentTrack"="Current Route";
+// track/ current track
+"track"="Tour";
+"startLocation"="Start location";
+"distances"="Distances";
+"distance"="Distance";
+"upDistance"="Upwards";
+"downDistance"="Downwards";
+"duration"="Duration";
+"currentTrack"="Current Tour";
 "pause"="Pause";
 "resume"="Resume";
 
 // track list
-"trackList"="Routes";
-"nameOrDescriptionHint"="Please enter a name or description for this route";
+"trackList"="Tours";
+"nameOrDescriptionHint"="Please enter a name or description for this tour";
 
 // track preferences
-"trackPreferences"="Route Preferences";
+"trackPreferences"="Tour Preferences";
 
 //location
 "east"="East";

@@ -27,21 +27,21 @@ class PlaceLayerView: UIView {
     }
     
     func addPlaceView(place: PlaceData){
-        let placeView = PlaceView(place: place)
+        let placeView = PlacePinView(place: place)
         addSubview(placeView)
         placeView.delegate = self
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
-            $0 is PlaceView && $0.point(inside: self.convert(point, to: $0), with: event)
+            $0 is PlacePinView && $0.point(inside: self.convert(point, to: $0), with: event)
         })
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
         let normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint(x: offset.x/scale, y: offset.y/scale))
         for sv in subviews{
-            if let av = sv as? PlaceView{
+            if let av = sv as? PlacePinView{
                 av.updatePosition(to: CGPoint(x: (av.place.location.planetPosition.x - normalizedOffset.point.x)*scale , y: (av.place.location.planetPosition.y - normalizedOffset.point.y)*scale))
             }
         }
@@ -51,15 +51,15 @@ class PlaceLayerView: UIView {
 
 extension PlaceLayerView: PlaceDelegate{
     
-    func detailAction(sender: PlaceView) {
+    func detailAction(sender: PlacePinView) {
         delegate?.showPlaceDetails(place: sender.place)
     }
     
-    func editAction(sender: PlaceView) {
+    func editAction(sender: PlacePinView) {
         delegate?.editPlace(place: sender.place)
     }
     
-    func deleteAction(sender: PlaceView) {
+    func deleteAction(sender: PlacePinView) {
         subviews.first(where: {$0 == sender})?.removeFromSuperview()
         delegate?.deletePlace(place: sender.place)
     }

@@ -18,35 +18,41 @@ class TrackData : Hashable, Codable{
     private enum CodingKeys: String, CodingKey {
         case id
         case startTime
+        case endTime
         case description
         case startLocation
         case trackpoints
         case distance
         case upDistance
         case downDistance
-        case duration
     }
     
     var id : UUID
     var startTime : Date
+    var endTime : Date
     var description : String
     var startLocation : Location
     var trackpoints : Array<TrackPoint>
     var distance : CGFloat
     var upDistance : CGFloat
     var downDistance : CGFloat
-    var duration : TimeInterval
+    
+    var duration : TimeInterval{
+        get{
+            startTime.distance(to: endTime)
+        }
+    }
     
     init(location: CLLocation){
         id = UUID()
         description = ""
         startLocation = Location(coordinate: location.coordinate)
         startTime = Date()
+        endTime = Date()
         trackpoints = Array<TrackPoint>()
         distance = 0
         upDistance = 0
         downDistance = 0
-        duration = .zero
         trackpoints.append(TrackPoint(location: location))
         LocationService.shared.getPlacemarkInfo(for: startLocation)
     }
@@ -58,11 +64,11 @@ class TrackData : Hashable, Codable{
         let first = locations.first ?? CLLocation()
         startLocation = Location(coordinate: first.coordinate)
         startTime = Date()
+        endTime = Date()
         trackpoints = Array<TrackPoint>()
         distance = 0
         upDistance = 0
         downDistance = 0
-        duration = .zero
         for loc in locations{
             trackpoints.append(TrackPoint(location: loc))
         }
@@ -73,26 +79,26 @@ class TrackData : Hashable, Codable{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         startTime = try values.decodeIfPresent(Date.self, forKey: .startTime) ?? Date()
+        endTime = try values.decodeIfPresent(Date.self, forKey: .endTime) ?? Date()
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         startLocation = try values.decodeIfPresent(Location.self, forKey: .startLocation) ?? Location()
         trackpoints = try values.decodeIfPresent(Array<TrackPoint>.self, forKey: .trackpoints) ?? Array<TrackPoint>()
         distance = try values.decodeIfPresent(CGFloat.self, forKey: .distance) ?? 0
         upDistance = try values.decodeIfPresent(CGFloat.self, forKey: .upDistance) ?? 0
         downDistance = try values.decodeIfPresent(CGFloat.self, forKey: .downDistance) ?? 0
-        duration = try values.decodeIfPresent(TimeInterval.self, forKey: .duration) ?? 0
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(startTime, forKey: .startTime)
+        try container.encode(endTime, forKey: .endTime)
         try container.encode(description, forKey: .description)
         try container.encode(startLocation, forKey: .startLocation)
         try container.encode(trackpoints, forKey: .trackpoints)
         try container.encode(distance, forKey: .distance)
         try container.encode(upDistance, forKey: .upDistance)
         try container.encode(downDistance, forKey: .downDistance)
-        try container.encode(duration, forKey: .duration)
     }
     
     func hash(into hasher: inout Hasher) {
@@ -123,7 +129,7 @@ class TrackData : Hashable, Codable{
                 //invert negative
                 downDistance -= vDist
             }
-            duration = startTime.distance(to: lastLoc.timestamp)
+            endTime = location.timestamp
         }
     }
     

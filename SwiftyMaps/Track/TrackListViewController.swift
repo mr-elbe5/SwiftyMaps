@@ -12,6 +12,7 @@ import CoreLocation
 
 protocol TrackListDelegate{
     func updateTrackLayer()
+    func showOnMap(track: TrackData)
 }
 
 class TrackListViewController: UIViewController{
@@ -170,6 +171,12 @@ extension TrackListViewController : TrackCellActionDelegate{
         trackController.track = track
         trackController.modalPresentationStyle = .fullScreen
         self.present(trackController, animated: true)
+    }
+    
+    func showOnMap(track: TrackData) {
+        self.dismiss(animated: true){
+            self.delegate?.showOnMap(track: track)
+        }
     }
     
 }

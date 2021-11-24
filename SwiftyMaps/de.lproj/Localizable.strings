@@ -58,33 +58,38 @@
 "placeList"="Orte";
 
 // track menu
-"startNewTrack"="Neue Route starten";
-"showCurrentTrack"="Aktuelle Route...";
-"showTrackList"="Gespeicherte Routen...";
-"deleteTracks"="Alle Routen löschen";
-"confirmDeleteTracks"="Wollen Sie alle Routen löschen?";
+"startNewTrack"="Neue Tour starten";
+"showCurrentTrack"="Aktuelle Tour...";
+"showTrackList"="Gespeicherte Touren...";
+"deleteTracks"="Alle Touren löschen";
+"confirmDeleteTracks"="Wollen Sie alle Touren löschen?";
 "deleteTracksHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
-"configureTracks"="Routen-Einstellungen...";
+"configureTracks"="Tour-Einstellungen...";
 
-// current track
-"currentTrack"="Aktuelle Route";
+// track / current track
+"track"="Tour";
+"startLocation"="Startposition";
+"distances"="Entfernungen";
+"distance"="Länge";
+"upDistance"="Aufwärts";
+"downDistance"="Abwärts";
+"duration"="Dauer";
+"currentTrack"="Aktuelle Tour";
 "pause"="Pausieren";
 "resume"="Fortsetzen";
 
 // track list
-"trackList"="Routen";
-"nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Route ein.";
+"trackList"="Touren";
+"nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
 
 // track preferences
-"trackPreferences"="Routen-Einstellungen";
-
+"trackPreferences"="Tour-Einstellungen";
 
 //track menu
 "startTracking"="Aufzeichnen starten";
 "stopTracking"="Aufzeichnen beenden";
 "saveTrack"="Aufzeichnung speichern";
 "searchTrack"="Aufzeichnung-Suche";
-
 
 //location
 "east"="Ost";

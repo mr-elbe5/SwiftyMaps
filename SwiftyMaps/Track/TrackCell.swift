@@ -12,6 +12,7 @@ protocol TrackCellActionDelegate{
     func editTrack(track: TrackData)
     func deleteTrack(track: TrackData)
     func viewTrack(track: TrackData)
+    func showOnMap(track: TrackData)
 }
 
 class TrackCell: UITableViewCell{
@@ -45,7 +46,7 @@ class TrackCell: UITableViewCell{
     
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
-        if track != nil{
+        if let track = track{
             if isEditing{
                 let deleteButton = IconButton(icon: "xmark.circle")
                 deleteButton.tintColor = UIColor.systemRed
@@ -64,16 +65,30 @@ class TrackCell: UITableViewCell{
                 viewButton.addTarget(self, action: #selector(viewTrack), for: .touchDown)
                 cellBody.addSubview(viewButton)
                 viewButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
+                
+                let mapButton = IconButton(icon: "map")
+                mapButton.tintColor = UIColor.systemBlue
+                mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
+                cellBody.addSubview(mapButton)
+                mapButton.setAnchors(top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: Insets.defaultInsets)
             }
+            let nameLabel = UILabel()
+            nameLabel.text = track.description
+            cellBody.addSubview(nameLabel)
+            nameLabel.setAnchors(top: cellBody.topAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: UIEdgeInsets(top: 2*Insets.defaultInset, left: Insets.defaultInset, bottom: Insets.defaultInset, right: Insets.defaultInset))
             let timeLabel = UILabel()
-            timeLabel.text = track!.startTime.timeString()
-            timeLabel.textAlignment = .center
+            timeLabel.text = "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())"
             cellBody.addSubview(timeLabel)
-            timeLabel.setAnchors(top: cellBody.topAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
-            let vw = UILabel()
-            vw.text = track?.description ?? "no description"
-            cellBody.addSubview(vw)
-            vw.setAnchors(top: timeLabel.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: Insets.defaultInsets)
+            timeLabel.setAnchors(top: nameLabel.bottomAnchor, leading: cellBody.leadingAnchor, insets: Insets.defaultInsets)
+            let locationLabel = UILabel()
+            locationLabel.text = track.startLocation.locationString
+            cellBody.addSubview(locationLabel)
+            locationLabel.setAnchors(top: timeLabel.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: Insets.flatInsets)
+            let coordinateLabel = UILabel()
+            coordinateLabel.text = track.startLocation.coordinateString
+            cellBody.addSubview(coordinateLabel)
+            coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: Insets.flatInsets)
+            
         }
     }
     
@@ -92,6 +107,12 @@ class TrackCell: UITableViewCell{
     @objc func viewTrack(){
         if track != nil{
             delegate?.viewTrack(track: track!)
+        }
+    }
+    
+    @objc func showOnMap(){
+        if track != nil{
+            delegate?.showOnMap(track: track!)
         }
     }
     

@@ -269,6 +269,13 @@ extension MainViewController: CurrentTrackDelegate{
 
 extension MainViewController: TrackListDelegate{
     
+    func showOnMap(track: TrackData) {
+        TrackController.instance.currentTrack = track
+        mapView.trackLayerView.setNeedsDisplay()
+        mapView.scrollToCenteredCoordinate(coordinate: track.startLocation.coordinate)
+    }
+    
+    
     func updateTrackLayer() {
         mapView.trackLayerView.setNeedsDisplay()
     }

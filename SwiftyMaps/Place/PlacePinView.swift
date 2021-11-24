@@ -7,12 +7,12 @@
 import UIKit
 
 protocol PlaceDelegate{
-    func detailAction(sender: PlaceView)
-    func editAction(sender: PlaceView)
-    func deleteAction(sender: PlaceView)
+    func detailAction(sender: PlacePinView)
+    func editAction(sender: PlacePinView)
+    func deleteAction(sender: PlacePinView)
 }
 
-class PlaceView : UIButton{
+class PlacePinView : UIButton{
     
     static var baseFrame = CGRect(x: -MapController.mapPinRadius, y: -2*MapController.mapPinRadius, width: 2*MapController.mapPinRadius, height: 2*MapController.mapPinRadius)
     
@@ -22,7 +22,7 @@ class PlaceView : UIButton{
     
     init(place: PlaceData){
         self.place = place
-        super.init(frame: PlaceView.baseFrame)
+        super.init(frame: PlacePinView.baseFrame)
         setImage(MapController.mapPinImage, for: .normal)
         let interaction = UIContextMenuInteraction(delegate: self)
         addInteraction(interaction)
@@ -33,7 +33,7 @@ class PlaceView : UIButton{
     }
     
     func updatePosition(to pos: CGPoint){
-        frame = PlaceView.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
+        frame = PlacePinView.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
         //print("new frame = \(frame) in \(superview!.bounds)")
         setNeedsDisplay()
     }
