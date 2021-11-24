@@ -55,7 +55,7 @@ class TrackData : Hashable, Codable{
     init(locations: [CLLocation]){
         id = UUID()
         description = ""
-        guard let first = locations.first else {fatalError()}
+        let first = locations.first ?? CLLocation()
         startLocation = Location(coordinate: first.coordinate)
         startTime = Date()
         trackpoints = Array<TrackPoint>()
@@ -120,7 +120,8 @@ class TrackData : Hashable, Codable{
                 upDistance += vDist
             }
             else{
-                downDistance += vDist
+                //invert negative
+                downDistance -= vDist
             }
             duration = startTime.distance(to: lastLoc.timestamp)
         }

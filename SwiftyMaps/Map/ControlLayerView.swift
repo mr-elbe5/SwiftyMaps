@@ -28,56 +28,58 @@ class ControlLayerView: UIView {
     
     var delegate : ControlLayerDelegate? = nil
     
+    var controlLine = UIView()
     var mapMenuControl = IconButton(icon: "map")
     var placeMenuControl = IconButton(icon: "mappin.and.ellipse")
     var trackMenuControl = IconButton(icon: "figure.walk")
     var zoomIcon = IconButton(icon: "square", tintColor: .gray)
     var crossControl = IconButton(icon: "plus.circle")
+    var trackInfoLine = TrackInfoLine()
     var licenseView = UIView()
     
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
         
-        let topControlLine = MapControlLine()
-        topControlLine.setup()
-        addSubview(topControlLine)
-        topControlLine.setAnchors(top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: Insets.doubleInsets)
+        controlLine.backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        controlLine.layer.cornerRadius = 10
+        controlLine.layer.masksToBounds = true
+        addSubview(controlLine)
+        controlLine.setAnchors(top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: Insets.doubleInsets)
         
-        topControlLine.addSubview(mapMenuControl)
-        mapMenuControl.setAnchors(top: topControlLine.topAnchor, leading: topControlLine.leadingAnchor, bottom: topControlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 10 , bottom: 0, right: 0))
+        controlLine.addSubview(mapMenuControl)
+        mapMenuControl.setAnchors(top: controlLine.topAnchor, leading: controlLine.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 10 , bottom: 0, right: 0))
         mapMenuControl.menu = getMapMenu()
         mapMenuControl.showsMenuAsPrimaryAction = true
         
-        topControlLine.addSubview(placeMenuControl)
-        placeMenuControl.setAnchors(top: topControlLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: topControlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        controlLine.addSubview(placeMenuControl)
+        placeMenuControl.setAnchors(top: controlLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
         placeMenuControl.menu = getPlaceMenu()
         placeMenuControl.showsMenuAsPrimaryAction = true
         
-        topControlLine.addSubview(trackMenuControl)
-        trackMenuControl.setAnchors(top: topControlLine.topAnchor, leading: placeMenuControl.trailingAnchor, bottom: topControlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        controlLine.addSubview(trackMenuControl)
+        trackMenuControl.setAnchors(top: controlLine.topAnchor, leading: placeMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
         trackMenuControl.menu = getTrackingMenu()
         trackMenuControl.showsMenuAsPrimaryAction = true
         
         let focusUserLocationControl = IconButton(icon: "record.circle")
-        topControlLine.addSubview(focusUserLocationControl)
-        focusUserLocationControl.setAnchors(top: topControlLine.topAnchor, bottom: topControlLine.bottomAnchor)
-            .centerX(topControlLine.centerXAnchor)
+        controlLine.addSubview(focusUserLocationControl)
+        focusUserLocationControl.setAnchors(top: controlLine.topAnchor, bottom: controlLine.bottomAnchor)
+            .centerX(controlLine.centerXAnchor)
         focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
         
         let infoControl = IconButton(icon: "info.circle")
-        topControlLine.addSubview(infoControl)
-        infoControl.setAnchors(top: topControlLine.topAnchor, trailing: topControlLine.trailingAnchor, bottom: topControlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
+        controlLine.addSubview(infoControl)
+        infoControl.setAnchors(top: controlLine.topAnchor, trailing: controlLine.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
         infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
-        let bottomControlLine = MapControlLine()
-        bottomControlLine.setup()
-        addSubview(bottomControlLine)
-        bottomControlLine.setAnchors(leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*Insets.defaultInset, bottom: 2*Insets.defaultInset, right: 2*Insets.defaultInset))
-        
         let openCameraControl = IconButton(icon: "camera")
-        bottomControlLine.addSubview(openCameraControl)
-        openCameraControl.setAnchors(top: bottomControlLine.topAnchor, leading: bottomControlLine.leadingAnchor, bottom: bottomControlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 10 , bottom: 0, right: 0))
+        controlLine.addSubview(openCameraControl)
+        openCameraControl.setAnchors(top: controlLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
+        
+        trackInfoLine.setup()
+        addSubview(trackInfoLine)
+        trackInfoLine.setAnchors(leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*Insets.defaultInset, bottom: 2*Insets.defaultInset, right: 2*Insets.defaultInset))
         
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
@@ -86,7 +88,7 @@ class ControlLayerView: UIView {
         crossControl.isHidden = true
         
         addSubview(licenseView)
-        licenseView.setAnchors(top: bottomControlLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: 0, right: Insets.defaultInset))
+        licenseView.setAnchors(top: trackInfoLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: 0, right: Insets.defaultInset))
         var label = UILabel()
         label.textColor = .darkGray
         label.font = .preferredFont(forTextStyle: .footnote)
@@ -160,6 +162,7 @@ class ControlLayerView: UIView {
             trackingAction = UIAction(title: "startNewTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
                 TrackController.instance.startTracking()
                 self.trackMenuControl.menu = self.getTrackingMenu()
+                self.startTrackInfo()
             }
         }
         let trackListAction = UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
@@ -176,7 +179,7 @@ class ControlLayerView: UIView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
-            ($0 is MapControlLine || $0 is IconButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
+            ($0 == controlLine || $0 is IconButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
         })
     }
     
@@ -205,6 +208,18 @@ class ControlLayerView: UIView {
         crossControl.isHidden = false
     }
     
+    func startTrackInfo(){
+        trackInfoLine.startInfo()
+    }
+    
+    func updateTrackInfo(){
+        trackInfoLine.updateInfo()
+    }
+    
+    func stopTrackInfo(){
+        trackInfoLine.stopInfo()
+    }
+    
 }
 
 class MapControlLine : UIView{
@@ -216,6 +231,7 @@ class MapControlLine : UIView{
     }
     
 }
+
 
 
 

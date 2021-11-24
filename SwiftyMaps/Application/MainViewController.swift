@@ -239,14 +239,17 @@ extension MainViewController: CurrentTrackDelegate{
     
     func pauseCurrentTrack() {
         TrackController.instance.pauseTracking()
+        mapView.controlLayerView.stopTrackInfo()
     }
     
     func resumeCurrentTrack() {
         TrackController.instance.resumeTracking()
+        mapView.controlLayerView.startTrackInfo()
     }
     
     func cancelCurrentTrack() {
         TrackController.instance.cancelCurrentTrack()
+        mapView.controlLayerView.stopTrackInfo()
     }
     
     func saveCurrentTrack() {
@@ -257,6 +260,7 @@ extension MainViewController: CurrentTrackDelegate{
                 track.description = alertController.textFields![0].text ?? "Route"
                 TrackController.instance.saveTrackCurrentTrack()
             }
+            self.mapView.controlLayerView.stopTrackInfo()
         })
         present(alertController, animated: true)
     }

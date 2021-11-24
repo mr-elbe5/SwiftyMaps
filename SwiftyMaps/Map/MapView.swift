@@ -237,6 +237,7 @@ extension MapView: LocationServiceDelegate{
                 print("istracking")
                 TrackController.instance.updateCurrentTrack(with: location)
                 trackLayerView.updateTrack()
+                controlLayerView.updateTrackInfo()
             }
         }
         
