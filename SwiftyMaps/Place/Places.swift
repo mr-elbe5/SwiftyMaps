@@ -8,18 +8,18 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class PlaceController: Codable{
+class Places: Codable{
     
     static var storeKey = "places"
     
-    static var instance : PlaceController!
+    static var instance : Places!
     
     static func loadInstance(){
-        if let cache : PlaceController = DataController.shared.load(forKey: .places){
+        if let cache : Places = DataController.shared.load(forKey: .places){
             instance = cache
         }
         else{
-            instance = PlaceController()
+            instance = Places()
         }
     }
     

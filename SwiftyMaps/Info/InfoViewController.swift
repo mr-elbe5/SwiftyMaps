@@ -30,6 +30,9 @@ class InfoViewController: PopupViewController {
         stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "userLocationInfoText".localize(), iconColor: UserLocationView.userLocationColor))
         
         stackView.addArrangedSubview(IconInfoText(image: "mappin", text: "placeMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.track", text: "placeMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.photo", text: "placeMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.track.photo", text: "placeMarkerInfoText".localize()))
         stackView.addArrangedSubview(TextLabel(text: "showDetails".localize() + ": " + "placeDetailsInfoText".localize(), insetLeft: subInset))
         stackView.addArrangedSubview(TextLabel(text: "edit".localize() + ": " + "placeEditInfoText".localize(), insetLeft: subInset))
         stackView.addArrangedSubview(TextLabel(text: "delete".localize() + ": " + "placeDeleteInfoText".localize(), insetLeft: subInset))

@@ -39,7 +39,7 @@ class TrackLayerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        if let track = TrackController.instance.currentTrack{
+        if let track = Tracks.instance.currentTrack{
             if !track.trackpoints.isEmpty{
                 let color = UIColor.systemOrange.cgColor
                 let ctx = UIGraphicsGetCurrentContext()!
@@ -56,7 +56,7 @@ class TrackLayerView: UIView {
     }
     
     func getPoint(_ trackPoint: TrackPoint) -> CGPoint{
-        let locationPoint = MapController.planetPointFromCoordinate(coordinate: trackPoint.coordinate)
+        let locationPoint = MapStatics.planetPointFromCoordinate(coordinate: trackPoint.coordinate)
         return CGPoint(x: (locationPoint.x - normalizedOffset.point.x)*scale , y: (locationPoint.y - normalizedOffset.point.y)*scale)
     }
     

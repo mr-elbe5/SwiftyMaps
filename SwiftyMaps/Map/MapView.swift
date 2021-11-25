@@ -27,7 +27,7 @@ class MapView: UIView {
     
     var currentMapRegion : MapRegion{
         get{
-            MapRegion(topLeft: getCoordinate(screenPoint: CGPoint(x: 0, y: 0)), bottomRight: getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width, y: scrollView.visibleSize.height)), maxZoom: MapController.maxZoom)
+            MapRegion(topLeft: getCoordinate(screenPoint: CGPoint(x: 0, y: 0)), bottomRight: getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width, y: scrollView.visibleSize.height)), maxZoom: MapStatics.maxZoom)
         }
     }
     
@@ -60,10 +60,10 @@ class MapView: UIView {
         scrollView.bounces = false
         scrollView.bouncesZoom = false
         scrollView.maximumZoomScale = 1.0
-        scrollView.minimumZoomScale = 1.0/MapController.zoomScale(at: MapController.maxZoom - minimalZoom)
+        scrollView.minimumZoomScale = 1.0/MapStatics.zoomScale(at: MapStatics.maxZoom - minimalZoom)
         addSubview(scrollView)
         scrollView.fillView(view: self)
-        scrollView.contentSize = MapController.scrollablePlanetSize
+        scrollView.contentSize = MapStatics.scrollablePlanetSize
         scrollView.delegate = self
     }
     
@@ -104,7 +104,7 @@ class MapView: UIView {
         }
         point.x += scrollView.contentOffset.x
         point.y += scrollView.contentOffset.y
-        return MapController.coordinateFromPointInScaledPlanetSize(point: point, scaledSize: size)
+        return MapStatics.coordinateFromPointInScaledPlanetSize(point: point, scaledSize: size)
     }
     
     func getScreenPoint(coordinate: CLLocationCoordinate2D) -> CGPoint{
@@ -113,7 +113,7 @@ class MapView: UIView {
         while xOffset > size.width{
             xOffset -= size.width
         }
-        var point = MapController.pointInScaledSize(coordinate: coordinate, scaledSize: size)
+        var point = MapStatics.pointInScaledSize(coordinate: coordinate, scaledSize: size)
         point.x -= xOffset
         point.y -= scrollView.contentOffset.y
         return point
@@ -135,7 +135,7 @@ class MapView: UIView {
     }
     
     func setZoom(zoomLevel: Int, animated: Bool){
-        scrollView.setZoomScale(MapController.zoomScale(at: zoomLevel - MapController.maxZoom), animated: animated)
+        scrollView.setZoomScale(MapStatics.zoomScale(at: zoomLevel - MapStatics.maxZoom), animated: animated)
     }
     
     func connectLocationService(){
@@ -153,7 +153,7 @@ class MapView: UIView {
         if !locationInitialized, let loc = LocationService.shared.location{
             locationInitialized = true
             print("location initialized")
-            setZoom(zoomLevel: MapController.startZoom, animated: false)
+            setZoom(zoomLevel: MapStatics.startZoom, animated: false)
             focusUserLocation()
             setLocation(coordinate: loc.coordinate)
             directionDidChange(direction: LocationService.shared.direction)
@@ -161,7 +161,7 @@ class MapView: UIView {
     }
     
     func setLocation(coordinate: CLLocationCoordinate2D){
-        userLocationView.updateLocation(location: MapController.planetPointFromCoordinate(coordinate: coordinate), offset: contentOffset, scale: scale)
+        userLocationView.updateLocation(location: MapStatics.planetPointFromCoordinate(coordinate: coordinate), offset: contentOffset, scale: scale)
     }
     
     func focusUserLocation() {
@@ -176,7 +176,7 @@ class MapView: UIView {
     
     func addPlaceMarker(place: PlaceData){
         placeLayerView.addPlaceView(place: place)
-        PlaceController.instance.save()
+        Places.instance.save()
         placeLayerView.updatePosition(offset: contentOffset, scale: scale)
     }
     
@@ -233,9 +233,9 @@ extension MapView: LocationServiceDelegate{
         }
         else{
             setLocation(coordinate: location.coordinate)
-            if TrackController.instance.isTracking{
+            if Tracks.instance.isTracking{
                 print("istracking")
-                TrackController.instance.updateCurrentTrack(with: location)
+                Tracks.instance.updateCurrentTrack(with: location)
                 trackLayerView.updateTrack()
                 controlLayerView.updateTrackInfo()
             }

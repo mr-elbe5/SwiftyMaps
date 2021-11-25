@@ -85,7 +85,7 @@ class PlaceEditViewController: PopupViewController{
     @objc func save(){
         if let place = place{
             place.description = descriptionView.text
-            PlaceController.instance.save()
+            Places.instance.save()
         }
         self.dismiss(animated: true)
     }

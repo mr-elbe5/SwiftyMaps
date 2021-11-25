@@ -19,8 +19,6 @@ class PlaceListViewController: UIViewController{
 
     private static let CELL_IDENT = "placeCell"
     
-    var firstAppearance = true
-    
     var headerView = UIView()
     var editButton = IconButton(icon: "pencil.circle", tintColor: .white)
     var tableView = UITableView()
@@ -77,15 +75,6 @@ class PlaceListViewController: UIViewController{
         tableView.reloadData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if firstAppearance{
-            if PlaceController.instance.places.count > 0{
-                tableView.scrollToRow(at: .init(row: PlaceController.instance.places.count - 1, section: 0), at: .bottom, animated: true)
-            }
-            firstAppearance = false
-        }
-    }
-    
     @objc func toggleEditMode(){
         if !tableView.isEditing{
             editButton.tintColor = .systemRed
@@ -111,12 +100,12 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        PlaceController.instance.places.count
+        Places.instance.places.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlaceListViewController.CELL_IDENT, for: indexPath) as! PlaceCell
-        let track = PlaceController.instance.places[indexPath.row]
+        let track = Places.instance.places[indexPath.row]
         cell.place = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
@@ -155,7 +144,7 @@ extension PlaceListViewController : PlaceCellActionDelegate{
     
     func deletePlace(place: PlaceData) {
         showApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceInfo".localize()){
-            PlaceController.instance.deletePlace(place)
+            Places.instance.deletePlace(place)
             self.tableView.reloadData()
         }
     }

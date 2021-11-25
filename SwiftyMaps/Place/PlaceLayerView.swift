@@ -20,7 +20,7 @@ class PlaceLayerView: UIView {
         for subview in subviews {
             subview.removeFromSuperview()
         }
-        let places = PlaceController.instance.placesInPlanetRect(MapController.planetRect)
+        let places = Places.instance.placesInPlanetRect(MapStatics.planetRect)
         for place in places{
             addPlaceView(place: place)
         }

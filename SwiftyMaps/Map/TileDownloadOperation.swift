@@ -18,10 +18,10 @@ class TileDownloadOperation : AsyncOperation {
     
     override func startExecution(){
         //print("starting \(tile.id)")
-        guard let sourceUrl = MapTileLoader.url(tile: tile, urlTemplate: MapController.defaultUrl) else {print("could not create map source url"); return}
-        guard let targetUrl = MapTileFiles.fileUrl(tile: tile) else {print("could not create map target url"); return}
-        MapTileLoader.loadTileImage(url: sourceUrl){ data in
-            if let data = data, MapTileFiles.saveTile(fileUrl: targetUrl, data: data){
+        guard let sourceUrl = MapTiles.tileUrl(tile: tile, urlTemplate: MapStatics.defaultUrl) else {print("could not create map source url"); return}
+        guard let targetUrl = MapTiles.fileUrl(tile: tile) else {print("could not create map target url"); return}
+        MapTiles.loadTileImage(url: sourceUrl){ data in
+            if let data = data, MapTiles.saveTile(fileUrl: targetUrl, data: data){
                 DispatchQueue.main.async { [self] in
                     //print("got \(tile.id)")
                     delegate?.downloadSucceeded()

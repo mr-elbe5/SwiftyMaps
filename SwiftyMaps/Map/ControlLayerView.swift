@@ -152,7 +152,7 @@ class ControlLayerView: UIView {
     
     func getTrackingMenu() -> UIMenu{
         var trackingAction : UIAction!
-        if TrackController.instance.isTracking{
+        if Tracks.instance.isTracking{
             trackingAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
                 self.delegate?.openCurrentTrack()
                 self.trackMenuControl.menu = self.getTrackingMenu()
@@ -160,7 +160,7 @@ class ControlLayerView: UIView {
         }
         else{
             trackingAction = UIAction(title: "startNewTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
-                TrackController.instance.startTracking()
+                Tracks.instance.startTracking()
                 self.trackMenuControl.menu = self.getTrackingMenu()
                 self.startTrackInfo()
             }

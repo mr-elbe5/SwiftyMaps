@@ -9,20 +9,20 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class TrackController: Codable{
+class Tracks: Codable{
     
     // instance
 
-    static var instance : TrackController!
+    static var instance : Tracks!
     
     static var storeKey = "tracks"
     
     static func loadInstance(){
-        if let cache : TrackController = DataController.shared.load(forKey: .tracks){
+        if let cache : Tracks = DataController.shared.load(forKey: .tracks){
             instance = cache
         }
         else{
-            instance = TrackController()
+            instance = Tracks()
         }
     }
     

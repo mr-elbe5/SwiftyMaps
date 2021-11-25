@@ -13,7 +13,7 @@ class UserLocationView : UIView{
     static var userLocationColor = UIColor.systemBlue
     static var userDirectionColor = UIColor.red
     
-    static var baseFrame = CGRect(x: -MapController.locationRadius, y: -MapController.locationRadius, width: 2*MapController.locationRadius, height: 2*MapController.locationRadius)
+    static var baseFrame = CGRect(x: -MapStatics.locationRadius, y: -MapStatics.locationRadius, width: 2*MapStatics.locationRadius, height: 2*MapStatics.locationRadius)
     
     var locationPoint : CGPoint = .zero
     var direction : CLLocationDirection = 0
@@ -63,8 +63,8 @@ class UserLocationView : UIView{
         ctx.setFillColor(UserLocationView.userDirectionColor.cgColor)
         let center = CGPoint(x: rect.midX, y: rect.midY)
         ctx.move(to: center)
-        ctx.addLine(to: CGPoint(x: center.x + MapController.locationRadius * sin(angle1), y: center.y - MapController.locationRadius * cos(angle1)))
-        ctx.addLine(to: CGPoint(x: center.x + MapController.locationRadius * sin(angle2), y: center.y - MapController.locationRadius * cos(angle2)))
+        ctx.addLine(to: CGPoint(x: center.x + MapStatics.locationRadius * sin(angle1), y: center.y - MapStatics.locationRadius * cos(angle1)))
+        ctx.addLine(to: CGPoint(x: center.x + MapStatics.locationRadius * sin(angle2), y: center.y - MapStatics.locationRadius * cos(angle2)))
         ctx.closePath()
         ctx.drawPath(using: .fill)
     }

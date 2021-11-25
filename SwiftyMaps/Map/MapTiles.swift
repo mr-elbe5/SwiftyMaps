@@ -7,14 +7,48 @@
 import Foundation
 import UIKit
 
-struct MapTileFiles{
+struct MapTiles{
     
     static var tilesDirectory = "files"
     
     static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     
+    static func tileUrl(tile: MapTile, urlTemplate: String) -> URL?{
+        URL(string: urlTemplate.replacingOccurrences(of: "{z}", with: String(tile.zoom)).replacingOccurrences(of: "{x}", with: String(tile.x)).replacingOccurrences(of: "{y}", with: String(tile.y)))
+    }
+    
+    static func loadTileImage(tile: MapTile, result: @escaping (Data?) -> Void) {
+        //print("loading tile image \(tile.zoom)/\(tile.x)/\(tile.y)")
+        guard let url = tileUrl(tile: tile, urlTemplate: MapStatics.defaultUrl) else {print("could not crate map url"); return}
+        loadTileImage(url: url, result: result)
+    }
+    
+    static func loadTileImage(url: URL, result: @escaping (Data?) -> Void) {
+        //print("loading tile image \(url)")
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 300.0)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            var statusCode = 0
+            if (response != nil && response is HTTPURLResponse){
+                let httpResponse = response! as! HTTPURLResponse
+                statusCode = httpResponse.statusCode
+            }
+            if let error = error {
+                print("error loading tile from \(url.path), error: \(error.localizedDescription)")
+                result(nil)
+            } else if statusCode == 200{
+                //print("tile image \(tile.zoom)/\(tile.x)/\(tile.y) loaded")
+                result(data)
+            }
+            else{
+                print("error loading tile from \(url.path), statusCode=\(statusCode)")
+                result(nil)
+            }
+        }
+        task.resume()
+    }
+    
     static func fileUrl(tile: MapTile) -> URL?{
-        URL(string: "\(tilesDirectory)/\(tile.zoom)/\(tile.x)/\(tile.y).png", relativeTo: MapTileFiles.privateURL)
+        URL(string: "\(tilesDirectory)/\(tile.zoom)/\(tile.x)/\(tile.y).png", relativeTo: MapTiles.privateURL)
     }
     
     static func shortPath(_ url: URL?) -> String{
@@ -82,7 +116,7 @@ struct MapTileFiles{
     
     static func getTilePaths() -> Array<String>{
         var paths = Array<String>()
-        if let url = URL(string: tilesDirectory, relativeTo: MapTileFiles.privateURL){
+        if let url = URL(string: tilesDirectory, relativeTo: MapTiles.privateURL){
             if let subpaths = FileManager.default.subpaths(atPath: url.path){
                 for path in subpaths{
                     if !path.hasSuffix(".png"){
@@ -98,7 +132,7 @@ struct MapTileFiles{
     
     @discardableResult
     static func clear() -> Bool{
-        if let url = URL(string: tilesDirectory, relativeTo: MapTileFiles.privateURL){
+        if let url = URL(string: tilesDirectory, relativeTo: MapTiles.privateURL){
             do{
                 try FileManager.default.removeItem(at: url)
                 print("tile directory deleted")

@@ -63,7 +63,7 @@ class TrackInfoLine : UIView{
     }
     
     func updateInfo(){
-        if let track = TrackController.instance.activeTrack{
+        if let track = Tracks.instance.activeTrack{
             distanceLabel.text = "\(Int(track.distance))m"
             distanceUpLabel.text = "\(Int(track.upDistance))m"
             distanceDownLabel.text = "\(Int(track.downDistance))m"
@@ -77,7 +77,7 @@ class TrackInfoLine : UIView{
     }
     
     @objc func updateTime(){
-        if let track = TrackController.instance.activeTrack{
+        if let track = Tracks.instance.activeTrack{
             let interval = track.startTime.distance(to: Date())
             timeLabel.text = interval.hmsString()
         }

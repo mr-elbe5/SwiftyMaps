@@ -20,7 +20,7 @@ import CoreLocation
  coordinate: coordinates in latitude/longitude with latitude from -90° to +90° and longitude from -180° to +180°
  */
 
-struct MapController{
+struct MapStatics{
     
     static var defaultUrl = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
     

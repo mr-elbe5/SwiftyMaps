@@ -17,7 +17,7 @@ class MapPreferencesViewController: PopupViewController{
         title = "mapPreferences".localize()
         super.loadView()
         
-        urlTemplateField.setupView(labelText: "urlTemplate".localize(), text: MapController.defaultUrl, isHorizontal: false)
+        urlTemplateField.setupView(labelText: "urlTemplate".localize(), text: MapStatics.defaultUrl, isHorizontal: false)
         contentView.addSubview(urlTemplateField)
         urlTemplateField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: Insets.defaultInsets)
         
@@ -37,9 +37,9 @@ class MapPreferencesViewController: PopupViewController{
     
     @objc func save(){
         let newTemplate = urlTemplateField.text
-        if newTemplate != MapController.defaultUrl{
-            MapController.defaultUrl = newTemplate
-            _ = MapTileFiles.clear()
+        if newTemplate != MapStatics.defaultUrl{
+            MapStatics.defaultUrl = newTemplate
+            _ = MapTiles.clear()
         }
         MapPreferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
         MapPreferences.instance.save()

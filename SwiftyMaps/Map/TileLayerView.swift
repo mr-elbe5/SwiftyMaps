@@ -20,7 +20,7 @@ class TileLayerView: UIView {
         set{
             if _scaleToPlanet  != newValue{
                 _scaleToPlanet = newValue
-                zoom = MapController.maxZoom - MapController.zoomLevelFromScale(scale: _scaleToPlanet)
+                zoom = MapStatics.maxZoom - MapStatics.zoomLevelFromScale(scale: _scaleToPlanet)
             }
         }
     }
@@ -29,8 +29,8 @@ class TileLayerView: UIView {
     override init(frame: CGRect){
         super.init(frame: frame)
         screenScale = tileLayer.contentsScale
-        tileLayer.tileSize = CGSize(width: MapController.tileSize.width*screenScale, height: MapController.tileSize.height*screenScale)
-        tileLayer.levelsOfDetail = MapController.maxZoom
+        tileLayer.tileSize = CGSize(width: MapStatics.tileSize.width*screenScale, height: MapStatics.tileSize.height*screenScale)
+        tileLayer.levelsOfDetail = MapStatics.maxZoom
         tileLayer.levelsOfDetailBias = 0
     }
     
@@ -60,21 +60,21 @@ class TileLayerView: UIView {
     
     // rect is in contentSize = planetSize
     func drawTile(rect: CGRect){
-        var x = Int(round(rect.minX / scaleToPlanet / MapController.tileSize.width))
-        let y = Int(round(rect.minY / scaleToPlanet / MapController.tileSize.height))
-        let currentMaxTiles = Int(MapController.zoomScale(at: zoom))
+        var x = Int(round(rect.minX / scaleToPlanet / MapStatics.tileSize.width))
+        let y = Int(round(rect.minY / scaleToPlanet / MapStatics.tileSize.height))
+        let currentMaxTiles = Int(MapStatics.zoomScale(at: zoom))
         // for infinite scroll
         while x >= currentMaxTiles{
             x -= currentMaxTiles
         }
-        let tile = MapTileFiles.getTile(zoom: zoom, x: x, y: y)
+        let tile = MapTiles.getTile(zoom: zoom, x: x, y: y)
         if let image = tile.image{
             image.draw(in: rect)
             return
         }
-        MapController.mapGearImage.draw(in: rect.scaleCenteredBy(0.25))
-        MapTileLoader.loadTileImage(tile: tile){ data in
-            if MapTileFiles.saveTile(tile: tile, data: data){
+        MapStatics.mapGearImage.draw(in: rect.scaleCenteredBy(0.25))
+        MapTiles.loadTileImage(tile: tile){ data in
+            if MapTiles.saveTile(tile: tile, data: data){
                 DispatchQueue.main.async {
                     if let data = data, let image = UIImage(data: data){
                         tile.image = image

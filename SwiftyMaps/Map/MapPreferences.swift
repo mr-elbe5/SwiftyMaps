@@ -31,7 +31,7 @@ class MapPreferences: Identifiable, Codable{
         case showPlaceMarkers
     }
 
-    var urlTemplate : String = MapController.defaultUrl
+    var urlTemplate : String = MapStatics.defaultUrl
     var startWithLastPosition : Bool = false
     var showPlaceMarkers : Bool = true
     
@@ -40,7 +40,7 @@ class MapPreferences: Identifiable, Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? MapController.defaultUrl
+        urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? MapStatics.defaultUrl
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         showPlaceMarkers = try values.decodeIfPresent(Bool.self, forKey: .showPlaceMarkers) ?? true
     }

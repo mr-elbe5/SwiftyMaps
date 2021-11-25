@@ -83,8 +83,8 @@ class TrackListViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         if firstAppearance{
-            if TrackController.instance.tracks.count > 0{
-                tableView.scrollToRow(at: .init(row: TrackController.instance.tracks.count - 1, section: 0), at: .bottom, animated: true)
+            if Tracks.instance.tracks.count > 0{
+                tableView.scrollToRow(at: .init(row: Tracks.instance.tracks.count - 1, section: 0), at: .bottom, animated: true)
             }
             firstAppearance = false
         }
@@ -124,12 +124,12 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        TrackController.instance.tracks.count
+        Tracks.instance.tracks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TrackListViewController.CELL_IDENT, for: indexPath) as! TrackCell
-        let track = TrackController.instance.tracks[indexPath.row]
+        let track = Tracks.instance.tracks[indexPath.row]
         cell.track = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
@@ -161,7 +161,7 @@ extension TrackListViewController : TrackCellActionDelegate{
     
     func deleteTrack(track: TrackData) {
         showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
-            TrackController.instance.deleteTrack(track)
+            Tracks.instance.deleteTrack(track)
             self.tableView.reloadData()
         }
     }
@@ -192,8 +192,8 @@ extension TrackListViewController : UIDocumentPickerDelegate{
                 alertController.addTextField()
                 alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                     track.description = alertController.textFields![0].text ?? url.lastPathComponent
-                    TrackController.instance.addTrack(track)
-                    TrackController.instance.save()
+                    Tracks.instance.addTrack(track)
+                    Tracks.instance.save()
                     self.tableView.reloadData()
                 })
                 self.present(alertController, animated: true)

@@ -74,7 +74,7 @@ class Location : Hashable, Codable{
     
     init(coordinate: CLLocationCoordinate2D){
         self.coordinate = coordinate
-        planetPosition = MapController.planetPointFromCoordinate(coordinate: coordinate)
+        planetPosition = MapStatics.planetPointFromCoordinate(coordinate: coordinate)
         hasPlacemark = false
         LocationService.shared.getPlacemarkInfo(for: self)
     }
@@ -90,7 +90,7 @@ class Location : Hashable, Codable{
         city = try values.decodeIfPresent(String.self, forKey: .city) ?? ""
         country = try values.decodeIfPresent(String.self, forKey: .country) ?? ""
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        planetPosition = MapController.planetPointFromCoordinate(coordinate: coordinate)
+        planetPosition = MapStatics.planetPointFromCoordinate(coordinate: coordinate)
         if !hasPlacemark{
             LocationService.shared.getPlacemarkInfo(for: self)
         }

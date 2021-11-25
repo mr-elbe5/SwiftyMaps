@@ -14,8 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         FileController.initialize()
         MapPreferences.loadInstance()
-        PlaceController.loadInstance()
-        TrackController.loadInstance()
+        Places.loadInstance()
+        Tracks.loadInstance()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -42,8 +42,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        TrackController.instance.save()
-        PlaceController.instance.save()
+        Tracks.instance.save()
+        Places.instance.save()
         LocationService.shared.stop()
         MapPreferences.instance.save()
     }

@@ -11,7 +11,6 @@ import CoreLocation
 
 class MapRegion{
     
-    
     var minLatitude : CLLocationDegrees
     var maxLatitude : CLLocationDegrees
     var minLongitude : CLLocationDegrees
@@ -41,8 +40,8 @@ class MapRegion{
     func updateTileSets(){
         tiles.removeAll()
         for zoom in 0...maxZoom{
-            let bottomLeftTile = MapController.tileCoordinate(latitude: minLatitude, longitude: minLongitude, zoom: zoom)
-            let topRightTile = MapController.tileCoordinate(latitude: maxLatitude, longitude: maxLongitude, zoom: zoom)
+            let bottomLeftTile = MapStatics.tileCoordinate(latitude: minLatitude, longitude: minLongitude, zoom: zoom)
+            let topRightTile = MapStatics.tileCoordinate(latitude: maxLatitude, longitude: maxLongitude, zoom: zoom)
             let tileSet = TileSet(minX: bottomLeftTile.x, minY: bottomLeftTile.y, maxX: topRightTile.x, maxY: topRightTile.y)
             tiles[zoom] = tileSet
         }

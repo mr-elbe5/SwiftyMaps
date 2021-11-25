@@ -147,8 +147,8 @@ class MapPreloadViewController: PopupViewController{
                         for y in tileSet.minY...tileSet.maxY{
                             let tile = MapTile(zoom: zoom, x: x, y: y)
                             allTiles += 1
-                            if let fileUrl = MapTileFiles.fileUrl(tile: tile){
-                                if MapTileFiles.tileExists(url: fileUrl){
+                            if let fileUrl = MapTiles.fileUrl(tile: tile){
+                                if MapTiles.tileExists(url: fileUrl){
                                     existingTiles += 1
                                     continue
                                 }

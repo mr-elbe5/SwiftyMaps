@@ -14,7 +14,7 @@ protocol PlaceDelegate{
 
 class PlacePinView : UIButton{
     
-    static var baseFrame = CGRect(x: -MapController.mapPinRadius, y: -2*MapController.mapPinRadius, width: 2*MapController.mapPinRadius, height: 2*MapController.mapPinRadius)
+    static var baseFrame = CGRect(x: -MapStatics.mapPinRadius, y: -2*MapStatics.mapPinRadius, width: 2*MapStatics.mapPinRadius, height: 2*MapStatics.mapPinRadius)
     
     var place : PlaceData
     
@@ -24,18 +24,18 @@ class PlacePinView : UIButton{
         get{
             if place.isTrackStart{
                 if place.hasPhotos{
-                    return MapController.mapPinTrackPhotoImage
+                    return MapStatics.mapPinTrackPhotoImage
                 }
                 else{
-                    return MapController.mapPinTrackImage
+                    return MapStatics.mapPinTrackImage
                 }
             }
             else{
                 if place.hasPhotos{
-                    return MapController.mapPinPhotoImage
+                    return MapStatics.mapPinPhotoImage
                 }
                 else{
-                    return MapController.mapPinImage
+                    return MapStatics.mapPinImage
                 }
             }
         }

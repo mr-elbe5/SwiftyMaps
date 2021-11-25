@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
         view.addSubview(mapView)
         mapView.frame = view.bounds
         mapView.fillView(view: view)
-        let minZoom = MapController.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
+        let minZoom = MapStatics.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
         mapView.setupScrollView(minimalZoom: minZoom)
         mapView.setupTileLayerView()
         mapView.setupTrackLayerView()
@@ -37,7 +37,7 @@ class MainViewController: UIViewController {
     }
     
     private func assertPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
-        if let nextPlace = PlaceController.instance.placeNextTo(location: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){
+        if let nextPlace = Places.instance.placeNextTo(location: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){
             var txt = nextPlace.description
             if !txt.isEmpty{
                 txt += ", "
@@ -45,7 +45,7 @@ class MainViewController: UIViewController {
             txt += nextPlace.location.coordinateString
             let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
-                let place = PlaceController.instance.addPlace(coordinate: coordinate)
+                let place = Places.instance.addPlace(coordinate: coordinate)
                 self.mapView.addPlaceMarker(place: place)
                 onComplete?(place)
             })
@@ -55,19 +55,19 @@ class MainViewController: UIViewController {
             self.present(alertController, animated: true)
         }
         else{
-            let place = PlaceController.instance.addPlace(coordinate: coordinate)
+            let place = Places.instance.addPlace(coordinate: coordinate)
             self.mapView.addPlaceMarker(place: place)
             onComplete?(place)
         }
     }
     
     private func assertPhotoPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
-        let location = CLLocation(coordinate: coordinate, altitude: 0, horizontalAccuracy: MapController.minHorizontalAccuracy, verticalAccuracy: MapController.minVerticalAccuracy, timestamp: Date())
-        if let nextPlace = PlaceController.instance.placeNextTo(location: location){
+        let location = CLLocation(coordinate: coordinate, altitude: 0, horizontalAccuracy: MapStatics.minHorizontalAccuracy, verticalAccuracy: MapStatics.minVerticalAccuracy, timestamp: Date())
+        if let nextPlace = Places.instance.placeNextTo(location: location){
             onComplete?(nextPlace)
         }
         else{
-            let place = PlaceController.instance.addPlace(coordinate: location.coordinate)
+            let place = Places.instance.addPlace(coordinate: location.coordinate)
             self.mapView.addPlaceMarker(place: place)
             onComplete?(place)
         }
@@ -93,8 +93,8 @@ extension MainViewController: PlaceLayerViewDelegate{
     
     func deletePlace(place: PlaceData) {
         showApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
-            PlaceController.instance.deletePlace(place)
-            PlaceController.instance.save()
+            Places.instance.deletePlace(place)
+            Places.instance.save()
         }
     }
     
@@ -104,8 +104,8 @@ extension MainViewController: ControlLayerDelegate{
     
     func preloadMap() {
         let region = mapView.currentMapRegion
-        if region.size > MapController.maxPreloadTiles{
-            let text = "preloadMapsAlert".localize(param1: String(region.size), param2: String(MapController.maxPreloadTiles))
+        if region.size > MapStatics.maxPreloadTiles{
+            let text = "preloadMapsAlert".localize(param1: String(region.size), param2: String(MapStatics.maxPreloadTiles))
             showAlert(title: "pleaseNote".localize(), text: text, onOk: nil)
         }
         else{
@@ -118,7 +118,7 @@ extension MainViewController: ControlLayerDelegate{
     
     func deleteTiles() {
         showApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
-            MapTileFiles.clear()
+            MapTiles.clear()
         }
     }
     
@@ -149,7 +149,7 @@ extension MainViewController: ControlLayerDelegate{
     
     func deletePlaces() {
         showApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
-            PlaceController.instance.deleteAllPlaces()
+            Places.instance.deleteAllPlaces()
             self.mapView.placeLayerView.setupPlaceMarkers()
         }
     }
@@ -170,7 +170,7 @@ extension MainViewController: ControlLayerDelegate{
     
     func deleteTracks() {
         showApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
-            TrackController.instance.deleteAllTracks()
+            Tracks.instance.deleteAllTracks()
             self.mapView.trackLayerView.setNeedsDisplay()
         }
     }
@@ -228,7 +228,7 @@ extension MainViewController: PhotoCaptureDelegate{
         if let location = LocationService.shared.location{
             assertPhotoPlace(coordinate: location.coordinate){ place in
                 place.addPhoto(photo: photo)
-                PlaceController.instance.save()
+                Places.instance.save()
             }
         }
     }
@@ -238,17 +238,17 @@ extension MainViewController: PhotoCaptureDelegate{
 extension MainViewController: CurrentTrackDelegate{
     
     func pauseCurrentTrack() {
-        TrackController.instance.pauseTracking()
+        Tracks.instance.pauseTracking()
         mapView.controlLayerView.stopTrackInfo()
     }
     
     func resumeCurrentTrack() {
-        TrackController.instance.resumeTracking()
+        Tracks.instance.resumeTracking()
         mapView.controlLayerView.startTrackInfo()
     }
     
     func cancelCurrentTrack() {
-        TrackController.instance.cancelCurrentTrack()
+        Tracks.instance.cancelCurrentTrack()
         mapView.controlLayerView.stopTrackInfo()
     }
     
@@ -256,9 +256,9 @@ extension MainViewController: CurrentTrackDelegate{
         let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
         alertController.addTextField()
         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-            if let track = TrackController.instance.activeTrack{
+            if let track = Tracks.instance.activeTrack{
                 track.description = alertController.textFields![0].text ?? "Route"
-                TrackController.instance.saveTrackCurrentTrack()
+                Tracks.instance.saveTrackCurrentTrack()
             }
             self.mapView.controlLayerView.stopTrackInfo()
         })
@@ -270,7 +270,7 @@ extension MainViewController: CurrentTrackDelegate{
 extension MainViewController: TrackListDelegate{
     
     func showOnMap(track: TrackData) {
-        TrackController.instance.currentTrack = track
+        Tracks.instance.currentTrack = track
         mapView.trackLayerView.setNeedsDisplay()
         mapView.scrollToCenteredCoordinate(coordinate: track.startLocation.coordinate)
     }
