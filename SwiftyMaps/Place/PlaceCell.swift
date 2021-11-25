@@ -35,7 +35,7 @@ class PlaceCell: UITableViewCell{
         cellBody.backgroundColor = .white
         cellBody.layer.cornerRadius = 5
         contentView.addSubview(cellBody)
-        cellBody.fillView(view: contentView, insets: Insets.defaultInsets)
+        cellBody.fillView(view: contentView, insets: defaultInsets)
         accessoryType = .none
         updateCell()
     }
@@ -53,13 +53,13 @@ class PlaceCell: UITableViewCell{
                 deleteButton.tintColor = UIColor.systemRed
                 deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
                 cellBody.addSubview(deleteButton)
-                deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
+                deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
                 
                 let editButton = IconButton(icon: "pencil.circle")
                 editButton.tintColor = UIColor.systemBlue
                 editButton.addTarget(self, action: #selector(editPlace), for: .touchDown)
                 cellBody.addSubview(editButton)
-                editButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: Insets.defaultInsets)
+                editButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
                 
                 nextAnchor = editButton.bottomAnchor
             }
@@ -67,13 +67,13 @@ class PlaceCell: UITableViewCell{
                 let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
                 viewButton.addTarget(self, action: #selector(viewPlace), for: .touchDown)
                 cellBody.addSubview(viewButton)
-                viewButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
+                viewButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
                 
                 let mapButton = IconButton(icon: "mappin")
                 mapButton.tintColor = UIColor.systemBlue
                 mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
                 cellBody.addSubview(mapButton)
-                mapButton.setAnchors(top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: Insets.defaultInsets)
+                mapButton.setAnchors(top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
                 
                 nextAnchor = mapButton.bottomAnchor
             }

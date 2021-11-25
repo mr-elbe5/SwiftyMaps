@@ -29,7 +29,7 @@ class PlaceEditViewController: PopupViewController{
         let addPhotoButton = IconButton(icon: "photo", tintColor: .white)
         headerView.addSubview(addPhotoButton)
         addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchDown)
-        addPhotoButton.setAnchors(top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
+        addPhotoButton.setAnchors(top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
     }
     
     func setupContent(){
@@ -67,7 +67,7 @@ class PlaceEditViewController: PopupViewController{
             saveButton.setTitleColor(.systemBlue, for: .normal)
             saveButton.addTarget(self, action: #selector(save), for: .touchDown)
             contentView.addSubview(saveButton)
-            saveButton.setAnchors(top: photoStackView.bottomAnchor, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
+            saveButton.setAnchors(top: photoStackView.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
                 .centerX(contentView.centerXAnchor)
         }
     }

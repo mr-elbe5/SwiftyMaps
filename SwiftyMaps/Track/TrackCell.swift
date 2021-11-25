@@ -35,7 +35,7 @@ class TrackCell: UITableViewCell{
         cellBody.backgroundColor = .white
         cellBody.layer.cornerRadius = 5
         contentView.addSubview(cellBody)
-        cellBody.fillView(view: contentView, insets: Insets.defaultInsets)
+        cellBody.fillView(view: contentView, insets: defaultInsets)
         accessoryType = .none
         updateCell()
     }
@@ -52,42 +52,42 @@ class TrackCell: UITableViewCell{
                 deleteButton.tintColor = UIColor.systemRed
                 deleteButton.addTarget(self, action: #selector(deleteTrack), for: .touchDown)
                 cellBody.addSubview(deleteButton)
-                deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
+                deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
                 
                 let editButton = IconButton(icon: "pencil.circle")
                 editButton.tintColor = UIColor.systemBlue
                 editButton.addTarget(self, action: #selector(editTrack), for: .touchDown)
                 cellBody.addSubview(editButton)
-                editButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: Insets.defaultInsets)
+                editButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
             }
             else{
                 let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
                 viewButton.addTarget(self, action: #selector(viewTrack), for: .touchDown)
                 cellBody.addSubview(viewButton)
-                viewButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: Insets.defaultInsets)
+                viewButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
                 
                 let mapButton = IconButton(icon: "map")
                 mapButton.tintColor = UIColor.systemBlue
                 mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
                 cellBody.addSubview(mapButton)
-                mapButton.setAnchors(top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: Insets.defaultInsets)
+                mapButton.setAnchors(top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
             }
             let nameLabel = UILabel()
             nameLabel.text = track.description
             cellBody.addSubview(nameLabel)
-            nameLabel.setAnchors(top: cellBody.topAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: UIEdgeInsets(top: 2*Insets.defaultInset, left: Insets.defaultInset, bottom: Insets.defaultInset, right: Insets.defaultInset))
+            nameLabel.setAnchors(top: cellBody.topAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: UIEdgeInsets(top: 2*defaultInset, left: defaultInset, bottom: defaultInset, right: defaultInset))
             let timeLabel = UILabel()
             timeLabel.text = "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())"
             cellBody.addSubview(timeLabel)
-            timeLabel.setAnchors(top: nameLabel.bottomAnchor, leading: cellBody.leadingAnchor, insets: Insets.defaultInsets)
+            timeLabel.setAnchors(top: nameLabel.bottomAnchor, leading: cellBody.leadingAnchor, insets: defaultInsets)
             let locationLabel = UILabel()
             locationLabel.text = track.startLocation.locationString
             cellBody.addSubview(locationLabel)
-            locationLabel.setAnchors(top: timeLabel.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: Insets.flatInsets)
+            locationLabel.setAnchors(top: timeLabel.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: flatInsets)
             let coordinateLabel = UILabel()
             coordinateLabel.text = track.startLocation.coordinateString
             cellBody.addSubview(coordinateLabel)
-            coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: Insets.flatInsets)
+            coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: flatInsets)
             
         }
     }

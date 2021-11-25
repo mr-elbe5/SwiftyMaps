@@ -19,7 +19,7 @@ class InfoViewController: PopupViewController {
         title = "Info"
         super.loadView()
         contentView.addSubview(stackView)
-        stackView.fillView(view: contentView, insets: UIEdgeInsets(top: Insets.defaultInset, left: .zero, bottom: Insets.defaultInset, right: .zero))
+        stackView.fillView(view: contentView, insets: UIEdgeInsets(top: defaultInset, left: .zero, bottom: defaultInset, right: .zero))
         stackView.setupVertical()
         
         stackView.addArrangedSubview(HeaderLabel(text: "appInfoHeader".localize()))

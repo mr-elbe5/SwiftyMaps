@@ -19,7 +19,7 @@ class TextLabel : UIView{
         label.numberOfLines = 0
         label.textColor = .label
         addSubview(label)
-        label.fillView(view: self, insets: insetLeft == 0 ? defaultInsets : UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset + insetLeft, bottom: Insets.defaultInset, right: Insets.defaultInset))
+        label.fillView(view: self, insets: insetLeft == 0 ? defaultInsets : UIEdgeInsets(top: defaultInset, left: defaultInset + insetLeft, bottom: defaultInset, right: defaultInset))
     }
     
     required init?(coder: NSCoder) {

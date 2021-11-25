@@ -9,6 +9,36 @@ import UIKit
 
 extension UIViewController{
     
+    var defaultInset : CGFloat{
+        get{
+            return Insets.defaultInset
+        }
+    }
+    
+    var defaultInsets : UIEdgeInsets{
+        get{
+            return Insets.defaultInsets
+        }
+    }
+    
+    var doubleInsets : UIEdgeInsets{
+        get{
+            return Insets.doubleInsets
+        }
+    }
+    
+    var flatInsets : UIEdgeInsets{
+        get{
+            return Insets.flatInsets
+        }
+    }
+    
+    var narrowInsets : UIEdgeInsets{
+        get{
+            return Insets.narrowInsets
+        }
+    }
+    
     var isDarkMode: Bool {
         return self.traitCollection.userInterfaceStyle == .dark
     }

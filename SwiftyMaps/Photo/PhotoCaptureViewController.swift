@@ -33,14 +33,14 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         buttonView.backgroundColor = .black
         captureButton.addTarget(self, action: #selector(capturePhoto), for: .touchDown)
         bodyView.addSubview(captureButton)
-        captureButton.setAnchors(bottom: buttonView.topAnchor, insets: Insets.defaultInsets)
+        captureButton.setAnchors(bottom: buttonView.topAnchor, insets: defaultInsets)
             .centerX(bodyView.centerXAnchor)
             .width(50)
             .height(50)
         let bottomView = UIView()
         bottomView.backgroundColor = .clear
         buttonView.addSubview(bottomView)
-        bottomView.setAnchors(top: buttonView.topAnchor, leading: buttonView.leadingAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: Insets.defaultInsets)
+        bottomView.setAnchors(top: buttonView.topAnchor, leading: buttonView.leadingAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: defaultInsets)
         cameraButton.setImage(UIImage(systemName: "camera.rotate"), for: .normal)
         cameraButton.addTarget(self, action: #selector(changeCamera), for: .touchDown)
         bottomView.addSubview(cameraButton)
@@ -48,7 +48,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
         flashButton.addTarget(self, action: #selector(toggleFlash), for: .touchDown)
         bottomView.addSubview(flashButton)
-        flashButton.setAnchors(top: bottomView.topAnchor, trailing: cameraButton.leadingAnchor, bottom: bottomView.bottomAnchor, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: Insets.defaultInset, right: 2*Insets.defaultInset))
+        flashButton.setAnchors(top: bottomView.topAnchor, trailing: cameraButton.leadingAnchor, bottom: bottomView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: defaultInset, right: 2*defaultInset))
     }
     
     override func enableButtons(flag: Bool){

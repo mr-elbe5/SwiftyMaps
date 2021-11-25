@@ -44,7 +44,7 @@ class ControlLayerView: UIView {
         controlLine.layer.cornerRadius = 10
         controlLine.layer.masksToBounds = true
         addSubview(controlLine)
-        controlLine.setAnchors(top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: Insets.doubleInsets)
+        controlLine.setAnchors(top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: doubleInsets)
         
         controlLine.addSubview(mapMenuControl)
         mapMenuControl.setAnchors(top: controlLine.topAnchor, leading: controlLine.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 10 , bottom: 0, right: 0))
@@ -79,7 +79,7 @@ class ControlLayerView: UIView {
         
         trackInfoLine.setup()
         addSubview(trackInfoLine)
-        trackInfoLine.setAnchors(leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*Insets.defaultInset, bottom: 2*Insets.defaultInset, right: 2*Insets.defaultInset))
+        trackInfoLine.setAnchors(leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*defaultInset, bottom: 2*defaultInset, right: 2*defaultInset))
         
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
@@ -88,7 +88,7 @@ class ControlLayerView: UIView {
         crossControl.isHidden = true
         
         addSubview(licenseView)
-        licenseView.setAnchors(top: trackInfoLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: Insets.defaultInset, left: Insets.defaultInset, bottom: 0, right: Insets.defaultInset))
+        licenseView.setAnchors(top: trackInfoLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
         var label = UILabel()
         label.textColor = .darkGray
         label.font = .preferredFont(forTextStyle: .footnote)
@@ -106,7 +106,7 @@ class ControlLayerView: UIView {
         label.textColor = .darkGray
         label.font = .preferredFont(forTextStyle: .footnote)
         licenseView.addSubview(label)
-        label.setAnchors(top: licenseView.topAnchor, leading: link.trailingAnchor, trailing: licenseView.trailingAnchor, bottom: licenseView.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: Insets.defaultInset))
+        label.setAnchors(top: licenseView.topAnchor, leading: link.trailingAnchor, trailing: licenseView.trailingAnchor, bottom: licenseView.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: defaultInset))
         label.text = " contributors"
     }
     

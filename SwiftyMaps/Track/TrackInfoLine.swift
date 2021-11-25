@@ -25,34 +25,34 @@ class TrackInfoLine : UIView{
         let distanceIcon = UIImageView(image: UIImage(systemName: "arrow.right"))
         distanceIcon.tintColor = .darkGray
         addSubview(distanceIcon)
-        distanceIcon.setAnchors(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: Insets.flatInsets)
+        distanceIcon.setAnchors(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: flatInsets)
         distanceLabel.textColor = .darkGray
         addSubview(distanceLabel)
-        distanceLabel.setAnchors(top: topAnchor, leading: distanceIcon.trailingAnchor, bottom: bottomAnchor, insets: Insets.flatInsets)
+        distanceLabel.setAnchors(top: topAnchor, leading: distanceIcon.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         
         let distanceUpIcon = UIImageView(image: UIImage(systemName: "arrow.up"))
         distanceUpIcon.tintColor = .darkGray
         addSubview(distanceUpIcon)
-        distanceUpIcon.setAnchors(top: topAnchor, leading: distanceLabel.trailingAnchor, bottom: bottomAnchor, insets: Insets.flatInsets)
+        distanceUpIcon.setAnchors(top: topAnchor, leading: distanceLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         distanceUpLabel.textColor = .darkGray
         addSubview(distanceUpLabel)
-        distanceUpLabel.setAnchors(top: topAnchor, leading: distanceUpIcon.trailingAnchor, bottom: bottomAnchor, insets: Insets.flatInsets)
+        distanceUpLabel.setAnchors(top: topAnchor, leading: distanceUpIcon.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         
         let distanceDownIcon = UIImageView(image: UIImage(systemName: "arrow.down"))
         distanceDownIcon.tintColor = .darkGray
         addSubview(distanceDownIcon)
-        distanceDownIcon.setAnchors(top: topAnchor, leading: distanceUpLabel.trailingAnchor, bottom: bottomAnchor, insets: Insets.flatInsets)
+        distanceDownIcon.setAnchors(top: topAnchor, leading: distanceUpLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         distanceDownLabel.textColor = .darkGray
         addSubview(distanceDownLabel)
-        distanceDownLabel.setAnchors(top: topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: bottomAnchor, insets: Insets.flatInsets)
+        distanceDownLabel.setAnchors(top: topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         
         let timeIcon = UIImageView(image: UIImage(systemName: "stopwatch"))
         timeIcon.tintColor = .darkGray
         addSubview(timeIcon)
-        timeIcon.setAnchors(top: topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: bottomAnchor, insets: Insets.flatInsets)
+        timeIcon.setAnchors(top: topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         timeLabel.textColor = .darkGray
         addSubview(timeLabel)
-        timeLabel.setAnchors(top: topAnchor, leading: timeIcon.trailingAnchor, bottom: bottomAnchor, insets: Insets.flatInsets)
+        timeLabel.setAnchors(top: topAnchor, leading: timeIcon.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         
         self.isHidden = true
     }

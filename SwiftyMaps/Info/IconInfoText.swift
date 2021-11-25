@@ -33,11 +33,11 @@ class IconInfoText : UIView{
         iconText.numberOfLines = 0
         iconText.textColor = .label
         addSubview(iconView)
-        iconView.setAnchors(top: topAnchor, leading: leadingAnchor, insets: Insets.defaultInsets)
+        iconView.setAnchors(top: topAnchor, leading: leadingAnchor, insets: defaultInsets)
             .width(25)
         iconView.setAspectRatioConstraint()
         addSubview(iconText)
-        iconText.setAnchors(top: topAnchor, leading: iconView.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: Insets.defaultInsets)
+        iconText.setAnchors(top: topAnchor, leading: iconView.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
     }
     
     required init?(coder: NSCoder) {

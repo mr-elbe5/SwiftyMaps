@@ -22,7 +22,7 @@ class TextView : UIView{
         textView.numberOfLines = 0
         addSubview(textView)
         textView.text = text
-        textView.fillView(view: self, insets: Insets.defaultInsets)
+        textView.fillView(view: self, insets: defaultInsets)
     }
     
 }
@@ -55,7 +55,7 @@ class TextEditView : UIView, UITextViewDelegate{
         textView.delegate = self
         addSubview(textView)
         textView.setKeyboardToolbar(doneTitle: "done".localize())
-        textView.fillView(view: self, insets: Insets.defaultInsets)
+        textView.fillView(view: self, insets: defaultInsets)
     }
     
     func setFocus(){

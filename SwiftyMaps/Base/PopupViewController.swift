@@ -52,12 +52,12 @@ class PopupViewController: UIViewController {
             label.text = title
             label.textColor = .white
             headerView.addSubview(label)
-            label.setAnchors(top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
+            label.setAnchors(top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
                 .centerX(headerView.centerXAnchor)
         }
         headerView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        closeButton.setAnchors(top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: Insets.defaultInsets)
+        closeButton.setAnchors(top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
     }
     
     func setupKeyboard(){

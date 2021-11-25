@@ -36,12 +36,12 @@ class PhotoView : UIView{
         addSubview(imageView)
         self.photoData = data
         imageView.image = data.getImage()
-        imageView.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: Insets.defaultInsets)
+        imageView.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
         imageView.setAspectRatioConstraint()
         if !data.title.isEmpty{
             let titleView = MediaCommentLabel(text: data.title)
             addSubview(titleView)
-            titleView.setAnchors(top: imageView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: Insets.defaultInsets)
+            titleView.setAnchors(top: imageView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
         }
         else{
             imageView.bottom(bottomAnchor)
@@ -50,7 +50,7 @@ class PhotoView : UIView{
             let sv = UIStackView()
             sv.setupHorizontal(distribution: .fillEqually, spacing: 2*defaultInset)
             addSubview(sv)
-            sv.setAnchors(top: topAnchor, trailing: trailingAnchor, insets: Insets.doubleInsets)
+            sv.setAnchors(top: topAnchor, trailing: trailingAnchor, insets: doubleInsets)
             let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
             viewButton.addTarget(self, action: #selector(viewItem), for: .touchDown)
             sv.addArrangedSubview(viewButton)
@@ -125,7 +125,7 @@ class PhotoEditView : UIView, UITextViewDelegate{
         deleteButton.tintColor = UIColor.systemRed
         deleteButton.addTarget(self, action: #selector(deletePhoto), for: .touchDown)
         addSubview(deleteButton)
-        deleteButton.setAnchors(top: topAnchor, trailing: trailingAnchor, insets: Insets.flatInsets)
+        deleteButton.setAnchors(top: topAnchor, trailing: trailingAnchor, insets: flatInsets)
         imageView.setDefaults()
         imageView.setRoundedBorders()
         addSubview(imageView)
@@ -133,9 +133,9 @@ class PhotoEditView : UIView, UITextViewDelegate{
         titleView.delegate = self
         addSubview(titleView)
         titleView.setKeyboardToolbar(doneTitle: "done".localize())
-        imageView.setAnchors(top: deleteButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: Insets.defaultInsets)
+        imageView.setAnchors(top: deleteButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
         imageView.setAspectRatioConstraint()
-        titleView.setAnchors(top: imageView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: Insets.flatInsets)
+        titleView.setAnchors(top: imageView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
     }
     
     func setFocus(){

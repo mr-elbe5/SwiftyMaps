@@ -19,11 +19,11 @@ class MapPreferencesViewController: PopupViewController{
         
         urlTemplateField.setupView(labelText: "urlTemplate".localize(), text: MapStatics.defaultUrl, isHorizontal: false)
         contentView.addSubview(urlTemplateField)
-        urlTemplateField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: Insets.defaultInsets)
+        urlTemplateField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: MapPreferences.instance.startWithLastPosition)
         contentView.addSubview(startWithLastPositionSwitch)
-        startWithLastPositionSwitch.setAnchors(top: urlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: Insets.defaultInsets)
+        startWithLastPositionSwitch.setAnchors(top: urlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         startWithLastPositionSwitch.isOn = MapPreferences.instance.startWithLastPosition
         
         let saveButton = UIButton()
@@ -31,7 +31,7 @@ class MapPreferencesViewController: PopupViewController{
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
         contentView.addSubview(saveButton)
-        saveButton.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: Insets.doubleInsets)
+        saveButton.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
             .centerX(contentView.centerXAnchor)
     }
     
