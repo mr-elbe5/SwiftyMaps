@@ -35,6 +35,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         super.init()
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.distanceFilter = LocationService.locationDeviation
     }
     
     var authorized : Bool{
@@ -87,9 +88,8 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let newLocation = locations.last else { return }
-        if location == nil || newLocation.distance(from: location!) > LocationService.locationDeviation {
-            location = newLocation
+        if let loc = locations.last, loc.horizontalAccuracy != -1{
+            location = loc
             delegate?.locationDidChange(location: location!)
         }
     }

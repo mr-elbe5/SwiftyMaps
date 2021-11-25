@@ -29,6 +29,8 @@ class TrackData : Hashable, Codable{
     
     var id : UUID
     var startTime : Date
+    var pauseTime : Date? = nil
+    var pauseLength : TimeInterval = 0
     var endTime : Date
     var description : String
     var startLocation : Location
@@ -39,7 +41,19 @@ class TrackData : Hashable, Codable{
     
     var duration : TimeInterval{
         get{
-            startTime.distance(to: endTime)
+            if let pauseTime = pauseTime{
+                return startTime.distance(to: pauseTime) - pauseLength
+            }
+            return startTime.distance(to: endTime) - pauseLength
+        }
+    }
+    
+    var durationUntilNow : TimeInterval{
+        get{
+            if let pauseTime = pauseTime{
+                return startTime.distance(to: pauseTime) - pauseLength
+            }
+            return startTime.distance(to: Date()) - pauseLength
         }
     }
     
@@ -130,6 +144,17 @@ class TrackData : Hashable, Codable{
                 downDistance -= vDist
             }
             endTime = location.timestamp
+        }
+    }
+    
+    func pauseTracking(){
+        pauseTime = Date()
+    }
+    
+    func resumeTracking(){
+        if let pauseTime = pauseTime{
+            pauseLength += pauseTime.distance(to: Date())
+            self.pauseTime = nil
         }
     }
     

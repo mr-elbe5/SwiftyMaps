@@ -192,6 +192,16 @@ class MapView: UIView {
         tileLayerView.setNeedsDisplay()
     }
     
+    func startTracking(){
+        trackLayerView.startTracking()
+        controlLayerView.startTracking()
+    }
+    
+    func stopTracking(){
+        trackLayerView.stopTracking()
+        controlLayerView.stopTracking()
+    }
+    
 }
 
 extension MapView : UIScrollViewDelegate{

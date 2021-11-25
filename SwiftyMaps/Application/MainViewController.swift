@@ -154,6 +154,11 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
+    func startTracking(){
+        Tracks.instance.startTracking()
+        mapView.startTracking()
+    }
+    
     func openCurrentTrack() {
         let controller = CurrentTrackViewController()
         controller.modalPresentationStyle = .fullScreen
@@ -214,12 +219,6 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
-    
-    
-    
-    
-    
-    
 }
 
 extension MainViewController: PhotoCaptureDelegate{
@@ -256,7 +255,7 @@ extension MainViewController: CurrentTrackDelegate{
         let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
         alertController.addTextField()
         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-            if let track = Tracks.instance.activeTrack{
+            if let track = Tracks.instance.currentTrack{
                 track.description = alertController.textFields![0].text ?? "Route"
                 Tracks.instance.saveTrackCurrentTrack()
             }
@@ -270,7 +269,7 @@ extension MainViewController: CurrentTrackDelegate{
 extension MainViewController: TrackListDelegate{
     
     func showOnMap(track: TrackData) {
-        Tracks.instance.currentTrack = track
+        mapView.trackLayerView.track = track
         mapView.trackLayerView.setNeedsDisplay()
         mapView.scrollToCenteredCoordinate(coordinate: track.startLocation.coordinate)
     }

@@ -14,6 +14,8 @@ class TrackLayerView: UIView {
     var scale : CGFloat = 1.0
     var normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint())
     
+    var track : TrackData? = nil
+    
     init(){
         super.init(frame: UserLocationView.baseFrame)
         backgroundColor = .clear
@@ -25,6 +27,16 @@ class TrackLayerView: UIView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return false
+    }
+    
+    func startTracking(){
+        track = Tracks.instance.currentTrack
+        setNeedsDisplay()
+    }
+    
+    func stopTracking(){
+        track = nil
+        setNeedsDisplay()
     }
     
     func updateTrack(){
@@ -39,7 +51,7 @@ class TrackLayerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        if let track = Tracks.instance.currentTrack{
+        if let track = track{
             if !track.trackpoints.isEmpty{
                 let color = UIColor.systemOrange.cgColor
                 let ctx = UIGraphicsGetCurrentContext()!

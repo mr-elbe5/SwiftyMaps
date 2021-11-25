@@ -17,6 +17,7 @@ protocol ControlLayerDelegate{
     func openInfo()
     func openCamera()
     func addPlace()
+    func startTracking()
     func openCurrentTrack()
     func openTrackList()
     func deleteTracks()
@@ -160,9 +161,7 @@ class ControlLayerView: UIView {
         }
         else{
             trackingAction = UIAction(title: "startNewTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
-                Tracks.instance.startTracking()
-                self.trackMenuControl.menu = self.getTrackingMenu()
-                self.startTrackInfo()
+                self.delegate?.startTracking()
             }
         }
         let trackListAction = UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
@@ -227,6 +226,16 @@ class ControlLayerView: UIView {
     
     func stopTrackInfo(){
         currentTrackLine.stopInfo()
+    }
+    
+    func startTracking(){
+        trackMenuControl.menu = getTrackingMenu()
+        startTrackInfo()
+    }
+    
+    func stopTracking(){
+        trackMenuControl.menu = getTrackingMenu()
+        stopTrackInfo()
     }
     
 }

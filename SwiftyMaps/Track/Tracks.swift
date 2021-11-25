@@ -33,7 +33,6 @@ class Tracks: Codable{
     var tracks : [TrackData]
     
     var currentTrack : TrackData? = nil
-    var activeTrack : TrackData? = nil
     var isTracking : Bool = false
     
     private var lock = DispatchSemaphore(value: 1)
@@ -70,10 +69,6 @@ class Tracks: Codable{
     }
     
     func deleteAllTracks(){
-        //todo
-        if currentTrack != activeTrack{
-            currentTrack = nil
-        }
         tracks.removeAll()
     }
     
@@ -84,10 +79,9 @@ class Tracks: Codable{
     }
     
     func startTracking(){
-        if activeTrack == nil{
+        if currentTrack == nil{
             guard let location = LocationService.shared.location else {return}
-            activeTrack = TrackData(location: location)
-            currentTrack = activeTrack
+            currentTrack = TrackData(location: location)
         }
         isTracking = true
     }
@@ -99,31 +93,32 @@ class Tracks: Codable{
     }
     
     func pauseTracking(){
-        isTracking = false
+        if let track = currentTrack{
+            track.pauseTracking()
+            isTracking = false
+        }
     }
     
     func resumeTracking(){
-        if activeTrack != nil{
+        if let track = currentTrack{
+            track.resumeTracking()
             isTracking = true
         }
     }
     
     func cancelCurrentTrack(){
-        if let track = activeTrack{
+        if currentTrack != nil{
             isTracking = false
-            if currentTrack == track{
-                currentTrack = nil
-            }
-            activeTrack = nil
+            currentTrack = nil
         }
     }
     
     func saveTrackCurrentTrack(){
-        if let track = activeTrack{
+        if let track = currentTrack{
             isTracking = false
             addTrack(track)
             save()
-            activeTrack = nil
+            currentTrack = nil
         }
     }
     
