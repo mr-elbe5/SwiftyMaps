@@ -18,11 +18,13 @@ class PlaceData : Hashable, Codable{
         case location
         case description
         case photos
+        case isTrackStart
     }
     
     var location : Location
     var description : String
     var photos : Array<PhotoData>
+    var isTrackStart : Bool = false
     
     private var lock = DispatchSemaphore(value: 1)
     
@@ -32,6 +34,10 @@ class PlaceData : Hashable, Codable{
     
     var coordinateString : String{
         location.coordinateString
+    }
+    
+    var hasPhotos : Bool{
+        !photos.isEmpty
     }
     
     init(coordinate: CLLocationCoordinate2D){
@@ -45,6 +51,7 @@ class PlaceData : Hashable, Codable{
         location = try values.decodeIfPresent(Location.self, forKey: .location) ?? Location()
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         photos = try values.decodeIfPresent(Array<PhotoData>.self, forKey: .photos) ?? Array<PhotoData>()
+        isTrackStart = try values.decodeIfPresent(Bool.self, forKey: .isTrackStart) ?? false
     }
     
     func encode(to encoder: Encoder) throws {
@@ -52,6 +59,7 @@ class PlaceData : Hashable, Codable{
         try container.encode(location, forKey: .location)
         try container.encode(description, forKey: .description)
         try container.encode(photos, forKey: .photos)
+        try container.encode(isTrackStart, forKey: .isTrackStart)
     }
     
     func assertDescription(){

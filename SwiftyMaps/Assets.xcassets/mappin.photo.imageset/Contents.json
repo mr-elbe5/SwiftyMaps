@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "mappin.x1.png",
+      "filename" : "mappin.photo.x1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "mappin.x2.png",
+      "filename" : "mappin.photo.x2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "mappin.x3.png",
+      "filename" : "mappin.photo.x3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

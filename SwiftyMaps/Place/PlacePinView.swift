@@ -20,12 +20,33 @@ class PlacePinView : UIButton{
     
     var delegate: PlaceDelegate? = nil
     
+    var image  : UIImage{
+        get{
+            if place.isTrackStart{
+                if place.hasPhotos{
+                    return MapController.mapPinTrackPhotoImage
+                }
+                else{
+                    return MapController.mapPinTrackImage
+                }
+            }
+            else{
+                if place.hasPhotos{
+                    return MapController.mapPinPhotoImage
+                }
+                else{
+                    return MapController.mapPinImage
+                }
+            }
+        }
+    }
+    
     init(place: PlaceData){
         self.place = place
         super.init(frame: PlacePinView.baseFrame)
-        setImage(MapController.mapPinImage, for: .normal)
         let interaction = UIContextMenuInteraction(delegate: self)
         addInteraction(interaction)
+        updateImage()
     }
     
     required init?(coder: NSCoder) {
@@ -36,6 +57,10 @@ class PlacePinView : UIButton{
         frame = PlacePinView.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
         //print("new frame = \(frame) in \(superview!.bounds)")
         setNeedsDisplay()
+    }
+    
+    func updateImage(){
+        setImage(image, for: .normal)
     }
     
     override func contextMenuInteraction(_ interaction: UIContextMenuInteraction,

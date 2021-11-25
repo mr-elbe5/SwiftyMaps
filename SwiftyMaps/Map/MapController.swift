@@ -40,8 +40,11 @@ struct MapController{
     
     static var equatorInMeters : CGFloat = 40075.016686 * 1000
     
-    static var mapGearImage = UIImage(named: "gear.grey")
-    static var mapPinImage = UIImage(named: "mappin")
+    static var mapGearImage = UIImage(named: "gear.grey")!
+    static var mapPinImage = UIImage(named: "mappin")!
+    static var mapPinTrackImage = UIImage(named: "mappin.track")!
+    static var mapPinPhotoImage = UIImage(named: "mappin.photo")!
+    static var mapPinTrackPhotoImage = UIImage(named: "mappin.track.photo")!
     static var mapPinRadius : CGFloat = 16
     
     static var locationRadius : CGFloat = 16

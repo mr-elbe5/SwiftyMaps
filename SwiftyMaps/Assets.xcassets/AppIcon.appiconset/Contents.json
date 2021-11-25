@@ -1,109 +1,109 @@
 {
   "images" : [
     {
-      "filename" : "OSMMaps.40-2.png",
+      "filename" : "SwiftyMaps.40.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "OSMMaps.60.png",
+      "filename" : "SwiftyMaps.60.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
-      "filename" : "OSMMaps.58.png",
+      "filename" : "SwiftyMaps.58.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "OSMMaps.87.png",
+      "filename" : "SwiftyMaps.87.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "OSMMaps.80.png",
+      "filename" : "SwiftyMaps.80-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "OSMMaps.120-1.png",
+      "filename" : "SwiftyMaps.120.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "OSMMaps.120.png",
+      "filename" : "SwiftyMaps.120-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
-      "filename" : "OSMMaps.180.png",
+      "filename" : "SwiftyMaps.180.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
     },
     {
-      "filename" : "OSMMaps.20.png",
+      "filename" : "SwiftyMaps.20.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "OSMMaps.40-1.png",
+      "filename" : "SwiftyMaps.40-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "OSMMaps.29.png",
+      "filename" : "SwiftyMaps.29.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "OSMMaps.58-1.png",
+      "filename" : "SwiftyMaps.58-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "OSMMaps.40.png",
+      "filename" : "SwiftyMaps.40-2.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
-      "filename" : "OSMMaps.80-1.png",
+      "filename" : "SwiftyMaps.80.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "OSMMaps.76.png",
+      "filename" : "SwiftyMaps.76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
-      "filename" : "OSMMaps.152.png",
+      "filename" : "SwiftyMaps.152.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "OSMMaps.167.png",
+      "filename" : "SwiftyMaps.167.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "OSMMaps.1024.png",
+      "filename" : "SwiftyMaps.1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"

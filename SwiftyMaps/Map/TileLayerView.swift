@@ -72,7 +72,7 @@ class TileLayerView: UIView {
             image.draw(in: rect)
             return
         }
-        MapController.mapGearImage?.draw(in: rect.scaleCenteredBy(0.25))
+        MapController.mapGearImage.draw(in: rect.scaleCenteredBy(0.25))
         MapTileLoader.loadTileImage(tile: tile){ data in
             if MapTileFiles.saveTile(tile: tile, data: data){
                 DispatchQueue.main.async {
