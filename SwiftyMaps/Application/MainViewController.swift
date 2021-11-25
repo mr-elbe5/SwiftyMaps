@@ -239,12 +239,12 @@ extension MainViewController: CurrentTrackDelegate{
     
     func pauseCurrentTrack() {
         Tracks.instance.pauseTracking()
-        mapView.controlLayerView.stopTrackInfo()
+        mapView.controlLayerView.pauseTrackInfo()
     }
     
     func resumeCurrentTrack() {
         Tracks.instance.resumeTracking()
-        mapView.controlLayerView.startTrackInfo()
+        mapView.controlLayerView.resumeTrackInfo()
     }
     
     func cancelCurrentTrack() {

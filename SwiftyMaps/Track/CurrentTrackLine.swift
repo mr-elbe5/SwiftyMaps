@@ -8,12 +8,14 @@
 import Foundation
 import UIKit
 
-class TrackInfoLine : UIView{
+class CurrentTrackLine : UIView{
     
     var distanceLabel = UILabel()
     var distanceUpLabel = UILabel()
     var distanceDownLabel = UILabel()
     var timeLabel = UILabel()
+    
+    var pauseResumeButton = UIButton()
     
     var timer : Timer? = nil
     
@@ -27,24 +29,27 @@ class TrackInfoLine : UIView{
         addSubview(distanceIcon)
         distanceIcon.setAnchors(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: flatInsets)
         distanceLabel.textColor = .darkGray
+        distanceLabel.text = "0m"
         addSubview(distanceLabel)
-        distanceLabel.setAnchors(top: topAnchor, leading: distanceIcon.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
+        distanceLabel.setAnchors(top: topAnchor, leading: distanceIcon.trailingAnchor, bottom: bottomAnchor)
         
         let distanceUpIcon = UIImageView(image: UIImage(systemName: "arrow.up"))
         distanceUpIcon.tintColor = .darkGray
         addSubview(distanceUpIcon)
         distanceUpIcon.setAnchors(top: topAnchor, leading: distanceLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         distanceUpLabel.textColor = .darkGray
+        distanceUpLabel.text = "0m"
         addSubview(distanceUpLabel)
-        distanceUpLabel.setAnchors(top: topAnchor, leading: distanceUpIcon.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
+        distanceUpLabel.setAnchors(top: topAnchor, leading: distanceUpIcon.trailingAnchor, bottom: bottomAnchor)
         
         let distanceDownIcon = UIImageView(image: UIImage(systemName: "arrow.down"))
         distanceDownIcon.tintColor = .darkGray
         addSubview(distanceDownIcon)
         distanceDownIcon.setAnchors(top: topAnchor, leading: distanceUpLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         distanceDownLabel.textColor = .darkGray
+        distanceDownLabel.text = "0m"
         addSubview(distanceDownLabel)
-        distanceDownLabel.setAnchors(top: topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
+        distanceDownLabel.setAnchors(top: topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: bottomAnchor)
         
         let timeIcon = UIImageView(image: UIImage(systemName: "stopwatch"))
         timeIcon.tintColor = .darkGray
@@ -52,8 +57,15 @@ class TrackInfoLine : UIView{
         timeIcon.setAnchors(top: topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         timeLabel.textColor = .darkGray
         addSubview(timeLabel)
-        timeLabel.setAnchors(top: topAnchor, leading: timeIcon.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
+        timeLabel.setAnchors(top: topAnchor, leading: timeIcon.trailingAnchor, bottom: bottomAnchor)
         
+        pauseResumeButton.tintColor = .darkGray
+        addSubview(pauseResumeButton)
+        pauseResumeButton.setAnchors(top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
+        updatePauseResumeButton()
+        pauseResumeButton.addTarget(self, action: #selector(pauseResume), for: .touchDown)
+        
+        updateInfo()
         self.isHidden = true
     }
     
@@ -80,6 +92,22 @@ class TrackInfoLine : UIView{
         if let track = Tracks.instance.activeTrack{
             let interval = track.startTime.distance(to: Date())
             timeLabel.text = interval.hmsString()
+        }
+    }
+    
+    @objc func pauseResume(){
+        if let _ = Tracks.instance.activeTrack{
+            Tracks.instance.isTracking = !Tracks.instance.isTracking
+            updatePauseResumeButton()
+        }
+    }
+    
+    func updatePauseResumeButton(){
+        if Tracks.instance.isTracking{
+            pauseResumeButton.setImage(UIImage(systemName: "pause"), for: .normal)
+        }
+        else{
+            pauseResumeButton.setImage(UIImage(systemName: "play"), for: .normal)
         }
     }
     

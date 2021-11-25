@@ -34,7 +34,7 @@ class ControlLayerView: UIView {
     var trackMenuControl = IconButton(icon: "figure.walk")
     var zoomIcon = IconButton(icon: "square", tintColor: .gray)
     var crossControl = IconButton(icon: "plus.circle")
-    var trackInfoLine = TrackInfoLine()
+    var currentTrackLine = CurrentTrackLine()
     var licenseView = UIView()
     
     func setup(){
@@ -77,9 +77,9 @@ class ControlLayerView: UIView {
         openCameraControl.setAnchors(top: controlLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
-        trackInfoLine.setup()
-        addSubview(trackInfoLine)
-        trackInfoLine.setAnchors(leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*defaultInset, bottom: 2*defaultInset, right: 2*defaultInset))
+        currentTrackLine.setup()
+        addSubview(currentTrackLine)
+        currentTrackLine.setAnchors(leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*defaultInset, bottom: 2*defaultInset, right: 2*defaultInset))
         
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
@@ -88,7 +88,7 @@ class ControlLayerView: UIView {
         crossControl.isHidden = true
         
         addSubview(licenseView)
-        licenseView.setAnchors(top: trackInfoLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
+        licenseView.setAnchors(top: currentTrackLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
         var label = UILabel()
         label.textColor = .darkGray
         label.font = .preferredFont(forTextStyle: .footnote)
@@ -179,7 +179,7 @@ class ControlLayerView: UIView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
-            ($0 == controlLine || $0 is IconButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
+            ($0 == controlLine || $0 == currentTrackLine || $0 is IconButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
         })
     }
     
@@ -209,15 +209,24 @@ class ControlLayerView: UIView {
     }
     
     func startTrackInfo(){
-        trackInfoLine.startInfo()
+        currentTrackLine.startInfo()
+        currentTrackLine.updatePauseResumeButton()
+    }
+    
+    func pauseTrackInfo(){
+        currentTrackLine.updatePauseResumeButton()
+    }
+    
+    func resumeTrackInfo(){
+        currentTrackLine.updatePauseResumeButton()
     }
     
     func updateTrackInfo(){
-        trackInfoLine.updateInfo()
+        currentTrackLine.updateInfo()
     }
     
     func stopTrackInfo(){
-        trackInfoLine.stopInfo()
+        currentTrackLine.stopInfo()
     }
     
 }
