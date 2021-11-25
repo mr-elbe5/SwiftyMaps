@@ -134,7 +134,7 @@ class TrackData : Hashable, Codable{
         print("adding trackpoint")
         trackpoints.append(TrackPoint(location: location))
         if let lastLoc = lastTP?.location{
-            distance += MapStatics.distanceBetween(coord1: lastLoc.coordinate, coord2: location.coordinate)
+            distance += lastLoc.coordinate.distance(to: location.coordinate)
             let vDist = location.altitude - lastLoc.altitude
             if vDist > 0{
                 upDistance += vDist

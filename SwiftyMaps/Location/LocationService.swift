@@ -18,11 +18,8 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     
     static var shared = LocationService()
     
-    static var locationDeviation : CLLocationDistance = 5.0
-    static var headingDeviation : CLLocationDirection = 2.0
-    
-    var location : CLLocation? = nil
-    var direction : CLLocationDirection = 0
+    var lastLocation : CLLocation? = nil
+    var lastDirection : CLLocationDirection = 0
     var running = false
     var delegate : LocationServiceDelegate? = nil
     
@@ -33,9 +30,11 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     
     override init() {
         super.init()
-        self.locationManager.delegate = self
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.distanceFilter = LocationService.locationDeviation
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 5.0
+        locationManager.headingFilter = 2.0
+        
     }
     
     var authorized : Bool{
@@ -88,18 +87,22 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let loc = locations.last, loc.horizontalAccuracy != -1{
-            location = loc
-            delegate?.locationDidChange(location: location!)
+        if let loc = locations.last{
+            print("loc \(loc.coordinate), horzAcc: \(loc.horizontalAccuracy), vertAcc: \(loc.verticalAccuracy), time: \(loc.timestamp.timeString())")
+            if let lst = lastLocation{
+                print("diff ->\(lst.coordinate.distance(to: loc.coordinate)) time: \(Int(lst.timestamp.distance(to: loc.timestamp)))")
+            }
+            if loc.horizontalAccuracy == -1 || loc.horizontalAccuracy > 10{
+                return
+            }
+            lastLocation = loc
+            delegate?.locationDidChange(location: lastLocation!)
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        if abs(newHeading.trueHeading - direction) > LocationService.headingDeviation{
-            direction = newHeading.trueHeading
-            delegate?.directionDidChange(direction: direction)
-        }
-        
+        lastDirection = newHeading.trueHeading
+        delegate?.directionDidChange(direction: lastDirection)
     }
     
 }

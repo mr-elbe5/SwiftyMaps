@@ -49,7 +49,7 @@ class MapView: UIView {
         }
     }
     
-    func setupScrollView(minimalZoom: Int){
+    func setupScrollView(){
         scrollView = UIScrollView(frame: bounds)
         scrollView.backgroundColor = .white
         scrollView.isScrollEnabled = true
@@ -60,7 +60,7 @@ class MapView: UIView {
         scrollView.bounces = false
         scrollView.bouncesZoom = false
         scrollView.maximumZoomScale = 1.0
-        scrollView.minimumZoomScale = 1.0/MapStatics.zoomScale(at: MapStatics.maxZoom - minimalZoom)
+        scrollView.minimumZoomScale = 1.0/MapStatics.zoomScale(at: MapStatics.maxZoom - MapStatics.minZoom)
         addSubview(scrollView)
         scrollView.fillView(view: self)
         scrollView.contentSize = MapStatics.scrollablePlanetSize
@@ -149,14 +149,19 @@ class MapView: UIView {
         LocationService.shared.delegate = nil
     }
     
+    func setDefaultLocation(){
+        setZoom(zoomLevel: MapStatics.minZoom, animated: false)
+        scrollToCenteredCoordinate(coordinate: MapStatics.startCoordinate)
+    }
+    
     func initLocation(){
-        if !locationInitialized, let loc = LocationService.shared.location{
+        if !locationInitialized, let loc = LocationService.shared.lastLocation{
             locationInitialized = true
             print("location initialized")
             setZoom(zoomLevel: MapStatics.startZoom, animated: false)
             focusUserLocation()
             setLocation(coordinate: loc.coordinate)
-            directionDidChange(direction: LocationService.shared.direction)
+            directionDidChange(direction: LocationService.shared.lastDirection)
         }
     }
     
@@ -165,7 +170,7 @@ class MapView: UIView {
     }
     
     func focusUserLocation() {
-        if let location = LocationService.shared.location{
+        if let location = LocationService.shared.lastLocation{
             scrollToCenteredCoordinate(coordinate: location.coordinate)
         }
     }

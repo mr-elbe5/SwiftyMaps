@@ -17,8 +17,8 @@ class MainViewController: UIViewController {
         view.addSubview(mapView)
         mapView.frame = view.bounds
         mapView.fillView(view: view)
-        let minZoom = MapStatics.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
-        mapView.setupScrollView(minimalZoom: minZoom)
+        MapStatics.minZoom = MapStatics.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
+        mapView.setupScrollView()
         mapView.setupTileLayerView()
         mapView.setupTrackLayerView()
         mapView.setupUserLocationView()
@@ -26,6 +26,9 @@ class MainViewController: UIViewController {
         mapView.placeLayerView.delegate = self
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
+        if !mapView.locationInitialized{
+            mapView.setDefaultLocation()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -224,7 +227,7 @@ extension MainViewController: ControlLayerDelegate{
 extension MainViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
-        if let location = LocationService.shared.location{
+        if let location = LocationService.shared.lastLocation{
             assertPhotoPlace(coordinate: location.coordinate){ place in
                 place.addPhoto(photo: photo)
                 Places.instance.save()

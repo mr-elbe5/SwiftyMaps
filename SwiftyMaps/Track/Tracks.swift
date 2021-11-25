@@ -80,7 +80,7 @@ class Tracks: Codable{
     
     func startTracking(){
         if currentTrack == nil{
-            guard let location = LocationService.shared.location else {return}
+            guard let location = LocationService.shared.lastLocation else {return}
             currentTrack = TrackData(location: location)
         }
         isTracking = true

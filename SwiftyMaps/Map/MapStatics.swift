@@ -28,6 +28,7 @@ struct MapStatics{
     static var tileSize = CGSize(width: tilePixels, height: tilePixels)
     static var tileRect = CGRect(x: 0, y: 0, width: tilePixels, height: tilePixels)
     static var averageTileLoadSize = 12
+    static var minZoom : Int = 4
     static var maxZoom : Int = 18
     static var startZoom : Int = 10
     static var scrollWidthFactor : CGFloat = 3
@@ -39,6 +40,7 @@ struct MapStatics{
     static var maxPreloadTiles : Int = 5000
     
     static var equatorInMeters : CGFloat = 40075.016686 * 1000
+    static var startCoordinate = CLLocationCoordinate2D(latitude: 35.90, longitude: 9.40)
     
     static var mapGearImage = UIImage(named: "gear.grey")!
     static var mapPinImage = UIImage(named: "mappin")!
@@ -49,8 +51,8 @@ struct MapStatics{
     
     static var locationRadius : CGFloat = 16
     
-    static var minHorizontalAccuracy : CLLocationDistance = 20
-    static var minVerticalAccuracy : CLLocationDistance = 10
+    static var minHorizontalAccuracy : CLLocationDistance = 10
+    static var minVerticalAccuracy : CLLocationDistance = 5
     
     static func zoomScale(at zoom: Int) -> CGFloat{
         pow(2.0, CGFloat(zoom))
@@ -143,15 +145,6 @@ struct MapStatics{
     
     static func metersPerPixel(latitude: CGFloat, zoom: Int) -> CGFloat{
         156543.03 * cos(latitude) / zoomScale(at: zoom)
-    }
-    
-    static func distanceBetween(coord1: CLLocationCoordinate2D, coord2: CLLocationCoordinate2D) -> CLLocationDistance{
-        let latMid = (coord1.latitude + coord2.latitude) / 2
-        let latMetersPerDegree = 111132.954 - 559.822 * cos( 2 * latMid ) + 1.175 * cos( 4 * latMid)
-        let lonMetersPerDegree = 111132.954 * cos ( latMid )
-        let latDelta = abs(coord1.latitude - coord2.latitude)
-        let lonDelta = abs(coord1.longitude - coord2.longitude)
-        return sqrt(pow( latDelta * latMetersPerDegree,2) + pow( lonDelta * lonMetersPerDegree,2))
     }
     
 }
