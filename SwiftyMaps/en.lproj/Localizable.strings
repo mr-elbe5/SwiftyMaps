@@ -59,6 +59,7 @@
 // track menu
 "startNewTrack"="Start new Tour";
 "showCurrentTrack"="Current tour...";
+"hideTrack"="Hide tour";
 "showTrackList"="Saved tours...";
 "deleteTracks"="Delete all tours";
 "confirmDeleteTracks"="Do you want to delete all tours?";

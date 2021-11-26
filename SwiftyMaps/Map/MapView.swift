@@ -16,8 +16,6 @@ class MapView: UIView {
     var userLocationView = UserLocationView()
     var controlLayerView = ControlLayerView()
     
-    var locationInitialized = false
-    
     var scale : CGFloat{
         get{
             scrollView.zoomScale
@@ -84,10 +82,12 @@ class MapView: UIView {
         placeLayerView.fillView(view: self)
         placeLayerView.setupPlaceMarkers()
         placeLayerView.isHidden = !MapPreferences.instance.showPlaceMarkers
+        placeLayerView.isHidden = true
     }
     
     func setupUserLocationView(){
         addSubview(userLocationView)
+        userLocationView.isHidden = true
     }
     
     func setupControlLayerView(){
@@ -138,35 +138,32 @@ class MapView: UIView {
         scrollView.setZoomScale(MapStatics.zoomScale(at: zoomLevel - MapStatics.maxZoom), animated: animated)
     }
     
-    func connectLocationService(){
-        LocationService.shared.delegate = self
-        if LocationService.shared.authorized{
-            initLocation()
-        }
-    }
-    
-    func disconnectLocationService() {
-        LocationService.shared.delegate = nil
-    }
-    
     func setDefaultLocation(){
         setZoom(zoomLevel: MapStatics.minZoom, animated: false)
         scrollToCenteredCoordinate(coordinate: MapStatics.startCoordinate)
     }
     
-    func initLocation(){
-        if !locationInitialized, let loc = LocationService.shared.lastLocation{
-            locationInitialized = true
-            print("location initialized")
-            setZoom(zoomLevel: MapStatics.startZoom, animated: false)
-            focusUserLocation()
-            setLocation(coordinate: loc.coordinate)
-            directionDidChange(direction: LocationService.shared.lastDirection)
+    func stateDidChange(from: LocationState, to: LocationState, location: CLLocation){
+        if from == .none{
+            setZoom(zoomLevel: MapStatics.startZoom, animated: true)
+            scrollToCenteredCoordinate(coordinate: location.coordinate)
+        }
+        if to == .exact, userLocationView.isHidden{
+            userLocationView.isHidden = false
+            userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
         }
     }
     
-    func setLocation(coordinate: CLLocationCoordinate2D){
-        userLocationView.updateLocation(location: MapStatics.planetPointFromCoordinate(coordinate: coordinate), offset: contentOffset, scale: scale)
+    func locationDidChange(location: CLLocation) {
+        if !userLocationView.isHidden{
+            userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
+        }
+        if Tracks.instance.isTracking{
+            print("istracking")
+            Tracks.instance.updateCurrentTrack(with: location)
+            trackLayerView.updateTrack()
+            controlLayerView.updateTrackInfo()
+        }
     }
     
     func focusUserLocation() {
@@ -197,22 +194,17 @@ class MapView: UIView {
         tileLayerView.setNeedsDisplay()
     }
     
-    func startTracking(){
-        trackLayerView.startTracking()
-        controlLayerView.startTracking()
-    }
-    
-    func stopTracking(){
-        trackLayerView.stopTracking()
-        controlLayerView.stopTracking()
-    }
-    
 }
 
 extension MapView : UIScrollViewDelegate{
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         tileLayerView
+    }
+    
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        print("scale = \(scale), minScale = \(MapStatics.minScaleToShowPlaces)")
+        placeLayerView.isHidden = (scale < MapStatics.minScaleToShowPlaces)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -234,35 +226,6 @@ extension MapView : UIScrollViewDelegate{
     
 }
 
-extension MapView: LocationServiceDelegate{
-    
-    func authorizationDidChange(authorized: Bool) {
-        if authorized && !locationInitialized{
-            initLocation()
-        }
-    }
-    
-    func locationDidChange(location: CLLocation) {
-        if !locationInitialized{
-            initLocation()
-        }
-        else{
-            setLocation(coordinate: location.coordinate)
-            if Tracks.instance.isTracking{
-                print("istracking")
-                Tracks.instance.updateCurrentTrack(with: location)
-                trackLayerView.updateTrack()
-                controlLayerView.updateTrackInfo()
-            }
-        }
-        
-    }
-    
-    func directionDidChange(direction: CLLocationDirection) {
-        setDirection(direction)
-    }
-    
-}
 
 
 

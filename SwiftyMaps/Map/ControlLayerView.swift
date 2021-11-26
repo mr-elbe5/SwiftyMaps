@@ -19,6 +19,7 @@ protocol ControlLayerDelegate{
     func addPlace()
     func startTracking()
     func openCurrentTrack()
+    func hideTrack()
     func openTrackList()
     func deleteTracks()
     func openTrackingPreferences()
@@ -152,17 +153,16 @@ class ControlLayerView: UIView {
     }
     
     func getTrackingMenu() -> UIMenu{
-        var trackingAction : UIAction!
-        if Tracks.instance.isTracking{
-            trackingAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
-                self.delegate?.openCurrentTrack()
-                self.trackMenuControl.menu = self.getTrackingMenu()
-            }
+        let showCurrentAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
+            self.delegate?.openCurrentTrack()
+            self.trackMenuControl.menu = self.getTrackingMenu()
         }
-        else{
-            trackingAction = UIAction(title: "startNewTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
-                self.delegate?.startTracking()
-            }
+        let startTrackAction = UIAction(title: "startNewTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
+            self.delegate?.startTracking()
+            self.trackMenuControl.menu = self.getTrackingMenu()
+        }
+        let hideTrackAction = UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eye.slash")){ action in
+            self.delegate?.hideTrack()
         }
         let trackListAction = UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openTrackList()
@@ -173,7 +173,12 @@ class ControlLayerView: UIView {
         let trackPreferencesAction = UIAction(title: "configureTracks".localize(), image: UIImage(systemName: "gearshape")){ action in
             self.delegate?.openTrackingPreferences()
         }
-        return UIMenu(title: "", children: [trackingAction, trackListAction, deleteTracksAction, trackPreferencesAction])
+        if Tracks.instance.isTracking{
+            return UIMenu(title: "", children: [showCurrentAction, trackListAction, deleteTracksAction, trackPreferencesAction])
+        }
+        else{
+            return UIMenu(title: "", children: [startTrackAction, hideTrackAction, trackListAction, deleteTracksAction, trackPreferencesAction])
+        }
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

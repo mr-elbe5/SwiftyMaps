@@ -54,6 +54,8 @@ struct MapStatics{
     static var minHorizontalAccuracy : CLLocationDistance = 10
     static var minVerticalAccuracy : CLLocationDistance = 5
     
+    static var minScaleToShowPlaces = zoomScaleFromPlanet(to: 8)
+    
     static func zoomScale(at zoom: Int) -> CGFloat{
         pow(2.0, CGFloat(zoom))
     }

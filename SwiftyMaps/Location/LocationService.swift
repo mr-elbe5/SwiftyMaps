@@ -11,7 +11,13 @@ import UIKit
 protocol LocationServiceDelegate{
     func locationDidChange(location: CLLocation)
     func directionDidChange(direction: CLLocationDirection)
-    func authorizationDidChange(authorized: Bool)
+    func authorizationDidChange(authorized: Bool, location: CLLocation?)
+}
+
+enum LocationState: String{
+    case none
+    case rough
+    case exact
 }
 
 class LocationService : NSObject, CLLocationManagerDelegate{
@@ -83,7 +89,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         //print("changed auth")
         checkRunning()
-        delegate?.authorizationDidChange(authorized: authorized)
+        delegate?.authorizationDidChange(authorized: authorized, location: lastLocation)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -92,11 +98,11 @@ class LocationService : NSObject, CLLocationManagerDelegate{
             if let lst = lastLocation{
                 print("diff ->\(lst.coordinate.distance(to: loc.coordinate)) time: \(Int(lst.timestamp.distance(to: loc.timestamp)))")
             }
-            if loc.horizontalAccuracy == -1 || loc.horizontalAccuracy > 10{
+            if loc.horizontalAccuracy == -1{
                 return
             }
             lastLocation = loc
-            delegate?.locationDidChange(location: lastLocation!)
+            delegate?.locationDidChange(location: loc)
         }
     }
     

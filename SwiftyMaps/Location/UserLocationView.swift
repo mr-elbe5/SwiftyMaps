@@ -15,7 +15,7 @@ class UserLocationView : UIView{
     
     static var baseFrame = CGRect(x: -MapStatics.locationRadius, y: -MapStatics.locationRadius, width: 2*MapStatics.locationRadius, height: 2*MapStatics.locationRadius)
     
-    var locationPoint : CGPoint = .zero
+    var planetPoint : CGPoint = .zero
     var direction : CLLocationDirection = 0
     
     init(){
@@ -27,14 +27,14 @@ class UserLocationView : UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateLocation(location: CGPoint, offset: CGPoint, scale: CGFloat){
-        locationPoint = location
+    func updateLocationPoint(planetPoint: CGPoint, offset: CGPoint, scale: CGFloat){
+        self.planetPoint = planetPoint
         updatePosition(offset: offset, scale: scale)
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
         let normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint(x: offset.x/scale, y: offset.y/scale))
-        let pnt = CGPoint(x: (locationPoint.x - normalizedOffset.point.x)*scale , y: (locationPoint.y - normalizedOffset.point.y)*scale)
+        let pnt = CGPoint(x: (planetPoint.x - normalizedOffset.point.x)*scale , y: (planetPoint.y - normalizedOffset.point.y)*scale)
         frame = UserLocationView.baseFrame.offsetBy(dx: pnt.x, dy: pnt.y)
     }
     

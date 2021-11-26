@@ -29,12 +29,17 @@ class TrackLayerView: UIView {
         return false
     }
     
-    func startTracking(){
+    func showTrack(track: TrackData){
+        self.track = track
+        setNeedsDisplay()
+    }
+    
+    func showCurrentTrack(){
         track = Tracks.instance.currentTrack
         setNeedsDisplay()
     }
     
-    func stopTracking(){
+    func hideTrack(){
         track = nil
         setNeedsDisplay()
     }

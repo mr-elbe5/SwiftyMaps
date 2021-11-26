@@ -8,9 +8,13 @@ import UIKit
 import CoreLocation
 import AVKit
 
+
+
 class MainViewController: UIViewController {
     
     var mapView = MapView()
+    
+    var state : LocationState = .none
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,17 +30,18 @@ class MainViewController: UIViewController {
         mapView.placeLayerView.delegate = self
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
-        if !mapView.locationInitialized{
-            mapView.setDefaultLocation()
-        }
+        mapView.setDefaultLocation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        mapView.connectLocationService()
+        LocationService.shared.delegate = self
     }
     
+    // remove??
     override func viewWillDisappear(_ animated: Bool) {
-        mapView.disconnectLocationService()
+        if !Tracks.instance.isTracking{
+            LocationService.shared.delegate = nil
+        }
     }
     
     private func assertPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
@@ -74,6 +79,36 @@ class MainViewController: UIViewController {
             self.mapView.addPlaceMarker(place: place)
             onComplete?(place)
         }
+    }
+    
+}
+
+extension MainViewController: LocationServiceDelegate{
+    
+    func authorizationDidChange(authorized: Bool, location: CLLocation?) {
+        if authorized, let loc = location, state == .none{
+            state = loc.horizontalAccuracy <= MapStatics.minHorizontalAccuracy ? .exact : .rough
+            mapView.stateDidChange(from: .none, to: state, location: loc)
+        }
+    }
+    
+    func locationDidChange(location: CLLocation) {
+        switch state{
+        case .none:
+            state = location.horizontalAccuracy <= MapStatics.minHorizontalAccuracy ? .exact : .rough
+            mapView.stateDidChange(from: .none, to: state, location: location)
+        case .rough:
+            if location.horizontalAccuracy <= MapStatics.minHorizontalAccuracy{
+                state = .exact
+                mapView.stateDidChange(from: .rough, to: state, location: location)
+            }
+        default:
+            mapView.locationDidChange(location: location)
+        }
+    }
+    
+    func directionDidChange(direction: CLLocationDirection) {
+        mapView.setDirection(direction)
     }
     
 }
@@ -159,7 +194,8 @@ extension MainViewController: ControlLayerDelegate{
     
     func startTracking(){
         Tracks.instance.startTracking()
-        mapView.startTracking()
+        mapView.trackLayerView.showCurrentTrack()
+        mapView.controlLayerView.startTracking()
     }
     
     func openCurrentTrack() {
@@ -167,6 +203,10 @@ extension MainViewController: ControlLayerDelegate{
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
+    }
+    
+    func hideTrack() {
+        mapView.trackLayerView.hideTrack()
     }
     
     func openTrackList() {
@@ -251,7 +291,8 @@ extension MainViewController: CurrentTrackDelegate{
     
     func cancelCurrentTrack() {
         Tracks.instance.cancelCurrentTrack()
-        mapView.controlLayerView.stopTrackInfo()
+        mapView.trackLayerView.hideTrack()
+        mapView.controlLayerView.stopTracking()
     }
     
     func saveCurrentTrack() {
@@ -262,7 +303,7 @@ extension MainViewController: CurrentTrackDelegate{
                 track.description = alertController.textFields![0].text ?? "Route"
                 Tracks.instance.saveTrackCurrentTrack()
             }
-            self.mapView.controlLayerView.stopTrackInfo()
+            self.mapView.controlLayerView.stopTracking()
         })
         present(alertController, animated: true)
     }
@@ -272,8 +313,7 @@ extension MainViewController: CurrentTrackDelegate{
 extension MainViewController: TrackListDelegate{
     
     func showOnMap(track: TrackData) {
-        mapView.trackLayerView.track = track
-        mapView.trackLayerView.setNeedsDisplay()
+        mapView.trackLayerView.showTrack(track: track)
         mapView.scrollToCenteredCoordinate(coordinate: track.startLocation.coordinate)
     }
     
@@ -300,3 +340,4 @@ extension MainViewController: PlaceListDelegate{
     }
 
 }
+
