@@ -94,9 +94,9 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.last{
-            print("loc \(loc.coordinate), horzAcc: \(loc.horizontalAccuracy), vertAcc: \(loc.verticalAccuracy), time: \(loc.timestamp.timeString())")
+            //print("loc \(loc.coordinate), horzAcc: \(loc.horizontalAccuracy), vertAcc: \(loc.verticalAccuracy), time: \(loc.timestamp.timeString())")
             if let lst = lastLocation{
-                print("diff ->\(lst.coordinate.distance(to: loc.coordinate)) time: \(Int(lst.timestamp.distance(to: loc.timestamp)))")
+                //print("diff ->\(lst.coordinate.distance(to: loc.coordinate)) time: \(Int(lst.timestamp.distance(to: loc.timestamp)))")
             }
             if loc.horizontalAccuracy == -1{
                 return

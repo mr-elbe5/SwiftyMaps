@@ -112,7 +112,7 @@ class MapView: UIView {
     }
     
     func getPlanetRect(screenRect: CGRect) -> CGRect{
-        NormalizedPlanetRect(rect: screenRect.scaleBy(scale)).rect
+        NormalizedPlanetRect(rect: screenRect.offsetBy(dx: contentOffset.x, dy: contentOffset.y), fromScale: scale).rect
     }
     
     func getScreenPoint(coordinate: CLLocationCoordinate2D) -> CGPoint{
@@ -220,6 +220,7 @@ extension MapView : UIScrollViewDelegate{
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
         placeLayerView.updatePosition(offset: contentOffset, scale: scale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scale)
+        getPlanetRect()
     }
     
     // for infinite scroll using 3 * content width
