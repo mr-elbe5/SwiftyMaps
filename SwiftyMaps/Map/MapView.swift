@@ -107,6 +107,14 @@ class MapView: UIView {
         return MapStatics.coordinateFromPointInScaledPlanetSize(point: point, scaledSize: size)
     }
     
+    func getPlanetRect() -> CGRect{
+        getPlanetRect(screenRect: bounds)
+    }
+    
+    func getPlanetRect(screenRect: CGRect) -> CGRect{
+        NormalizedPlanetRect(rect: screenRect.scaleBy(scale)).rect
+    }
+    
     func getScreenPoint(coordinate: CLLocationCoordinate2D) -> CGPoint{
         let size = scrollViewPlanetSize
         var xOffset = scrollView.contentOffset.x
