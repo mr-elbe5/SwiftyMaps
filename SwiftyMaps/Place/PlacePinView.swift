@@ -16,28 +16,26 @@ class PlacePinView : UIButton{
     
     static var baseFrame = CGRect(x: -MapStatics.mapPinRadius, y: -2*MapStatics.mapPinRadius, width: 2*MapStatics.mapPinRadius, height: 2*MapStatics.mapPinRadius)
     
+    static var defaultPinColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1)
+    static var photoPinColor = UIColor(red: 0.25, green: 0.5, blue: 1, alpha: 1)
+    
     var place : PlaceData
     
     var delegate: PlaceDelegate? = nil
     
     var image  : UIImage{
         get{
+            let col = place.hasPhotos ? PlacePinView.photoPinColor : PlacePinView.defaultPinColor
+            var img : UIImage!
             if place.isTrackStart{
-                if place.hasPhotos{
-                    return MapStatics.mapPinTrackPhotoImage
-                }
-                else{
-                    return MapStatics.mapPinTrackImage
-                }
+                img = MapStatics.mapPinEllipseImage.withTintColor(col, renderingMode: .alwaysOriginal)
             }
             else{
-                if place.hasPhotos{
-                    return MapStatics.mapPinPhotoImage
-                }
-                else{
-                    return MapStatics.mapPinImage
-                }
+                img = MapStatics.mapPinImage.withTintColor(col, renderingMode: .alwaysOriginal)
             }
+            let fy = img.size.height / bounds.size.height
+            img = img.resize(size: CGSize(width: img.size.width/fy, height: bounds.size.height))
+            return img
         }
     }
     
@@ -55,7 +53,6 @@ class PlacePinView : UIButton{
     
     func updatePosition(to pos: CGPoint){
         frame = PlacePinView.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
-        //print("new frame = \(frame) in \(superview!.bounds)")
         setNeedsDisplay()
     }
     

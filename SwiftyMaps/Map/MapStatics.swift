@@ -43,11 +43,10 @@ struct MapStatics{
     static var startCoordinate = CLLocationCoordinate2D(latitude: 35.90, longitude: 9.40)
     
     static var mapGearImage = UIImage(named: "gear.grey")!
-    static var mapPinImage = UIImage(named: "mappin")!
-    static var mapPinTrackImage = UIImage(named: "mappin.track")!
-    static var mapPinPhotoImage = UIImage(named: "mappin.photo")!
-    static var mapPinTrackPhotoImage = UIImage(named: "mappin.track.photo")!
     static var mapPinRadius : CGFloat = 16
+    
+    static var mapPinImage = UIImage(systemName: "mappin")!
+    static var mapPinEllipseImage = UIImage(systemName: "mappin.and.ellipse")!
     
     static var locationRadius : CGFloat = 16
     
