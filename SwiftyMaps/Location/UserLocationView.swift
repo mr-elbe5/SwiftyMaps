@@ -15,6 +15,7 @@ class UserLocationView : UIView{
     
     static var baseFrame = CGRect(x: -MapStatics.locationRadius, y: -MapStatics.locationRadius, width: 2*MapStatics.locationRadius, height: 2*MapStatics.locationRadius)
     
+    var state : LocationState = .none
     var planetPoint : CGPoint = .zero
     var direction : CLLocationDirection = 0
     
@@ -36,6 +37,7 @@ class UserLocationView : UIView{
         let normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint(x: offset.x/scale, y: offset.y/scale))
         let pnt = CGPoint(x: (planetPoint.x - normalizedOffset.point.x)*scale , y: (planetPoint.y - normalizedOffset.point.y)*scale)
         frame = UserLocationView.baseFrame.offsetBy(dx: pnt.x, dy: pnt.y)
+        setNeedsDisplay()
     }
     
     func updateDirection(direction: CLLocationDirection){
@@ -44,29 +46,42 @@ class UserLocationView : UIView{
     }
     
     override func draw(_ rect: CGRect) {
-        //MapStatics.directionImage?.draw(in: rect)
-        let color = UserLocationView.userLocationColor.cgColor
-        let ctx = UIGraphicsGetCurrentContext()!
-        ctx.beginPath()
-        ctx.addEllipse(in: rect.scaleCenteredBy(0.4))
-        ctx.setFillColor(color)
-        ctx.drawPath(using: .fill)
-        ctx.beginPath()
-        ctx.setLineWidth(2.0)
-        ctx.addEllipse(in: rect.scaleCenteredBy(0.7))
-        ctx.setStrokeColor(color)
-        ctx.drawPath(using: .stroke)
-        //print("direction= \(direction)")
-        let angle1 = (direction - 15)*CGFloat.pi/180
-        let angle2 = (direction + 15)*CGFloat.pi/180
-        ctx.beginPath()
-        ctx.setFillColor(UserLocationView.userDirectionColor.cgColor)
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        ctx.move(to: center)
-        ctx.addLine(to: CGPoint(x: center.x + MapStatics.locationRadius * sin(angle1), y: center.y - MapStatics.locationRadius * cos(angle1)))
-        ctx.addLine(to: CGPoint(x: center.x + MapStatics.locationRadius * sin(angle2), y: center.y - MapStatics.locationRadius * cos(angle2)))
-        ctx.closePath()
-        ctx.drawPath(using: .fill)
+        switch state{
+        case .exact:
+            //MapStatics.directionImage?.draw(in: rect)
+            
+            let color = UserLocationView.userLocationColor.cgColor
+            let ctx = UIGraphicsGetCurrentContext()!
+            ctx.beginPath()
+            ctx.addEllipse(in: rect.scaleCenteredBy(0.4))
+            ctx.setFillColor(color)
+            ctx.drawPath(using: .fill)
+            ctx.beginPath()
+            ctx.setLineWidth(2.0)
+            ctx.addEllipse(in: rect.scaleCenteredBy(0.7))
+            ctx.setStrokeColor(color)
+            ctx.drawPath(using: .stroke)
+            //print("direction= \(direction)")
+            let angle1 = (direction - 15)*CGFloat.pi/180
+            let angle2 = (direction + 15)*CGFloat.pi/180
+            ctx.beginPath()
+            ctx.setFillColor(UserLocationView.userDirectionColor.cgColor)
+            let center = CGPoint(x: rect.midX, y: rect.midY)
+            ctx.move(to: center)
+            ctx.addLine(to: CGPoint(x: center.x + MapStatics.locationRadius * sin(angle1), y: center.y - MapStatics.locationRadius * cos(angle1)))
+            ctx.addLine(to: CGPoint(x: center.x + MapStatics.locationRadius * sin(angle2), y: center.y - MapStatics.locationRadius * cos(angle2)))
+            ctx.closePath()
+            ctx.drawPath(using: .fill)
+        case .estimated:
+            let color = UserLocationView.userLocationColor.withAlphaComponent(0.2).cgColor
+            let ctx = UIGraphicsGetCurrentContext()!
+            ctx.setFillColor(color)
+            ctx.addEllipse(in: rect)
+            ctx.fillPath()
+            return
+        case .none:
+            return
+        }
     }
     
 }

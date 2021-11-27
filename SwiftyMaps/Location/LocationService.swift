@@ -16,7 +16,7 @@ protocol LocationServiceDelegate{
 
 enum LocationState: String{
     case none
-    case rough
+    case estimated
     case exact
 }
 

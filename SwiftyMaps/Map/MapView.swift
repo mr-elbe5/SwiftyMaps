@@ -11,9 +11,9 @@ class MapView: UIView {
     
     var scrollView : UIScrollView!
     var tileLayerView = TileLayerView()
+    var userLocationView = UserLocationView()
     var trackLayerView = TrackLayerView()
     var locationLayerView = LocationLayerView()
-    var userLocationView = UserLocationView()
     var controlLayerView = ControlLayerView()
     
     var scale : CGFloat{
@@ -71,10 +71,13 @@ class MapView: UIView {
         tileLayerView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
     }
     
+    func setupUserLocationView(){
+        addSubview(userLocationView)
+    }
+    
     func setupTrackLayerView(){
         addSubview(trackLayerView)
         trackLayerView.fillView(view: self)
-        //trackLayerView.isHidden = !isTracking
     }
     
     func setupLocationLayerView(){
@@ -83,11 +86,6 @@ class MapView: UIView {
         locationLayerView.setupLocationMarkers()
         locationLayerView.isHidden = !Preferences.instance.showPins
         locationLayerView.isHidden = true
-    }
-    
-    func setupUserLocationView(){
-        addSubview(userLocationView)
-        userLocationView.isHidden = true
     }
     
     func setupControlLayerView(){
@@ -153,20 +151,15 @@ class MapView: UIView {
     
     func stateDidChange(from: LocationState, to: LocationState, location: CLLocation){
         if from == .none{
-            //debug("set zoom and location")
             setZoom(zoomLevel: Preferences.instance.startZoom, animated: true)
             scrollToCenteredCoordinate(coordinate: location.coordinate)
         }
-        if to == .exact, userLocationView.isHidden{
-            userLocationView.isHidden = false
-            userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
-        }
+        userLocationView.state = to
+        userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
     }
     
     func locationDidChange(location: CLLocation) {
-        if !userLocationView.isHidden{
-            userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
-        }
+        userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
         if Tracks.instance.isTracking{
             Tracks.instance.updateCurrentTrack(with: location)
             trackLayerView.updateTrack()

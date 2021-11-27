@@ -24,8 +24,8 @@ class MainViewController: UIViewController {
         MapStatics.minZoom = MapStatics.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
         mapView.setupScrollView()
         mapView.setupTileLayerView()
-        mapView.setupTrackLayerView()
         mapView.setupUserLocationView()
+        mapView.setupTrackLayerView()
         mapView.setupLocationLayerView()
         mapView.locationLayerView.delegate = self
         mapView.setupControlLayerView()
@@ -44,38 +44,31 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func assertLocation(coordinate: CLLocationCoordinate2D, onComplete: ((Location) -> Void)? = nil){
+    private func assertLocation(coordinate: CLLocationCoordinate2D, askForNext: Bool = false, onComplete: ((Location) -> Void)? = nil){
         if let nextLocation = Locations.instance.locationNextTo(location: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){
-            var txt = nextLocation.description
-            if !txt.isEmpty{
-                txt += ", "
+            if askForNext{
+                var txt = nextLocation.description
+                if !txt.isEmpty{
+                    txt += ", "
+                }
+                txt += nextLocation.coordinateString
+                let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
+                    let location = Locations.instance.addLocation(coordinate: coordinate)
+                    self.mapView.addLocationMarker(location: location)
+                    onComplete?(location)
+                })
+                alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
+                    onComplete?(nextLocation)
+                })
+                self.present(alertController, animated: true)
             }
-            txt += nextLocation.coordinateString
-            let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
-                let location = Locations.instance.addLocation(coordinate: coordinate)
-                self.mapView.addLocationMarker(location: location)
-                onComplete?(location)
-            })
-            alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
+            else{
                 onComplete?(nextLocation)
-            })
-            self.present(alertController, animated: true)
+            }
         }
         else{
             let location = Locations.instance.addLocation(coordinate: coordinate)
-            self.mapView.addLocationMarker(location: location)
-            onComplete?(location)
-        }
-    }
-    
-    private func assertPhotoLocation(coordinate: CLLocationCoordinate2D, onComplete: ((Location) -> Void)? = nil){
-        let location = CLLocation(coordinate: coordinate, altitude: 0, horizontalAccuracy: Preferences.instance.minHorizontalAccuracy, verticalAccuracy: Preferences.instance.minVerticalAccuracy, timestamp: Date())
-        if let nextLocation = Locations.instance.locationNextTo(location: location){
-            onComplete?(nextLocation)
-        }
-        else{
-            let location = Locations.instance.addLocation(coordinate: location.coordinate)
             self.mapView.addLocationMarker(location: location)
             onComplete?(location)
         }
@@ -91,7 +84,7 @@ extension MainViewController: LocationServiceDelegate{
     
     func authorizationDidChange(authorized: Bool, location: CLLocation?) {
         if authorized, let loc = location, state == .none{
-            state = loc.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy ? .exact : .rough
+            state = loc.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy ? .exact : .estimated
             mapView.stateDidChange(from: .none, to: state, location: loc)
         }
     }
@@ -100,13 +93,13 @@ extension MainViewController: LocationServiceDelegate{
         switch state{
         case .none:
             debug("none")
-            state = location.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy ? .exact : .rough
+            state = location.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy ? .exact : .estimated
             mapView.stateDidChange(from: .none, to: state, location: location)
-        case .rough:
-            debug("rough")
+        case .estimated:
+            debug("estimated")
             if location.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy{
                 state = .exact
-                mapView.stateDidChange(from: .rough, to: state, location: location)
+                mapView.stateDidChange(from: .estimated, to: state, location: location)
             }
         case .exact:
             debug("exact")
@@ -170,7 +163,7 @@ extension MainViewController: ControlLayerDelegate{
     
     func addLocation(){
         let coordinate = mapView.getVisibleCenterCoordinate()
-        assertLocation(coordinate: coordinate){ location in
+        assertLocation(coordinate: coordinate, askForNext: true){ location in
             
         }
     }
@@ -269,7 +262,7 @@ extension MainViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
         if let location = LocationService.shared.lastLocation{
-            assertPhotoLocation(coordinate: location.coordinate){ location in
+            assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.photos.isEmpty
                 location.addPhoto(photo: photo)
                 Locations.instance.save()
@@ -317,7 +310,20 @@ extension MainViewController: CurrentTrackDelegate{
         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
             if let track = Tracks.instance.currentTrack{
                 track.description = alertController.textFields![0].text ?? "Route"
-                Tracks.instance.saveTrackCurrentTrack()
+                if let location = track.trackpoints.first{
+                    self.assertLocation(coordinate: location.coordinate){ location in
+                        let changeState = location.tracks.isEmpty
+                        location.addTrack(track: track)
+                        Locations.instance.save()
+                        Tracks.instance.saveTrackCurrentTrack()
+                        if changeState{
+                            DispatchQueue.main.async {
+                                print("changeState")
+                                self.mapView.locationLayerView.updateLocationState(location)
+                            }
+                        }
+                    }
+                }
             }
             self.mapView.controlLayerView.stopTracking()
         })
