@@ -9,12 +9,12 @@ import UIKit
 protocol ControlLayerDelegate{
     func preloadMap()
     func deleteTiles()
-    func openMapPreferences()
     func openPlaceList()
     func showPlaces(_ show: Bool)
     func deletePlaces()
     func focusUserLocation()
     func openInfo()
+    func openPreferences()
     func openCamera()
     func addPlace()
     func startTracking()
@@ -22,7 +22,6 @@ protocol ControlLayerDelegate{
     func hideTrack()
     func openTrackList()
     func deleteTracks()
-    func openTrackingPreferences()
     
 }
 
@@ -34,10 +33,12 @@ class ControlLayerView: UIView {
     var mapMenuControl = IconButton(icon: "map")
     var placeMenuControl = IconButton(icon: "mappin.and.ellipse")
     var trackMenuControl = IconButton(icon: "figure.walk")
-    var zoomIcon = IconButton(icon: "square", tintColor: .gray)
     var crossControl = IconButton(icon: "plus.circle")
     var currentTrackLine = CurrentTrackLine()
     var licenseView = UIView()
+    
+    var debugLabel = UILabel()
+    var debugMode : Bool = true
     
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
@@ -74,9 +75,14 @@ class ControlLayerView: UIView {
         infoControl.setAnchors(top: controlLine.topAnchor, trailing: controlLine.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
         infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
+        let preferencesControl = IconButton(icon: "gearshape")
+        controlLine.addSubview(preferencesControl)
+        preferencesControl.setAnchors(top: controlLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
+        preferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
+        
         let openCameraControl = IconButton(icon: "camera")
         controlLine.addSubview(openCameraControl)
-        openCameraControl.setAnchors(top: controlLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
+        openCameraControl.setAnchors(top: controlLine.topAnchor, trailing: preferencesControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
         currentTrackLine.setup()
@@ -110,6 +116,13 @@ class ControlLayerView: UIView {
         licenseView.addSubview(label)
         label.setAnchors(top: licenseView.topAnchor, leading: link.trailingAnchor, trailing: licenseView.trailingAnchor, bottom: licenseView.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: defaultInset))
         label.text = " contributors"
+        
+        if debugMode{
+            debugLabel.text = "Debug"
+            debugLabel.numberOfLines = 0
+            addSubview(debugLabel)
+            debugLabel.setAnchors(top: controlLine.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
+        }
     }
     
     func getMapMenu() -> UIMenu{
@@ -119,10 +132,7 @@ class ControlLayerView: UIView {
         let deleteTilesAction = UIAction(title: "deleteTiles".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteTiles()
         }
-        let mapConfigAction = UIAction(title: "configureMap".localize(), image: UIImage(systemName: "gearshape")){ action in
-            self.delegate?.openMapPreferences()
-        }
-        return UIMenu(title: "", children: [preloadMapAction, deleteTilesAction, mapConfigAction])
+        return UIMenu(title: "", children: [preloadMapAction, deleteTilesAction])
     }
     
     func getPlaceMenu() -> UIMenu{
@@ -130,7 +140,7 @@ class ControlLayerView: UIView {
             self.activateCross()
         }
         var showPlacesAction : UIAction!
-        if MapPreferences.instance.showPlaceMarkers{
+        if Preferences.instance.showPins{
             showPlacesAction = UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
                 self.delegate?.showPlaces(false)
                 self.placeMenuControl.menu = self.getPlaceMenu()
@@ -170,14 +180,11 @@ class ControlLayerView: UIView {
         let deleteTracksAction = UIAction(title: "deleteTracks".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteTracks()
         }
-        let trackPreferencesAction = UIAction(title: "configureTracks".localize(), image: UIImage(systemName: "gearshape")){ action in
-            self.delegate?.openTrackingPreferences()
-        }
         if Tracks.instance.isTracking{
-            return UIMenu(title: "", children: [showCurrentAction, trackListAction, deleteTracksAction, trackPreferencesAction])
+            return UIMenu(title: "", children: [showCurrentAction, trackListAction, deleteTracksAction])
         }
         else{
-            return UIMenu(title: "", children: [startTrackAction, hideTrackAction, trackListAction, deleteTracksAction, trackPreferencesAction])
+            return UIMenu(title: "", children: [startTrackAction, hideTrackAction, trackListAction, deleteTracksAction])
         }
     }
     
@@ -197,6 +204,10 @@ class ControlLayerView: UIView {
     
     @objc func openInfo(){
         delegate?.openInfo()
+    }
+    
+    @objc func openPreferences(){
+        delegate?.openPreferences()
     }
     
     @objc func openCamera(){
@@ -241,6 +252,10 @@ class ControlLayerView: UIView {
     func stopTracking(){
         trackMenuControl.menu = getTrackingMenu()
         stopTrackInfo()
+    }
+    
+    func debug(_ text: String){
+        debugLabel.text = text
     }
     
 }

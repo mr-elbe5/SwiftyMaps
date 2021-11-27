@@ -70,7 +70,7 @@ class MainViewController: UIViewController {
     }
     
     private func assertPhotoPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
-        let location = CLLocation(coordinate: coordinate, altitude: 0, horizontalAccuracy: MapStatics.minHorizontalAccuracy, verticalAccuracy: MapStatics.minVerticalAccuracy, timestamp: Date())
+        let location = CLLocation(coordinate: coordinate, altitude: 0, horizontalAccuracy: Preferences.instance.minHorizontalAccuracy, verticalAccuracy: Preferences.instance.minVerticalAccuracy, timestamp: Date())
         if let nextPlace = Places.instance.placeNextTo(location: location){
             onComplete?(nextPlace)
         }
@@ -81,13 +81,17 @@ class MainViewController: UIViewController {
         }
     }
     
+    func debug(_ text: String){
+        mapView.debug(text)
+    }
+    
 }
 
 extension MainViewController: LocationServiceDelegate{
     
     func authorizationDidChange(authorized: Bool, location: CLLocation?) {
         if authorized, let loc = location, state == .none{
-            state = loc.horizontalAccuracy <= MapStatics.minHorizontalAccuracy ? .exact : .rough
+            state = loc.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy ? .exact : .rough
             mapView.stateDidChange(from: .none, to: state, location: loc)
         }
     }
@@ -95,14 +99,17 @@ extension MainViewController: LocationServiceDelegate{
     func locationDidChange(location: CLLocation) {
         switch state{
         case .none:
-            state = location.horizontalAccuracy <= MapStatics.minHorizontalAccuracy ? .exact : .rough
+            debug("none")
+            state = location.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy ? .exact : .rough
             mapView.stateDidChange(from: .none, to: state, location: location)
         case .rough:
-            if location.horizontalAccuracy <= MapStatics.minHorizontalAccuracy{
+            debug("rough")
+            if location.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy{
                 state = .exact
                 mapView.stateDidChange(from: .rough, to: state, location: location)
             }
-        default:
+        case .exact:
+            debug("exact")
             mapView.locationDidChange(location: location)
         }
     }
@@ -125,6 +132,7 @@ extension MainViewController: PlaceLayerViewDelegate{
     func editPlace(place: PlaceData) {
         let controller = PlaceEditViewController()
         controller.place = place
+        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -142,8 +150,8 @@ extension MainViewController: ControlLayerDelegate{
     
     func preloadMap() {
         let region = mapView.currentMapRegion
-        if region.size > MapStatics.maxPreloadTiles{
-            let text = "preloadMapsAlert".localize(param1: String(region.size), param2: String(MapStatics.maxPreloadTiles))
+        if region.size > Preferences.instance.maxPreloadTiles{
+            let text = "preloadMapsAlert".localize(param1: String(region.size), param2: String(Preferences.instance.maxPreloadTiles))
             showAlert(title: "pleaseNote".localize(), text: text, onOk: nil)
         }
         else{
@@ -158,12 +166,6 @@ extension MainViewController: ControlLayerDelegate{
         showApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
             MapTiles.clear()
         }
-    }
-    
-    func openMapPreferences() {
-        let controller = MapPreferencesViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
     }
     
     func addPlace(){
@@ -181,8 +183,8 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func showPlaces(_ show: Bool) {
-        MapPreferences.instance.showPlaceMarkers = show
-        mapView.placeLayerView.isHidden = !MapPreferences.instance.showPlaceMarkers
+        Preferences.instance.showPins = show
+        mapView.placeLayerView.isHidden = !Preferences.instance.showPins
     }
     
     func deletePlaces() {
@@ -223,19 +225,18 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
-    func openTrackingPreferences() {
-        let controller = TrackPreferencesViewController()
-        controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
-        present(controller, animated: true)
-    }
-    
     func focusUserLocation() {
         mapView.focusUserLocation()
     }
     
     func openInfo() {
         let controller = InfoViewController()
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
+    func openPreferences() {
+        let controller = PreferencesViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -269,10 +270,25 @@ extension MainViewController: PhotoCaptureDelegate{
     func photoCaptured(photo: PhotoData) {
         if let location = LocationService.shared.lastLocation{
             assertPhotoPlace(coordinate: location.coordinate){ place in
+                let changeState = place.photos.isEmpty
                 place.addPhoto(photo: photo)
                 Places.instance.save()
+                if changeState{
+                    DispatchQueue.main.async {
+                        print("changeState")
+                        self.mapView.placeLayerView.updatePlaceState(place)
+                    }
+                }
             }
         }
+    }
+    
+}
+
+extension MainViewController: PlaceEditDelegate{
+    
+    func updatePlaceState(place: PlaceData) {
+        mapView.placeLayerView.updatePlaceState(place)
     }
     
 }
@@ -321,10 +337,6 @@ extension MainViewController: TrackListDelegate{
     func updateTrackLayer() {
         mapView.trackLayerView.setNeedsDisplay()
     }
-
-}
-
-extension MainViewController: TrackPreferencesDelegate{
 
 }
 

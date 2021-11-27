@@ -8,12 +8,19 @@
 import Foundation
 import UIKit
 
+protocol PlaceEditDelegate{
+    func updatePlaceState(place: PlaceData)
+}
+
 class PlaceEditViewController: PopupViewController{
     
     var descriptionView = TextEditView()
     let photoStackView = UIStackView()
     
     var place: PlaceData? = nil
+    var hadPhotos = false
+    
+    var delegate: PlaceEditDelegate? = nil
     
     override func loadView() {
         title = "place".localize()
@@ -34,6 +41,7 @@ class PlaceEditViewController: PopupViewController{
     
     func setupContent(){
         if let place = place{
+            hadPhotos = place.hasPhotos
             var header = HeaderLabel(text: "placeData".localize())
             contentView.addSubview(header)
             header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor)
@@ -55,12 +63,10 @@ class PlaceEditViewController: PopupViewController{
             photoStackView.setupVertical()
             contentView.addSubview(photoStackView)
             photoStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-            if !place.photos.isEmpty{
-                for photo in place.photos{
-                    let imageView = PhotoEditView.fromData(data: photo)
-                    imageView.delegate = self
-                    photoStackView.addArrangedSubview(imageView)
-                }
+            for photo in place.photos{
+                let imageView = PhotoEditView.fromData(data: photo)
+                imageView.delegate = self
+                photoStackView.addArrangedSubview(imageView)
             }
             let saveButton = UIButton()
             saveButton.setTitle("save".localize(), for: .normal)
@@ -83,11 +89,17 @@ class PlaceEditViewController: PopupViewController{
     }
     
     @objc func save(){
+        var needsUpdate = false
         if let place = place{
             place.description = descriptionView.text
             Places.instance.save()
+            needsUpdate = place.hasPhotos != hadPhotos
         }
-        self.dismiss(animated: true)
+        self.dismiss(animated: true){
+            if needsUpdate{
+                self.delegate?.updatePlaceState(place: self.place!)
+            }
+        }
     }
     
 }

@@ -57,6 +57,7 @@ class PlacePinView : UIButton{
     }
     
     func updateImage(){
+        print("update image")
         setImage(image, for: .normal)
     }
     

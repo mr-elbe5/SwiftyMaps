@@ -81,7 +81,7 @@ class MapView: UIView {
         addSubview(placeLayerView)
         placeLayerView.fillView(view: self)
         placeLayerView.setupPlaceMarkers()
-        placeLayerView.isHidden = !MapPreferences.instance.showPlaceMarkers
+        placeLayerView.isHidden = !Preferences.instance.showPins
         placeLayerView.isHidden = true
     }
     
@@ -153,7 +153,8 @@ class MapView: UIView {
     
     func stateDidChange(from: LocationState, to: LocationState, location: CLLocation){
         if from == .none{
-            setZoom(zoomLevel: MapStatics.startZoom, animated: true)
+            //debug("set zoom and location")
+            setZoom(zoomLevel: Preferences.instance.startZoom, animated: true)
             scrollToCenteredCoordinate(coordinate: location.coordinate)
         }
         if to == .exact, userLocationView.isHidden{
@@ -167,7 +168,6 @@ class MapView: UIView {
             userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
         }
         if Tracks.instance.isTracking{
-            print("istracking")
             Tracks.instance.updateCurrentTrack(with: location)
             trackLayerView.updateTrack()
             controlLayerView.updateTrackInfo()
@@ -198,8 +198,8 @@ class MapView: UIView {
         getCoordinate(screenPoint: getVisibleCenter())
     }
     
-    func mapTypeHasChanged(){
-        tileLayerView.setNeedsDisplay()
+    func debug(_ text: String){
+        controlLayerView.debug(text)
     }
     
 }
@@ -211,8 +211,8 @@ extension MapView : UIScrollViewDelegate{
     }
     
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        print("scale = \(scale), minScale = \(MapStatics.minScaleToShowPlaces)")
-        placeLayerView.isHidden = (scale < MapStatics.minScaleToShowPlaces)
+        //print("scale = \(scale), minScale = \(MapStatics.minScaleToShowPlaces)")
+        placeLayerView.isHidden = (scale < MapStatics.zoomScaleFromPlanet(to: Preferences.instance.minZoomToShowPlaces))
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -220,7 +220,6 @@ extension MapView : UIScrollViewDelegate{
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
         placeLayerView.updatePosition(offset: contentOffset, scale: scale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scale)
-        getPlanetRect()
     }
     
     // for infinite scroll using 3 * content width

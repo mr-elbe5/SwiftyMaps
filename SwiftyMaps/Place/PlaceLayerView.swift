@@ -32,6 +32,15 @@ class PlaceLayerView: UIView {
         placeView.delegate = self
     }
     
+    func getPlacePin(place: PlaceData) -> PlacePinView?{
+        for subview in subviews{
+            if let pin = subview as? PlacePinView, pin.place == place{
+                return pin
+            }
+        }
+        return nil
+    }
+    
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
             $0 is PlacePinView && $0.point(inside: self.convert(point, to: $0), with: event)
@@ -44,6 +53,12 @@ class PlaceLayerView: UIView {
             if let av = sv as? PlacePinView{
                 av.updatePosition(to: CGPoint(x: (av.place.location.planetPosition.x - normalizedOffset.point.x)*scale , y: (av.place.location.planetPosition.y - normalizedOffset.point.y)*scale))
             }
+        }
+    }
+    
+    func updatePlaceState(_ place: PlaceData){
+        if let pin = getPlacePin(place: place){
+            pin.updateImage()
         }
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MapPreferencesViewController: PopupViewController{
+class PreferencesViewController: PopupViewController{
     
     var urlTemplateField = LabeledTextField()
     var startWithLastPositionSwitch = LabeledSwitchView()
@@ -21,10 +21,10 @@ class MapPreferencesViewController: PopupViewController{
         contentView.addSubview(urlTemplateField)
         urlTemplateField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: MapPreferences.instance.startWithLastPosition)
+        startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: Preferences.instance.startWithLastPosition)
         contentView.addSubview(startWithLastPositionSwitch)
         startWithLastPositionSwitch.setAnchors(top: urlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        startWithLastPositionSwitch.isOn = MapPreferences.instance.startWithLastPosition
+        startWithLastPositionSwitch.isOn = Preferences.instance.startWithLastPosition
         
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
@@ -41,8 +41,8 @@ class MapPreferencesViewController: PopupViewController{
             MapStatics.defaultUrl = newTemplate
             _ = MapTiles.clear()
         }
-        MapPreferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
-        MapPreferences.instance.save()
+        Preferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
+        Preferences.instance.save()
         self.dismiss(animated: true)
     }
     

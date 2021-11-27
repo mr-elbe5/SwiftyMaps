@@ -30,14 +30,12 @@ struct MapStatics{
     static var averageTileLoadSize = 12
     static var minZoom : Int = 4
     static var maxZoom : Int = 18
-    static var startZoom : Int = 10
     static var scrollWidthFactor : CGFloat = 3
     static var planetPixels = zoomScale(at: maxZoom) * tilePixels
     static var planetSize = CGSize(width: planetPixels, height: planetPixels)
     static var planetRect = CGRect(x: 0, y: 0, width: planetPixels, height: planetPixels)
     static var scrollablePlanetSize = CGSize(width: scrollWidthFactor*planetPixels, height: planetPixels)
     static var scrollablePlanetRect = CGRect(x: 0, y: 0, width: scrollWidthFactor*planetPixels, height: planetPixels)
-    static var maxPreloadTiles : Int = 5000
     
     static var equatorInMeters : CGFloat = 40075.016686 * 1000
     static var startCoordinate = CLLocationCoordinate2D(latitude: 35.90, longitude: 9.40)
@@ -49,11 +47,6 @@ struct MapStatics{
     static var mapPinEllipseImage = UIImage(systemName: "mappin.and.ellipse")!
     
     static var locationRadius : CGFloat = 16
-    
-    static var minHorizontalAccuracy : CLLocationDistance = 10
-    static var minVerticalAccuracy : CLLocationDistance = 5
-    
-    static var minScaleToShowPlaces = zoomScaleFromPlanet(to: 8)
     
     static func zoomScale(at zoom: Int) -> CGFloat{
         pow(2.0, CGFloat(zoom))
