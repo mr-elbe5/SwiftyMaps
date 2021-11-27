@@ -9,14 +9,14 @@ import UIKit
 protocol ControlLayerDelegate{
     func preloadMap()
     func deleteTiles()
-    func openPlaceList()
-    func showPlaces(_ show: Bool)
-    func deletePlaces()
+    func openLocationList()
+    func showLocations(_ show: Bool)
+    func deleteLocations()
     func focusUserLocation()
     func openInfo()
     func openPreferences()
     func openCamera()
-    func addPlace()
+    func addLocation()
     func startTracking()
     func openCurrentTrack()
     func hideTrack()
@@ -31,7 +31,7 @@ class ControlLayerView: UIView {
     
     var controlLine = UIView()
     var mapMenuControl = IconButton(icon: "map")
-    var placeMenuControl = IconButton(icon: "mappin.and.ellipse")
+    var locationMenuControl = IconButton(icon: "mappin.and.ellipse")
     var trackMenuControl = IconButton(icon: "figure.walk")
     var crossControl = IconButton(icon: "plus.circle")
     var currentTrackLine = CurrentTrackLine()
@@ -54,13 +54,13 @@ class ControlLayerView: UIView {
         mapMenuControl.menu = getMapMenu()
         mapMenuControl.showsMenuAsPrimaryAction = true
         
-        controlLine.addSubview(placeMenuControl)
-        placeMenuControl.setAnchors(top: controlLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
-        placeMenuControl.menu = getPlaceMenu()
-        placeMenuControl.showsMenuAsPrimaryAction = true
+        controlLine.addSubview(locationMenuControl)
+        locationMenuControl.setAnchors(top: controlLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        locationMenuControl.menu = getLocationMenu()
+        locationMenuControl.showsMenuAsPrimaryAction = true
         
         controlLine.addSubview(trackMenuControl)
-        trackMenuControl.setAnchors(top: controlLine.topAnchor, leading: placeMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        trackMenuControl.setAnchors(top: controlLine.topAnchor, leading: locationMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
         trackMenuControl.menu = getTrackingMenu()
         trackMenuControl.showsMenuAsPrimaryAction = true
         
@@ -77,7 +77,7 @@ class ControlLayerView: UIView {
         
         let preferencesControl = IconButton(icon: "gearshape")
         controlLine.addSubview(preferencesControl)
-        preferencesControl.setAnchors(top: controlLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
+        preferencesControl.setAnchors(top: controlLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         preferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
         
         let openCameraControl = IconButton(icon: "camera")
@@ -92,7 +92,7 @@ class ControlLayerView: UIView {
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
         crossControl.setAnchors(centerX: centerXAnchor, centerY: centerYAnchor)
-        crossControl.addTarget(self, action: #selector(placeCrossTouched), for: .touchDown)
+        crossControl.addTarget(self, action: #selector(locationCrossTouched), for: .touchDown)
         crossControl.isHidden = true
         
         addSubview(licenseView)
@@ -135,31 +135,31 @@ class ControlLayerView: UIView {
         return UIMenu(title: "", children: [preloadMapAction, deleteTilesAction])
     }
     
-    func getPlaceMenu() -> UIMenu{
-        let addPlaceAction = UIAction(title: "addPlace".localize(), image: UIImage(systemName: "plus.circle")){ action in
+    func getLocationMenu() -> UIMenu{
+        let addLocationAction = UIAction(title: "addLocation".localize(), image: UIImage(systemName: "plus.circle")){ action in
             self.activateCross()
         }
-        var showPlacesAction : UIAction!
+        var showLocationsAction : UIAction!
         if Preferences.instance.showPins{
-            showPlacesAction = UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
-                self.delegate?.showPlaces(false)
-                self.placeMenuControl.menu = self.getPlaceMenu()
+            showLocationsAction = UIAction(title: "hideLocations".localize(), image: UIImage(systemName: "mappin.slash")){ action in
+                self.delegate?.showLocations(false)
+                self.locationMenuControl.menu = self.getLocationMenu()
             }
         }
         else{
-            showPlacesAction = UIAction(title: "showPlaces".localize(), image: UIImage(systemName: "mappin")){ action in
-                self.delegate?.showPlaces(true)
-                self.placeMenuControl.menu = self.getPlaceMenu()
+            showLocationsAction = UIAction(title: "showLocations".localize(), image: UIImage(systemName: "mappin")){ action in
+                self.delegate?.showLocations(true)
+                self.locationMenuControl.menu = self.getLocationMenu()
                 
             }
         }
-        let showPlaceListAction = UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
-            self.delegate?.openPlaceList()
+        let showLocationListAction = UIAction(title: "showLocationList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+            self.delegate?.openLocationList()
         }
-        let deletePlacesAction = UIAction(title: "deletePlaces".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.deletePlaces()
+        let deleteLocationsAction = UIAction(title: "deleteLocations".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
+            self.delegate?.deleteLocations()
         }
-        return UIMenu(title: "", children: [addPlaceAction, showPlaceListAction, showPlacesAction, deletePlacesAction])
+        return UIMenu(title: "", children: [addLocationAction, showLocationListAction, showLocationsAction, deleteLocationsAction])
     }
     
     func getTrackingMenu() -> UIMenu{
@@ -214,8 +214,8 @@ class ControlLayerView: UIView {
         delegate?.openCamera()
     }
     
-    @objc func placeCrossTouched(){
-        delegate?.addPlace()
+    @objc func locationCrossTouched(){
+        delegate?.addLocation()
         crossControl.isHidden = true
     }
     

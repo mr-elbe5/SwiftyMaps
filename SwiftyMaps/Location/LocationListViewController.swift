@@ -1,5 +1,5 @@
 //
-//  PlaceListViewController.swift
+//  LocationListViewController.swift
 //  SwiftyMaps
 //
 //  Created by Michael Rönnau on 22.11.21.
@@ -10,23 +10,23 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol PlaceListDelegate{
-    func updatePlaceLayer()
-    func showOnMap(place: PlaceData)
+protocol LocationListDelegate{
+    func updateLocationLayer()
+    func showOnMap(location: Location)
 }
 
-class PlaceListViewController: UIViewController{
+class LocationListViewController: UIViewController{
 
-    private static let CELL_IDENT = "placeCell"
+    private static let CELL_IDENT = "locationCell"
     
     var headerView = UIView()
     var editButton = IconButton(icon: "pencil.circle", tintColor: .white)
     var tableView = UITableView()
     
-    var delegate: PlaceListDelegate? = nil
+    var delegate: LocationListDelegate? = nil
     
     override open func loadView() {
-        title = "placeList".localize()
+        title = "locationList".localize()
         super.loadView()
         view.backgroundColor = .systemGray5
         let guide = view.safeAreaLayoutGuide
@@ -41,7 +41,7 @@ class PlaceListViewController: UIViewController{
         tableView.setAnchors(top: headerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: .zero)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceListViewController.CELL_IDENT)
+        tableView.register(LocationCell.self, forCellReuseIdentifier: LocationListViewController.CELL_IDENT)
         tableView.allowsSelection = false
         tableView.allowsSelectionDuringEditing = false
         tableView.separatorStyle = .none
@@ -93,20 +93,20 @@ class PlaceListViewController: UIViewController{
     
 }
 
-extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
+extension LocationListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Places.instance.places.count
+        Locations.instance.locations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceListViewController.CELL_IDENT, for: indexPath) as! PlaceCell
-        let track = Places.instance.places[indexPath.row]
-        cell.place = track
+        let cell = tableView.dequeueReusableCell(withIdentifier: LocationListViewController.CELL_IDENT, for: indexPath) as! LocationCell
+        let track = Locations.instance.locations[indexPath.row]
+        cell.location = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
@@ -126,34 +126,34 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension PlaceListViewController : PlaceCellActionDelegate{
+extension LocationListViewController : LocationCellActionDelegate{
     
-    func showOnMap(place: PlaceData) {
+    func showOnMap(location: Location) {
         self.dismiss(animated: true){
-            self.delegate?.showOnMap(place: place)
+            self.delegate?.showOnMap(location: location)
         }
     }
     
     
-    func editPlace(place: PlaceData) {
-        let placeController = PlaceEditViewController()
-        placeController.place = place
-        placeController.modalPresentationStyle = .fullScreen
-        self.present(placeController, animated: true)
+    func editLocation(location: Location) {
+        let locationController = LocationEditViewController()
+        locationController.location = location
+        locationController.modalPresentationStyle = .fullScreen
+        self.present(locationController, animated: true)
     }
     
-    func deletePlace(place: PlaceData) {
-        showApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceInfo".localize()){
-            Places.instance.deletePlace(place)
+    func deleteLocation(location: Location) {
+        showApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
+            Locations.instance.deleteLocation(location)
             self.tableView.reloadData()
         }
     }
     
-    func viewPlace(place: PlaceData) {
-        let placeController = PlaceViewController()
-        placeController.place = place
-        placeController.modalPresentationStyle = .fullScreen
-        self.present(placeController, animated: true)
+    func viewLocation(location: Location) {
+        let locationController = LocationViewController()
+        locationController.location = location
+        locationController.modalPresentationStyle = .fullScreen
+        self.present(locationController, animated: true)
     }
     
 }

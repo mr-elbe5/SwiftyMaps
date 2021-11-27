@@ -24,6 +24,9 @@ class Location : Hashable, Codable{
         case zipCode
         case city
         case country
+        case description
+        case photos
+        case tracks
     }
     
     var coordinate : CLLocationCoordinate2D
@@ -34,10 +37,15 @@ class Location : Hashable, Codable{
     var zipCode : String = ""
     var city : String = ""
     var country : String = ""
+    var description : String
+    var photos : Array<PhotoData>
+    var tracks : Array<TrackData>
     
     var cllocation : CLLocation{
         CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
+    
+    private var lock = DispatchSemaphore(value: 1)
     
     var locationString : String{
         var s = name
@@ -66,16 +74,30 @@ class Location : Hashable, Codable{
         }
     }
     
+    var hasPhotos : Bool{
+        !photos.isEmpty
+    }
+    
+    var hasTracks : Bool{
+        !tracks.isEmpty
+    }
+    
     init(){
         coordinate = CLLocationCoordinate2D()
         planetPosition = CGPoint()
         hasPlacemark = false
+        description = ""
+        photos = Array<PhotoData>()
+        tracks = Array<TrackData>()
     }
     
     init(coordinate: CLLocationCoordinate2D){
         self.coordinate = coordinate
         planetPosition = MapStatics.planetPointFromCoordinate(coordinate: coordinate)
         hasPlacemark = false
+        description = ""
+        photos = Array<PhotoData>()
+        tracks = Array<TrackData>()
         LocationService.shared.getPlacemarkInfo(for: self)
     }
     
@@ -91,6 +113,9 @@ class Location : Hashable, Codable{
         country = try values.decodeIfPresent(String.self, forKey: .country) ?? ""
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         planetPosition = MapStatics.planetPointFromCoordinate(coordinate: coordinate)
+        description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
+        photos = try values.decodeIfPresent(Array<PhotoData>.self, forKey: .photos) ?? Array<PhotoData>()
+        tracks = try values.decodeIfPresent(Array<TrackData>.self, forKey: .tracks) ?? Array<TrackData>()
         if !hasPlacemark{
             LocationService.shared.getPlacemarkInfo(for: self)
         }
@@ -106,6 +131,9 @@ class Location : Hashable, Codable{
         try container.encode(zipCode, forKey: .zipCode)
         try container.encode(city, forKey: .city)
         try container.encode(country, forKey: .country)
+        try container.encode(description, forKey: .description)
+        try container.encode(photos, forKey: .photos)
+        try container.encode(tracks, forKey: .tracks)
     }
     
     func addPlacemarkInfo(placemark: CLPlacemark){
@@ -129,6 +157,51 @@ class Location : Hashable, Codable{
         print("country = \(country)")
         print("description = \(locationString)")
         hasPlacemark = true
+    }
+    
+    func assertDescription(){
+        if description.isEmpty{
+            description = locationString
+        }
+    }
+    
+    func addPhoto(photo: PhotoData){
+        photos.append(photo)
+    }
+    
+    func deletePhoto(photo: PhotoData){
+        lock.wait()
+        defer{lock.signal()}
+        for idx in 0..<photos.count{
+            if photos[idx] == photo{
+                FileController.deleteFile(url: photo.fileURL)
+                photos.remove(at: idx)
+                return
+            }
+        }
+    }
+    
+    func deleteAllPhotos(){
+        
+    }
+    
+    func addTrack(track: TrackData){
+        tracks.append(track)
+    }
+    
+    func removeTrack(track: TrackData){
+        lock.wait()
+        defer{lock.signal()}
+        for idx in 0..<tracks.count{
+            if tracks[idx] == track{
+                tracks.remove(at: idx)
+                return
+            }
+        }
+    }
+    
+    func removeAllTracks(){
+        
     }
     
     func hash(into hasher: inout Hasher) {

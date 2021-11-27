@@ -43,19 +43,19 @@
 "urlTemplate"="URL Template für OpenStreetMap Kacheln:";
 "startWithLastPosition"="Mit der letzten Position starten";
 "showUserDirection"="Aktuelle Richtung anzeigen";
-"showPlaces"="Orte (Nadeln) anzeigen";
+"showLocations"="Orte (Nadeln) anzeigen";
 
-// place menu
-"addPlace"="Ort (Nadel) hinzufügen";
-"showPlaceList"="Ortsliste anzeigen";
-"showPlaces"="Orte (Nadeln) anzeigen";
-"hidePlaces"="Orte (Nadeln) verstecken";
-"deletePlaces"="Alle Orte löschen";
-"confirmDeletePlaces"="Wollen Sie alle Orte löschen?";
-"deletePlacesHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Photos werden ebenfalls gelöscht.";
+// location menu
+"addLocation"="Ort (Nadel) hinzufügen";
+"showLocationList"="Ortsliste anzeigen";
+"showLocations"="Orte (Nadeln) anzeigen";
+"hideLocations"="Orte (Nadeln) verstecken";
+"deleteLocations"="Alle Orte löschen";
+"confirmDeleteLocations"="Wollen Sie alle Orte löschen?";
+"deleteLocationsHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Photos werden ebenfalls gelöscht.";
 
-// place list
-"placeList"="Orte";
+// location list
+"locationList"="Orte";
 
 // track menu
 "startNewTrack"="Neue Tour starten";
@@ -102,14 +102,14 @@
 "yourPosition"="Deine Position";
 "useLocation"="Vorhandenen Ort benutzen?";
 
-// place marker menu
+// location marker menu
 "showDetails"="Details anzeigen";
-"confirmDeletePlace"="Wollen Sie diesen Ort löschen?";
-"deletePlaceHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos und kann nicht rückgängig gemacht werden.";
+"confirmDeleteLocation"="Wollen Sie diesen Ort löschen?";
+"deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos und kann nicht rückgängig gemacht werden.";
 
-// place view / editor view
-"place"="Ort";
-"placeData"="Ortsangaben";
+// location view / editor view
+"location"="Ort";
+"locationData"="Ortsangaben";
 "description"="Beschreibung";
 "photos"="Fotos";
 "confirmDeletePhoto"="Wollen Sie dieses Foto löschen??";
@@ -142,7 +142,7 @@
 "appInfoText"="Diese App basiert auf Daten von OpenStreetMap und OpenTopoMap. Das Laden der Kartenkacheln von den konfigurierten Servern sollte nur im Einklang mit den dort veröffentlichten Nutzungsbedingungen erfolgen. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
 "appIconsHeader"="Symbole";
 "userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck)";
-"placeMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos";
+"locationMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos";
 "mapIconInfoText"="Wechsel zwischen OpenStreetMap- und OpenTopoMap-Karten";
 "preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts einleiten (nur bei Zoomebenen 13 und höher aktiv)";
 "zoomIconInfoText"="Aktuelle Zoomebene der Karte";
@@ -153,22 +153,22 @@
 "pinIconInfoText"="Fadenkreuz zum Setzen einer Markierung anzeigen";
 "noPinIconInfoText"="Fadenkreuz zum Setzen einer Markierung ausblenden";
 "trackIconInfoText"="Tracking-Einstellungen öffnen";
-//place info
-"placeDetailsInfoText"="Anzeigen der Ortsangaben und zugeordneten Fotos";
-"placeEditInfoText"="Ändern der Beschreibung und zugeordnete Fotos löschen";
-"placeDeleteInfoText"="Löschen der Markierung und der aller zugeordneten Fotos";
-"placeMenuInfoText"="Durch langes Antippen einer Markierung wird deren Kontextmenü geöffnet.";
+//location info
+"locationDetailsInfoText"="Anzeigen der Ortsangaben und zugeordneten Fotos";
+"locationEditInfoText"="Ändern der Beschreibung und zugeordnete Fotos löschen";
+"locationDeleteInfoText"="Löschen der Markierung und der aller zugeordneten Fotos";
+"locationMenuInfoText"="Durch langes Antippen einer Markierung wird deren Kontextmenü geöffnet.";
 //preload info
 "preloadInfoText"="Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert. Hier können Kacheln des aktuellen Kartenausschnitts für eine Offline-Nutzung vorgeladen werden. Je höher die maximale Zoomebene, des größer das zu ladende Datenvolumen (pro Zoomschritt ein Faktor von 4). Die maximale Zoomebene unterhalb der Zoomanzeige einstellbar. Sollte ein Abbruch erfolgen oder Ladefehler auftreten, kann der Vorgang wiederholt werden.";
 //preferences info
 "urlInfoText"="Die URL Templates sind serverspezifisch und müssen png-Dateien (Kacheln) liefern. Es muss sichergestellt sein, dass die Rechte zum Download der Kacheln vorliegen und dass keine unangemessenen Massendownloads erfolgen.";
-"showPlacesInfoText"="Die Anzeige von Ortsmarkierungen (Nadeln) ein- und ausschalten";
+"showLocationsInfoText"="Die Anzeige von Ortsmarkierungen (Nadeln) ein- und ausschalten";
 "deleteTilesInfoText"="Alle geladenen Kacheln beider Kartenarten sofort löschen";
-"deletePlacesInfoText"="Alle Ortsmarkierungen inklusive der zugeordneten Bilder sofort löschen";
+"deleteLocationsInfoText"="Alle Ortsmarkierungen inklusive der zugeordneten Bilder sofort löschen";
 // camera info
 "addFotoInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Ortsmarkierung erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird das Foto dieser Markierung zugeordnet.";
-//places info
-"addPlaceInfoText"="Wenn das Fadenkreuz aktiviert ist, kann durch Tippen auf das Kreuz dort eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
+//locations info
+"addLocationInfoText"="Wenn das Fadenkreuz aktiviert ist, kann durch Tippen auf das Kreuz dort eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
 
 
 

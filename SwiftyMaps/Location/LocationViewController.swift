@@ -7,35 +7,35 @@
 import Foundation
 import UIKit
 
-class PlaceViewController: PopupViewController{
+class LocationViewController: PopupViewController{
     
-    var place: PlaceData? = nil
+    var location: Location? = nil
     
     override func loadView() {
-        title = "place".localize()
+        title = "location".localize()
         super.loadView()
         scrollView.setupVertical()
         setupContent()
     }
     
     func setupContent(){
-        if let place = place{
-            var header = HeaderLabel(text: "placeData".localize())
+        if let location = location{
+            var header = HeaderLabel(text: "locationData".localize())
             contentView.addSubview(header)
             header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor)
-            let locationLabel = TextLabel(text: place.locationString)
+            let locationLabel = TextLabel(text: location.locationString)
             contentView.addSubview(locationLabel)
             locationLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-            let coordinateLabel = TextLabel(text: place.coordinateString)
+            let coordinateLabel = TextLabel(text: location.coordinateString)
             contentView.addSubview(coordinateLabel)
             coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
             header = HeaderLabel(text: "description".localize())
             contentView.addSubview(header)
             header.setAnchors(top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor)
-            let descriptionLabel = TextLabel(text: place.description)
+            let descriptionLabel = TextLabel(text: location.description)
             contentView.addSubview(descriptionLabel)
             descriptionLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-            if !place.photos.isEmpty{
+            if !location.photos.isEmpty{
                 header = HeaderLabel(text: "photos".localize())
                 contentView.addSubview(header)
                 header.setAnchors(top: descriptionLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
@@ -43,7 +43,7 @@ class PlaceViewController: PopupViewController{
                 stackView.setupVertical()
                 contentView.addSubview(stackView)
                 stackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor)
-                for photo in place.photos{
+                for photo in location.photos{
                     let imageView = PhotoView.fromData(data: photo)
                     stackView.addArrangedSubview(imageView)
                 }

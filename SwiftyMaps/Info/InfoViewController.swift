@@ -29,13 +29,13 @@ class InfoViewController: PopupViewController {
         
         stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "userLocationInfoText".localize(), iconColor: UserLocationView.userLocationColor))
         
-        stackView.addArrangedSubview(IconInfoText(image: "mappin", text: "placeMarkerInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.track", text: "placeMarkerInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.photo", text: "placeMarkerInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.track.photo", text: "placeMarkerInfoText".localize()))
-        stackView.addArrangedSubview(TextLabel(text: "showDetails".localize() + ": " + "placeDetailsInfoText".localize(), insetLeft: subInset))
-        stackView.addArrangedSubview(TextLabel(text: "edit".localize() + ": " + "placeEditInfoText".localize(), insetLeft: subInset))
-        stackView.addArrangedSubview(TextLabel(text: "delete".localize() + ": " + "placeDeleteInfoText".localize(), insetLeft: subInset))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin", text: "locationMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.track", text: "locationMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.photo", text: "locationMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.track.photo", text: "locationMarkerInfoText".localize()))
+        stackView.addArrangedSubview(TextLabel(text: "showDetails".localize() + ": " + "locationDetailsInfoText".localize(), insetLeft: subInset))
+        stackView.addArrangedSubview(TextLabel(text: "edit".localize() + ": " + "locationEditInfoText".localize(), insetLeft: subInset))
+        stackView.addArrangedSubview(TextLabel(text: "delete".localize() + ": " + "locationDeleteInfoText".localize(), insetLeft: subInset))
         
         stackView.addArrangedSubview(IconInfoText(icon: "map", text: "mapIconInfoText".localize()))
         
@@ -46,13 +46,13 @@ class InfoViewController: PopupViewController {
         
         stackView.addArrangedSubview(IconInfoText(icon: "gearshape", text: "gearIconInfoText".localize()))
         stackView.addArrangedSubview(TextLabel(text: "urlInfoText".localize(), insetLeft: subInset))
-        stackView.addArrangedSubview(TextLabel(text: "deletePlaces".localize() + ": " + "deletePlacesInfoText".localize(), insetLeft: subInset))
+        stackView.addArrangedSubview(TextLabel(text: "deleteLocations".localize() + ": " + "deleteLocationsInfoText".localize(), insetLeft: subInset))
         stackView.addArrangedSubview(TextLabel(text: "clearTileCache".localize() + ": " + "deleteTilesInfoText".localize(), insetLeft: subInset))
         
         stackView.addArrangedSubview(IconInfoText(icon: "info.circle", text: "infoIconInfoText".localize()))
         
         stackView.addArrangedSubview(IconInfoText(icon: "camera", text: "cameraIconInfoText".localize()))
-        stackView.addArrangedSubview(TextLabel(text: "addPlaceInfoText".localize(), insetLeft: subInset))
+        stackView.addArrangedSubview(TextLabel(text: "addLocationInfoText".localize(), insetLeft: subInset))
         
         stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "pinIconInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "circle.slash", text: "noPinIconInfoText".localize()))

@@ -33,7 +33,7 @@ class Preferences: Identifiable, Codable{
         case headingFilter
         case minHorizontalAccuracy
         case minVerticalAccuracy
-        case minZoomToShowPlaces
+        case minZoomToShowLocations
         case startWithLastPosition
         case maxPreloadTiles
         case showPins
@@ -45,7 +45,7 @@ class Preferences: Identifiable, Codable{
     var headingFilter : CLLocationDistance = 2.0
     var minHorizontalAccuracy : CLLocationDistance = 10.0
     var minVerticalAccuracy : CLLocationDistance = 5.0
-    var minZoomToShowPlaces : Int = 8
+    var minZoomToShowLocations : Int = 8
     var startWithLastPosition : Bool = true
     var maxPreloadTiles : Int = 5000
     var showPins : Bool = true
@@ -61,7 +61,7 @@ class Preferences: Identifiable, Codable{
         headingFilter = try values.decodeIfPresent(CLLocationDistance.self, forKey: .headingFilter) ?? 2.0
         minHorizontalAccuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minHorizontalAccuracy) ?? 10.0
         minVerticalAccuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minVerticalAccuracy) ?? 5.0
-        minZoomToShowPlaces = try values.decodeIfPresent(Int.self, forKey: .minZoomToShowPlaces) ?? 8
+        minZoomToShowLocations = try values.decodeIfPresent(Int.self, forKey: .minZoomToShowLocations) ?? 8
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         maxPreloadTiles = try values.decodeIfPresent(Int.self, forKey: .maxPreloadTiles) ?? 5000
         showPins = try values.decodeIfPresent(Bool.self, forKey: .showPins) ?? true
@@ -75,7 +75,7 @@ class Preferences: Identifiable, Codable{
         try container.encode(headingFilter, forKey: .headingFilter)
         try container.encode(minHorizontalAccuracy, forKey: .minHorizontalAccuracy)
         try container.encode(minVerticalAccuracy, forKey: .minVerticalAccuracy)
-        try container.encode(minZoomToShowPlaces, forKey: .minZoomToShowPlaces)
+        try container.encode(minZoomToShowLocations, forKey: .minZoomToShowLocations)
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(maxPreloadTiles, forKey: .maxPreloadTiles)
         try container.encode(showPins, forKey: .showPins)

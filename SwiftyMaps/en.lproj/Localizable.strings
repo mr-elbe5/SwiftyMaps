@@ -42,19 +42,19 @@
 "urlTemplate"="URL Template for OpenStreetMap tiles:";
 "startWithLastPosition"="Start with last Position";
 "showUserDirection"="Show current Direction";
-"showPlaces"="Show Places (Needles)";
+"showLocations"="Show Locations (Needles)";
 
-// place menu
-"addPlace"="Add Place (Needle)";
-"showPlaceList"="Show Place List";
-"showPlaces"="Show Places (Needles)";
-"hidePlaces"="Hide Places (Needles)";
-"deletePlaces"="Delete all Places";
-"confirmDeletePlaces"="Do you want to delete all places?";
-"deletePlacesHint"="This action cannot be undone. Associated photos will also be deleted.";
+// location menu
+"addLocation"="Add Location (Needle)";
+"showLocationList"="Show Location List";
+"showLocations"="Show Locations (Needles)";
+"hideLocations"="Hide Locations (Needles)";
+"deleteLocations"="Delete all Locations";
+"confirmDeleteLocations"="Do you want to delete all locations?";
+"deleteLocationsHint"="This action cannot be undone. Associated photos will also be deleted.";
 
-// place list
-"placeList"="Places";
+// location list
+"locationList"="Locations";
 
 // track menu
 "startNewTrack"="Start new Tour";
@@ -95,14 +95,14 @@
 "yourPosition"="Your Position";
 "useLocation"="Use existing Location?";
 
-// place context menu
+// location context menu
 "showDetails"="Show details";
-"confirmDeletePlace"="Do you want to delete this place?";
-"deletePlaceHint"="This action cannot be undone and includes associated photos.";
+"confirmDeleteLocation"="Do you want to delete this location?";
+"deleteLocationHint"="This action cannot be undone and includes associated photos.";
 
-// place view / editor view
-"place"="Place";
-"placeData"="Location Details";
+// location view / editor view
+"location"="Location";
+"locationData"="Location Details";
 "description"="Description";
 "photos"="Photos";
 "confirmDeletePhoto"="Do you want to delete this photo?";
@@ -132,10 +132,10 @@
 
 //info
 "appInfoHeader"="General";
-"appInfoText"="This App is based on data from OpenStreetMap and OpenTopoMap. Loading of map tiles from the configured servers should only take place in accordance with their terms of use.";
+"appInfoText"="This App is based on data from OpenStreetMap and OpenTopoMap. Loading of map tiles from the configured servers should only take location in accordance with their terms of use.";
 "appIconsHeader"="Icons";
 "userLocationInfoText"="Shows the current position and direction (red triangle)";
-"placeMarkerInfoText"="Place marker with location details and assigned photos";
+"locationMarkerInfoText"="Location marker with location details and assigned photos";
 "mapIconInfoText"="Change between OpenStreetMap and OpenTopoMap tiles";
 "preloadIconInfoText"="Initiates preloading the currently visible map section (active only for zoom levels of 13 and above)";
 "zoomIconInfoText"="Shows the current zoom level of the map";
@@ -143,25 +143,25 @@
 "gearIconInfoText"="Change references";
 "infoIconInfoText"="This information";
 "cameraIconInfoText"="Take a photo and assign it to the current location";
-"pinIconInfoText"="Show crosshairs for setting a place marker";
-"noPinIconInfoText"="Hide crosshairs for setting a place marker";
+"pinIconInfoText"="Show crosshairs for setting a location marker";
+"noPinIconInfoText"="Hide crosshairs for setting a location marker";
 "trackIconInfoText"="Open track settings";
-//place info
-"placeDetailsInfoText"="Show location details and assigned photos";
-"placeEditInfoText"="Change the description and delete assigned photos";
-"placeDeleteInfoText"="Delete the place marker and all assigned photos";
-"placeMenuInfoText"="By long pressing a marker the context menu is opened.";
+//location info
+"locationDetailsInfoText"="Show location details and assigned photos";
+"locationEditInfoText"="Change the description and delete assigned photos";
+"locationDeleteInfoText"="Delete the location marker and all assigned photos";
+"locationMenuInfoText"="By long pressing a marker the context menu is opened.";
 //preload info
 "preloadInfoText"="Once loaded tiles are stored in the app until all tiles are deleted. Here tiles for the current map section can be perloaded. The higher the zoom level, the higher the data size to load (per zoom level it is a factor of 4). The maximal zoom level can be set below the zoom note. Should you cancel or a load error should occur, the action can be repeated.";
 //preferences info
 "urlInfoText"="The URL templates are server specific and have to return png files (tiles). You must be sure to have the rights for downloading the tiles and that you do not start inappropriate mass downloads.";
-"showPlacesInfoText"="Show or hide place markers (needles)";
+"showLocationsInfoText"="Show or hide location markers (needles)";
 "deleteTilesInfoText"="Delete all stored tiles immediately";
-"deletePlacesInfoText"="Delete all place markers including assigned photos";
+"deleteLocationsInfoText"="Delete all location markers including assigned photos";
 // camera info
-"addFotoInfoText"="When you take a photo, a place marker for that location is created and the photo is assigned to this place mark. If a place marker already exists in the direct vicinity (below the location accuracy) the photo is assigned to this place.";
-//places info
-"addPlaceInfoText"="If the crosshairs are active, a place marker can be created by tapping on the crosshairs. If a place marker already exists in the direct vicinity (below the location accuracy), no new place marker is created.";
+"addFotoInfoText"="When you take a photo, a location marker for that location is created and the photo is assigned to this location mark. If a location marker already exists in the direct vicinity (below the location accuracy) the photo is assigned to this location.";
+//locations info
+"addLocationInfoText"="If the crosshairs are active, a location marker can be created by tapping on the crosshairs. If a location marker already exists in the direct vicinity (below the location accuracy), no new location marker is created.";
 
 
 

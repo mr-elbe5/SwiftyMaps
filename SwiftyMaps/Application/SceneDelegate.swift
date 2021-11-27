@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         FileController.initialize()
         Preferences.loadInstance()
-        Places.loadInstance()
+        Locations.loadInstance()
         Tracks.loadInstance()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         Tracks.instance.save()
-        Places.instance.save()
+        Locations.instance.save()
         LocationService.shared.stop()
         Preferences.instance.save()
     }

@@ -26,8 +26,8 @@ class MainViewController: UIViewController {
         mapView.setupTileLayerView()
         mapView.setupTrackLayerView()
         mapView.setupUserLocationView()
-        mapView.setupPlaceLayerView()
-        mapView.placeLayerView.delegate = self
+        mapView.setupLocationLayerView()
+        mapView.locationLayerView.delegate = self
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
         mapView.setDefaultLocation()
@@ -44,40 +44,40 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func assertPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
-        if let nextPlace = Places.instance.placeNextTo(location: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){
-            var txt = nextPlace.description
+    private func assertLocation(coordinate: CLLocationCoordinate2D, onComplete: ((Location) -> Void)? = nil){
+        if let nextLocation = Locations.instance.locationNextTo(location: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){
+            var txt = nextLocation.description
             if !txt.isEmpty{
                 txt += ", "
             }
-            txt += nextPlace.location.coordinateString
+            txt += nextLocation.coordinateString
             let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
-                let place = Places.instance.addPlace(coordinate: coordinate)
-                self.mapView.addPlaceMarker(place: place)
-                onComplete?(place)
+                let location = Locations.instance.addLocation(coordinate: coordinate)
+                self.mapView.addLocationMarker(location: location)
+                onComplete?(location)
             })
             alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
-                onComplete?(nextPlace)
+                onComplete?(nextLocation)
             })
             self.present(alertController, animated: true)
         }
         else{
-            let place = Places.instance.addPlace(coordinate: coordinate)
-            self.mapView.addPlaceMarker(place: place)
-            onComplete?(place)
+            let location = Locations.instance.addLocation(coordinate: coordinate)
+            self.mapView.addLocationMarker(location: location)
+            onComplete?(location)
         }
     }
     
-    private func assertPhotoPlace(coordinate: CLLocationCoordinate2D, onComplete: ((PlaceData) -> Void)? = nil){
+    private func assertPhotoLocation(coordinate: CLLocationCoordinate2D, onComplete: ((Location) -> Void)? = nil){
         let location = CLLocation(coordinate: coordinate, altitude: 0, horizontalAccuracy: Preferences.instance.minHorizontalAccuracy, verticalAccuracy: Preferences.instance.minVerticalAccuracy, timestamp: Date())
-        if let nextPlace = Places.instance.placeNextTo(location: location){
-            onComplete?(nextPlace)
+        if let nextLocation = Locations.instance.locationNextTo(location: location){
+            onComplete?(nextLocation)
         }
         else{
-            let place = Places.instance.addPlace(coordinate: location.coordinate)
-            self.mapView.addPlaceMarker(place: place)
-            onComplete?(place)
+            let location = Locations.instance.addLocation(coordinate: location.coordinate)
+            self.mapView.addLocationMarker(location: location)
+            onComplete?(location)
         }
     }
     
@@ -120,27 +120,27 @@ extension MainViewController: LocationServiceDelegate{
     
 }
 
-extension MainViewController: PlaceLayerViewDelegate{
+extension MainViewController: LocationLayerViewDelegate{
     
-    func showPlaceDetails(place: PlaceData) {
-        let controller = PlaceViewController()
-        controller.place = place
+    func showLocationDetails(location: Location) {
+        let controller = LocationViewController()
+        controller.location = location
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
-    func editPlace(place: PlaceData) {
-        let controller = PlaceEditViewController()
-        controller.place = place
+    func editLocation(location: Location) {
+        let controller = LocationEditViewController()
+        controller.location = location
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
-    func deletePlace(place: PlaceData) {
-        showApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
-            Places.instance.deletePlace(place)
-            Places.instance.save()
+    func deleteLocation(location: Location) {
+        showApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
+            Locations.instance.deleteLocation(location)
+            Locations.instance.save()
         }
     }
     
@@ -168,29 +168,29 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
-    func addPlace(){
+    func addLocation(){
         let coordinate = mapView.getVisibleCenterCoordinate()
-        assertPlace(coordinate: coordinate){ place in
+        assertLocation(coordinate: coordinate){ location in
             
         }
     }
     
-    func openPlaceList() {
-        let controller = PlaceListViewController()
+    func openLocationList() {
+        let controller = LocationListViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
     }
     
-    func showPlaces(_ show: Bool) {
+    func showLocations(_ show: Bool) {
         Preferences.instance.showPins = show
-        mapView.placeLayerView.isHidden = !Preferences.instance.showPins
+        mapView.locationLayerView.isHidden = !Preferences.instance.showPins
     }
     
-    func deletePlaces() {
-        showApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
-            Places.instance.deleteAllPlaces()
-            self.mapView.placeLayerView.setupPlaceMarkers()
+    func deleteLocations() {
+        showApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
+            Locations.instance.deleteAllLocations()
+            self.mapView.locationLayerView.setupLocationMarkers()
         }
     }
     
@@ -269,14 +269,14 @@ extension MainViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
         if let location = LocationService.shared.lastLocation{
-            assertPhotoPlace(coordinate: location.coordinate){ place in
-                let changeState = place.photos.isEmpty
-                place.addPhoto(photo: photo)
-                Places.instance.save()
+            assertPhotoLocation(coordinate: location.coordinate){ location in
+                let changeState = location.photos.isEmpty
+                location.addPhoto(photo: photo)
+                Locations.instance.save()
                 if changeState{
                     DispatchQueue.main.async {
                         print("changeState")
-                        self.mapView.placeLayerView.updatePlaceState(place)
+                        self.mapView.locationLayerView.updateLocationState(location)
                     }
                 }
             }
@@ -285,10 +285,10 @@ extension MainViewController: PhotoCaptureDelegate{
     
 }
 
-extension MainViewController: PlaceEditDelegate{
+extension MainViewController: LocationEditDelegate{
     
-    func updatePlaceState(place: PlaceData) {
-        mapView.placeLayerView.updatePlaceState(place)
+    func updateLocationState(location: Location) {
+        mapView.locationLayerView.updateLocationState(location)
     }
     
 }
@@ -340,15 +340,15 @@ extension MainViewController: TrackListDelegate{
 
 }
 
-extension MainViewController: PlaceListDelegate{
+extension MainViewController: LocationListDelegate{
     
-    func showOnMap(place: PlaceData) {
-        mapView.scrollToCenteredCoordinate(coordinate: place.location.coordinate)
+    func showOnMap(location: Location) {
+        mapView.scrollToCenteredCoordinate(coordinate: location.coordinate)
     }
     
     
-    func updatePlaceLayer() {
-        mapView.placeLayerView.setNeedsDisplay()
+    func updateLocationLayer() {
+        mapView.locationLayerView.setNeedsDisplay()
     }
 
 }

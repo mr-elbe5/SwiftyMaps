@@ -12,7 +12,7 @@ class MapView: UIView {
     var scrollView : UIScrollView!
     var tileLayerView = TileLayerView()
     var trackLayerView = TrackLayerView()
-    var placeLayerView = PlaceLayerView()
+    var locationLayerView = LocationLayerView()
     var userLocationView = UserLocationView()
     var controlLayerView = ControlLayerView()
     
@@ -77,12 +77,12 @@ class MapView: UIView {
         //trackLayerView.isHidden = !isTracking
     }
     
-    func setupPlaceLayerView(){
-        addSubview(placeLayerView)
-        placeLayerView.fillView(view: self)
-        placeLayerView.setupPlaceMarkers()
-        placeLayerView.isHidden = !Preferences.instance.showPins
-        placeLayerView.isHidden = true
+    func setupLocationLayerView(){
+        addSubview(locationLayerView)
+        locationLayerView.fillView(view: self)
+        locationLayerView.setupLocationMarkers()
+        locationLayerView.isHidden = !Preferences.instance.showPins
+        locationLayerView.isHidden = true
     }
     
     func setupUserLocationView(){
@@ -184,10 +184,10 @@ class MapView: UIView {
         userLocationView.updateDirection(direction: direction)
     }
     
-    func addPlaceMarker(place: PlaceData){
-        placeLayerView.addPlaceView(place: place)
-        Places.instance.save()
-        placeLayerView.updatePosition(offset: contentOffset, scale: scale)
+    func addLocationMarker(location: Location){
+        locationLayerView.addLocationView(location: location)
+        Locations.instance.save()
+        locationLayerView.updatePosition(offset: contentOffset, scale: scale)
     }
     
     func getVisibleCenter() -> CGPoint{
@@ -211,14 +211,14 @@ extension MapView : UIScrollViewDelegate{
     }
     
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        //print("scale = \(scale), minScale = \(MapStatics.minScaleToShowPlaces)")
-        placeLayerView.isHidden = (scale < MapStatics.zoomScaleFromPlanet(to: Preferences.instance.minZoomToShowPlaces))
+        //print("scale = \(scale), minScale = \(MapStatics.minScaleToShowLocations)")
+        locationLayerView.isHidden = (scale < MapStatics.zoomScaleFromPlanet(to: Preferences.instance.minZoomToShowLocations))
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         assertCenteredContent(scrollView: scrollView)
         userLocationView.updatePosition(offset: contentOffset, scale: scale)
-        placeLayerView.updatePosition(offset: contentOffset, scale: scale)
+        locationLayerView.updatePosition(offset: contentOffset, scale: scale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scale)
     }
     

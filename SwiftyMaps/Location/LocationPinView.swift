@@ -6,28 +6,28 @@
 
 import UIKit
 
-protocol PlaceDelegate{
-    func detailAction(sender: PlacePinView)
-    func editAction(sender: PlacePinView)
-    func deleteAction(sender: PlacePinView)
+protocol LocationDelegate{
+    func detailAction(sender: LocationPinView)
+    func editAction(sender: LocationPinView)
+    func deleteAction(sender: LocationPinView)
 }
 
-class PlacePinView : UIButton{
+class LocationPinView : UIButton{
     
     static var baseFrame = CGRect(x: -MapStatics.mapPinRadius, y: -2*MapStatics.mapPinRadius, width: 2*MapStatics.mapPinRadius, height: 2*MapStatics.mapPinRadius)
     
     static var defaultPinColor = UIColor(red: 1.0, green: 0, blue: 0, alpha: 1)
     static var photoPinColor = UIColor(red: 0.25, green: 0.5, blue: 1, alpha: 1)
     
-    var place : PlaceData
+    var location : Location
     
-    var delegate: PlaceDelegate? = nil
+    var delegate: LocationDelegate? = nil
     
     var image  : UIImage{
         get{
-            let col = place.hasPhotos ? PlacePinView.photoPinColor : PlacePinView.defaultPinColor
+            let col = location.hasPhotos ? LocationPinView.photoPinColor : LocationPinView.defaultPinColor
             var img : UIImage!
-            if place.isTrackStart{
+            if location.hasTracks{
                 img = MapStatics.mapPinEllipseImage.withTintColor(col, renderingMode: .alwaysOriginal)
             }
             else{
@@ -39,9 +39,9 @@ class PlacePinView : UIButton{
         }
     }
     
-    init(place: PlaceData){
-        self.place = place
-        super.init(frame: PlacePinView.baseFrame)
+    init(location: Location){
+        self.location = location
+        super.init(frame: LocationPinView.baseFrame)
         let interaction = UIContextMenuInteraction(delegate: self)
         addInteraction(interaction)
         updateImage()
@@ -52,7 +52,7 @@ class PlacePinView : UIButton{
     }
     
     func updatePosition(to pos: CGPoint){
-        frame = PlacePinView.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
+        frame = LocationPinView.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
         setNeedsDisplay()
     }
     
@@ -73,7 +73,7 @@ class PlacePinView : UIButton{
             let deleteAction = UIAction(title: "delete".localize(), image: UIImage(systemName: "mappin.slash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
                 self.delegate?.deleteAction(sender: self)
             }
-            let title = "\(self.place.locationString)\n(\(self.place.coordinateString))\n\(self.place.description)"
+            let title = "\(self.location.locationString)\n(\(self.location.coordinateString))\n\(self.location.description)"
             return UIMenu(title: title, children: [detailAction, editAction, deleteAction])
         })
     }
