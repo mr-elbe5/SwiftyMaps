@@ -24,6 +24,7 @@ class LabeledTextField : UIView, UITextFieldDelegate{
         label.text = labelText
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
+        label.numberOfLines = 0
         addSubview(label)
         textField.setDefaults()
         textField.text = text

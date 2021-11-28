@@ -70,6 +70,10 @@ class LocationLayerView: UIView {
         }
     }
     
+    func scaleHasChanged(scale: CGFloat){
+        isHidden = (scale < MapStatics.zoomScaleFromPlanet(to: Preferences.instance.minZoomToShowLocations))
+    }
+    
     @objc func showLocationDetails(_ sender: AnyObject){
         if let pin = sender as? LocationPinView{
             delegate?.showLocationDetails(location: pin.location)

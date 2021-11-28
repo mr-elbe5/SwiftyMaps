@@ -40,9 +40,16 @@
 //map preferences view
 "mapPreferences"="Map Preferences";
 "urlTemplate"="URL Template for OpenStreetMap tiles:";
-"startWithLastPosition"="Start with last Position";
-"showUserDirection"="Show current Direction";
-"showLocations"="Show Locations (Needles)";
+"startZoom"="Start zoom [2-18]";
+"distanceFilter"="Distance filterin [m]";
+"headingFilter"="Heading filter in [m]";
+"minHorizontalAccuracy"="Minimal horizontal accuracy for GPS [m]";
+"minVerticalAccuracy"="Minimal vertical accuracy for GPS [m]";
+"maxLocationMergeDistance"="Maximal distance for merging locations [m]";
+"minZoomToShowLocations"="Minimal zoom for showing locations (needles) [2-18]";
+"maxPreloadTiles"="Maximal number of tiles for preload";
+"startWithLastPosition"="Start with last position";
+"showLocations"="Show locations (needles)";
 
 // location menu
 "addLocation"="Add Location (Needle)";
@@ -81,9 +88,6 @@
 // track list
 "trackList"="Tours";
 "nameOrDescriptionHint"="Please enter a name or description for this tour";
-
-// track preferences
-"trackPreferences"="Tour Preferences";
 
 //location
 "east"="East";

@@ -25,9 +25,10 @@ class MainViewController: UIViewController {
         mapView.setupScrollView()
         mapView.setupTileLayerView()
         mapView.setupTrackLayerView()
+        mapView.setupUserLocationView()
         mapView.setupLocationLayerView()
         mapView.locationLayerView.delegate = self
-        mapView.setupUserLocationView()
+        
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
         mapView.setDefaultLocation()

@@ -142,6 +142,7 @@ class MapView: UIView {
     
     func setZoom(zoomLevel: Int, animated: Bool){
         scrollView.setZoomScale(MapStatics.zoomScale(at: zoomLevel - MapStatics.maxZoom), animated: animated)
+        locationLayerView.scaleHasChanged(scale: scale)
     }
     
     func setDefaultLocation(){
@@ -206,7 +207,7 @@ extension MapView : UIScrollViewDelegate{
     
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         //print("scale = \(scale), minScale = \(MapStatics.minScaleToShowLocations)")
-        locationLayerView.isHidden = (scale < MapStatics.zoomScaleFromPlanet(to: Preferences.instance.minZoomToShowLocations))
+        locationLayerView.scaleHasChanged(scale: scale)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

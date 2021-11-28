@@ -101,10 +101,10 @@ struct MapStatics{
         for z in 0..<10{
             let zoomPixels = zoomPixels(at: z)
             if (zoomPixels > viewSize.width) && (zoomPixels > viewSize.height){
-                return z
+                return max(MapStatics.minZoom, z)
             }
         }
-        return 0
+        return MapStatics.minZoom
     }
     
     static func coordinateFromPointInScaledPlanetSize(point: CGPoint, scaledSize: CGSize) -> CLLocationCoordinate2D{
