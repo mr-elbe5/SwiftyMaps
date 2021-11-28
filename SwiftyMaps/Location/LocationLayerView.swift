@@ -8,7 +8,6 @@ import UIKit
 
 protocol LocationLayerViewDelegate{
     func showLocationDetails(location: Location)
-    func editLocation(location: Location)
     func deleteLocation(location: Location)
 }
 
@@ -29,7 +28,16 @@ class LocationLayerView: UIView {
     func addLocationView(location: Location){
         let locationView = LocationPinView(location: location)
         addSubview(locationView)
-        locationView.delegate = self
+        locationView.addTarget(self, action: #selector(showLocationDetails), for: .touchDown)
+    }
+    
+    func removeLocationView(location: Location){
+        subviews.first(where: {
+            if let pin = $0 as? LocationPinView{
+                return pin.location == location
+            }
+            return false
+        })?.removeFromSuperview()
     }
     
     func getLocationPin(location: Location) -> LocationPinView?{
@@ -62,23 +70,11 @@ class LocationLayerView: UIView {
         }
     }
     
-}
-
-extension LocationLayerView: LocationDelegate{
-    
-    func detailAction(sender: LocationPinView) {
-        delegate?.showLocationDetails(location: sender.location)
+    @objc func showLocationDetails(_ sender: AnyObject){
+        if let pin = sender as? LocationPinView{
+            delegate?.showLocationDetails(location: pin.location)
+        }
     }
-    
-    func editAction(sender: LocationPinView) {
-        delegate?.editLocation(location: sender.location)
-    }
-    
-    func deleteAction(sender: LocationPinView) {
-        subviews.first(where: {$0 == sender})?.removeFromSuperview()
-        delegate?.deleteLocation(location: sender.location)
-    }
-    
     
 }
 

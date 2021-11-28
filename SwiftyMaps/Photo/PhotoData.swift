@@ -17,12 +17,10 @@ class PhotoData : Equatable, Identifiable, Codable{
     private enum CodingKeys: CodingKey{
         case id
         case creationDate
-        case title
     }
     
     var id: UUID
     var creationDate: Date
-    var title: String = ""
     
     var isNew = false
     
@@ -54,14 +52,12 @@ class PhotoData : Equatable, Identifiable, Codable{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(UUID.self, forKey: .id)
         creationDate = try values.decode(Date.self, forKey: .creationDate)
-        title = try values.decode(String.self, forKey: .title)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(creationDate, forKey: .creationDate)
-        try container.encode(title, forKey: .title)
     }
     
     func getFile() -> Data?{

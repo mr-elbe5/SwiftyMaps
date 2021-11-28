@@ -48,20 +48,17 @@ class UserLocationView : UIView{
     override func draw(_ rect: CGRect) {
         switch state{
         case .exact:
-            //MapStatics.directionImage?.draw(in: rect)
-            
             let color = UserLocationView.userLocationColor.cgColor
             let ctx = UIGraphicsGetCurrentContext()!
             ctx.beginPath()
-            ctx.addEllipse(in: rect.scaleCenteredBy(0.4))
+            ctx.addEllipse(in: rect.scaleCenteredBy(0.3))
             ctx.setFillColor(color)
             ctx.drawPath(using: .fill)
             ctx.beginPath()
             ctx.setLineWidth(2.0)
-            ctx.addEllipse(in: rect.scaleCenteredBy(0.7))
+            ctx.addEllipse(in: rect.scaleCenteredBy(0.6))
             ctx.setStrokeColor(color)
             ctx.drawPath(using: .stroke)
-            //print("direction= \(direction)")
             let angle1 = (direction - 15)*CGFloat.pi/180
             let angle2 = (direction + 15)*CGFloat.pi/180
             ctx.beginPath()

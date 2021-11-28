@@ -24,10 +24,10 @@ class MainViewController: UIViewController {
         MapStatics.minZoom = MapStatics.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
         mapView.setupScrollView()
         mapView.setupTileLayerView()
-        mapView.setupUserLocationView()
         mapView.setupTrackLayerView()
         mapView.setupLocationLayerView()
         mapView.locationLayerView.delegate = self
+        mapView.setupUserLocationView()
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
         mapView.setDefaultLocation()
@@ -45,7 +45,7 @@ class MainViewController: UIViewController {
     }
     
     private func assertLocation(coordinate: CLLocationCoordinate2D, askForNext: Bool = false, onComplete: ((Location) -> Void)? = nil){
-        if let nextLocation = Locations.instance.locationNextTo(location: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){
+        if let nextLocation = Locations.instance.locationNextTo(coordinate: coordinate, maxDistance: Preferences.instance.maxLocationMergeDistance){
             if askForNext{
                 var txt = nextLocation.description
                 if !txt.isEmpty{
@@ -92,17 +92,14 @@ extension MainViewController: LocationServiceDelegate{
     func locationDidChange(location: CLLocation) {
         switch state{
         case .none:
-            debug("none")
             state = location.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy ? .exact : .estimated
             mapView.stateDidChange(from: .none, to: state, location: location)
         case .estimated:
-            debug("estimated")
             if location.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy{
                 state = .exact
                 mapView.stateDidChange(from: .estimated, to: state, location: location)
             }
         case .exact:
-            debug("exact")
             mapView.locationDidChange(location: location)
         }
     }
@@ -117,13 +114,6 @@ extension MainViewController: LocationLayerViewDelegate{
     
     func showLocationDetails(location: Location) {
         let controller = LocationViewController()
-        controller.location = location
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
-    func editLocation(location: Location) {
-        let controller = LocationEditViewController()
         controller.location = location
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
@@ -284,6 +274,10 @@ extension MainViewController: LocationEditDelegate{
         mapView.locationLayerView.updateLocationState(location)
     }
     
+    func updateLocationLayer() {
+        mapView.locationLayerView.setNeedsDisplay()
+    }
+    
 }
 
 extension MainViewController: CurrentTrackDelegate{
@@ -339,7 +333,6 @@ extension MainViewController: TrackListDelegate{
         mapView.scrollToCenteredCoordinate(coordinate: track.startLocation.coordinate)
     }
     
-    
     func updateTrackLayer() {
         mapView.trackLayerView.setNeedsDisplay()
     }
@@ -350,11 +343,6 @@ extension MainViewController: LocationListDelegate{
     
     func showOnMap(location: Location) {
         mapView.scrollToCenteredCoordinate(coordinate: location.coordinate)
-    }
-    
-    
-    func updateLocationLayer() {
-        mapView.locationLayerView.setNeedsDisplay()
     }
 
 }

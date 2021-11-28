@@ -10,8 +10,7 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol LocationListDelegate{
-    func updateLocationLayer()
+protocol LocationListDelegate: LocationEditDelegate{
     func showOnMap(location: Location)
 }
 
@@ -100,12 +99,12 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Locations.instance.locations.count
+        Locations.instance.size
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationListViewController.CELL_IDENT, for: indexPath) as! LocationCell
-        let track = Locations.instance.locations[indexPath.row]
+        let track = Locations.instance.location(at: indexPath.row)
         cell.location = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
@@ -136,7 +135,7 @@ extension LocationListViewController : LocationCellActionDelegate{
     
     
     func editLocation(location: Location) {
-        let locationController = LocationEditViewController()
+        let locationController = LocationViewController()
         locationController.location = location
         locationController.modalPresentationStyle = .fullScreen
         self.present(locationController, animated: true)
@@ -151,9 +150,22 @@ extension LocationListViewController : LocationCellActionDelegate{
     
     func viewLocation(location: Location) {
         let locationController = LocationViewController()
+        locationController.delegate = self
         locationController.location = location
         locationController.modalPresentationStyle = .fullScreen
         self.present(locationController, animated: true)
+    }
+    
+}
+
+extension LocationListViewController: LocationEditDelegate{
+    
+    func updateLocationLayer() {
+        delegate?.updateLocationLayer()
+    }
+    
+    func updateLocationState(location: Location) {
+        delegate?.updateLocationState(location: location)
     }
     
 }

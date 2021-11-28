@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 protocol PhotoViewDelegate{
-    func viewPhotoItem(data: PhotoData)
-    func sharePhotoItem(data: PhotoData)
+    func viewPhoto(data: PhotoData)
+    func sharePhoto(data: PhotoData)
 }
 
 class PhotoView : UIView{
@@ -36,16 +36,8 @@ class PhotoView : UIView{
         addSubview(imageView)
         self.photoData = data
         imageView.image = data.getImage()
-        imageView.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
+        imageView.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
         imageView.setAspectRatioConstraint()
-        if !data.title.isEmpty{
-            let titleView = MediaCommentLabel(text: data.title)
-            addSubview(titleView)
-            titleView.setAnchors(top: imageView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        }
-        else{
-            imageView.bottom(bottomAnchor)
-        }
         if delegate != nil{
             let sv = UIStackView()
             sv.setupHorizontal(distribution: .fillEqually, spacing: 2*defaultInset)
@@ -62,13 +54,13 @@ class PhotoView : UIView{
     
     @objc func viewItem(){
         if let imageData = photoData{
-            delegate?.viewPhotoItem(data: imageData)
+            delegate?.viewPhoto(data: imageData)
         }
     }
     
     @objc func shareItem(){
         if let imageData = photoData{
-            delegate?.sharePhotoItem(data: imageData)
+            delegate?.sharePhoto(data: imageData)
         }
     }
     
@@ -113,14 +105,11 @@ class PhotoEditView : UIView, UITextViewDelegate{
     var photoData : PhotoData? = nil
     
     var imageView = UIImageView()
-    var titleView = TextEditArea()
-    
     var delegate : PhotoEditDelegate? = nil
     
     func setupView(data: PhotoData){
         self.photoData = data
         imageView.image = data.getImage()
-        titleView.setText(data.title)
         let deleteButton = IconButton(icon: "xmark.circle")
         deleteButton.tintColor = UIColor.systemRed
         deleteButton.addTarget(self, action: #selector(deletePhoto), for: .touchDown)
@@ -129,24 +118,8 @@ class PhotoEditView : UIView, UITextViewDelegate{
         imageView.setDefaults()
         imageView.setRoundedBorders()
         addSubview(imageView)
-        titleView.setDefaults(placeholder: "comment".localize())
-        titleView.delegate = self
-        addSubview(titleView)
-        titleView.setKeyboardToolbar(doneTitle: "done".localize())
-        imageView.setAnchors(top: deleteButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
+        imageView.setAnchors(top: deleteButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
         imageView.setAspectRatioConstraint()
-        titleView.setAnchors(top: imageView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
-    }
-    
-    func setFocus(){
-        titleView.becomeFirstResponder()
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        if photoData != nil{
-            photoData!.title = textView.text!.trim()
-        }
-        titleView.textDidChange()
     }
     
     @objc func deletePhoto(){

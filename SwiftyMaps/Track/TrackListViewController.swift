@@ -152,8 +152,8 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension TrackListViewController : TrackCellActionDelegate{
     
-    func editTrack(track: TrackData) {
-        let trackController = TrackEditViewController()
+    func viewTrack(track: TrackData) {
+        let trackController = TrackViewController()
         trackController.track = track
         trackController.modalPresentationStyle = .fullScreen
         self.present(trackController, animated: true)
@@ -164,13 +164,6 @@ extension TrackListViewController : TrackCellActionDelegate{
             Tracks.instance.deleteTrack(track)
             self.tableView.reloadData()
         }
-    }
-    
-    func viewTrack(track: TrackData) {
-        let trackController = TrackViewController()
-        trackController.track = track
-        trackController.modalPresentationStyle = .fullScreen
-        self.present(trackController, animated: true)
     }
     
     func showOnMap(track: TrackData) {

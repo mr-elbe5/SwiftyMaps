@@ -11,9 +11,9 @@ class MapView: UIView {
     
     var scrollView : UIScrollView!
     var tileLayerView = TileLayerView()
-    var userLocationView = UserLocationView()
     var trackLayerView = TrackLayerView()
     var locationLayerView = LocationLayerView()
+    var userLocationView = UserLocationView()
     var controlLayerView = ControlLayerView()
     
     var scale : CGFloat{
@@ -71,10 +71,6 @@ class MapView: UIView {
         tileLayerView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
     }
     
-    func setupUserLocationView(){
-        addSubview(userLocationView)
-    }
-    
     func setupTrackLayerView(){
         addSubview(trackLayerView)
         trackLayerView.fillView(view: self)
@@ -86,6 +82,10 @@ class MapView: UIView {
         locationLayerView.setupLocationMarkers()
         locationLayerView.isHidden = !Preferences.instance.showPins
         locationLayerView.isHidden = true
+    }
+    
+    func setupUserLocationView(){
+        addSubview(userLocationView)
     }
     
     func setupControlLayerView(){
@@ -151,11 +151,12 @@ class MapView: UIView {
     
     func stateDidChange(from: LocationState, to: LocationState, location: CLLocation){
         if from == .none{
-            setZoom(zoomLevel: Preferences.instance.startZoom, animated: true)
+            setZoom(zoomLevel: Preferences.instance.startZoom, animated: false)
             scrollToCenteredCoordinate(coordinate: location.coordinate)
         }
         userLocationView.state = to
         userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
+        debug(to.rawValue)
     }
     
     func locationDidChange(location: CLLocation) {
