@@ -28,10 +28,10 @@ class MainViewController: UIViewController {
         mapView.setupUserLocationView()
         mapView.setupLocationLayerView()
         mapView.locationLayerView.delegate = self
-        
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
         mapView.setDefaultLocation()
+        LocationService.shared.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -65,7 +65,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
             locationManager.startUpdatingHeading()
             running = true
         }
-        //print("loc start: running = \(running)")
+        print("loc start: running = \(running)")
     }
     
     func checkRunning(){
@@ -87,17 +87,17 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        //print("changed auth")
+        print("changed auth")
         checkRunning()
         delegate?.authorizationDidChange(authorized: authorized, location: lastLocation)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.last{
-            //print("loc \(loc.coordinate), horzAcc: \(loc.horizontalAccuracy), vertAcc: \(loc.verticalAccuracy), time: \(loc.timestamp.timeString())")
+            /*print("loc \(loc.coordinate), horzAcc: \(loc.horizontalAccuracy), vertAcc: \(loc.verticalAccuracy), time: \(loc.timestamp.timeString())")
             if let lst = lastLocation{
                 print("diff ->\(lst.coordinate.distance(to: loc.coordinate)) time: \(Int(lst.timestamp.distance(to: loc.timestamp)))")
-            }
+            }*/
             if loc.horizontalAccuracy == -1{
                 print("invalid position")
                 return
