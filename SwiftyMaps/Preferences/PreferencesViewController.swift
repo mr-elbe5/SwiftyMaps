@@ -13,10 +13,7 @@ class PreferencesViewController: PopupViewController{
     
     var urlTemplateField = LabeledTextField()
     var startZoomField = LabeledTextField()
-    var distanceFilterField = LabeledTextField()
-    var headingFilterField = LabeledTextField()
-    var minHorizontalAccuracyField = LabeledTextField()
-    var minVerticalAccuracyField = LabeledTextField()
+    var minLocationAccuracyField = LabeledTextField()
     var maxLocationMergeDistanceField = LabeledTextField()
     var minZoomToShowLocationsField = LabeledTextField()
     var maxPreloadTilesField = LabeledTextField()
@@ -34,25 +31,13 @@ class PreferencesViewController: PopupViewController{
         contentView.addSubview(startZoomField)
         startZoomField.setAnchors(top: urlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        distanceFilterField.setupView(labelText: "distanceFilter".localize(), text: String(Int(Preferences.instance.distanceFilter)), isHorizontal: true)
-        contentView.addSubview(distanceFilterField)
-        distanceFilterField.setAnchors(top: startZoomField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        headingFilterField.setupView(labelText: "headingFilter".localize(), text: String(Int(Preferences.instance.headingFilter)), isHorizontal: true)
-        contentView.addSubview(headingFilterField)
-        headingFilterField.setAnchors(top: distanceFilterField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        minHorizontalAccuracyField.setupView(labelText: "minHorizontalAccuracy".localize(), text: String(Int(Preferences.instance.minHorizontalAccuracy)), isHorizontal: true)
-        contentView.addSubview(minHorizontalAccuracyField)
-        minHorizontalAccuracyField.setAnchors(top: headingFilterField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        minVerticalAccuracyField.setupView(labelText: "minVerticalAccuracy".localize(), text: String(Int(Preferences.instance.minVerticalAccuracy)), isHorizontal: true)
-        contentView.addSubview(minVerticalAccuracyField)
-        minVerticalAccuracyField.setAnchors(top: minHorizontalAccuracyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        minLocationAccuracyField.setupView(labelText: "minLocationAccuracy".localize(), text: String(Int(Preferences.instance.minLocationAccuracy)), isHorizontal: true)
+        contentView.addSubview(minLocationAccuracyField)
+        minLocationAccuracyField.setAnchors(top: startZoomField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         maxLocationMergeDistanceField.setupView(labelText: "maxLocationMergeDistance".localize(), text: String(Int(Preferences.instance.maxLocationMergeDistance)), isHorizontal: true)
         contentView.addSubview(maxLocationMergeDistanceField)
-        maxLocationMergeDistanceField.setAnchors(top: minVerticalAccuracyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        maxLocationMergeDistanceField.setAnchors(top: minLocationAccuracyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         minZoomToShowLocationsField.setupView(labelText: "minZoomToShowLocations".localize(), text: String(Int(Preferences.instance.minZoomToShowLocations)), isHorizontal: true)
         contentView.addSubview(minZoomToShowLocationsField)
@@ -78,21 +63,12 @@ class PreferencesViewController: PopupViewController{
     
     @objc func save(){
         let newTemplate = urlTemplateField.text
-        if newTemplate != MapStatics.defaultUrl{
-            MapStatics.defaultUrl = newTemplate
+        if newTemplate != Preferences.instance.urlTemplate{
+            Preferences.instance.urlTemplate = newTemplate
             _ = MapTiles.clear()
         }
-        if let val = Int(distanceFilterField.text){
-            Preferences.instance.distanceFilter = CLLocationDistance(val)
-        }
-        if let val = Int(headingFilterField.text){
-            Preferences.instance.headingFilter = CLLocationDistance(val)
-        }
-        if let val = Int(minHorizontalAccuracyField.text){
-            Preferences.instance.minHorizontalAccuracy = CLLocationDistance(val)
-        }
-        if let val = Int(minVerticalAccuracyField.text){
-            Preferences.instance.minVerticalAccuracy = CLLocationDistance(val)
+        if let val = Int(minLocationAccuracyField.text){
+            Preferences.instance.minLocationAccuracy = CLLocationDistance(val)
         }
         if let val = Int(maxLocationMergeDistanceField.text){
             Preferences.instance.maxLocationMergeDistance = CLLocationDistance(val)

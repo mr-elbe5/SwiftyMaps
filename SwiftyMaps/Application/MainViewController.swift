@@ -85,7 +85,7 @@ extension MainViewController: LocationServiceDelegate{
     
     func authorizationDidChange(authorized: Bool, location: CLLocation?) {
         if authorized, let loc = location, state == .none{
-            state = loc.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy ? .exact : .estimated
+            state = loc.horizontalAccuracy <= Preferences.instance.minLocationAccuracy ? .exact : .estimated
             mapView.stateDidChange(from: .none, to: state, location: loc)
         }
     }
@@ -93,10 +93,10 @@ extension MainViewController: LocationServiceDelegate{
     func locationDidChange(location: CLLocation) {
         switch state{
         case .none:
-            state = location.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy ? .exact : .estimated
+            state = location.horizontalAccuracy <= Preferences.instance.minLocationAccuracy ? .exact : .estimated
             mapView.stateDidChange(from: .none, to: state, location: location)
         case .estimated:
-            if location.horizontalAccuracy <= Preferences.instance.minHorizontalAccuracy{
+            if location.horizontalAccuracy <= Preferences.instance.minLocationAccuracy{
                 state = .exact
                 mapView.stateDidChange(from: .estimated, to: state, location: location)
             }

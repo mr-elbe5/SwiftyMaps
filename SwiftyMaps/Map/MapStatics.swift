@@ -22,8 +22,6 @@ import CoreLocation
 
 struct MapStatics{
     
-    static var defaultUrl = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
-    
     static var tilePixels : CGFloat = 256
     static var tileSize = CGSize(width: tilePixels, height: tilePixels)
     static var tileRect = CGRect(x: 0, y: 0, width: tilePixels, height: tilePixels)

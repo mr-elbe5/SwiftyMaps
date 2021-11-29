@@ -42,10 +42,7 @@
 "mapPreferences"="Karteneinstellungen";
 "urlTemplate"="URL Template für OpenStreetMap Kacheln:";
 "startZoom"="Startzoom [2-18]";
-"distanceFilter"="Enfernungsfilter [m]";
-"headingFilter"="Richtungsfilter [m]";
-"minHorizontalAccuracy"="Minimale horizontale Genauigkeit für GPS [m]";
-"minVerticalAccuracy"="Minimale vertikale Genauigkeit für GPS [m]";
+"minLocationAccuracy"="Minimale horizontale Genauigkeit für GPS [m]";
 "maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
 "minZoomToShowLocations"="Minimalzoom zur Anzeige von Orten (Nadeln) [2-18]";
 "maxPreloadTiles"="Maximale Anzahl von Kacheln zum Vorladen";

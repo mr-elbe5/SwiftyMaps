@@ -16,6 +16,13 @@ class Preferences: Identifiable, Codable{
     
     static var instance = Preferences()
     
+    static var defaultUrl = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
+    static var defaultStartZoom : Int = 10
+    static var defaultminLocationAccuracy : CLLocationDistance = 5.0
+    static var defaultMaxLocationMergeDistance : CLLocationDistance = 10.0
+    static var defaultMinZoomToShowLocations : Int = 8
+    static var defaultMaxPreloadTiles : Int = 5000
+    
     static func loadInstance(){
         if let prefs : Preferences = DataController.shared.load(forKey: .preferences){
             instance = prefs
@@ -29,10 +36,7 @@ class Preferences: Identifiable, Codable{
     enum CodingKeys: String, CodingKey {
         case urlTemplate
         case startZoom
-        case distanceFilter
-        case headingFilter
-        case minHorizontalAccuracy
-        case minVerticalAccuracy
+        case minLocationAccuracy
         case maxLocationMergeDistance
         case minZoomToShowLocations
         case startWithLastPosition
@@ -40,16 +44,13 @@ class Preferences: Identifiable, Codable{
         case showPins
     }
 
-    var urlTemplate : String = MapStatics.defaultUrl
-    var startZoom : Int = 10
-    var distanceFilter : CLLocationDistance = 5.0
-    var headingFilter : CLLocationDistance = 2.0
-    var minHorizontalAccuracy : CLLocationDistance = 10.0
-    var minVerticalAccuracy : CLLocationDistance = 5.0
-    var maxLocationMergeDistance : CLLocationDistance = 10.0
-    var minZoomToShowLocations : Int = 8
+    var urlTemplate : String = defaultUrl
+    var startZoom : Int = defaultStartZoom
+    var minLocationAccuracy : CLLocationDistance = defaultminLocationAccuracy
+    var maxLocationMergeDistance : CLLocationDistance = defaultMaxLocationMergeDistance
+    var minZoomToShowLocations : Int = defaultMinZoomToShowLocations
     var startWithLastPosition : Bool = true
-    var maxPreloadTiles : Int = 5000
+    var maxPreloadTiles : Int = defaultMaxPreloadTiles
     var showPins : Bool = true
     
     init(){
@@ -57,16 +58,13 @@ class Preferences: Identifiable, Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? MapStatics.defaultUrl
-        startZoom = try values.decodeIfPresent(Int.self, forKey: .startZoom) ?? 10
-        distanceFilter = try values.decodeIfPresent(CLLocationDistance.self, forKey: .distanceFilter) ?? 5.0
-        headingFilter = try values.decodeIfPresent(CLLocationDistance.self, forKey: .headingFilter) ?? 2.0
-        minHorizontalAccuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minHorizontalAccuracy) ?? 10.0
-        minVerticalAccuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minVerticalAccuracy) ?? 5.0
-        maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? 5.0
-        minZoomToShowLocations = try values.decodeIfPresent(Int.self, forKey: .minZoomToShowLocations) ?? 8
+        urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.defaultUrl
+        startZoom = try values.decodeIfPresent(Int.self, forKey: .startZoom) ?? Preferences.defaultStartZoom
+        minLocationAccuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minLocationAccuracy) ?? Preferences.defaultminLocationAccuracy
+        maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? Preferences.defaultMaxLocationMergeDistance
+        minZoomToShowLocations = try values.decodeIfPresent(Int.self, forKey: .minZoomToShowLocations) ?? Preferences.defaultMinZoomToShowLocations
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
-        maxPreloadTiles = try values.decodeIfPresent(Int.self, forKey: .maxPreloadTiles) ?? 5000
+        maxPreloadTiles = try values.decodeIfPresent(Int.self, forKey: .maxPreloadTiles) ?? Preferences.defaultMaxPreloadTiles
         showPins = try values.decodeIfPresent(Bool.self, forKey: .showPins) ?? true
     }
     
@@ -74,10 +72,7 @@ class Preferences: Identifiable, Codable{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(urlTemplate, forKey: .urlTemplate)
         try container.encode(startZoom, forKey: .startZoom)
-        try container.encode(distanceFilter, forKey: .distanceFilter)
-        try container.encode(headingFilter, forKey: .headingFilter)
-        try container.encode(minHorizontalAccuracy, forKey: .minHorizontalAccuracy)
-        try container.encode(minVerticalAccuracy, forKey: .minVerticalAccuracy)
+        try container.encode(minLocationAccuracy, forKey: .minLocationAccuracy)
         try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)
         try container.encode(minZoomToShowLocations, forKey: .minZoomToShowLocations)
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
