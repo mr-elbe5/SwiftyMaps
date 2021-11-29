@@ -1,9 +1,8 @@
 /*
- OSM-Maps
- Project for displaying a map like OSM without MapKit
+ SwiftyMaps
+ App for display and use of OSM maps without MapKit
  Copyright: Michael Rönnau mr@elbe5.de
  */
-
 import Foundation
 import UIKit
 

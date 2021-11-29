@@ -1,8 +1,8 @@
-//
-//  OSM-Maps
-//
-//  Created by Michael Rönnau on 02.11.21.
-//
+/*
+ SwiftyMaps
+ App for display and use of OSM maps without MapKit
+ Copyright: Michael Rönnau mr@elbe5.de
+ */
 
 import UIKit
 
