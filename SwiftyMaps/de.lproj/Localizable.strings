@@ -148,43 +148,71 @@
 "locationPhotoMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos";
 "locationTrackMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Touren";
 "locationPhotoTrackMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos und Touren";
-"locationDetailsInfoText"="Durch Antippen der Nadel werden die Detailansicht geöffnet";
+"locationDetailsInfoText"="Durch Antippen der Nadel wird die Orts-Detailansicht geöffnet (siehe unten)";
 
 "mapMenuInfoText"="Karten-Menü";
-"preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts";
+"preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts (siehe unten)";
 "deleteTilesInfoText"="Alle geladenen Kacheln löschen";
 
-"pinMenuInfoText"="Orte-Menü";
-"pinIconInfoText"="Fadenkreuz zum Setzen einer Markierung anzeigen";
-"addLocationInfoText"="Wenn das Fadenkreuz aktiviert ist, kann durch Tippen auf das Kreuz dort eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
+"locationMenuInfoText"="Orte-Menü";
+"locationIconInfoText"="Kreuz zum Setzen einer Markierung anzeigen";
+"addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
+"locationListInfoText"="List aller Orte (siehe unten)";
+"showLocationsInfoText"="Orte (Nadeln) auf der Karte einblenden";
+"hideLocationsInfoText"="Orte (Nadeln) auf der Karte ausblenden";
+"deleteLocationsInfoText"="Löschen der Markierung und der aller zugeordneten Fotos";
 
 "trackMenuInfoText"="Touren-Menü";
+"startTrackInfoText"="Neue Tour starten";
+"startTrackLocationInfoText"="Wenn eine Tour gestartet wird, wird auch eine zugehörige Ortsmarkierung erstellt und die Tour dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird die Tour dieser Markierung zugeordnet.";
+"currentTrackInfoText"="Aktuelle Tour öffnen (siehe unten)";
+"hideTrackInfoText"="Tour ausblenden";
+"trackListInfoText"="Liste aller Touren öffnen (siehe unten)";
+"deleteTracksInfoText"="Alle Touren löschen";
 
-
-"zoomIconInfoText"="Aktuelle Zoomebene der Karte";
 "centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
+
+"cameraIconInfoText"="Ein Foto machen";
+"addPhotoLocationInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Ortsmarkierung erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird das Foto dieser Markierung zugeordnet.";
+
 "gearIconInfoText"="Voreinstellungen ändern";
+
 "infoIconInfoText"="Diese Information";
-"cameraIconInfoText"="Ein Foto machen und dem aktuellen Ort zuordnen";
 
-"noPinIconInfoText"="Fadenkreuz zum Setzen einer Markierung ausblenden";
-"trackIconInfoText"="Tracking-Einstellungen öffnen";
-//location info
+// info for location detail
+"locationDetailInfoHeader"="Orts-Detailsansicht";
+"locationDetailImageInfoText"="Hinzufügen eines Bilds aus der Photobibliothek";
+"locationDetailTrashInfoText"="Löschen dieses Ortes";
+"locationDetailPencilInfoText"="Editiermodus ein- und ausschalten";
+"locationDetailEditInfoText"="Im Editiermodus können die Beschreibung geändert und Bilder gelöscht werden."
+"locationDetailShareImageInfo"="Bild in die Photobibliothek kopieren";
+"locationDetailViewImageInfo"="Bild im Bildbetrachter ansehen";
 
-"locationEditInfoText"="Ändern der Beschreibung und zugeordnete Fotos löschen";
-"locationDeleteInfoText"="Löschen der Markierung und der aller zugeordneten Fotos";
-"locationMenuInfoText"="Durch langes Antippen einer Markierung wird deren Kontextmenü geöffnet.";
-//preload info
+// info for preload
+"tilePreloadInfoHeader"="Kacheln vorladen";
 "preloadInfoText"="Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert. Hier können Kacheln des aktuellen Kartenausschnitts für eine Offline-Nutzung vorgeladen werden. Je höher die maximale Zoomebene, des größer das zu ladende Datenvolumen (pro Zoomschritt ein Faktor von 4). Die maximale Zoomebene unterhalb der Zoomanzeige einstellbar. Sollte ein Abbruch erfolgen oder Ladefehler auftreten, kann der Vorgang wiederholt werden.";
-//preferences info
-"urlInfoText"="Die URL Templates sind serverspezifisch und müssen png-Dateien (Kacheln) liefern. Es muss sichergestellt sein, dass die Rechte zum Download der Kacheln vorliegen und dass keine unangemessenen Massendownloads erfolgen.";
-"showLocationsInfoText"="Die Anzeige von Ortsmarkierungen (Nadeln) ein- und ausschalten";
 
-"deleteLocationsInfoText"="Alle Ortsmarkierungen inklusive der zugeordneten Bilder sofort löschen";
-// camera info
-"addFotoInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Ortsmarkierung erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird das Foto dieser Markierung zugeordnet.";
-//locations info
-"addLocationInfoText"="Wenn das Fadenkreuz aktiviert ist, kann durch Tippen auf das Kreuz dort eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
+// info for location list
+"locationListInfoHeader"="Ortsliste";
+"locationListPencilInfoText"="Editiermodus ein- und ausschalten";
+"locationListPinInfoText"="Den Ort auf der Karte anzeigen";
+"locationListViewInfoText"="Orts-Detailansicht öffnen (siehe oben)";
+"locationListEditInfoText"="Im Editiermodus können einzelne Orte gelöscht werden."
+
+// info for track details
+
+// info for track list
+"trackListInfoHeader"="Tourenliste";
+"trackListPencilInfoText"="Editiermodus ein- und ausschalten";
+"trackListPinInfoText"="Die Tour auf der Karte anzeigen";
+"trackListViewInfoText"="Tour-Detailansicht öffnen (siehe oben)";
+"trackListEditInfoText"="Im Editiermodus können einzelne Touren gelöscht werden."
+
+//info for preferences
+"preferencesInfoHeader"="Voreinstellungne";
+"urlInfoText"="Die URL Templates sind serverspezifisch und müssen png-Dateien (Kacheln) liefern. Es muss sichergestellt sein, dass die Rechte zum Download der Kacheln vorliegen und dass keine unangemessenen Massendownloads erfolgen.";
+
+
 
 
 

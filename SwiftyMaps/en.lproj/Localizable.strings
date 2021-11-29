@@ -134,6 +134,7 @@
 //info
 "appInfoHeader"="General";
 "appInfoText"="This App is based on data from OpenStreetMap and OpenTopoMap. Loading of map tiles from the configured servers should only take location in accordance with their terms of use.";
+
 "appIconsHeader"="Icons";
 "userLocationInfoText"="Shows the current position and direction (red triangle)";
 
@@ -141,10 +142,11 @@
 "locationPhotoMarkerInfoText"="Location marker for location with data and assigned photos";
 "locationTrackMarkerInfoText"="Location marker for location with data and assigned tracks";
 "locationPhotoTrackMarkerInfoText"="Location marker for location with data and assigned photos and tracks";
-"locationDetailsInfoText"="By tapping the needle a detail view is opened";
+"locationDetailsInfoText"="By tapping the needle a detail view is opened (see below)";
 
-"mapIconInfoText"="Change between OpenStreetMap and OpenTopoMap tiles";
+"mapMenuInfoText"="Map menu";
 "preloadIconInfoText"="Initiates preloading the currently visible map section (active only for zoom levels of 13 and above)";
+
 "zoomIconInfoText"="Shows the current zoom level of the map";
 "centerIconInfoText"="Center the current position on the map";
 "gearIconInfoText"="Change references";
