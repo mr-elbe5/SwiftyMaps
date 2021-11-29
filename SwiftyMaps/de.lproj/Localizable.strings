@@ -185,7 +185,7 @@
 "locationDetailImageInfoText"="Hinzufügen eines Bilds aus der Photobibliothek";
 "locationDetailTrashInfoText"="Löschen dieses Ortes";
 "locationDetailPencilInfoText"="Editiermodus ein- und ausschalten";
-"locationDetailEditInfoText"="Im Editiermodus können die Beschreibung geändert und Bilder gelöscht werden."
+"locationDetailEditInfoText"="Im Editiermodus können die Beschreibung geändert und Bilder gelöscht werden.";
 "locationDetailShareImageInfo"="Bild in die Photobibliothek kopieren";
 "locationDetailViewImageInfo"="Bild im Bildbetrachter ansehen";
 
@@ -198,7 +198,7 @@
 "locationListPencilInfoText"="Editiermodus ein- und ausschalten";
 "locationListPinInfoText"="Den Ort auf der Karte anzeigen";
 "locationListViewInfoText"="Orts-Detailansicht öffnen (siehe oben)";
-"locationListEditInfoText"="Im Editiermodus können einzelne Orte gelöscht werden."
+"locationListEditInfoText"="Im Editiermodus können einzelne Orte gelöscht werden.";
 
 // info for track details
 
@@ -207,7 +207,7 @@
 "trackListPencilInfoText"="Editiermodus ein- und ausschalten";
 "trackListPinInfoText"="Die Tour auf der Karte anzeigen";
 "trackListViewInfoText"="Tour-Detailansicht öffnen (siehe oben)";
-"trackListEditInfoText"="Im Editiermodus können einzelne Touren gelöscht werden."
+"trackListEditInfoText"="Im Editiermodus können einzelne Touren gelöscht werden.";
 
 //info for preferences
 "preferencesInfoHeader"="Voreinstellungne";

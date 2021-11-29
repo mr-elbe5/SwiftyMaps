@@ -178,7 +178,7 @@
 "locationDetailImageInfoText"="Add a photo to this location";
 "locationDetailTrashInfoText"="Delete this location";
 "locationDetailPencilInfoText"="Switch edit mode off and on";
-"locationDetailEditInfoText"="In edit mode the desciption can be changed and photos can be deleted."
+"locationDetailEditInfoText"="In edit mode the desciption can be changed and photos can be deleted.";
 "locationDetailShareImageInfo"="Copy image to the photo library";
 "locationDetailViewImageInfo"="View image in the viewer";
 
@@ -191,7 +191,7 @@
 "locationListPencilInfoText"="Switch edit mode on and off";
 "locationListPinInfoText"="Show the location on the map";
 "locationListViewInfoText"="Show location detail view (see below)";
-"locationListEditInfoText"="In edit mode single photos can be deleted."
+"locationListEditInfoText"="In edit mode single photos can be deleted.";
 
 // info for track details
 
@@ -200,7 +200,7 @@
 "trackListPencilInfoText"="Switch edit mode on and off";
 "trackListPinInfoText"="Show the track on the map";
 "trackListViewInfoText"="Show track details (see above)";
-"trackListEditInfoText"="In edit mode single tracks can be deleted."
+"trackListEditInfoText"="In edit mode single tracks can be deleted.";
 
 //info for preferences
 "preferencesInfoHeader"="Preferences";
