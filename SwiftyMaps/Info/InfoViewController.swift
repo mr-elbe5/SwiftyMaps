@@ -27,35 +27,42 @@ class InfoViewController: PopupViewController {
         
         stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "userLocationInfoText".localize(), iconColor: UserLocationView.userLocationColor))
         
-        stackView.addArrangedSubview(IconInfoText(image: "mappin", text: "locationMarkerInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.track", text: "locationMarkerInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.photo", text: "locationMarkerInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.track.photo", text: "locationMarkerInfoText".localize()))
-        stackView.addArrangedSubview(TextLabel(text: "showDetails".localize() + ": " + "locationDetailsInfoText".localize(), insetLeft: subInset))
-        stackView.addArrangedSubview(TextLabel(text: "edit".localize() + ": " + "locationEditInfoText".localize(), insetLeft: subInset))
-        stackView.addArrangedSubview(TextLabel(text: "delete".localize() + ": " + "locationDeleteInfoText".localize(), insetLeft: subInset))
+        stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "locationMarkerInfoText".localize(), iconColor: LocationPinView.defaultPinColor))
+        stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "locationPhotoMarkerInfoText".localize(), iconColor: LocationPinView.photoPinColor))
+        stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "locationTrackMarkerInfoText".localize(), iconColor: LocationPinView.defaultPinColor))
+        stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "locationPhotoTrackMarkerInfoText".localize(), iconColor: LocationPinView.photoPinColor))
+        stackView.addArrangedSubview(TextLabel(text: "locationDetailsInfoText".localize(), insetLeft: subInset))
         
-        stackView.addArrangedSubview(IconInfoText(icon: "map", text: "mapIconInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "map", text: "mapMenuInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "square.and.arrow.down", text: "preloadIconInfoText".localize(),leftInset: subInset))
+        stackView.addArrangedSubview(IconInfoText(icon: "trash", text: "deleteTilesInfoText".localize(), iconColor: .red, leftInset: subInset))
         
-        stackView.addArrangedSubview(IconInfoText(icon: "arrow.down.square", text: "preloadIconInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(icon: "12.square", text: "zoomIconInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "pinMenuInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "plus.circle", text: "pinIconInfoText".localize(),leftInset: subInset))
+        stackView.addArrangedSubview(TextLabel(text: "addLocationInfoText".localize(), insetLeft: subInset))
+        
+        stackView.addArrangedSubview(IconInfoText(icon: "figure.walk", text: "trackMenuInfoText".localize()))
         
         stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "centerIconInfoText".localize()))
         
         stackView.addArrangedSubview(IconInfoText(icon: "gearshape", text: "gearIconInfoText".localize()))
         stackView.addArrangedSubview(TextLabel(text: "urlInfoText".localize(), insetLeft: subInset))
         stackView.addArrangedSubview(TextLabel(text: "deleteLocations".localize() + ": " + "deleteLocationsInfoText".localize(), insetLeft: subInset))
-        stackView.addArrangedSubview(TextLabel(text: "clearTileCache".localize() + ": " + "deleteTilesInfoText".localize(), insetLeft: subInset))
+        
         
         stackView.addArrangedSubview(IconInfoText(icon: "info.circle", text: "infoIconInfoText".localize()))
         
-        stackView.addArrangedSubview(IconInfoText(icon: "camera", text: "cameraIconInfoText".localize()))
-        stackView.addArrangedSubview(TextLabel(text: "addLocationInfoText".localize(), insetLeft: subInset))
+        
         
         stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "pinIconInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "circle.slash", text: "noPinIconInfoText".localize()))
         
         stackView.addArrangedSubview(IconInfoText(icon: "figure.walk", text: "trackIconInfoText".localize()))
+        
+        //
+        
+        stackView.addArrangedSubview(TextLabel(text: "edit".localize() + ": " + "locationEditInfoText".localize(), insetLeft: subInset))
+        stackView.addArrangedSubview(TextLabel(text: "delete".localize() + ": " + "locationDeleteInfoText".localize(), insetLeft: subInset))
     }
     
 }

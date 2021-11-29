@@ -140,22 +140,37 @@
 
 //info
 "appInfoHeader"="Allgemeines";
-"appInfoText"="Diese App basiert auf Daten von OpenStreetMap und OpenTopoMap. Das Laden der Kartenkacheln von den konfigurierten Servern sollte nur im Einklang mit den dort veröffentlichten Nutzungsbedingungen erfolgen. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
+"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden. Das Laden der Kartenkacheln von den konfigurierten Servern sollte nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
+
 "appIconsHeader"="Symbole";
 "userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck)";
-"locationMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos";
-"mapIconInfoText"="Wechsel zwischen OpenStreetMap- und OpenTopoMap-Karten";
-"preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts einleiten (nur bei Zoomebenen 13 und höher aktiv)";
+"locationMarkerInfoText"="Markierung mit Ortsangabe";
+"locationPhotoMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos";
+"locationTrackMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Touren";
+"locationPhotoTrackMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos und Touren";
+"locationDetailsInfoText"="Durch Antippen der Nadel werden die Detailansicht geöffnet";
+
+"mapMenuInfoText"="Karten-Menü";
+"preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts";
+"deleteTilesInfoText"="Alle geladenen Kacheln löschen";
+
+"pinMenuInfoText"="Orte-Menü";
+"pinIconInfoText"="Fadenkreuz zum Setzen einer Markierung anzeigen";
+"addLocationInfoText"="Wenn das Fadenkreuz aktiviert ist, kann durch Tippen auf das Kreuz dort eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
+
+"trackMenuInfoText"="Touren-Menü";
+
+
 "zoomIconInfoText"="Aktuelle Zoomebene der Karte";
 "centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
 "gearIconInfoText"="Voreinstellungen ändern";
 "infoIconInfoText"="Diese Information";
 "cameraIconInfoText"="Ein Foto machen und dem aktuellen Ort zuordnen";
-"pinIconInfoText"="Fadenkreuz zum Setzen einer Markierung anzeigen";
+
 "noPinIconInfoText"="Fadenkreuz zum Setzen einer Markierung ausblenden";
 "trackIconInfoText"="Tracking-Einstellungen öffnen";
 //location info
-"locationDetailsInfoText"="Anzeigen der Ortsangaben und zugeordneten Fotos";
+
 "locationEditInfoText"="Ändern der Beschreibung und zugeordnete Fotos löschen";
 "locationDeleteInfoText"="Löschen der Markierung und der aller zugeordneten Fotos";
 "locationMenuInfoText"="Durch langes Antippen einer Markierung wird deren Kontextmenü geöffnet.";
@@ -164,7 +179,7 @@
 //preferences info
 "urlInfoText"="Die URL Templates sind serverspezifisch und müssen png-Dateien (Kacheln) liefern. Es muss sichergestellt sein, dass die Rechte zum Download der Kacheln vorliegen und dass keine unangemessenen Massendownloads erfolgen.";
 "showLocationsInfoText"="Die Anzeige von Ortsmarkierungen (Nadeln) ein- und ausschalten";
-"deleteTilesInfoText"="Alle geladenen Kacheln beider Kartenarten sofort löschen";
+
 "deleteLocationsInfoText"="Alle Ortsmarkierungen inklusive der zugeordneten Bilder sofort löschen";
 // camera info
 "addFotoInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Ortsmarkierung erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird das Foto dieser Markierung zugeordnet.";
