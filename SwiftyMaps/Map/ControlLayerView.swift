@@ -163,7 +163,7 @@ class ControlLayerView: UIView {
     }
     
     func getTrackingMenu() -> UIMenu{
-        let showCurrentAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
+        let showCurrentAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")?.withTintColor(.green, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.openCurrentTrack()
             self.trackMenuControl.menu = self.getTrackingMenu()
         }

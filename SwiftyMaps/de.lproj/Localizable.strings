@@ -140,10 +140,10 @@
 
 //info
 "appInfoHeader"="Allgemeines";
-"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden. Das Laden der Kartenkacheln von den konfigurierten Servern sollte nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
+"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden. Das Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
 
 "appIconsHeader"="Symbole";
-"userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck)";
+"userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck). Wenn die Position nicht genau genug bestimmt werden kann, erscheint ein halbtransparenter blauer Kreis.";
 
 "locationMarkerInfoText"="Markierung mit Ortsangabe";
 "locationPhotoMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos";
@@ -155,7 +155,7 @@
 "preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts (siehe unten)";
 "deleteTilesInfoText"="Alle geladenen Kacheln löschen";
 
-"locationMenuInfoText"="Orte-Menü";
+"locationMenuInfoText"="Ortsmarkierungen";
 "locationIconInfoText"="Kreuz zum Setzen einer Markierung anzeigen";
 "addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
 "locationListInfoText"="List aller Orte (siehe unten)";
@@ -163,7 +163,7 @@
 "hideLocationsInfoText"="Orte (Nadeln) auf der Karte ausblenden";
 "deleteLocationsInfoText"="Löschen der Markierung und der aller zugeordneten Fotos";
 
-"trackMenuInfoText"="Touren-Menü";
+"trackMenuInfoText"="Touren";
 "startTrackInfoText"="Neue Tour starten";
 "startTrackLocationInfoText"="Wenn eine Tour gestartet wird, wird auch eine zugehörige Ortsmarkierung erstellt und die Tour dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird die Tour dieser Markierung zugeordnet.";
 "currentTrackInfoText"="Aktuelle Tour öffnen (siehe unten)";
@@ -176,12 +176,12 @@
 "cameraIconInfoText"="Ein Foto machen";
 "addPhotoLocationInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Ortsmarkierung erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird das Foto dieser Markierung zugeordnet.";
 
-"gearIconInfoText"="Voreinstellungen ändern";
+"gearIconInfoText"="Voreinstellungen ändern (siehe unten)";
 
 "infoIconInfoText"="Diese Information";
 
 // info for location detail
-"locationDetailInfoHeader"="Orts-Detailsansicht";
+"locationDetailInfoHeader"="Ortsdetails";
 "locationDetailImageInfoText"="Hinzufügen eines Bilds aus der Photobibliothek";
 "locationDetailTrashInfoText"="Löschen dieses Ortes";
 "locationDetailPencilInfoText"="Editiermodus ein- und ausschalten";
@@ -201,6 +201,7 @@
 "locationListEditInfoText"="Im Editiermodus können einzelne Orte gelöscht werden.";
 
 // info for track details
+"trackDetailInfoHeader"="Tourendetails";
 
 // info for track list
 "trackListInfoHeader"="Tourenliste";
@@ -210,7 +211,7 @@
 "trackListEditInfoText"="Im Editiermodus können einzelne Touren gelöscht werden.";
 
 //info for preferences
-"preferencesInfoHeader"="Voreinstellungne";
+"preferencesInfoHeader"="Voreinstellungen";
 "urlInfoText"="Die URL Templates sind serverspezifisch und müssen png-Dateien (Kacheln) liefern. Es muss sichergestellt sein, dass die Rechte zum Download der Kacheln vorliegen und dass keine unangemessenen Massendownloads erfolgen.";
 
 

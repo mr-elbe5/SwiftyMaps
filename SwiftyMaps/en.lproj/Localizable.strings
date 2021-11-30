@@ -133,10 +133,10 @@
 
 //info
 "appInfoHeader"="General";
-"appInfoText"="This App is based on data from OpenStreetMap but not associated with the OpenStreetMap organization. Loading of map tiles from the configured servers should only take location in accordance with their terms of use. Once loaded tiles are stored in the app until all tiles are deleted.";
+"appInfoText"="This App is based on data from OpenStreetMap but not associated with the OpenStreetMap organization. Loading of map tiles from the configured server may only take place in accordance with the respective published terms of use. Once loaded tiles are stored in the app until all tiles are deleted.";
 
 "appIconsHeader"="Icons";
-"userLocationInfoText"="Shows the current position and direction (red triangle)";
+"userLocationInfoText"="Shows the current position and direction (red triangle). If the position is not exact enough, a transparent blue circle appears.";
 
 "locationMarkerInfoText"="Location marker for location with data";
 "locationPhotoMarkerInfoText"="Location marker for location with data and assigned photos";
@@ -145,7 +145,7 @@
 "locationDetailsInfoText"="By tapping the needle a detail view is opened (see below)";
 
 "mapMenuInfoText"="Map menu";
-"preloadIconInfoText"="Initiates preloading the currently visible map section (active only for zoom levels of 13 and above)";
+"preloadIconInfoText"="Initiates preloading the currently visible map section (active only for reasonable zoom levels - see preferences)";
 "deleteTilesInfoText"="Delete all stored tiles immediately";
 
 "locationMenuInfoText"="Location Menu";
@@ -169,7 +169,7 @@
 "cameraIconInfoText"="Take a photo";
 "addPhotoLocationInfoText"="When you take a photo, a location is created and the photo is assigned to this location. If a location already exists in the direct vicinity (below the location accuracy) the photo is assigned to this location.";
 
-"gearIconInfoText"="Open Preferences";
+"gearIconInfoText"="Open Preferences (see below)";
 
 "infoIconInfoText"="This Information";
 
@@ -194,6 +194,7 @@
 "locationListEditInfoText"="In edit mode single photos can be deleted.";
 
 // info for track details
+"trackDetailInfoHeader"="Tourendetails";
 
 // info for track list
 "trackListInfoHeader"="Track List";
