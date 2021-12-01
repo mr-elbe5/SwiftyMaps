@@ -15,7 +15,7 @@
 		4E0BD98D26E9FC67005A4A94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */; };
 		4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD99F26EA0159005A4A94 /* UIViewController.swift */; };
 		4E0BD9A926EA0159005A4A94 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */; };
-		4E0BD9AA26EA0159005A4A94 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A226EA0159005A4A94 /* PopupViewController.swift */; };
+		4E0BD9AA26EA0159005A4A94 /* PopupScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A226EA0159005A4A94 /* PopupScrollViewController.swift */; };
 		4E0BD9B326EA0170005A4A94 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9AF26EA0170005A4A94 /* InfoViewController.swift */; };
 		4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B726EA0239005A4A94 /* Codable.swift */; };
 		4E0BD9BD26EA0239005A4A94 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B826EA0239005A4A94 /* Date.swift */; };
@@ -51,7 +51,7 @@
 		4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */; };
 		4E1D0E1B274BA72100F3D584 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1A274BA72100F3D584 /* TrackCell.swift */; };
 		4E1D0E1E274BCDD200F3D584 /* GPXCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */; };
-		4E1D0E20274BDB1900F3D584 /* CurrentTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1F274BDB1900F3D584 /* CurrentTrackViewController.swift */; };
+		4E1D0E20274BDB1900F3D584 /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1F274BDB1900F3D584 /* TrackDetailViewController.swift */; };
 		4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E21274C21CD00F3D584 /* LocationListViewController.swift */; };
 		4E1D0E24274C223C00F3D584 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E23274C223C00F3D584 /* LocationCell.swift */; };
 		4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088DE27439C440097BFBA /* TrackLayerView.swift */; };
@@ -85,7 +85,8 @@
 		4E4B758D273AA28100CB4B41 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B758C273AA28100CB4B41 /* PhotoData.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E52F3E8273FD2F30046DC98 /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3E7273FD2F30046DC98 /* MapRegion.swift */; };
-		4E89173F273688580046AC91 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationViewController.swift */; };
+		4E89173F273688580046AC91 /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationDetailViewController.swift */; };
+		4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F877E275796990027DAD4 /* PopupTableViewController.swift */; };
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
 		4EA9B7CE27413F0B00C91B68 /* SafeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */; };
@@ -105,7 +106,7 @@
 		4E0BD98E26E9FC67005A4A94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E0BD99F26EA0159005A4A94 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
-		4E0BD9A226EA0159005A4A94 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		4E0BD9A226EA0159005A4A94 /* PopupScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupScrollViewController.swift; sourceTree = "<group>"; };
 		4E0BD9AF26EA0170005A4A94 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		4E0BD9B726EA0239005A4A94 /* Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		4E0BD9B826EA0239005A4A94 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -142,7 +143,7 @@
 		4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
 		4E1D0E1A274BA72100F3D584 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXCreator.swift; sourceTree = "<group>"; };
-		4E1D0E1F274BDB1900F3D584 /* CurrentTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTrackViewController.swift; sourceTree = "<group>"; };
+		4E1D0E1F274BDB1900F3D584 /* TrackDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
 		4E1D0E21274C21CD00F3D584 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		4E1D0E23274C223C00F3D584 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		4E2088DE27439C440097BFBA /* TrackLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLayerView.swift; sourceTree = "<group>"; };
@@ -176,7 +177,8 @@
 		4E4B758C273AA28100CB4B41 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E52F3E7273FD2F30046DC98 /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
-		4E89173E273688580046AC91 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		4E89173E273688580046AC91 /* LocationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
+		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeMap.swift; sourceTree = "<group>"; };
@@ -257,21 +259,26 @@
 			children = (
 				4E92113A2741127500DC5226 /* AsyncOperation.swift */,
 				4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */,
+				4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */,
+				4E0BD9C926EA02BA005A4A94 /* AVCaptureVideoOrientation.swift */,
+				4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */,
+				4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */,
+				4E0BD9D526EA037F005A4A94 /* DataController.swift */,
+				4E0BD9D626EA037F005A4A94 /* FileController.swift */,
+				4E0BD9E226EA04EE005A4A94 /* FileError.swift */,
+				4E24F46127345D11004E69C2 /* HeaderLabel.swift */,
 				4E24F45C27345D11004E69C2 /* IconButton.swift */,
 				4E24F46427345D11004E69C2 /* Indicator.swift */,
 				4E24F46727345D11004E69C2 /* Insets.swift */,
 				4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */,
 				4E24F46B27345D11004E69C2 /* LabeledTextField.swift */,
-				4E0BD9A226EA0159005A4A94 /* PopupViewController.swift */,
-				4E24F46127345D11004E69C2 /* HeaderLabel.swift */,
-				4E24F45F27345D11004E69C2 /* TextLabel.swift */,
+				4E0BD9A226EA0159005A4A94 /* PopupScrollViewController.swift */,
+				4E8F877E275796990027DAD4 /* PopupTableViewController.swift */,
+				4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */,
 				4E24F47127345D11004E69C2 /* TextButton.swift */,
 				4E24F46927345D11004E69C2 /* TextEditArea.swift */,
+				4E24F45F27345D11004E69C2 /* TextLabel.swift */,
 				4E42393C273D2290005B2E5F /* TextView.swift */,
-				4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */,
-				4E0BD9D526EA037F005A4A94 /* DataController.swift */,
-				4E0BD9D626EA037F005A4A94 /* FileController.swift */,
-				4E0BD9E226EA04EE005A4A94 /* FileError.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -282,7 +289,7 @@
 				4EA45A632747CA22001F3533 /* GPXParser.swift */,
 				4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */,
 				4E0D092F26F90DC600FABB17 /* TrackViewController.swift */,
-				4E1D0E1F274BDB1900F3D584 /* CurrentTrackViewController.swift */,
+				4E1D0E1F274BDB1900F3D584 /* TrackDetailViewController.swift */,
 				4E2088E22743A24E0097BFBA /* TrackData.swift */,
 				4E2088E42743A4280097BFBA /* Tracks.swift */,
 				4E2088E62743AA670097BFBA /* TrackPoint.swift */,
@@ -302,7 +309,7 @@
 				4E1B81032732EDC4003ED6B0 /* UserLocationView.swift */,
 				4E1B810C2732EDC5003ED6B0 /* Locations.swift */,
 				4E1B81092732EDC5003ED6B0 /* LocationPinView.swift */,
-				4E89173E273688580046AC91 /* LocationViewController.swift */,
+				4E89173E273688580046AC91 /* LocationDetailViewController.swift */,
 				4E1B81082732EDC4003ED6B0 /* LocationLayerView.swift */,
 				4E1D0E21274C21CD00F3D584 /* LocationListViewController.swift */,
 				4E1D0E23274C223C00F3D584 /* LocationCell.swift */,
@@ -352,10 +359,6 @@
 		4E3BE7EB26EA7EF1000F9069 /* Photo */ = {
 			isa = PBXGroup;
 			children = (
-				4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */,
-				4E0BD9C926EA02BA005A4A94 /* AVCaptureVideoOrientation.swift */,
-				4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */,
-				4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */,
 				4E4B758C273AA28100CB4B41 /* PhotoData.swift */,
 				4E42393A273D19C6005B2E5F /* PhotoView.swift */,
 				4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */,
@@ -470,7 +473,7 @@
 				4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */,
 				4E0BD9B326EA0170005A4A94 /* InfoViewController.swift in Sources */,
 				4E0D093026F90DC600FABB17 /* TrackViewController.swift in Sources */,
-				4E0BD9AA26EA0159005A4A94 /* PopupViewController.swift in Sources */,
+				4E0BD9AA26EA0159005A4A94 /* PopupScrollViewController.swift in Sources */,
 				4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */,
 				4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */,
 				4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */,
@@ -480,6 +483,7 @@
 				4E0BD9BF26EA0239005A4A94 /* URL.swift in Sources */,
 				4ECFC99F26FBB8AF0083977B /* MapPreloadViewController.swift in Sources */,
 				4E0BD9BD26EA0239005A4A94 /* Date.swift in Sources */,
+				4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */,
 				4E0BD9CB26EA02BA005A4A94 /* CLLocationManager.swift in Sources */,
 				4E0BD9CE26EA02BA005A4A94 /* LocationService.swift in Sources */,
 				4E1B81172732EDC5003ED6B0 /* LocationLayerView.swift in Sources */,
@@ -503,7 +507,7 @@
 				4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */,
 				4E42393B273D19C6005B2E5F /* PhotoView.swift in Sources */,
 				4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */,
-				4E1D0E20274BDB1900F3D584 /* CurrentTrackViewController.swift in Sources */,
+				4E1D0E20274BDB1900F3D584 /* TrackDetailViewController.swift in Sources */,
 				4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */,
 				4E24F47627345D11004E69C2 /* CGSize.swift in Sources */,
 				4E1D0E1E274BCDD200F3D584 /* GPXCreator.swift in Sources */,
@@ -513,7 +517,7 @@
 				4E24F47427345D11004E69C2 /* IconButton.swift in Sources */,
 				4E24F48127345D11004E69C2 /* TextEditArea.swift in Sources */,
 				4E1B811C2732EDC5003ED6B0 /* MapTile.swift in Sources */,
-				4E89173F273688580046AC91 /* LocationViewController.swift in Sources */,
+				4E89173F273688580046AC91 /* LocationDetailViewController.swift in Sources */,
 				4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */,
 				4E1B81142732EDC5003ED6B0 /* ControlLayerView.swift in Sources */,
 				4E0BD9E426EA04EE005A4A94 /* AuthorizationError.swift in Sources */,

@@ -114,7 +114,7 @@ extension MainViewController: LocationServiceDelegate{
 extension MainViewController: LocationLayerViewDelegate{
     
     func showLocationDetails(location: Location) {
-        let controller = LocationViewController()
+        let controller = LocationDetailViewController()
         controller.location = location
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
@@ -184,8 +184,9 @@ extension MainViewController: ControlLayerDelegate{
         mapView.controlLayerView.startTracking()
     }
     
-    func openCurrentTrack() {
-        let controller = CurrentTrackViewController()
+    func openTrack(track: TrackData) {
+        let controller = TrackDetailViewController()
+        controller.track = track
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
@@ -281,7 +282,36 @@ extension MainViewController: LocationEditDelegate{
     
 }
 
-extension MainViewController: CurrentTrackDelegate{
+extension MainViewController: TrackDelegate, TrackListDelegate{
+    
+    func viewTrackDetails(track: TrackData) {
+        let trackController = TrackViewController()
+        trackController.track = track
+        trackController.modalPresentationStyle = .fullScreen
+        self.present(trackController, animated: true)
+    }
+    
+    func deleteTrack(track: TrackData) {
+        showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
+            Tracks.instance.deleteTrack(track)
+        }
+    }
+    
+    func viewTrack(track: TrackData) {
+        let trackController = TrackViewController()
+        trackController.track = track
+        trackController.modalPresentationStyle = .fullScreen
+        self.present(trackController, animated: true)
+    }
+    
+    func showTrackOnMap(track: TrackData) {
+        mapView.trackLayerView.showTrack(track: track)
+        mapView.scrollToCenteredCoordinate(coordinate: track.startLocation.coordinate)
+    }
+    
+    func updateTrackLayer() {
+        mapView.trackLayerView.setNeedsDisplay()
+    }
     
     func pauseCurrentTrack() {
         Tracks.instance.pauseTracking()
@@ -325,19 +355,6 @@ extension MainViewController: CurrentTrackDelegate{
         present(alertController, animated: true)
     }
     
-}
-
-extension MainViewController: TrackListDelegate{
-    
-    func showOnMap(track: TrackData) {
-        mapView.trackLayerView.showTrack(track: track)
-        mapView.scrollToCenteredCoordinate(coordinate: track.startLocation.coordinate)
-    }
-    
-    func updateTrackLayer() {
-        mapView.trackLayerView.setNeedsDisplay()
-    }
-
 }
 
 extension MainViewController: LocationListDelegate{

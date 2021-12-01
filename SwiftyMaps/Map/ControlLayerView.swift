@@ -18,7 +18,7 @@ protocol ControlLayerDelegate{
     func openCamera()
     func addLocation()
     func startTracking()
-    func openCurrentTrack()
+    func openTrack(track: TrackData)
     func hideTrack()
     func openTrackList()
     func deleteTracks()
@@ -163,14 +163,6 @@ class ControlLayerView: UIView {
     }
     
     func getTrackingMenu() -> UIMenu{
-        let showCurrentAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")?.withTintColor(.green, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.openCurrentTrack()
-            self.trackMenuControl.menu = self.getTrackingMenu()
-        }
-        let startTrackAction = UIAction(title: "startNewTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
-            self.delegate?.startTracking()
-            self.trackMenuControl.menu = self.getTrackingMenu()
-        }
         let hideTrackAction = UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eye.slash")){ action in
             self.delegate?.hideTrack()
         }
@@ -180,10 +172,18 @@ class ControlLayerView: UIView {
         let deleteTracksAction = UIAction(title: "deleteTracks".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteTracks()
         }
-        if Tracks.instance.isTracking{
-            return UIMenu(title: "", children: [showCurrentAction, trackListAction, deleteTracksAction])
+        if let track = Tracks.instance.currentTrack{
+            let showCurrentAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")?.withTintColor(.green, renderingMode: .alwaysOriginal)){ action in
+                self.delegate?.openTrack(track: track)
+                self.trackMenuControl.menu = self.getTrackingMenu()
+            }
+            return UIMenu(title: "", children: [showCurrentAction, hideTrackAction, trackListAction, deleteTracksAction])
         }
         else{
+            let startTrackAction = UIAction(title: "startNewTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
+                self.delegate?.startTracking()
+                self.trackMenuControl.menu = self.getTrackingMenu()
+            }
             return UIMenu(title: "", children: [startTrackAction, hideTrackAction, trackListAction, deleteTracksAction])
         }
     }

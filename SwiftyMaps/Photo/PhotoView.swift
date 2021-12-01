@@ -65,28 +65,6 @@ class PhotoView : UIView{
     
 }
 
-class PhotoDetailView : UIView{
-    
-    var photoData : PhotoData? = nil
-    
-    var imageView = UIImageView()
-    
-    static func fromData(data : PhotoData)  -> PhotoDetailView{
-        let itemView = PhotoDetailView()
-        itemView.setupView(data: data)
-        return itemView
-    }
-    
-    func setupView(data: PhotoData){
-        imageView.setDefaults()
-        addSubview(imageView)
-        self.photoData = data
-        imageView.image = data.getImage()
-        imageView.fillView(view: self)
-    }
-    
-}
-
 protocol PhotoEditDelegate{
     func deletePhoto(sender: PhotoEditView)
 }

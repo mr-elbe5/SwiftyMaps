@@ -12,7 +12,7 @@ protocol LocationEditDelegate{
     func updateLocationLayer()
 }
 
-class LocationViewController: PopupViewController{
+class LocationDetailViewController: PopupScrollViewController{
     
     let editButton = IconButton(icon: "pencil.circle", tintColor: .white)
     let deleteButton = IconButton(icon: "trash", tintColor: .white)
@@ -46,11 +46,11 @@ class LocationViewController: PopupViewController{
         
         headerView.addSubview(editButton)
         editButton.addTarget(self, action: #selector(toggleEditMode), for: .touchDown)
-        editButton.setAnchors(top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        editButton.setAnchors(top: headerView.topAnchor, leading: addPhotoButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         
         headerView.addSubview(deleteButton)
         deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
-        deleteButton.setAnchors(top: headerView.topAnchor, trailing: editButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        deleteButton.setAnchors(top: headerView.topAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
     }
     
     func setupContent(){
@@ -173,7 +173,7 @@ class LocationViewController: PopupViewController{
     
 }
 
-extension LocationViewController: PhotoViewDelegate{
+extension LocationDetailViewController: PhotoViewDelegate{
     
     func viewPhoto(data: PhotoData) {
         let photoViewController = PhotoViewController()
@@ -202,7 +202,7 @@ extension LocationViewController: PhotoViewDelegate{
     
 }
 
-extension LocationViewController: PhotoEditDelegate{
+extension LocationDetailViewController: PhotoEditDelegate{
     
     func deletePhoto(sender: PhotoEditView) {
         showApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
@@ -221,7 +221,7 @@ extension LocationViewController: PhotoEditDelegate{
     
 }
 
-extension LocationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}

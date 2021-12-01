@@ -32,9 +32,21 @@ extension UIViewController{
         }
     }
     
+    var flatWideInsets : UIEdgeInsets{
+        get{
+            return Insets.flatWideInsets
+        }
+    }
+    
     var narrowInsets : UIEdgeInsets{
         get{
             return Insets.narrowInsets
+        }
+    }
+    
+    var wideInsets : UIEdgeInsets{
+        get{
+            return Insets.wideInsets
         }
     }
     

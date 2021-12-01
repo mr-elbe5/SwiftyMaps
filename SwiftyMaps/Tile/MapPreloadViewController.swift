@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class MapPreloadViewController: PopupViewController{
+class MapPreloadViewController: PopupScrollViewController{
     
     var mapRegion: MapRegion? = nil
     

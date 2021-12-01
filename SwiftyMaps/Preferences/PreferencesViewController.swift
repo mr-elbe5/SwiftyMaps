@@ -8,7 +8,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class PreferencesViewController: PopupViewController{
+class PreferencesViewController: PopupScrollViewController{
     
     var urlTemplateField = LabeledTextField()
     var startZoomField = LabeledTextField()

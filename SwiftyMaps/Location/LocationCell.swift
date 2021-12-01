@@ -68,7 +68,7 @@ class LocationCell: UITableViewCell{
                 cellBody.addSubview(viewButton)
                 viewButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
                 
-                let mapButton = IconButton(icon: "mappin")
+                let mapButton = IconButton(icon: "map")
                 mapButton.tintColor = UIColor.systemBlue
                 mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
                 cellBody.addSubview(mapButton)

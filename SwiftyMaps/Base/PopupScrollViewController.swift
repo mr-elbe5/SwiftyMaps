@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class PopupViewController: UIViewController {
+class PopupScrollViewController: UIViewController {
     
     var headerView = UIView()
     var scrollView = UIScrollView()

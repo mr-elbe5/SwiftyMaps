@@ -9,7 +9,7 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-class TrackViewController: PopupViewController{
+class TrackViewController: PopupScrollViewController{
     
     var track : TrackData? = nil
     
