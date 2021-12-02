@@ -8,7 +8,6 @@ import UIKit
 
 protocol LocationLayerViewDelegate{
     func showLocationDetails(location: Location)
-    func deleteLocation(location: Location)
 }
 
 class LocationLayerView: UIView {

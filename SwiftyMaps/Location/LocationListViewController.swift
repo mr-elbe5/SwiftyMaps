@@ -11,6 +11,7 @@ import CoreLocation
 
 protocol LocationListDelegate: LocationEditDelegate{
     func showOnMap(location: Location)
+    func deleteLocation(location: Location)
 }
 
 class LocationListViewController: PopupTableViewController{
@@ -62,14 +63,13 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
 }
 
-extension LocationListViewController : LocationCellActionDelegate{
+extension LocationListViewController : LocationCellDelegate{
     
     func showOnMap(location: Location) {
         self.dismiss(animated: true){
             self.delegate?.showOnMap(location: location)
         }
     }
-    
     
     func editLocation(location: Location) {
         let locationController = LocationDetailViewController()
@@ -78,11 +78,20 @@ extension LocationListViewController : LocationCellActionDelegate{
         self.present(locationController, animated: true)
     }
     
-    func deleteLocation(location: Location) {
-        showApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
-            Locations.instance.deleteLocation(location)
-            self.tableView.reloadData()
+    func deleteLocation(location: Location, approved: Bool) {
+        if approved{
+            deleteLocation(location: location)
         }
+        else{
+            showApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
+                self.deleteLocation(location: location)
+            }
+        }
+    }
+    
+    private func deleteLocation(location: Location){
+        delegate?.deleteLocation(location: location)
+        self.tableView.reloadData()
     }
     
     func viewLocation(location: Location) {

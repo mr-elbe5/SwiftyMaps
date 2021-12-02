@@ -121,13 +121,6 @@ extension MainViewController: LocationLayerViewDelegate{
         present(controller, animated: true)
     }
     
-    func deleteLocation(location: Location) {
-        showApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-            Locations.instance.deleteLocation(location)
-            Locations.instance.save()
-        }
-    }
-    
 }
 
 extension MainViewController: ControlLayerDelegate{
@@ -282,6 +275,19 @@ extension MainViewController: LocationEditDelegate{
     
 }
 
+extension MainViewController: LocationListDelegate{
+    
+    func showOnMap(location: Location) {
+        mapView.scrollToCenteredCoordinate(coordinate: location.coordinate)
+    }
+    
+    func deleteLocation(location: Location) {
+        Locations.instance.deleteLocation(location)
+        Locations.instance.save()
+    }
+
+}
+
 extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     
     func viewTrackDetails(track: TrackData) {
@@ -303,14 +309,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     }
     
     private func deleteTrack(track: TrackData){
-        if track == Tracks.instance.currentTrack{
-            Tracks.instance.cancelCurrentTrack()
-            mapView.trackLayerView.hideTrack()
-            mapView.controlLayerView.stopTracking()
-        }
-        else{
-            Tracks.instance.deleteTrack(track: track)
-        }
+        Tracks.instance.deleteTrack(track: track)
     }
     
     func viewTrack(track: TrackData) {
@@ -373,11 +372,4 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     
 }
 
-extension MainViewController: LocationListDelegate{
-    
-    func showOnMap(location: Location) {
-        mapView.scrollToCenteredCoordinate(coordinate: location.coordinate)
-    }
-
-}
 
