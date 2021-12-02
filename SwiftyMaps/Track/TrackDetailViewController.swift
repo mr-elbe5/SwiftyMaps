@@ -26,7 +26,7 @@ class TrackDetailViewController: PopupScrollViewController{
     
     var isCurrentTrack : Bool{
         get{
-            track != nil && track == Tracks.instance.currentTrack
+            track != nil && track == Tracks.currentTrack
         }
     }
     

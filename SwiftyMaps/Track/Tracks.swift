@@ -8,76 +8,45 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Tracks: Codable{
+class Tracks{
     
-    // instance
-
-    static var instance : Tracks!
+    static var list : TrackList = TrackList.load()
     
-    static var storeKey = "tracks"
+    static var currentTrack : TrackData? = nil
+    static var isTracking : Bool = false
     
-    static func loadInstance(){
-        if let cache : Tracks = DataController.shared.load(forKey: .tracks){
-            instance = cache
-        }
-        else{
-            instance = Tracks()
-        }
-    }
+    static private var lock = DispatchSemaphore(value: 1)
     
-    enum CodingKeys: String, CodingKey{
-        case tracks
-    }
-    
-    var tracks : [TrackData]
-    
-    var currentTrack : TrackData? = nil
-    var isTracking : Bool = false
-    
-    private var lock = DispatchSemaphore(value: 1)
-    
-    init(){
-        tracks = [TrackData]()
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        tracks = try values.decodeIfPresent([TrackData].self, forKey: .tracks) ?? [TrackData]()
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(tracks, forKey: .tracks)
-    }
-    
-    func addTrack(_ track: TrackData){
+    static func addTrack(_ track: TrackData){
         lock.wait()
         defer{lock.signal()}
-        tracks.append(track)
+        list.append(track)
     }
     
-    func deleteTrack(track: TrackData){
+    static func deleteTrack(track: TrackData){
         lock.wait()
         defer{lock.signal()}
-        for idx in 0..<tracks.count{
-            if tracks[idx] == track{
-                tracks.remove(at: idx)
+        for idx in 0..<list.count{
+            if list[idx] == track{
+                list.remove(at: idx)
                 return
             }
         }
     }
     
-    func deleteAllTracks(){
-        tracks.removeAll()
-    }
-    
-    func save(){
+    static func deleteAllTracks(){
         lock.wait()
         defer{lock.signal()}
-        DataController.shared.save(forKey: .tracks, value: self)
+        list.removeAll()
     }
     
-    func startTracking(){
+    static func save(){
+        lock.wait()
+        defer{lock.signal()}
+        TrackList.save(list)
+    }
+    
+    static func startTracking(){
         if currentTrack == nil{
             guard let location = LocationService.shared.lastLocation else {return}
             currentTrack = TrackData(location: location)
@@ -85,34 +54,34 @@ class Tracks: Codable{
         isTracking = true
     }
     
-    func updateCurrentTrack(with location: CLLocation){
+    static func updateCurrentTrack(with location: CLLocation){
         if let track = currentTrack{
             track.updateTrack(location)
         }
     }
     
-    func pauseTracking(){
+    static func pauseTracking(){
         if let track = currentTrack{
             track.pauseTracking()
             isTracking = false
         }
     }
     
-    func resumeTracking(){
+    static func resumeTracking(){
         if let track = currentTrack{
             track.resumeTracking()
             isTracking = true
         }
     }
     
-    func cancelCurrentTrack(){
+    static func cancelCurrentTrack(){
         if currentTrack != nil{
             isTracking = false
             currentTrack = nil
         }
     }
     
-    func saveTrackCurrentTrack(){
+    static func saveTrackCurrentTrack(){
         if let track = currentTrack{
             isTracking = false
             addTrack(track)

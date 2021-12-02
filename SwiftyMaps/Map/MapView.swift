@@ -162,8 +162,8 @@ class MapView: UIView {
     
     func locationDidChange(location: CLLocation) {
         userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
-        if Tracks.instance.isTracking{
-            Tracks.instance.updateCurrentTrack(with: location)
+        if Tracks.isTracking{
+            Tracks.updateCurrentTrack(with: location)
             trackLayerView.updateTrack()
             controlLayerView.updateTrackInfo()
         }
@@ -181,7 +181,7 @@ class MapView: UIView {
     
     func addLocationMarker(location: Location){
         locationLayerView.addLocationView(location: location)
-        Locations.instance.save()
+        Locations.save()
         locationLayerView.updatePosition(offset: contentOffset, scale: scale)
     }
     

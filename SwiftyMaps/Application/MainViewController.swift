@@ -40,13 +40,13 @@ class MainViewController: UIViewController {
     
     // remove??
     override func viewWillDisappear(_ animated: Bool) {
-        if !Tracks.instance.isTracking{
+        if !Tracks.isTracking{
             LocationService.shared.delegate = nil
         }
     }
     
     private func assertLocation(coordinate: CLLocationCoordinate2D, askForNext: Bool = false, onComplete: ((Location) -> Void)? = nil){
-        if let nextLocation = Locations.instance.locationNextTo(coordinate: coordinate, maxDistance: Preferences.instance.maxLocationMergeDistance){
+        if let nextLocation = Locations.locationNextTo(coordinate: coordinate, maxDistance: Preferences.instance.maxLocationMergeDistance){
             if askForNext{
                 var txt = nextLocation.description
                 if !txt.isEmpty{
@@ -55,7 +55,7 @@ class MainViewController: UIViewController {
                 txt += nextLocation.coordinateString
                 let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
-                    let location = Locations.instance.addLocation(coordinate: coordinate)
+                    let location = Locations.addLocation(coordinate: coordinate)
                     self.mapView.addLocationMarker(location: location)
                     onComplete?(location)
                 })
@@ -69,7 +69,7 @@ class MainViewController: UIViewController {
             }
         }
         else{
-            let location = Locations.instance.addLocation(coordinate: coordinate)
+            let location = Locations.addLocation(coordinate: coordinate)
             self.mapView.addLocationMarker(location: location)
             onComplete?(location)
         }
@@ -166,13 +166,13 @@ extension MainViewController: ControlLayerDelegate{
     
     func deleteLocations() {
         showApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
-            Locations.instance.deleteAllLocations()
+            Locations.deleteAllLocations()
             self.mapView.locationLayerView.setupLocationMarkers()
         }
     }
     
     func startTracking(){
-        Tracks.instance.startTracking()
+        Tracks.startTracking()
         mapView.trackLayerView.showCurrentTrack()
         mapView.controlLayerView.startTracking()
     }
@@ -198,7 +198,7 @@ extension MainViewController: ControlLayerDelegate{
     
     func deleteTracks() {
         showApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
-            Tracks.instance.deleteAllTracks()
+            Tracks.deleteAllTracks()
             self.mapView.trackLayerView.setNeedsDisplay()
         }
     }
@@ -250,7 +250,7 @@ extension MainViewController: PhotoCaptureDelegate{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.photos.isEmpty
                 location.addPhoto(photo: photo)
-                Locations.instance.save()
+                Locations.save()
                 if changeState{
                     DispatchQueue.main.async {
                         print("changeState")
@@ -282,8 +282,8 @@ extension MainViewController: LocationListDelegate{
     }
     
     func deleteLocation(location: Location) {
-        Locations.instance.deleteLocation(location)
-        Locations.instance.save()
+        Locations.deleteLocation(location)
+        Locations.save()
     }
 
 }
@@ -309,7 +309,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     }
     
     private func deleteTrack(track: TrackData){
-        Tracks.instance.deleteTrack(track: track)
+        Tracks.deleteTrack(track: track)
     }
     
     func viewTrack(track: TrackData) {
@@ -329,17 +329,17 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     }
     
     func pauseCurrentTrack() {
-        Tracks.instance.pauseTracking()
+        Tracks.pauseTracking()
         mapView.controlLayerView.pauseTrackInfo()
     }
     
     func resumeCurrentTrack() {
-        Tracks.instance.resumeTracking()
+        Tracks.resumeTracking()
         mapView.controlLayerView.resumeTrackInfo()
     }
     
     func cancelCurrentTrack() {
-        Tracks.instance.cancelCurrentTrack()
+        Tracks.cancelCurrentTrack()
         mapView.trackLayerView.hideTrack()
         mapView.controlLayerView.stopTracking()
     }
@@ -348,14 +348,14 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
         let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
         alertController.addTextField()
         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-            if let track = Tracks.instance.currentTrack{
+            if let track = Tracks.currentTrack{
                 track.description = alertController.textFields![0].text ?? "Route"
                 if let location = track.trackpoints.first{
                     self.assertLocation(coordinate: location.coordinate){ location in
                         let changeState = location.tracks.isEmpty
                         location.addTrack(track: track)
-                        Locations.instance.save()
-                        Tracks.instance.saveTrackCurrentTrack()
+                        Locations.save()
+                        Tracks.saveTrackCurrentTrack()
                         if changeState{
                             DispatchQueue.main.async {
                                 print("changeState")

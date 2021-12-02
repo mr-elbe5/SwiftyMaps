@@ -34,7 +34,7 @@ class TrackLayerView: UIView {
     }
     
     func showCurrentTrack(){
-        track = Tracks.instance.currentTrack
+        track = Tracks.currentTrack
         setNeedsDisplay()
     }
     

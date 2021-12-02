@@ -60,12 +60,12 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Tracks.instance.tracks.count
+        Tracks.list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TrackListViewController.CELL_IDENT, for: indexPath) as! TrackCell
-        let track = Tracks.instance.tracks[indexPath.row]
+        let track = Tracks.list[indexPath.row]
         cell.track = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
@@ -147,8 +147,8 @@ extension TrackListViewController : UIDocumentPickerDelegate{
                 alertController.addTextField()
                 alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                     track.description = alertController.textFields![0].text ?? url.lastPathComponent
-                    Tracks.instance.addTrack(track)
-                    Tracks.instance.save()
+                    Tracks.addTrack(track)
+                    Tracks.save()
                     self.tableView.reloadData()
                 })
                 self.present(alertController, animated: true)

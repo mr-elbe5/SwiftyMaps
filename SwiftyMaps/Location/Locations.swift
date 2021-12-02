@@ -8,83 +8,52 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Locations: Codable{
+class Locations{
     
-    static var storeKey = "locations"
+    static private var list : LocationList = LocationList.load()
     
-    static var instance : Locations!
+    static private var lock = DispatchSemaphore(value: 1)
     
-    static func loadInstance(){
-        if let cache : Locations = DataController.shared.load(forKey: .locations){
-            instance = cache
-        }
-        else{
-            instance = Locations()
-        }
-    }
-    
-    enum CodingKeys: String, CodingKey{
-        case locations
-    }
-    
-    private var array : [Location]
-    
-    private var lock = DispatchSemaphore(value: 1)
-    
-    var size : Int{
+    static var size : Int{
         get{
-            array.count
+            list.count
         }
     }
     
-    init(){
-        array = [Location]()
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        array = try values.decodeIfPresent([Location].self, forKey: .locations) ?? [Location]()
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(array, forKey: .locations)
-    }
-    
-    func location(at idx: Int) -> Location?{
-        array[idx]
+    static func location(at idx: Int) -> Location?{
+        list[idx]
     }
     
     @discardableResult
-    func addLocation(coordinate: CLLocationCoordinate2D) -> Location{
+    static func addLocation(coordinate: CLLocationCoordinate2D) -> Location{
         lock.wait()
         defer{lock.signal()}
         let location = Location(coordinate: coordinate)
-        array.append(location)
+        list.append(location)
         return location
     }
     
-    func deleteLocation(_ location: Location){
+    static func deleteLocation(_ location: Location){
         lock.wait()
         defer{lock.signal()}
-        for idx in 0..<array.count{
-            if array[idx] == location{
+        for idx in 0..<list.count{
+            if list[idx] == location{
                 location.deleteAllPhotos()
-                array.remove(at: idx)
+                list.remove(at: idx)
                 return
             }
         }
     }
     
-    func deleteAllLocations(){
+    static func deleteAllLocations(){
         //todo
-        array.removeAll()
+        list.removeAll()
     }
     
-    func locationNextTo(coordinate: CLLocationCoordinate2D, maxDistance: CLLocationDistance) -> Location?{
+    static func locationNextTo(coordinate: CLLocationCoordinate2D, maxDistance: CLLocationDistance) -> Location?{
         var distance : CLLocationDistance = Double.infinity
         var nextLocation : Location? = nil
-        for location in array{
+        for location in list{
             let dist = location.cllocation.coordinate.distance(to: coordinate)
             if dist<maxDistance && dist<distance{
                 distance = dist
@@ -94,9 +63,9 @@ class Locations: Codable{
         return nextLocation
     }
     
-    func locationsInPlanetRect(_ rect: CGRect) -> [Location]{
+    static func locationsInPlanetRect(_ rect: CGRect) -> [Location]{
         var result = [Location]()
-        for location in array{
+        for location in list{
             if location.planetPosition.x >= rect.minX && location.planetPosition.x < rect.minX + rect.width && location.planetPosition.y >= rect.minY && location.planetPosition.y < rect.minY + rect.height{
                 result.append(location)
                 //print("found location at \(location.planetPosition) in \(rect)")
@@ -105,10 +74,10 @@ class Locations: Codable{
         return result
     }
     
-    func save(){
+    static func save(){
         lock.wait()
         defer{lock.signal()}
-        DataController.shared.save(forKey: .locations, value: self)
+        LocationList.save(list)
     }
     
 }

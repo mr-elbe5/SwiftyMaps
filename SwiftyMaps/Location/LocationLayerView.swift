@@ -18,7 +18,7 @@ class LocationLayerView: UIView {
         for subview in subviews {
             subview.removeFromSuperview()
         }
-        let locations = Locations.instance.locationsInPlanetRect(MapStatics.planetRect)
+        let locations = Locations.locationsInPlanetRect(MapStatics.planetRect)
         for location in locations{
             addLocationView(location: location)
         }

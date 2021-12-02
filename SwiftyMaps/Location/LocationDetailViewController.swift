@@ -149,7 +149,7 @@ class LocationDetailViewController: PopupScrollViewController{
     @objc func deleteLocation(){
         if let loc = location{
             showApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
-                Locations.instance.deleteLocation(loc)
+                Locations.deleteLocation(loc)
                 self.dismiss(animated: true){
                     self.delegate?.updateLocationLayer()
                 }
@@ -161,7 +161,7 @@ class LocationDetailViewController: PopupScrollViewController{
         var needsUpdate = false
         if let location = location{
             location.description = descriptionView?.text ?? ""
-            Locations.instance.save()
+            Locations.save()
             needsUpdate = location.hasPhotos != hadPhotos
         }
         self.dismiss(animated: true){
