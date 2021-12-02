@@ -9,12 +9,11 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol TrackDelegate{
+protocol TrackDetailDelegate{
     
-    func updateTrackLayer()
     func showTrackOnMap(track: TrackData)
     func viewTrackDetails(track: TrackData)
-    func deleteTrack(track: TrackData)
+    func deleteTrack(track: TrackData, approved: Bool)
     func pauseCurrentTrack()
     func resumeCurrentTrack()
     func cancelCurrentTrack()
@@ -27,14 +26,14 @@ class TrackDetailViewController: PopupScrollViewController{
     
     var isCurrentTrack : Bool{
         get{
-            track == Tracks.instance.currentTrack
+            track != nil && track == Tracks.instance.currentTrack
         }
     }
     
     let mapButton = IconButton(icon: "map", tintColor: .white)
     let deleteButton = IconButton(icon: "trash", tintColor: .white)
     
-    var delegate : TrackDelegate? = nil
+    var delegate : TrackDetailDelegate? = nil
     
     override func loadView() {
         title = "track".localize()
@@ -137,9 +136,8 @@ class TrackDetailViewController: PopupScrollViewController{
     @objc func deleteTrack(){
         if let track = track{
             showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
-                Tracks.instance.deleteTrack(track)
                 self.dismiss(animated: true){
-                    self.delegate?.updateTrackLayer()
+                    self.delegate?.deleteTrack(track: track, approved: true)
                 }
             }
         }

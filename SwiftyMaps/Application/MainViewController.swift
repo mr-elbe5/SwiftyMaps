@@ -282,7 +282,7 @@ extension MainViewController: LocationEditDelegate{
     
 }
 
-extension MainViewController: TrackDelegate, TrackListDelegate{
+extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     
     func viewTrackDetails(track: TrackData) {
         let trackController = TrackViewController()
@@ -291,9 +291,25 @@ extension MainViewController: TrackDelegate, TrackListDelegate{
         self.present(trackController, animated: true)
     }
     
-    func deleteTrack(track: TrackData) {
-        showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
-            Tracks.instance.deleteTrack(track)
+    func deleteTrack(track: TrackData, approved: Bool) {
+        if approved{
+            deleteTrack(track: track)
+        }
+        else{
+            showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
+                self.deleteTrack(track: track)
+            }
+        }
+    }
+    
+    private func deleteTrack(track: TrackData){
+        if track == Tracks.instance.currentTrack{
+            Tracks.instance.cancelCurrentTrack()
+            mapView.trackLayerView.hideTrack()
+            mapView.controlLayerView.stopTracking()
+        }
+        else{
+            Tracks.instance.deleteTrack(track: track)
         }
     }
     

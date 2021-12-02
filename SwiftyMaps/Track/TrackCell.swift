@@ -6,6 +6,12 @@
 
 import UIKit
 
+protocol TrackCellDelegate{
+    func showTrackOnMap(track: TrackData)
+    func viewTrackDetails(track: TrackData)
+    func deleteTrack(track: TrackData, approved: Bool)
+}
+
 class TrackCell: UITableViewCell{
     
     var track : TrackData? = nil {
@@ -14,7 +20,8 @@ class TrackCell: UITableViewCell{
         }
     }
     
-    var delegate: TrackDelegate? = nil
+    //TrackListViewControllert
+    var delegate: TrackCellDelegate? = nil
     
     var cellBody = UIView()
     
@@ -79,7 +86,7 @@ class TrackCell: UITableViewCell{
     
     @objc func deleteTrack() {
         if let track = track{
-            delegate?.deleteTrack(track: track)
+            delegate?.deleteTrack(track: track, approved: false)
         }
     }
     

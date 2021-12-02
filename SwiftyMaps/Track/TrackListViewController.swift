@@ -10,15 +10,20 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol TrackListDelegate{
-    func updateTrackLayer()
     func showTrackOnMap(track: TrackData)
+    func deleteTrack(track: TrackData, approved: Bool)
+    func pauseCurrentTrack()
+    func resumeCurrentTrack()
+    func cancelCurrentTrack()
+    func saveCurrentTrack()
 }
 
 class TrackListViewController: PopupTableViewController{
 
     private static let CELL_IDENT = "trackCell"
     
-    var delegate: TrackDelegate? = nil
+    // MainViewController
+    var delegate: TrackListDelegate? = nil
     
     override open func loadView() {
         title = "trackList".localize()
@@ -81,9 +86,36 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension TrackListViewController : TrackDelegate{
-    func updateTrackLayer() {
-        delegate?.updateTrackLayer()
+extension TrackListViewController : TrackCellDelegate, TrackDetailDelegate{
+    
+    func showTrackOnMap(track: TrackData) {
+        self.dismiss(animated: true){
+            self.delegate?.showTrackOnMap(track: track)
+        }
+    }
+    
+    func viewTrackDetails(track: TrackData) {
+        let trackController = TrackDetailViewController()
+        trackController.track = track
+        trackController.delegate = self
+        trackController.modalPresentationStyle = .fullScreen
+        self.present(trackController, animated: true)
+    }
+    
+    func deleteTrack(track: TrackData, approved: Bool) {
+        if approved{
+            self.deleteTrack(track: track)
+        }
+        else{
+            showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
+                self.deleteTrack(track: track)
+            }
+        }
+    }
+    
+    private func deleteTrack(track: TrackData){
+        delegate?.deleteTrack(track: track, approved: true)
+        tableView.reloadData()
     }
     
     func pauseCurrentTrack() {
@@ -100,26 +132,6 @@ extension TrackListViewController : TrackDelegate{
     
     func saveCurrentTrack() {
         delegate?.saveCurrentTrack()
-    }
-    
-    func viewTrackDetails(track: TrackData) {
-        let trackController = TrackViewController()
-        trackController.track = track
-        trackController.modalPresentationStyle = .fullScreen
-        self.present(trackController, animated: true)
-    }
-    
-    func deleteTrack(track: TrackData) {
-        showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
-            Tracks.instance.deleteTrack(track)
-            self.tableView.reloadData()
-        }
-    }
-    
-    func showTrackOnMap(track: TrackData) {
-        self.dismiss(animated: true){
-            self.delegate?.showTrackOnMap(track: track)
-        }
     }
     
 }
