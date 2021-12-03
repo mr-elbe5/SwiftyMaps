@@ -49,7 +49,8 @@ class Tracks{
     static func startTracking(){
         if currentTrack == nil{
             guard let location = LocationService.shared.lastLocation else {return}
-            currentTrack = TrackData(location: location)
+            currentTrack = TrackData()
+            currentTrack!.trackpoints.append(TrackPoint(location: location))
         }
         isTracking = true
     }

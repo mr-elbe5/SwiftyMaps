@@ -57,14 +57,14 @@ class TrackDetailViewController: PopupScrollViewController{
     }
     
     func setupContent() {
-        if let track = track{
+        if let track = track, let startLocation = track.startLocation{
             var header = HeaderLabel(text: "startLocation".localize())
             contentView.addSubview(header)
             header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor)
-            let locationLabel = TextLabel(text: track.startLocation.locationString)
+            let locationLabel = TextLabel(text: startLocation.locationString)
             contentView.addSubview(locationLabel)
             locationLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-            let coordinateLabel = TextLabel(text: track.startLocation.coordinateString)
+            let coordinateLabel = TextLabel(text: startLocation.coordinateString)
             contentView.addSubview(coordinateLabel)
             coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
             let timeLabel = TextLabel(text: "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())")

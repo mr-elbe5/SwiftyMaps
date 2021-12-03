@@ -10,6 +10,15 @@ typealias TrackList = Array<TrackData>
     
 extension TrackList{
     
+    mutating func remove(_ track: TrackData){
+        for idx in 0..<self.count{
+            if self[idx] == track{
+                self.remove(at: idx)
+                return
+            }
+        }
+    }
+    
     static func load() -> TrackList{
         if let tracks : TrackList = DataController.shared.load(forKey: .tracks){
             return tracks

@@ -134,6 +134,10 @@ extension TrackListViewController : TrackCellDelegate, TrackDetailDelegate{
         delegate?.saveCurrentTrack()
     }
     
+    func assertStartLocation(for track: TrackData){
+        //todo
+    }
+    
 }
 
 extension TrackListViewController : UIDocumentPickerDelegate{
@@ -142,7 +146,11 @@ extension TrackListViewController : UIDocumentPickerDelegate{
         if let url = urls.first{
             if let locations = GPXParser.parseFile(url: url){
                 guard !locations.isEmpty else {return}
-                let track = TrackData(locations: locations)
+                let track = TrackData()
+                for loc in locations{
+                    track.trackpoints.append(TrackPoint(location: loc))
+                }
+                assertStartLocation(for: track)
                 let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
                 alertController.addTextField()
                 alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in

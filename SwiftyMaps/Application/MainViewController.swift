@@ -173,8 +173,15 @@ extension MainViewController: ControlLayerDelegate{
     
     func startTracking(){
         Tracks.startTracking()
-        mapView.trackLayerView.showCurrentTrack()
-        mapView.controlLayerView.startTracking()
+        if let track = Tracks.currentTrack{
+            assertStartLocation(for: track)
+            mapView.trackLayerView.showCurrentTrack()
+            mapView.controlLayerView.startTracking()
+        }
+    }
+    
+    func assertStartLocation(for track: TrackData){
+        
     }
     
     func openTrack(track: TrackData) {
@@ -320,8 +327,10 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     }
     
     func showTrackOnMap(track: TrackData) {
-        mapView.trackLayerView.showTrack(track: track)
-        mapView.scrollToCenteredCoordinate(coordinate: track.startLocation.coordinate)
+        if let startLocation = track.startLocation{
+            mapView.trackLayerView.showTrack(track: track)
+            mapView.scrollToCenteredCoordinate(coordinate: startLocation.coordinate)
+        }
     }
     
     func updateTrackLayer() {

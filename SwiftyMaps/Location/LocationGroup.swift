@@ -24,7 +24,7 @@ class LocationGroup : Hashable, Codable{
     
     private var lock = DispatchSemaphore(value: 1)
     
-    init(type: LocationType = .single){
+    init(){
         id = UUID()
         locations = LocationList()
     }

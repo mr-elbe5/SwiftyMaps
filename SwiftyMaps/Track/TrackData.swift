@@ -19,7 +19,6 @@ class TrackData : Hashable, Codable{
         case startTime
         case endTime
         case description
-        case startLocation
         case trackpoints
         case distance
         case upDistance
@@ -32,11 +31,12 @@ class TrackData : Hashable, Codable{
     var pauseLength : TimeInterval = 0
     var endTime : Date
     var description : String
-    var startLocation : Location
     var trackpoints : Array<TrackPoint>
     var distance : CGFloat
     var upDistance : CGFloat
     var downDistance : CGFloat
+    
+    var startLocation : Location? = nil
     
     var duration : TimeInterval{
         get{
@@ -56,36 +56,15 @@ class TrackData : Hashable, Codable{
         }
     }
     
-    init(location: CLLocation){
+    init(){
         id = UUID()
         description = ""
-        startLocation = Location(coordinate: location.coordinate)
         startTime = Date()
         endTime = Date()
         trackpoints = Array<TrackPoint>()
         distance = 0
         upDistance = 0
         downDistance = 0
-        trackpoints.append(TrackPoint(location: location))
-        LocationService.shared.getPlacemarkInfo(for: startLocation)
-    }
-    
-    // locations must not be empty!
-    init(locations: [CLLocation]){
-        id = UUID()
-        description = ""
-        let first = locations.first ?? CLLocation()
-        startLocation = Location(coordinate: first.coordinate)
-        startTime = Date()
-        endTime = Date()
-        trackpoints = Array<TrackPoint>()
-        distance = 0
-        upDistance = 0
-        downDistance = 0
-        for loc in locations{
-            trackpoints.append(TrackPoint(location: loc))
-        }
-        LocationService.shared.getPlacemarkInfo(for: startLocation)
     }
     
     required init(from decoder: Decoder) throws {
@@ -94,7 +73,6 @@ class TrackData : Hashable, Codable{
         startTime = try values.decodeIfPresent(Date.self, forKey: .startTime) ?? Date()
         endTime = try values.decodeIfPresent(Date.self, forKey: .endTime) ?? Date()
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
-        startLocation = try values.decodeIfPresent(Location.self, forKey: .startLocation) ?? Location()
         trackpoints = try values.decodeIfPresent(Array<TrackPoint>.self, forKey: .trackpoints) ?? Array<TrackPoint>()
         distance = try values.decodeIfPresent(CGFloat.self, forKey: .distance) ?? 0
         upDistance = try values.decodeIfPresent(CGFloat.self, forKey: .upDistance) ?? 0
@@ -107,7 +85,6 @@ class TrackData : Hashable, Codable{
         try container.encode(startTime, forKey: .startTime)
         try container.encode(endTime, forKey: .endTime)
         try container.encode(description, forKey: .description)
-        try container.encode(startLocation, forKey: .startLocation)
         try container.encode(trackpoints, forKey: .trackpoints)
         try container.encode(distance, forKey: .distance)
         try container.encode(upDistance, forKey: .upDistance)

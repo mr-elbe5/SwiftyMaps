@@ -44,7 +44,7 @@ class TrackCell: UITableViewCell{
     
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
-        if let track = track{
+        if let track = track, let startLocation = track.startLocation{
             if isEditing{
                 let deleteButton = IconButton(icon: "xmark.circle")
                 deleteButton.tintColor = UIColor.systemRed
@@ -73,11 +73,11 @@ class TrackCell: UITableViewCell{
             cellBody.addSubview(timeLabel)
             timeLabel.setAnchors(top: nameLabel.bottomAnchor, leading: cellBody.leadingAnchor, insets: defaultInsets)
             let locationLabel = UILabel()
-            locationLabel.text = track.startLocation.locationString
+            locationLabel.text = startLocation.locationString
             cellBody.addSubview(locationLabel)
             locationLabel.setAnchors(top: timeLabel.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: flatInsets)
             let coordinateLabel = UILabel()
-            coordinateLabel.text = track.startLocation.coordinateString
+            coordinateLabel.text = startLocation.coordinateString
             cellBody.addSubview(coordinateLabel)
             coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: flatInsets)
             
