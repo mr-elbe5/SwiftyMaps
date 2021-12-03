@@ -19,7 +19,7 @@ class LocationPinView : UIButton{
         get{
             let col = location.hasPhotos ? LocationPinView.photoPinColor : LocationPinView.defaultPinColor
             var img : UIImage!
-            if location.hasTracks{
+            if location.type == .track{
                 img = MapStatics.mapPinEllipseImage.withTintColor(col, renderingMode: .alwaysOriginal)
             }
             else{

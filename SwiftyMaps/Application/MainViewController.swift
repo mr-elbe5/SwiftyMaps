@@ -350,19 +350,8 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
             if let track = Tracks.currentTrack{
                 track.description = alertController.textFields![0].text ?? "Route"
-                if let location = track.trackpoints.first{
-                    self.assertLocation(coordinate: location.coordinate){ location in
-                        let changeState = location.tracks.isEmpty
-                        location.addTrack(track: track)
-                        Locations.save()
-                        Tracks.saveTrackCurrentTrack()
-                        if changeState{
-                            DispatchQueue.main.async {
-                                print("changeState")
-                                self.mapView.locationLayerView.updateLocationState(location)
-                            }
-                        }
-                    }
+                if !track.trackpoints.isEmpty{
+                    Tracks.saveTrackCurrentTrack()
                 }
             }
             self.mapView.controlLayerView.stopTracking()

@@ -11,6 +11,7 @@
 		4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3C274E420800D56ED7 /* TimeInterval.swift */; };
 		4E05FECB2759266D005D903B /* TrackList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05FECA2759266D005D903B /* TrackList.swift */; };
 		4E05FECD27592E64005D903B /* LocationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05FECC27592E64005D903B /* LocationList.swift */; };
+		4E05FECF275A1C5F005D903B /* LocationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05FECE275A1C5F005D903B /* LocationGroup.swift */; };
 		4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */; };
 		4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */; };
 		4E0BD98A26E9FC67005A4A94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD98926E9FC67005A4A94 /* Assets.xcassets */; };
@@ -102,6 +103,7 @@
 		4E025E3C274E420800D56ED7 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		4E05FECA2759266D005D903B /* TrackList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackList.swift; sourceTree = "<group>"; };
 		4E05FECC27592E64005D903B /* LocationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationList.swift; sourceTree = "<group>"; };
+		4E05FECE275A1C5F005D903B /* LocationGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroup.swift; sourceTree = "<group>"; };
 		4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				4E1D0E21274C21CD00F3D584 /* LocationListViewController.swift */,
 				4E1D0E23274C223C00F3D584 /* LocationCell.swift */,
 				4E05FECC27592E64005D903B /* LocationList.swift */,
+				4E05FECE275A1C5F005D903B /* LocationGroup.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				4E24F48227345D11004E69C2 /* UIView.swift in Sources */,
 				4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */,
 				4E42393D273D2290005B2E5F /* TextView.swift in Sources */,
+				4E05FECF275A1C5F005D903B /* LocationGroup.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,

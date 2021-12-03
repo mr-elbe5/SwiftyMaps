@@ -8,13 +8,20 @@ import Foundation
 import CoreLocation
 import UIKit
 
+enum LocationType: String{
+    case single
+    case track
+}
+
 class Location : Hashable, Codable{
     
     static func == (lhs: Location, rhs: Location) -> Bool {
-        lhs.coordinate.latitude == rhs.coordinate.latitude && lhs.coordinate.longitude == rhs.coordinate.longitude
+        lhs.id == rhs.id
     }
     
     private enum CodingKeys: String, CodingKey {
+        case id
+        case type
         case latitude
         case longitude
         case hasPlacemark
@@ -25,9 +32,10 @@ class Location : Hashable, Codable{
         case country
         case description
         case photos
-        case tracks
     }
     
+    var id : UUID
+    var type : LocationType = .single
     var coordinate : CLLocationCoordinate2D
     var planetPosition : CGPoint
     var hasPlacemark : Bool
@@ -38,7 +46,6 @@ class Location : Hashable, Codable{
     var country : String = ""
     var description : String
     var photos : Array<PhotoData>
-    var tracks : Array<TrackData>
     
     var cllocation : CLLocation{
         CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -77,31 +84,36 @@ class Location : Hashable, Codable{
         !photos.isEmpty
     }
     
-    var hasTracks : Bool{
-        !tracks.isEmpty
-    }
-    
-    init(){
+    init(type: LocationType = .single){
+        id = UUID()
+        self.type = type
         coordinate = CLLocationCoordinate2D()
         planetPosition = CGPoint()
         hasPlacemark = false
         description = ""
         photos = Array<PhotoData>()
-        tracks = Array<TrackData>()
     }
     
-    init(coordinate: CLLocationCoordinate2D){
+    init(coordinate: CLLocationCoordinate2D, type: LocationType = .single){
+        id = UUID()
+        self.type = type
         self.coordinate = coordinate
         planetPosition = MapStatics.planetPointFromCoordinate(coordinate: coordinate)
         hasPlacemark = false
         description = ""
         photos = Array<PhotoData>()
-        tracks = Array<TrackData>()
         LocationService.shared.getPlacemarkInfo(for: self)
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        if let typeValue = try values.decodeIfPresent(String.self, forKey: .type), let type = LocationType(rawValue: typeValue){
+            self.type = type
+        }
+        else{
+            type = .single
+        }
         let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
         hasPlacemark = try values.decodeIfPresent(Bool.self, forKey: .hasPlacemark) ?? false
@@ -114,7 +126,6 @@ class Location : Hashable, Codable{
         planetPosition = MapStatics.planetPointFromCoordinate(coordinate: coordinate)
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         photos = try values.decodeIfPresent(Array<PhotoData>.self, forKey: .photos) ?? Array<PhotoData>()
-        tracks = try values.decodeIfPresent(Array<TrackData>.self, forKey: .tracks) ?? Array<TrackData>()
         if !hasPlacemark{
             LocationService.shared.getPlacemarkInfo(for: self)
         }
@@ -122,6 +133,8 @@ class Location : Hashable, Codable{
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(type.rawValue, forKey: .type)
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)
         try container.encode(hasPlacemark, forKey: .hasPlacemark)
@@ -132,7 +145,6 @@ class Location : Hashable, Codable{
         try container.encode(country, forKey: .country)
         try container.encode(description, forKey: .description)
         try container.encode(photos, forKey: .photos)
-        try container.encode(tracks, forKey: .tracks)
     }
     
     func addPlacemarkInfo(placemark: CLPlacemark){
@@ -184,28 +196,8 @@ class Location : Hashable, Codable{
         
     }
     
-    func addTrack(track: TrackData){
-        tracks.append(track)
-    }
-    
-    func removeTrack(track: TrackData){
-        lock.wait()
-        defer{lock.signal()}
-        for idx in 0..<tracks.count{
-            if tracks[idx] == track{
-                tracks.remove(at: idx)
-                return
-            }
-        }
-    }
-    
-    func removeAllTracks(){
-        
-    }
-    
     func hash(into hasher: inout Hasher) {
-        hasher.combine(coordinate.latitude)
-        hasher.combine(coordinate.longitude)
+        hasher.combine(id)
     }
     
 }
