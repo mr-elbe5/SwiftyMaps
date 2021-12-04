@@ -10,8 +10,8 @@ import AVFoundation
 
 class CameraViewController: UIViewController {
     var bodyView = UIView()
-    var preview = CameraPreviewView()
     var buttonView = UIView()
+    var preview = CameraPreviewView()
     var cameraUnavailableLabel = UILabel()
     
     var session = AVCaptureSession()
@@ -37,17 +37,14 @@ class CameraViewController: UIViewController {
         view.addSubview(bodyView)
         bodyView.fillSafeAreaOf(view: view)
         bodyView.backgroundColor = .black
-        let closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
-        bodyView.addSubview(closeButton)
-        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        closeButton.setAnchors(top: bodyView.topAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
+        bodyView.addSubview(buttonView)
+        buttonView.backgroundColor = .black
+        buttonView.setAnchors(top: bodyView.topAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor)
+        addButtons()
         bodyView.addSubview(preview)
         preview.backgroundColor = .black
-        preview.setAnchors(top: closeButton.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
-        buttonView.backgroundColor = .black
-        bodyView.addSubview(buttonView)
-        buttonView.setAnchors(top: preview.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, bottom: bodyView.bottomAnchor)
-        addButtons()
+        preview.setAnchors(top: buttonView.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, bottom: bodyView.bottomAnchor, insets: defaultInsets)
+        addCaptureButton()
         AVCaptureDevice.askCameraAuthorization(){ result in
             self.preview.session = self.session
             self.sessionQueue.async {
@@ -58,6 +55,13 @@ class CameraViewController: UIViewController {
     }
     
     func addButtons(){
+        let closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
+        bodyView.addSubview(closeButton)
+        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
+        closeButton.setAnchors(top: buttonView.topAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: defaultInsets)
+    }
+    
+    func addCaptureButton(){
     }
     
     func enableButtons(flag: Bool){

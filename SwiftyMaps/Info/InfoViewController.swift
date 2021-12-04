@@ -28,10 +28,10 @@ class InfoViewController: PopupScrollViewController {
         // user location
         stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "userLocationInfoText".localize(), iconColor: UserLocationView.userLocationColor))
         // map location
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "locationMarkerInfoText".localize(), iconColor: LocationPinView.defaultPinColor))
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "locationPhotoMarkerInfoText".localize(), iconColor: LocationPinView.photoPinColor))
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "locationTrackMarkerInfoText".localize(), iconColor: LocationPinView.defaultPinColor))
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "locationPhotoTrackMarkerInfoText".localize(), iconColor: LocationPinView.photoPinColor))
+        stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "locationMarkerInfoText".localize(), iconColor: LocationPin.defaultPinColor))
+        stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "locationPhotoMarkerInfoText".localize(), iconColor: LocationPin.photoPinColor))
+        stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "locationTrackMarkerInfoText".localize(), iconColor: LocationPin.defaultPinColor))
+        stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "locationPhotoTrackMarkerInfoText".localize(), iconColor: LocationPin.photoPinColor))
         stackView.addArrangedSubview(TextLabel(text: "locationDetailsInfoText".localize(), insetLeft: subInset))
         // map menu
         stackView.addArrangedSubview(IconInfoText(icon: "map", text: "mapMenuInfoText".localize()))

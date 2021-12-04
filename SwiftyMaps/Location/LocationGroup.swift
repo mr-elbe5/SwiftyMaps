@@ -8,41 +8,61 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class LocationGroup : Hashable, Codable{
+class LocationGroup{
     
-    static func == (lhs: LocationGroup, rhs: LocationGroup) -> Bool {
-        lhs.id == rhs.id
+    var center: CLLocationCoordinate2D? = nil
+    var locations = LocationList()
+    
+    var hasPhotos: Bool{
+        for location in locations{
+            if location.hasPhotos{
+                return true
+            }
+        }
+        return false
     }
     
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case locations
+    var hasTracks: Bool{
+        for location in locations{
+            if location.hasTracks{
+                return true
+            }
+        }
+        return false
     }
     
-    var id : UUID
-    var locations : LocationList
-    
-    private var lock = DispatchSemaphore(value: 1)
-    
-    init(){
-        id = UUID()
-        locations = LocationList()
+    func isWithinRadius(location: Location, radius: CGFloat) -> Bool{
+        if let center = center{
+            return center.distance(to: location.coordinate) <= radius
+        }
+        else{
+            return false
+        }
     }
     
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
-        locations = try values.decodeIfPresent(LocationList.self, forKey: .locations) ?? LocationList()
+    func hasLocation(location: Location) -> Bool{
+        locations.contains(location)
     }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(locations, forKey: .locations)
+    func addLocation(location: Location){
+        locations.append(location)
     }
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+    func setCenter(){
+        var minLon : CGFloat? = nil
+        var maxLon : CGFloat? = nil
+        var minLat : CGFloat? = nil
+        var maxLat : CGFloat? = nil
+        
+        for loc in locations{
+            minLon = min(minLon ?? CGFloat.greatestFiniteMagnitude, loc.coordinate.longitude)
+            maxLon = max(maxLon ?? -CGFloat.greatestFiniteMagnitude, loc.coordinate.longitude)
+            minLat = min(minLat ?? CGFloat.greatestFiniteMagnitude, loc.coordinate.latitude)
+            maxLat = max(maxLat ?? -CGFloat.greatestFiniteMagnitude, loc.coordinate.latitude)
+        }
+        if let minX = minLon,let maxX = maxLon, let minY = minLat, let maxY = maxLat{
+            center = CLLocationCoordinate2D(latitude: (minY + maxY)/2, longitude: (minX + maxX)/2)
+        }
     }
     
 }

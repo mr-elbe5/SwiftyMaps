@@ -19,7 +19,7 @@ class Preferences: Identifiable, Codable{
     static var defaultStartZoom : Int = 10
     static var defaultminLocationAccuracy : CLLocationDistance = 5.0
     static var defaultMaxLocationMergeDistance : CLLocationDistance = 10.0
-    static var defaultMinZoomToShowLocations : Int = 8
+    static var defaultPinGroupRadius : CGFloat = 8
     static var defaultMaxPreloadTiles : Int = 5000
     
     static func loadInstance(){
@@ -37,7 +37,7 @@ class Preferences: Identifiable, Codable{
         case startZoom
         case minLocationAccuracy
         case maxLocationMergeDistance
-        case minZoomToShowLocations
+        case pinGroupRadius
         case startWithLastPosition
         case maxPreloadTiles
         case showPins
@@ -47,7 +47,7 @@ class Preferences: Identifiable, Codable{
     var startZoom : Int = defaultStartZoom
     var minLocationAccuracy : CLLocationDistance = defaultminLocationAccuracy
     var maxLocationMergeDistance : CLLocationDistance = defaultMaxLocationMergeDistance
-    var minZoomToShowLocations : Int = defaultMinZoomToShowLocations
+    var pinGroupRadius : CGFloat = defaultPinGroupRadius
     var startWithLastPosition : Bool = true
     var maxPreloadTiles : Int = defaultMaxPreloadTiles
     var showPins : Bool = true
@@ -61,7 +61,7 @@ class Preferences: Identifiable, Codable{
         startZoom = try values.decodeIfPresent(Int.self, forKey: .startZoom) ?? Preferences.defaultStartZoom
         minLocationAccuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minLocationAccuracy) ?? Preferences.defaultminLocationAccuracy
         maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? Preferences.defaultMaxLocationMergeDistance
-        minZoomToShowLocations = try values.decodeIfPresent(Int.self, forKey: .minZoomToShowLocations) ?? Preferences.defaultMinZoomToShowLocations
+        pinGroupRadius = try values.decodeIfPresent(CGFloat.self, forKey: .pinGroupRadius) ?? Preferences.defaultPinGroupRadius
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         maxPreloadTiles = try values.decodeIfPresent(Int.self, forKey: .maxPreloadTiles) ?? Preferences.defaultMaxPreloadTiles
         showPins = try values.decodeIfPresent(Bool.self, forKey: .showPins) ?? true
@@ -73,7 +73,7 @@ class Preferences: Identifiable, Codable{
         try container.encode(startZoom, forKey: .startZoom)
         try container.encode(minLocationAccuracy, forKey: .minLocationAccuracy)
         try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)
-        try container.encode(minZoomToShowLocations, forKey: .minZoomToShowLocations)
+        try container.encode(pinGroupRadius, forKey: .pinGroupRadius)
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(maxPreloadTiles, forKey: .maxPreloadTiles)
         try container.encode(showPins, forKey: .showPins)

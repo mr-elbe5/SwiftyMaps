@@ -98,7 +98,7 @@ class TrackData : Hashable, Codable{
     func updateTrack(_ location: CLLocation){
         let lastTP = trackpoints.last
         if let tp = lastTP{
-            if tp.coordinate.closeTo(location.coordinate, maxDistance: 10){
+            if tp.coordinate.distance(to: location.coordinate) < 10{
                 print("too close")
                 return
             }

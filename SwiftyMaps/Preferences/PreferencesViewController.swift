@@ -14,7 +14,7 @@ class PreferencesViewController: PopupScrollViewController{
     var startZoomField = LabeledTextField()
     var minLocationAccuracyField = LabeledTextField()
     var maxLocationMergeDistanceField = LabeledTextField()
-    var minZoomToShowLocationsField = LabeledTextField()
+    var pinGroupRadiusField = LabeledTextField()
     var maxPreloadTilesField = LabeledTextField()
     var startWithLastPositionSwitch = LabeledSwitchView()
     
@@ -38,13 +38,13 @@ class PreferencesViewController: PopupScrollViewController{
         contentView.addSubview(maxLocationMergeDistanceField)
         maxLocationMergeDistanceField.setAnchors(top: minLocationAccuracyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        minZoomToShowLocationsField.setupView(labelText: "minZoomToShowLocations".localize(), text: String(Int(Preferences.instance.minZoomToShowLocations)), isHorizontal: true)
-        contentView.addSubview(minZoomToShowLocationsField)
-        minZoomToShowLocationsField.setAnchors(top: maxLocationMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        pinGroupRadiusField.setupView(labelText: "pinGroupRadius".localize(), text: String(Int(Preferences.instance.pinGroupRadius)), isHorizontal: true)
+        contentView.addSubview(pinGroupRadiusField)
+        pinGroupRadiusField.setAnchors(top: maxLocationMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         maxPreloadTilesField.setupView(labelText: "maxPreloadTiles".localize(), text: String(Int(Preferences.instance.maxPreloadTiles)), isHorizontal: true)
         contentView.addSubview(maxPreloadTilesField)
-        maxPreloadTilesField.setAnchors(top: minZoomToShowLocationsField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        maxPreloadTilesField.setAnchors(top: pinGroupRadiusField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: Preferences.instance.startWithLastPosition)
         contentView.addSubview(startWithLastPositionSwitch)
@@ -72,8 +72,8 @@ class PreferencesViewController: PopupScrollViewController{
         if let val = Int(maxLocationMergeDistanceField.text){
             Preferences.instance.maxLocationMergeDistance = CLLocationDistance(val)
         }
-        if let val = Int(minZoomToShowLocationsField.text){
-            Preferences.instance.minZoomToShowLocations = val
+        if let val = Int(pinGroupRadiusField.text){
+            Preferences.instance.pinGroupRadius = CGFloat(val)
         }
         if let val = Int(maxPreloadTilesField.text){
             Preferences.instance.maxPreloadTiles = val

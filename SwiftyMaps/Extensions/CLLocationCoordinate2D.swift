@@ -13,10 +13,6 @@ extension CLLocationCoordinate2D : Equatable{
         lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
     }
     
-    public func closeTo(_ otherCoordinate: CLLocationCoordinate2D, maxDistance: CLLocationDistance = 10) -> Bool{
-        distance(to: otherCoordinate) < maxDistance
-    }
-    
     public func distance(to coord: CLLocationCoordinate2D) -> CLLocationDistance{
         let latMid = (self.latitude + coord.latitude) / 2
         let latMetersPerDegree = 111132.954 - 559.822 * cos( 2 * latMid ) + 1.175 * cos( 4 * latMid)

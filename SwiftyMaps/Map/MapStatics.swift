@@ -58,6 +58,10 @@ struct MapStatics{
         Int(round(log2(scale)))
     }
     
+    static func zoomLevelFromReverseScale(scale: CGFloat) -> Int{
+        maxZoom + zoomLevelFromScale(scale: scale)
+    }
+    
     static func scrollShift(x: CGFloat) -> CGFloat{
         var normalizedX = x
         var shift : CGFloat = 0.0

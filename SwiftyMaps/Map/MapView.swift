@@ -16,12 +16,14 @@ class MapView: UIView {
     var userLocationView = UserLocationView()
     var controlLayerView = ControlLayerView()
     
-    var scale : CGFloat{
+    var scale: CGFloat{
         get{
             scrollView.zoomScale
             // same as contentView.layer.affineTransform().a
         }
     }
+    
+    var zoom: Int = 0
     
     var currentMapRegion : MapRegion{
         get{
@@ -79,7 +81,7 @@ class MapView: UIView {
     func setupLocationLayerView(){
         addSubview(locationLayerView)
         locationLayerView.fillView(view: self)
-        locationLayerView.setupLocationMarkers()
+        locationLayerView.setupLocationMarkers(zoom: zoom)
         locationLayerView.isHidden = !Preferences.instance.showPins
         locationLayerView.isHidden = true
     }
@@ -140,19 +142,23 @@ class MapView: UIView {
         scrollToCoordinateAtScreenPoint(coordinate: coordinate, point: CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2))
     }
     
-    func setZoom(zoomLevel: Int, animated: Bool){
-        scrollView.setZoomScale(MapStatics.zoomScale(at: zoomLevel - MapStatics.maxZoom), animated: animated)
-        locationLayerView.scaleHasChanged(scale: scale)
+    func updateLocationLayerView(){
+        locationLayerView.zoomHasChanged(zoom: zoom)
+    }
+    
+    func setZoom(zoom: Int, animated: Bool){
+        scrollView.setZoomScale(MapStatics.zoomScale(at: zoom - MapStatics.maxZoom), animated: animated)
+        updateLocationLayerView()
     }
     
     func setDefaultLocation(){
-        setZoom(zoomLevel: MapStatics.minZoom, animated: false)
+        setZoom(zoom: MapStatics.minZoom, animated: false)
         scrollToCenteredCoordinate(coordinate: MapStatics.startCoordinate)
     }
     
     func stateDidChange(from: LocationState, to: LocationState, location: CLLocation){
         if from == .none{
-            setZoom(zoomLevel: Preferences.instance.startZoom, animated: false)
+            setZoom(zoom: Preferences.instance.startZoom, animated: false)
             scrollToCenteredCoordinate(coordinate: location.coordinate)
         }
         userLocationView.state = to
@@ -179,8 +185,8 @@ class MapView: UIView {
         userLocationView.updateDirection(direction: direction)
     }
     
-    func addLocationMarker(location: Location){
-        locationLayerView.addLocationView(location: location)
+    func addLocationPin(location: Location){
+        locationLayerView.addLocationPin(location: location)
         Locations.save()
         locationLayerView.updatePosition(offset: contentOffset, scale: scale)
     }
@@ -206,8 +212,11 @@ extension MapView : UIScrollViewDelegate{
     }
     
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        //print("scale = \(scale), minScale = \(MapStatics.minScaleToShowLocations)")
-        locationLayerView.scaleHasChanged(scale: scale)
+        let zoom = MapStatics.zoomLevelFromReverseScale(scale: scale)
+        if zoom != self.zoom{
+            self.zoom = zoom
+            updateLocationLayerView()
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

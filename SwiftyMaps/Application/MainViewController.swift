@@ -45,32 +45,27 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func assertLocation(coordinate: CLLocationCoordinate2D, askForNext: Bool = false, onComplete: ((Location) -> Void)? = nil){
+    private func assertLocation(coordinate: CLLocationCoordinate2D, onComplete: ((Location) -> Void)? = nil){
         if let nextLocation = Locations.locationNextTo(coordinate: coordinate, maxDistance: Preferences.instance.maxLocationMergeDistance){
-            if askForNext{
-                var txt = nextLocation.description
-                if !txt.isEmpty{
-                    txt += ", "
-                }
-                txt += nextLocation.coordinateString
-                let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
-                    let location = Locations.addLocation(coordinate: coordinate)
-                    self.mapView.addLocationMarker(location: location)
-                    onComplete?(location)
-                })
-                alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
-                    onComplete?(nextLocation)
-                })
-                self.present(alertController, animated: true)
+            var txt = nextLocation.description
+            if !txt.isEmpty{
+                txt += ", "
             }
-            else{
+            txt += nextLocation.coordinateString
+            let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
+                let location = Locations.addLocation(coordinate: coordinate)
+                self.mapView.addLocationPin(location: location)
+                onComplete?(location)
+            })
+            alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
                 onComplete?(nextLocation)
-            }
+            })
+            self.present(alertController, animated: true)
         }
         else{
             let location = Locations.addLocation(coordinate: coordinate)
-            self.mapView.addLocationMarker(location: location)
+            self.mapView.addLocationPin(location: location)
             onComplete?(location)
         }
     }
@@ -121,6 +116,10 @@ extension MainViewController: LocationLayerViewDelegate{
         present(controller, animated: true)
     }
     
+    func showLocationGroupDetails(locationGroup: LocationGroup) {
+        mapView.setZoom(zoom: MapStatics.maxZoom, animated: true)
+    }
+    
 }
 
 extension MainViewController: ControlLayerDelegate{
@@ -147,8 +146,8 @@ extension MainViewController: ControlLayerDelegate{
     
     func addLocation(){
         let coordinate = mapView.getVisibleCenterCoordinate()
-        assertLocation(coordinate: coordinate, askForNext: true){ location in
-            
+        assertLocation(coordinate: coordinate){ location in
+            Locations.addLocation(location: location)
         }
     }
     
@@ -167,7 +166,7 @@ extension MainViewController: ControlLayerDelegate{
     func deleteLocations() {
         showApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
             Locations.deleteAllLocations()
-            self.mapView.locationLayerView.setupLocationMarkers()
+            self.mapView.updateLocationLayerView()
         }
     }
     
