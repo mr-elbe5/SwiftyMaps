@@ -145,9 +145,10 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func addLocation(){
+        print("MainViewController.addLocation")
         let coordinate = mapView.getVisibleCenterCoordinate()
         assertLocation(coordinate: coordinate){ location in
-            Locations.addLocation(location: location)
+            self.mapView.updateLocationLayerView()
         }
     }
     

@@ -11,6 +11,7 @@ import UIKit
 class LocationGroup{
     
     var center: CLLocationCoordinate2D? = nil
+    var centerPlanetPosition: CGPoint? = nil
     var locations = LocationList()
     
     var hasPhotos: Bool{
@@ -32,8 +33,11 @@ class LocationGroup{
     }
     
     func isWithinRadius(location: Location, radius: CGFloat) -> Bool{
+        print("checkking radius")
         if let center = center{
-            return center.distance(to: location.coordinate) <= radius
+            let dist = center.distance(to: location.coordinate)
+            print("dist = \(dist) at radius \(radius)")
+            return dist <= radius
         }
         else{
             return false
@@ -62,6 +66,7 @@ class LocationGroup{
         }
         if let minX = minLon,let maxX = maxLon, let minY = minLat, let maxY = maxLat{
             center = CLLocationCoordinate2D(latitude: (minY + maxY)/2, longitude: (minX + maxX)/2)
+            centerPlanetPosition = MapStatics.planetPointFromCoordinate(coordinate: center!)
         }
     }
     

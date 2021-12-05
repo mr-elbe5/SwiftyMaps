@@ -81,7 +81,7 @@ class MapView: UIView {
     func setupLocationLayerView(){
         addSubview(locationLayerView)
         locationLayerView.fillView(view: self)
-        locationLayerView.setupLocationMarkers(zoom: zoom)
+        locationLayerView.setupPins(zoom: zoom)
         locationLayerView.isHidden = !Preferences.instance.showPins
         locationLayerView.isHidden = true
     }
@@ -149,6 +149,7 @@ class MapView: UIView {
     func setZoom(zoom: Int, animated: Bool){
         scrollView.setZoomScale(MapStatics.zoomScale(at: zoom - MapStatics.maxZoom), animated: animated)
         updateLocationLayerView()
+        locationLayerView.updatePosition(offset: contentOffset, scale: scale)
     }
     
     func setDefaultLocation(){
@@ -216,6 +217,7 @@ extension MapView : UIScrollViewDelegate{
         if zoom != self.zoom{
             self.zoom = zoom
             updateLocationLayerView()
+            locationLayerView.updatePosition(offset: contentOffset, scale: scale)
         }
     }
     

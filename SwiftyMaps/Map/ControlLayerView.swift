@@ -27,6 +27,7 @@ protocol ControlLayerDelegate{
 
 class ControlLayerView: UIView {
     
+    //MainViewController
     var delegate : ControlLayerDelegate? = nil
     
     var controlLine = UIView()

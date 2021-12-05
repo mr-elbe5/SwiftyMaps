@@ -15,7 +15,8 @@ class LocationLayerView: UIView {
     
     var delegate : LocationLayerViewDelegate? = nil
     
-    func setupLocationMarkers(zoom: Int){
+    func setupPins(zoom: Int){
+        //print("setup pins with \(Locations.list.count) locations")
         for subview in subviews {
             subview.removeFromSuperview()
         }
@@ -25,35 +26,40 @@ class LocationLayerView: UIView {
             }
         }
         else{
+            //print("checking pins")
             let planetDist = MapStatics.zoomScaleToPlanet(from: zoom) * Preferences.instance.pinGroupRadius
             var groups = Array<LocationGroup>()
             for location in Locations.list{
                 var grouped = false
                 for group in groups{
                     if group.isWithinRadius(location: location, radius: planetDist){
+                        //print("add to group")
                         group.addLocation(location: location)
+                        group.setCenter()
                         grouped = true
                     }
                 }
-                if grouped{
+                if !grouped{
+                    //print("not grouped")
                     let group = LocationGroup()
                     group.addLocation(location: location)
+                    group.setCenter()
                     groups.append(group)
                 }
-                
-                
             }
             for group in groups{
                 if group.locations.count > 1{
-                    group.setCenter()
+                    //print("add group pin")
                     addLocationGroupPin(locationGroup: group)
                 }
                 else if let location = group.locations.first{
+                    //print("add pin")
                     addLocationPin(location:location )
                 }
             }
             
         }
+        setNeedsDisplay()
     }
     
     func addLocationPin(location: Location){
@@ -99,10 +105,14 @@ class LocationLayerView: UIView {
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
+        //print("updatePosition")
         let normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint(x: offset.x/scale, y: offset.y/scale))
         for sv in subviews{
             if let av = sv as? LocationPin{
                 av.updatePosition(to: CGPoint(x: (av.location.planetPosition.x - normalizedOffset.point.x)*scale , y: (av.location.planetPosition.y - normalizedOffset.point.y)*scale))
+            }
+            else if let av = sv as? LocationGroupPin, let center = av.locationGroup.centerPlanetPosition{
+                av.updatePosition(to: CGPoint(x: (center.x - normalizedOffset.point.x)*scale , y: (center.y - normalizedOffset.point.y)*scale))
             }
         }
     }
@@ -114,7 +124,8 @@ class LocationLayerView: UIView {
     }
     
     func zoomHasChanged(zoom: Int){
-        //todo
+        setupPins(zoom: zoom)
+        
     }
     
     @objc func showLocationDetails(_ sender: AnyObject){
