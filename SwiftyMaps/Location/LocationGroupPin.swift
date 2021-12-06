@@ -8,20 +8,26 @@ import UIKit
 
 class LocationGroupPin : Pin{
     
+    static var mapPinDefaultImage = UIImage(named: "mappin.group.green")
+    static var mapPinPhotoImage = UIImage(named: "mappin.group.red")
+    static var mapPinTrackImage = UIImage(named: "mappin.group.blue")
+    static var mapPinPhotoTrackImage = UIImage(named: "mappin.group.purple")
+    
     var locationGroup : LocationGroup
     
     init(locationGroup: LocationGroup){
         self.locationGroup = locationGroup
         super.init(frame: Pin.baseFrame)
-        var img  = MapStatics.mapPinEllipseImage
-        let fy = img.size.height / bounds.size.height
-        img = img.resize(size: CGSize(width: img.size.width/fy, height: bounds.size.height))
-        setImage(img, for: .normal)
-        updateColor()
+        updateImage()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func updateImage(){
+        let image = hasPhotos ? (hasTracks ? LocationGroupPin.mapPinPhotoTrackImage : LocationGroupPin.mapPinPhotoImage) : (hasTracks ? LocationGroupPin.mapPinTrackImage : LocationGroupPin.mapPinDefaultImage)
+        setImage(image, for: .normal)
     }
     
 }

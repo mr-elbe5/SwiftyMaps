@@ -28,10 +28,14 @@ class InfoViewController: PopupScrollViewController {
         // user location
         stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "userLocationInfoText".localize(), iconColor: UserLocationView.userLocationColor))
         // map location
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "locationMarkerInfoText".localize(), iconColor: LocationPin.defaultPinColor))
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "locationPhotoMarkerInfoText".localize(), iconColor: LocationPin.photoPinColor))
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "locationTrackMarkerInfoText".localize(), iconColor: LocationPin.defaultPinColor))
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin.and.ellipse", text: "locationPhotoTrackMarkerInfoText".localize(), iconColor: LocationPin.photoPinColor))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.green", text: "locationMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.red", text: "locationPhotoMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.blue", text: "locationTrackMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.purple", text: "locationPhotoTrackMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.green", text: "locationGroupInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.red", text: "locationPhotoGroupInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.blue", text: "locationTrackGroupInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.purple", text: "locationPhotoTrackGroupInfoText".localize()))
         stackView.addArrangedSubview(TextLabel(text: "locationDetailsInfoText".localize(), insetLeft: subInset))
         // map menu
         stackView.addArrangedSubview(IconInfoText(icon: "map", text: "mapMenuInfoText".localize()))

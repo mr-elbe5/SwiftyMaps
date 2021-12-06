@@ -41,9 +41,6 @@ struct MapStatics{
     static var mapGearImage = UIImage(named: "gear.grey")!
     static var mapPinRadius : CGFloat = 16
     
-    static var mapPinImage = UIImage(systemName: "mappin")!
-    static var mapPinEllipseImage = UIImage(systemName: "mappin.and.ellipse")!
-    
     static var locationRadius : CGFloat = 16
     
     static func zoomScale(at zoom: Int) -> CGFloat{

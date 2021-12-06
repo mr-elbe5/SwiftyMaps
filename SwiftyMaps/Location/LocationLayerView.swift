@@ -119,7 +119,7 @@ class LocationLayerView: UIView {
     
     func updateLocationState(_ location: Location){
         if let pin = getPin(location: location){
-            pin.updateColor()
+            pin.updateImage()
         }
     }
     
