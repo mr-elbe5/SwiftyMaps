@@ -150,6 +150,11 @@
 "locationTrackMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Touren";
 "locationPhotoTrackMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos und Touren";
 "locationDetailsInfoText"="Durch Antippen der Nadel wird die Orts-Detailansicht geöffnet (siehe unten)";
+"locationDefaultGroupInfoText"="Gruppe von einfachen Ortsmarkierungen";
+"locationPhotoGroupInfoText"="Gruppe von Ortsmarkierungen mit Fotos";
+"locationTrackGroupInfoText"="Gruppe von Ortsmarkierungen mit Touren";
+"locationPhotoTrackGroupInfoText"="Gruppe von Ortsmarkierungen mit Fotos und Touren";
+"locationGroupInfoText"="Durch Antippen der Gruppennadel zoomen Sie zur Ansicht der einzelnen Ortsmarkierungen.";
 
 "mapMenuInfoText"="Karten-Menü";
 "preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts (siehe unten)";

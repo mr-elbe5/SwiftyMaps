@@ -83,7 +83,6 @@ class MapView: UIView {
         locationLayerView.fillView(view: self)
         locationLayerView.setupPins(zoom: zoom)
         locationLayerView.isHidden = !Preferences.instance.showPins
-        locationLayerView.isHidden = true
     }
     
     func setupUserLocationView(){

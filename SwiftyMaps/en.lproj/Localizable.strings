@@ -143,6 +143,11 @@
 "locationTrackMarkerInfoText"="Location marker for location with data and assigned tracks";
 "locationPhotoTrackMarkerInfoText"="Location marker for location with data and assigned photos and tracks";
 "locationDetailsInfoText"="By tapping the needle a detail view is opened (see below)";
+"locationDefaultGroupInfoText"="Marker for group of simple locations";
+"locationPhotoGroupInfoText"="Marker for group of locations with assigned photos";
+"locationTrackGroupInfoText"="Marker for locations with assigned tracks";
+"locationPhotoTrackGroupInfoText"="Marker for locations with assigned photos and tracks";
+"locationGroupInfoText"="By tapping the group needle you zoom in for viewing the single locations.";
 
 "mapMenuInfoText"="Map menu";
 "preloadIconInfoText"="Initiates preloading the currently visible map section (active only for reasonable zoom levels - see preferences)";

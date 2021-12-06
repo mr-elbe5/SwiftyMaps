@@ -32,7 +32,7 @@ class ControlLayerView: UIView {
     
     var controlLine = UIView()
     var mapMenuControl = IconButton(icon: "map")
-    var locationMenuControl = IconButton(icon: "mappin.and.ellipse")
+    var locationMenuControl = IconButton(icon: "mappin")
     var trackMenuControl = IconButton(icon: "figure.walk")
     var crossControl = IconButton(icon: "plus.circle")
     var currentTrackLine = CurrentTrackLine()
