@@ -146,7 +146,7 @@ extension MainViewController: ControlLayerDelegate{
         print("MainViewController.addLocation")
         let coordinate = mapView.getVisibleCenterCoordinate()
         assertLocation(coordinate: coordinate){ location in
-            self.updateLocationLayer(location: location)
+            self.updateLocationLayer()
         }
     }
     
@@ -165,7 +165,7 @@ extension MainViewController: ControlLayerDelegate{
     func deleteLocations() {
         showApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
             Locations.deleteAllLocations()
-            self.updateLocationLayer(location: nil)
+            self.updateLocationLayer()
         }
     }
     
@@ -258,7 +258,7 @@ extension MainViewController: PhotoCaptureDelegate{
                 Locations.save()
                 if changeState{
                     DispatchQueue.main.async {
-                        self.updateLocationLayer(location: location)
+                        self.updateLocationLayer()
                     }
                 }
             }
@@ -269,8 +269,8 @@ extension MainViewController: PhotoCaptureDelegate{
 
 extension MainViewController: LocationEditDelegate{
     
-    func updateLocationLayer(location: Location?) {
-        mapView.updateLocationLayer(location: location)
+    func updateLocationLayer() {
+        mapView.updateLocationLayer()
     }
     
 }
@@ -284,7 +284,7 @@ extension MainViewController: LocationListDelegate{
     func deleteLocation(location: Location) {
         Locations.deleteLocation(location)
         Locations.save()
-        updateLocationLayer(location: nil)
+        updateLocationLayer()
     }
 
 }
@@ -349,19 +349,24 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     }
     
     func saveCurrentTrack() {
-        let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-        alertController.addTextField()
-        alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-            if let track = Tracks.currentTrack{
+        if let track = Tracks.currentTrack, !track.trackpoints.isEmpty{
+            let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
+            alertController.addTextField()
+            alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                 track.description = alertController.textFields![0].text ?? "Route"
-                if !track.trackpoints.isEmpty{
+                self.assertLocation(coordinate: track.trackpoints.first!.coordinate){ location in
+                    track.startLocation = location
+                    location.addTrack(track: track)
                     Tracks.saveTrackCurrentTrack()
-                    //pin change
+                    self.mapView.controlLayerView.stopTracking()
+                    self.mapView.updateLocationLayer()
                 }
-            }
-            self.mapView.controlLayerView.stopTracking()
-        })
-        present(alertController, animated: true)
+            })
+            present(alertController, animated: true)
+        }
+        else{
+            showAlert(title: "error".localize(), text: "noTrackPoints".localize())
+        }
     }
     
 }

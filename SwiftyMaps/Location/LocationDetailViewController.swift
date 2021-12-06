@@ -8,7 +8,7 @@ import Foundation
 import UIKit
 
 protocol LocationEditDelegate{
-    func updateLocationLayer(location: Location?)
+    func updateLocationLayer()
 }
 
 class LocationDetailViewController: PopupScrollViewController{
@@ -150,7 +150,7 @@ class LocationDetailViewController: PopupScrollViewController{
             showApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
                 Locations.deleteLocation(loc)
                 self.dismiss(animated: true){
-                    self.delegate?.updateLocationLayer(location: nil)
+                    self.delegate?.updateLocationLayer()
                 }
             }
         }
@@ -165,7 +165,7 @@ class LocationDetailViewController: PopupScrollViewController{
         }
         self.dismiss(animated: true){
             if needsUpdate{
-                self.delegate?.updateLocationLayer(location: self.location!)
+                self.delegate?.updateLocationLayer()
             }
         }
     }
@@ -207,7 +207,7 @@ extension LocationDetailViewController: PhotoEditDelegate{
         showApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
             if let location = self.location, let photo = sender.photoData{
                 location.deletePhoto(photo: photo)
-                self.delegate?.updateLocationLayer(location: location)
+                self.delegate?.updateLocationLayer()
                 for subView in self.photoStackView.subviews{
                     if subView == sender{
                         self.photoStackView.removeArrangedSubview(sender)

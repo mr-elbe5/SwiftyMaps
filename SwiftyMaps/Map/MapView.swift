@@ -141,13 +141,13 @@ class MapView: UIView {
         scrollToCoordinateAtScreenPoint(coordinate: coordinate, point: CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2))
     }
     
-    func updateLocationLayer(location: Location?){
+    func updateLocationLayer(){
         locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)
     }
     
     func setZoom(zoom: Int, animated: Bool){
         scrollView.setZoomScale(MapStatics.zoomScale(at: zoom - MapStatics.maxZoom), animated: animated)
-        updateLocationLayer(location: nil)
+        updateLocationLayer()
         
     }
     

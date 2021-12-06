@@ -22,7 +22,9 @@ class LocationLayerView: UIView {
         }
         if zoom == MapStatics.maxZoom{
             for location in Locations.list{
-                addLocationPin(location: location)
+                let pin = LocationPin(location: location)
+                addSubview(pin)
+                pin.addTarget(self, action: #selector(showLocationDetails), for: .touchDown)
             }
         }
         else{
@@ -50,40 +52,20 @@ class LocationLayerView: UIView {
             for group in groups{
                 if group.locations.count > 1{
                     //print("add group pin")
-                    addLocationGroupPin(locationGroup: group)
+                    let pin = LocationGroupPin(locationGroup: group)
+                    addSubview(pin)
+                    pin.addTarget(self, action: #selector(showLocationGroupDetails), for: .touchDown)
                 }
                 else if let location = group.locations.first{
                     //print("add pin")
-                    addLocationPin(location:location )
+                    let pin = LocationPin(location: location)
+                    addSubview(pin)
+                    pin.addTarget(self, action: #selector(showLocationDetails), for: .touchDown)
                 }
             }
             
         }
         updatePosition(offset: offset, scale: scale)
-    }
-    
-    func addLocationPin(location: Location){
-        let pin = LocationPin(location: location)
-        addSubview(pin)
-        pin.addTarget(self, action: #selector(showLocationDetails), for: .touchDown)
-    }
-    
-    func addLocationGroupPin(locationGroup: LocationGroup){
-        let pin = LocationGroupPin(locationGroup: locationGroup)
-        addSubview(pin)
-        pin.addTarget(self, action: #selector(showLocationGroupDetails), for: .touchDown)
-    }
-    
-    func removePin(location: Location){
-        subviews.first(where: {
-            if let pin = $0 as? LocationPin{
-                return pin.location == location
-            }
-            if let pin = $0 as? LocationGroupPin{
-                return pin.locationGroup.hasLocation(location: location)
-            }
-            return false
-        })?.removeFromSuperview()
     }
     
     func getPin(location: Location) -> Pin?{
