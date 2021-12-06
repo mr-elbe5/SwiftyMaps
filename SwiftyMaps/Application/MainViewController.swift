@@ -55,6 +55,7 @@ class MainViewController: UIViewController {
             let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
                 let location = Locations.addLocation(coordinate: coordinate)
+                //pin change
                 self.mapView.addLocationPin(location: location)
                 onComplete?(location)
             })
@@ -65,6 +66,7 @@ class MainViewController: UIViewController {
         }
         else{
             let location = Locations.addLocation(coordinate: coordinate)
+            //pin change
             self.mapView.addLocationPin(location: location)
             onComplete?(location)
         }
@@ -167,6 +169,7 @@ extension MainViewController: ControlLayerDelegate{
     func deleteLocations() {
         showApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
             Locations.deleteAllLocations()
+            //pin change
             self.mapView.updateLocationLayerView()
         }
     }
@@ -257,6 +260,7 @@ extension MainViewController: PhotoCaptureDelegate{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.photos.isEmpty
                 location.addPhoto(photo: photo)
+                //pin change
                 Locations.save()
                 if changeState{
                     DispatchQueue.main.async {
@@ -289,6 +293,7 @@ extension MainViewController: LocationListDelegate{
     }
     
     func deleteLocation(location: Location) {
+        //pin change
         Locations.deleteLocation(location)
         Locations.save()
     }
@@ -311,6 +316,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
         else{
             showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
                 self.deleteTrack(track: track)
+                //pin change
             }
         }
     }
@@ -361,6 +367,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
                 track.description = alertController.textFields![0].text ?? "Route"
                 if !track.trackpoints.isEmpty{
                     Tracks.saveTrackCurrentTrack()
+                    //pin change
                 }
             }
             self.mapView.controlLayerView.stopTracking()

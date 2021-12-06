@@ -150,6 +150,7 @@ class LocationDetailViewController: PopupScrollViewController{
         if let loc = location{
             showApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
                 Locations.deleteLocation(loc)
+                //pin change
                 self.dismiss(animated: true){
                     self.delegate?.updateLocationLayer()
                 }
@@ -208,6 +209,7 @@ extension LocationDetailViewController: PhotoEditDelegate{
         showApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
             if let location = self.location, let photo = sender.photoData{
                 location.deletePhoto(photo: photo)
+                //pin change
                 for subView in self.photoStackView.subviews{
                     if subView == sender{
                         self.photoStackView.removeArrangedSubview(sender)

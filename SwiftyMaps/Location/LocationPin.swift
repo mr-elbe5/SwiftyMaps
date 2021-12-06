@@ -15,9 +15,17 @@ class LocationPin : Pin{
     
     var location : Location
     
+    override var hasPhotos : Bool{
+        location.hasPhotos
+    }
+    
+    override var hasTracks: Bool{
+        location.hasTracks
+    }
+    
     init(location: Location){
         self.location = location
-        super.init(frame: Pin.baseFrame)
+        super.init(frame: .zero)
         updateImage()
     }
     
@@ -26,8 +34,11 @@ class LocationPin : Pin{
     }
     
     override func updateImage(){
-        let image = hasPhotos ? (hasTracks ? LocationPin.mapPinPhotoTrackImage : LocationPin.mapPinPhotoImage) : (hasTracks ? LocationPin.mapPinTrackImage : LocationPin.mapPinDefaultImage)
-        setImage(image, for: .normal)
+        if let image = hasPhotos ? (hasTracks ? LocationPin.mapPinPhotoTrackImage : LocationPin.mapPinPhotoImage) : (hasTracks ? LocationPin.mapPinTrackImage : LocationPin.mapPinDefaultImage){
+            baseFrame = CGRect(x: -image.size.width/2, y: -image.size.height, width: image.size.width, height: image.size.height)
+            print(baseFrame)
+            setImage(image, for: .normal)
+        }
     }
     
 }

@@ -33,6 +33,7 @@ class TrackDetailViewController: PopupScrollViewController{
     let mapButton = IconButton(icon: "map", tintColor: .white)
     let deleteButton = IconButton(icon: "trash", tintColor: .white)
     
+    // MainViewController
     var delegate : TrackDetailDelegate? = nil
     
     override func loadView() {

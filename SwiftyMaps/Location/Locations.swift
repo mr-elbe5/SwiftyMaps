@@ -39,12 +39,6 @@ class Locations{
         return location
     }
     
-    static func addLocation(location: Location){
-        _lock.wait()
-        defer{_lock.signal()}
-        _list.append(location)
-    }
-    
     static func deleteLocation(_ location: Location){
         _lock.wait()
         defer{_lock.signal()}

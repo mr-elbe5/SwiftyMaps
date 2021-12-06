@@ -186,16 +186,18 @@ class Location : Hashable, Codable{
     
     func addTrack(track: TrackData){
         tracks.append(track)
+        // pin change
     }
     
     func deleteTrack(track: TrackData){
         lock.wait()
         defer{lock.signal()}
         tracks.remove(track)
+        // pin change
     }
     
     func deleteAllTracks(){
-        
+        // pin change
     }
     
     func hash(into hasher: inout Hasher) {

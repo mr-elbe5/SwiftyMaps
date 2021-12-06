@@ -15,9 +15,17 @@ class LocationGroupPin : Pin{
     
     var locationGroup : LocationGroup
     
+    override var hasPhotos : Bool{
+        locationGroup.hasPhotos
+    }
+    
+    override var hasTracks: Bool{
+        locationGroup.hasTracks
+    }
+    
     init(locationGroup: LocationGroup){
         self.locationGroup = locationGroup
-        super.init(frame: Pin.baseFrame)
+        super.init(frame: .zero)
         updateImage()
     }
     
@@ -26,8 +34,10 @@ class LocationGroupPin : Pin{
     }
     
     override func updateImage(){
-        let image = hasPhotos ? (hasTracks ? LocationGroupPin.mapPinPhotoTrackImage : LocationGroupPin.mapPinPhotoImage) : (hasTracks ? LocationGroupPin.mapPinTrackImage : LocationGroupPin.mapPinDefaultImage)
-        setImage(image, for: .normal)
+        if let image = hasPhotos ? (hasTracks ? LocationGroupPin.mapPinPhotoTrackImage : LocationGroupPin.mapPinPhotoImage) : (hasTracks ? LocationGroupPin.mapPinTrackImage : LocationGroupPin.mapPinDefaultImage){
+            baseFrame = CGRect(x: -image.size.width/2, y: -image.size.height*4/5, width: image.size.width, height: image.size.height)
+            setImage(image, for: .normal)
+        }
     }
     
 }

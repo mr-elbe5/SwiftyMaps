@@ -20,7 +20,7 @@ class TrackCell: UITableViewCell{
         }
     }
     
-    //TrackListViewControllert
+    //TrackListViewController
     var delegate: TrackCellDelegate? = nil
     
     var cellBody = UIView()
