@@ -81,7 +81,7 @@ class MapView: UIView {
     func setupLocationLayerView(){
         addSubview(locationLayerView)
         locationLayerView.fillView(view: self)
-        locationLayerView.setupPins(zoom: zoom)
+        locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)
         locationLayerView.isHidden = !Preferences.instance.showPins
     }
     
@@ -141,14 +141,14 @@ class MapView: UIView {
         scrollToCoordinateAtScreenPoint(coordinate: coordinate, point: CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2))
     }
     
-    func updateLocationLayerView(){
-        locationLayerView.zoomHasChanged(zoom: zoom)
+    func updateLocationLayer(location: Location?){
+        locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)
     }
     
     func setZoom(zoom: Int, animated: Bool){
         scrollView.setZoomScale(MapStatics.zoomScale(at: zoom - MapStatics.maxZoom), animated: animated)
-        updateLocationLayerView()
-        locationLayerView.updatePosition(offset: contentOffset, scale: scale)
+        updateLocationLayer(location: nil)
+        
     }
     
     func setDefaultLocation(){
@@ -185,12 +185,6 @@ class MapView: UIView {
         userLocationView.updateDirection(direction: direction)
     }
     
-    func addLocationPin(location: Location){
-        locationLayerView.addLocationPin(location: location)
-        Locations.save()
-        locationLayerView.updatePosition(offset: contentOffset, scale: scale)
-    }
-    
     func getVisibleCenter() -> CGPoint{
         CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2)
     }
@@ -215,8 +209,7 @@ extension MapView : UIScrollViewDelegate{
         let zoom = MapStatics.zoomLevelFromReverseScale(scale: scale)
         if zoom != self.zoom{
             self.zoom = zoom
-            updateLocationLayerView()
-            locationLayerView.updatePosition(offset: contentOffset, scale: scale)
+            locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)
         }
     }
     

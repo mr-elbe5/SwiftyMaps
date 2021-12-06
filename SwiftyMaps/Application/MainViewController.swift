@@ -55,8 +55,6 @@ class MainViewController: UIViewController {
             let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
                 let location = Locations.addLocation(coordinate: coordinate)
-                //pin change
-                self.mapView.addLocationPin(location: location)
                 onComplete?(location)
             })
             alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
@@ -66,8 +64,6 @@ class MainViewController: UIViewController {
         }
         else{
             let location = Locations.addLocation(coordinate: coordinate)
-            //pin change
-            self.mapView.addLocationPin(location: location)
             onComplete?(location)
         }
     }
@@ -150,7 +146,7 @@ extension MainViewController: ControlLayerDelegate{
         print("MainViewController.addLocation")
         let coordinate = mapView.getVisibleCenterCoordinate()
         assertLocation(coordinate: coordinate){ location in
-            self.mapView.updateLocationLayerView()
+            self.updateLocationLayer(location: location)
         }
     }
     
@@ -169,8 +165,7 @@ extension MainViewController: ControlLayerDelegate{
     func deleteLocations() {
         showApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
             Locations.deleteAllLocations()
-            //pin change
-            self.mapView.updateLocationLayerView()
+            self.updateLocationLayer(location: nil)
         }
     }
     
@@ -260,12 +255,10 @@ extension MainViewController: PhotoCaptureDelegate{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.photos.isEmpty
                 location.addPhoto(photo: photo)
-                //pin change
                 Locations.save()
                 if changeState{
                     DispatchQueue.main.async {
-                        print("changeState")
-                        self.mapView.locationLayerView.updateLocationState(location)
+                        self.updateLocationLayer(location: location)
                     }
                 }
             }
@@ -276,12 +269,8 @@ extension MainViewController: PhotoCaptureDelegate{
 
 extension MainViewController: LocationEditDelegate{
     
-    func updateLocationState(location: Location) {
-        mapView.locationLayerView.updateLocationState(location)
-    }
-    
-    func updateLocationLayer() {
-        mapView.locationLayerView.setNeedsDisplay()
+    func updateLocationLayer(location: Location?) {
+        mapView.updateLocationLayer(location: location)
     }
     
 }
@@ -293,9 +282,9 @@ extension MainViewController: LocationListDelegate{
     }
     
     func deleteLocation(location: Location) {
-        //pin change
         Locations.deleteLocation(location)
         Locations.save()
+        updateLocationLayer(location: nil)
     }
 
 }

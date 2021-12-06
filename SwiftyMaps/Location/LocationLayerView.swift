@@ -15,7 +15,7 @@ class LocationLayerView: UIView {
     
     var delegate : LocationLayerViewDelegate? = nil
     
-    func setupPins(zoom: Int){
+    func setupPins(zoom: Int, offset: CGPoint, scale: CGFloat){
         //print("setup pins with \(Locations.list.count) locations")
         for subview in subviews {
             subview.removeFromSuperview()
@@ -59,7 +59,7 @@ class LocationLayerView: UIView {
             }
             
         }
-        setNeedsDisplay()
+        updatePosition(offset: offset, scale: scale)
     }
     
     func addLocationPin(location: Location){
@@ -121,11 +121,6 @@ class LocationLayerView: UIView {
         if let pin = getPin(location: location){
             pin.updateImage()
         }
-    }
-    
-    func zoomHasChanged(zoom: Int){
-        setupPins(zoom: zoom)
-        
     }
     
     @objc func showLocationDetails(_ sender: AnyObject){

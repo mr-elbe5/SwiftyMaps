@@ -106,12 +106,8 @@ extension LocationListViewController : LocationCellDelegate{
 
 extension LocationListViewController: LocationEditDelegate{
     
-    func updateLocationLayer() {
-        delegate?.updateLocationLayer()
-    }
-    
-    func updateLocationState(location: Location) {
-        delegate?.updateLocationState(location: location)
+    func updateLocationLayer(location: Location?) {
+        delegate?.updateLocationLayer(location: location)
     }
     
 }
