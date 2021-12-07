@@ -12,15 +12,17 @@ import CoreLocation
 protocol TrackListDelegate{
     func showTrackOnMap(track: TrackData)
     func deleteTrack(track: TrackData, approved: Bool)
-    func pauseCurrentTrack()
-    func resumeCurrentTrack()
-    func cancelCurrentTrack()
-    func saveCurrentTrack()
+    func pauseActiveTrack()
+    func resumeActiveTrack()
+    func cancelActiveTrack()
+    func saveActiveTrack()
 }
 
 class TrackListViewController: PopupTableViewController{
 
     private static let CELL_IDENT = "trackCell"
+    
+    var tracks: TrackList? = nil
     
     // MainViewController
     var delegate: TrackListDelegate? = nil
@@ -60,12 +62,12 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Tracks.list.count
+        tracks?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TrackListViewController.CELL_IDENT, for: indexPath) as! TrackCell
-        let track = Tracks.list[indexPath.row]
+        let track = tracks?[indexPath.row]
         cell.track = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
@@ -118,24 +120,20 @@ extension TrackListViewController : TrackCellDelegate, TrackDetailDelegate{
         tableView.reloadData()
     }
     
-    func pauseCurrentTrack() {
-        delegate?.pauseCurrentTrack()
+    func pauseActiveTrack() {
+        delegate?.pauseActiveTrack()
     }
     
-    func resumeCurrentTrack() {
-        delegate?.resumeCurrentTrack()
+    func resumeActiveTrack() {
+        delegate?.resumeActiveTrack()
     }
     
-    func cancelCurrentTrack() {
-        delegate?.cancelCurrentTrack()
+    func cancelActiveTrack() {
+        delegate?.cancelActiveTrack()
     }
     
-    func saveCurrentTrack() {
-        delegate?.saveCurrentTrack()
-    }
-    
-    func assertStartLocation(for track: TrackData){
-        //todo
+    func saveActiveTrack() {
+        delegate?.saveActiveTrack()
     }
     
 }
@@ -150,16 +148,18 @@ extension TrackListViewController : UIDocumentPickerDelegate{
                 for loc in locations{
                     track.trackpoints.append(TrackPoint(location: loc))
                 }
-                assertStartLocation(for: track)
-                let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-                alertController.addTextField()
-                alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                    track.description = alertController.textFields![0].text ?? url.lastPathComponent
-                    Tracks.addTrack(track)
-                    Tracks.save()
-                    self.tableView.reloadData()
-                })
-                self.present(alertController, animated: true)
+                assertLocation(coordinate: track.trackpoints.first!.coordinate){ location in
+                    track.startLocation = location
+                    location.tracks.append(track)
+                    let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
+                    alertController.addTextField()
+                    alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
+                        track.description = alertController.textFields![0].text ?? url.lastPathComponent
+                        self.tracks?.append(track)
+                        self.tableView.reloadData()
+                    })
+                    self.present(alertController, animated: true)
+                }
             }
         }
     }

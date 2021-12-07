@@ -173,7 +173,7 @@ class ControlLayerView: UIView {
         let deleteTracksAction = UIAction(title: "deleteTracks".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteTracks()
         }
-        if let track = Tracks.currentTrack{
+        if let track = ActiveTrack.track{
             let showCurrentAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")?.withTintColor(.green, renderingMode: .alwaysOriginal)){ action in
                 self.delegate?.openTrack(track: track)
                 self.trackMenuControl.menu = self.getTrackingMenu()
@@ -245,12 +245,12 @@ class ControlLayerView: UIView {
         currentTrackLine.stopInfo()
     }
     
-    func startTracking(){
+    func startTrackControl(){
         trackMenuControl.menu = getTrackingMenu()
         startTrackInfo()
     }
     
-    func stopTracking(){
+    func stopTrackControl(){
         trackMenuControl.menu = getTrackingMenu()
         stopTrackInfo()
     }

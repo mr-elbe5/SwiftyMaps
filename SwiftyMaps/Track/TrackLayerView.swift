@@ -13,7 +13,7 @@ class TrackLayerView: UIView {
     var scale : CGFloat = 1.0
     var normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint())
     
-    var track : TrackData? = nil
+    private var track : TrackData? = nil
     
     init(){
         super.init(frame: UserLocationView.baseFrame)
@@ -28,18 +28,8 @@ class TrackLayerView: UIView {
         return false
     }
     
-    func showTrack(track: TrackData){
+    func setTrack(track: TrackData? = nil){
         self.track = track
-        setNeedsDisplay()
-    }
-    
-    func showCurrentTrack(){
-        track = Tracks.currentTrack
-        setNeedsDisplay()
-    }
-    
-    func hideTrack(){
-        track = nil
         setNeedsDisplay()
     }
     

@@ -64,7 +64,7 @@
 // track menu
 "startNewTrack"="Neue Tour starten";
 "showCurrentTrack"="Aktuelle Tour...";
-"hideTrack"="Tour nicht mehr anzeigen";
+"hideTrack"="Tour ausblenden";
 "showTrackList"="Gespeicherte Touren...";
 "deleteTracks"="Alle Touren löschen";
 "confirmDeleteTracks"="Wollen Sie alle Touren löschen?";

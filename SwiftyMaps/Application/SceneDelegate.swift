@@ -39,7 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        Tracks.save()
         Locations.save()
         LocationService.shared.stop()
         Preferences.instance.save()

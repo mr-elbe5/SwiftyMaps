@@ -75,4 +75,33 @@ class Locations{
         LocationList.save(_list)
     }
     
+    static func getAllTracks() -> TrackList{
+        var tracks = TrackList()
+        for loc in _list{
+            for track in loc.tracks{
+                tracks.append(track)
+            }
+        }
+        return tracks
+    }
+    
+    static func deleteTrack(track: TrackData){
+        _lock.wait()
+        defer{_lock.signal()}
+        for idx in 0..<list.count{
+            if list[idx].tracks.contains(track){
+                list[idx].tracks.remove(track)
+                return
+            }
+        }
+    }
+    
+    static func deleteAllTracks(){
+        _lock.wait()
+        defer{_lock.signal()}
+        for loc in _list{
+            loc.tracks.removeAll()
+        }
+    }
+    
 }

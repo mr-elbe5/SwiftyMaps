@@ -14,19 +14,19 @@ protocol TrackDetailDelegate{
     func showTrackOnMap(track: TrackData)
     func viewTrackDetails(track: TrackData)
     func deleteTrack(track: TrackData, approved: Bool)
-    func pauseCurrentTrack()
-    func resumeCurrentTrack()
-    func cancelCurrentTrack()
-    func saveCurrentTrack()
+    func pauseActiveTrack()
+    func resumeActiveTrack()
+    func cancelActiveTrack()
+    func saveActiveTrack()
 }
 
 class TrackDetailViewController: PopupScrollViewController{
     
     var track: TrackData? = nil
     
-    var isCurrentTrack : Bool{
+    var isActiveTrack : Bool{
         get{
-            track != nil && track == Tracks.currentTrack
+            track != nil && track == ActiveTrack.track
         }
     }
     
@@ -58,14 +58,14 @@ class TrackDetailViewController: PopupScrollViewController{
     }
     
     func setupContent() {
-        if let track = track, let startLocation = track.startLocation{
+        if let track = track{
             var header = HeaderLabel(text: "startLocation".localize())
             contentView.addSubview(header)
             header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor)
-            let locationLabel = TextLabel(text: startLocation.locationString)
+            let locationLabel = TextLabel(text: track.startLocation?.locationString ?? "")
             contentView.addSubview(locationLabel)
             locationLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-            let coordinateLabel = TextLabel(text: startLocation.coordinateString)
+            let coordinateLabel = TextLabel(text: track.startLocation?.coordinateString ?? "")
             contentView.addSubview(coordinateLabel)
             coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
             let timeLabel = TextLabel(text: "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())")
@@ -92,7 +92,7 @@ class TrackDetailViewController: PopupScrollViewController{
             let durationLabel = TextLabel(text: "\("duration".localize()): \(track.duration.hmsString())")
             contentView.addSubview(durationLabel)
             durationLabel.setAnchors(top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor)
-            if isCurrentTrack{
+            if isActiveTrack{
                 let pauseButton = UIButton()
                 pauseButton.setTitle("pause".localize(), for: .normal)
                 pauseButton.setTitleColor(.systemBlue, for: .normal)
@@ -145,29 +145,29 @@ class TrackDetailViewController: PopupScrollViewController{
     }
     
     @objc func pause(){
-        if isCurrentTrack{
-            delegate?.pauseCurrentTrack()
+        if isActiveTrack{
+            delegate?.pauseActiveTrack()
         }
     }
     
     @objc func resume(){
-        if isCurrentTrack{
-            delegate?.resumeCurrentTrack()
+        if isActiveTrack{
+            delegate?.resumeActiveTrack()
         }
     }
     
     @objc func cancel(){
-        if isCurrentTrack{
+        if isActiveTrack{
             self.dismiss(animated: true){
-                self.delegate?.cancelCurrentTrack()
+                self.delegate?.cancelActiveTrack()
             }
         }
     }
     
     @objc func save(){
-        if isCurrentTrack{
+        if isActiveTrack{
             self.dismiss(animated: true){
-                self.delegate?.saveCurrentTrack()
+                self.delegate?.saveActiveTrack()
             }
         }
     }
