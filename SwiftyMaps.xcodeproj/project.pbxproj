@@ -65,7 +65,6 @@
 		4E24F47427345D11004E69C2 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45C27345D11004E69C2 /* IconButton.swift */; };
 		4E24F47527345D11004E69C2 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45D27345D11004E69C2 /* CGRect.swift */; };
 		4E24F47627345D11004E69C2 /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45E27345D11004E69C2 /* CGSize.swift */; };
-		4E24F47727345D11004E69C2 /* TextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45F27345D11004E69C2 /* TextLabel.swift */; };
 		4E24F47927345D11004E69C2 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46127345D11004E69C2 /* HeaderLabel.swift */; };
 		4E24F47A27345D11004E69C2 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46227345D11004E69C2 /* UILabel.swift */; };
 		4E24F47B27345D11004E69C2 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46327345D11004E69C2 /* UIStackView.swift */; };
@@ -165,7 +164,6 @@
 		4E24F45C27345D11004E69C2 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		4E24F45D27345D11004E69C2 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		4E24F45E27345D11004E69C2 /* CGSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
-		4E24F45F27345D11004E69C2 /* TextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLabel.swift; sourceTree = "<group>"; };
 		4E24F46127345D11004E69C2 /* HeaderLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		4E24F46227345D11004E69C2 /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		4E24F46327345D11004E69C2 /* UIStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
@@ -293,7 +291,6 @@
 				4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */,
 				4E24F47127345D11004E69C2 /* TextButton.swift */,
 				4E24F46927345D11004E69C2 /* TextEditArea.swift */,
-				4E24F45F27345D11004E69C2 /* TextLabel.swift */,
 				4E42393C273D2290005B2E5F /* TextView.swift */,
 			);
 			path = Base;
@@ -559,7 +556,6 @@
 				4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */,
 				4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */,
 				4E1B81012732EDA2003ED6B0 /* PreferencesViewController.swift in Sources */,
-				4E24F47727345D11004E69C2 /* TextLabel.swift in Sources */,
 				4E1B811A2732EDC5003ED6B0 /* NormalizedPlanetPoint.swift in Sources */,
 				4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */,
 				4E1D0E1B274BA72100F3D584 /* TrackCell.swift in Sources */,

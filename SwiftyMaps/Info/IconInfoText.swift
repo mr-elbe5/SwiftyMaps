@@ -13,7 +13,7 @@ class IconInfoText : UIView{
     let iconView = UIImageView()
     let iconText = UILabel()
     
-    init(icon: String, text: String, iconColor : UIColor = .darkGray, leftInset: CGFloat = Insets.defaultInset){
+    init(icon: String, text: String, iconColor : UIColor = .darkGray, leftInset: CGFloat = 0){
         super.init(frame: .zero)
         iconView.image = UIImage(systemName: icon)
         iconView.tintColor = iconColor
@@ -21,7 +21,7 @@ class IconInfoText : UIView{
         commonInit(leftInset: leftInset)
     }
     
-    init(image: String, text: String, leftInset: CGFloat = Insets.defaultInset){
+    init(image: String, text: String, leftInset: CGFloat = 0){
         super.init(frame: .zero)
         iconView.image = UIImage(named: image)
         iconText.text = text
@@ -32,7 +32,7 @@ class IconInfoText : UIView{
         iconText.numberOfLines = 0
         iconText.textColor = .label
         addSubview(iconView)
-        iconView.setAnchors(top: topAnchor, leading: leadingAnchor, insets: UIEdgeInsets(top: defaultInset, left: leftInset, bottom: defaultInset, right: defaultInset))
+        iconView.setAnchors(top: topAnchor, leading: leadingAnchor, insets: UIEdgeInsets(top: defaultInset, left: leftInset, bottom: defaultInset, right: 0))
             .width(25)
         iconView.setAspectRatioConstraint()
         addSubview(iconText)

@@ -59,10 +59,10 @@ class LocationDetailViewController: PopupScrollViewController{
             var header = HeaderLabel(text: "locationData".localize())
             contentView.addSubview(header)
             header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor)
-            let locationLabel = TextLabel(text: location.locationString)
+            let locationLabel = UILabel(text: location.locationString)
             contentView.addSubview(locationLabel)
             locationLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-            let coordinateLabel = TextLabel(text: location.coordinateString)
+            let coordinateLabel = UILabel(text: location.coordinateString)
             contentView.addSubview(coordinateLabel)
             coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
             header = HeaderLabel(text: "description".localize())
@@ -105,7 +105,7 @@ class LocationDetailViewController: PopupScrollViewController{
         }
         else{
             descriptionView = nil
-            let descriptionLabel = TextLabel(text: location.description)
+            let descriptionLabel = UILabel(text: location.description)
             descriptionContainerView.addSubview(descriptionLabel)
             descriptionLabel.setAnchors(top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, bottom: descriptionContainerView.bottomAnchor)
         }

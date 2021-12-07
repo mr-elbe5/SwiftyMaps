@@ -30,6 +30,10 @@ extension UIStackView{
         }
         removeAllSubviews()
     }
+    
+    func addSpacer(){
+        addArrangedSubview(UILabel(text: " "))
+    }
 
 }
 

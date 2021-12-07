@@ -21,5 +21,13 @@ extension UILabel{
         textColor = .label
     }
     
+    convenience init(header: String){
+        self.init()
+        self.text = header
+        font = .preferredFont(forTextStyle: .headline)
+        numberOfLines = 0
+        textColor = .label
+    }
+    
 }
 
