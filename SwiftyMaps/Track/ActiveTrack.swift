@@ -13,11 +13,10 @@ class ActiveTrack{
     static var track : TrackData? = nil
     static var isTracking : Bool = false
     
-    static func startTracking(){
+    static func startTracking(startLocation: Location){
         if track == nil{
-            guard let location = LocationService.shared.lastLocation else {return}
-            track = TrackData()
-            track!.trackpoints.append(TrackPoint(location: location))
+            track = TrackData(startLocation: startLocation)
+            track!.trackpoints.append(TrackPoint(location: startLocation.cllocation))
         }
         isTracking = true
     }

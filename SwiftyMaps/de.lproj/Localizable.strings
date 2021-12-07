@@ -38,13 +38,14 @@
 "sizeToLoad"="Gesamtgröße zu ladender Kacheln (ca):";
 "unloadedTiles"="Zahl von Ladefehlern:";
 
-//map preferences view
-"mapPreferences"="Karteneinstellungen";
+//preferences view
+"mapPreferences"="Einstellungen";
 "urlTemplate"="URL Template für OpenStreetMap Kacheln:";
 "startZoom"="Startzoom [2-18]";
 "minLocationAccuracy"="Minimale horizontale Genauigkeit für GPS [m]";
 "maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
 "minZoomToShowLocations"="Minimalzoom zur Anzeige von Orten (Nadeln) [2-18]";
+"pinGroupRadius"="Radius zur Anzeige von Nadeln als Gruppe [m bei vollem Zoom]";
 "maxPreloadTiles"="Maximale Anzahl von Kacheln zum Vorladen";
 "startWithLastPosition"="Mit der letzten Position starten";
 "showLocations"="Orte (Nadeln) anzeigen";
@@ -62,26 +63,23 @@
 "locationList"="Orte";
 
 // track menu
-"startNewTrack"="Neue Tour starten";
-"showCurrentTrack"="Aktuelle Tour...";
-"hideTrack"="Tour ausblenden";
-"showTrackList"="Gespeicherte Touren...";
-"deleteTracks"="Alle Touren löschen";
-"confirmDeleteTracks"="Wollen Sie alle Touren löschen?";
+"startNewTrack"="Neue Aufzeichnung starten";
+"showCurrentTrack"="Aktuelle Aufzeichnung...";
+"hideTrack"="Weg ausblenden";
+"showTrackList"="Aufgezeichnete Wege...";
+"deleteTracks"="Alle aufzeichneten Wege löschen";
+"confirmDeleteTracks"="Wollen Sie alle aufzeichneten Wege löschen?";
 "deleteTracksHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
-"configureTracks"="Tour-Einstellungen...";
 
 // track / current track
-"track"="Tour";
+"track"="Aufgezeichneter Weg";
 "startLocation"="Startposition";
 "distances"="Entfernungen";
 "distance"="Länge";
 "upDistance"="Aufwärts";
 "downDistance"="Abwärts";
 "duration"="Dauer";
-"currentTrack"="Aktuelle Tour";
-"pause"="Pausieren";
-"resume"="Fortsetzen";
+"currentTrack"="Aktuelle Aufzeichnung";
 
 // track list
 "trackList"="Touren";
@@ -92,6 +90,8 @@
 "stopTracking"="Aufzeichnen beenden";
 "saveTrack"="Aufzeichnung speichern";
 "searchTrack"="Aufzeichnung-Suche";
+"pause"="Pausieren";
+"resume"="Fortsetzen";
 
 //location
 "east"="Ost";
@@ -112,9 +112,10 @@
 "location"="Ort";
 "locationData"="Ortsangaben";
 "description"="Beschreibung";
-"photos"="Fotos";
-"confirmDeletePhoto"="Wollen Sie dieses Foto löschen??";
-"deletePhotoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden..";
+"photos"="Foto(s)";
+"tracks"="Weg(e)";
+"confirmDeletePhoto"="Wollen Sie dieses Foto löschen?";
+"deletePhotoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 
 //camera
 "cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";

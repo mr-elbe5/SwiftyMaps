@@ -36,7 +36,7 @@ class TrackData : Hashable, Codable{
     var upDistance : CGFloat
     var downDistance : CGFloat
     
-    var startLocation : Location? = nil
+    var startLocation : Location!
     
     var duration : TimeInterval{
         get{
@@ -56,7 +56,7 @@ class TrackData : Hashable, Codable{
         }
     }
     
-    init(){
+    init(startLocation: Location){
         id = UUID()
         description = ""
         startTime = Date()
@@ -65,6 +65,7 @@ class TrackData : Hashable, Codable{
         distance = 0
         upDistance = 0
         downDistance = 0
+        self.startLocation = startLocation
     }
     
     required init(from decoder: Decoder) throws {
@@ -131,6 +132,33 @@ class TrackData : Hashable, Codable{
         if let pauseTime = pauseTime{
             pauseLength += pauseTime.distance(to: Date())
             self.pauseTime = nil
+        }
+    }
+    
+    func evaluateTrackpoints(){
+        distance = 0
+        upDistance = 0
+        downDistance = 0
+        if let time = trackpoints.first?.location.timestamp{
+            startTime = time
+        }
+        if let time = trackpoints.last?.location.timestamp{
+            endTime = time
+        }
+        var last : TrackPoint? = nil
+        for tp in trackpoints{
+            if let last = last{
+                distance += last.coordinate.distance(to: tp.coordinate)
+                let vDist = tp.location.altitude - last.location.altitude
+                if vDist > 0{
+                    upDistance += vDist
+                }
+                else{
+                    //invert negative
+                    downDistance -= vDist
+                }
+            }
+            last = tp
         }
     }
     

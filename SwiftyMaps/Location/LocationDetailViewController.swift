@@ -19,6 +19,7 @@ class LocationDetailViewController: PopupScrollViewController{
     let descriptionContainerView = UIView()
     var descriptionView : TextEditView? = nil
     let photoStackView = UIStackView()
+    let trackStackView = UIStackView()
     
     var editMode = false
     
@@ -76,7 +77,14 @@ class LocationDetailViewController: PopupScrollViewController{
             photoStackView.setupVertical()
             setupPhotoStackView()
             contentView.addSubview(photoStackView)
-            photoStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor)
+            photoStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: 0, left: 2*defaultInset, bottom: 0, right: 0))
+            header = HeaderLabel(text: "tracks".localize())
+            contentView.addSubview(header)
+            header.setAnchors(top: photoStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+            trackStackView.setupVertical()
+            setupTrackStackView()
+            contentView.addSubview(trackStackView)
+            trackStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*defaultInset, bottom: 0, right: 0))
         }
     }
     
@@ -119,6 +127,17 @@ class LocationDetailViewController: PopupScrollViewController{
                 let imageView = PhotoView.fromData(data: photo, delegate: self)
                 photoStackView.addArrangedSubview(imageView)
             }
+        }
+    }
+    
+    func setupTrackStackView(){
+        trackStackView.removeAllArrangedSubviews()
+        trackStackView.removeAllSubviews()
+        guard let location = location else {return}
+        for track in location.tracks{
+            let trackView = TrackView.fromData(data: track)
+            trackView.delegate = self
+            trackStackView.addArrangedSubview(trackView)
         }
     }
     
@@ -201,12 +220,25 @@ extension LocationDetailViewController: PhotoViewDelegate{
     
 }
 
+extension LocationDetailViewController: TrackViewDelegate{
+    
+    func viewTrack(data: TrackData) {
+        //todo
+    }
+    
+    func shareTrack(data: TrackData) {
+        //todo
+    }
+    
+}
+
 extension LocationDetailViewController: PhotoEditDelegate{
     
     func deletePhoto(sender: PhotoEditView) {
         showApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
             if let location = self.location, let photo = sender.photoData{
                 location.deletePhoto(photo: photo)
+                Locations.save()
                 self.delegate?.updateLocationLayer()
                 for subView in self.photoStackView.subviews{
                     if subView == sender{

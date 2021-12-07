@@ -120,6 +120,9 @@ class Location : Hashable, Codable{
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         photos = try values.decodeIfPresent(PhotoList.self, forKey: .photos) ?? Array<PhotoData>()
         tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks) ?? TrackList()
+        for track in tracks{
+            track.startLocation = self
+        }
         if !hasPlacemark{
             LocationService.shared.getPlacemarkInfo(for: self)
         }
@@ -181,23 +184,22 @@ class Location : Hashable, Codable{
     }
     
     func deleteAllPhotos(){
-        
+        photos.removeAllPhotos()
     }
     
     func addTrack(track: TrackData){
         tracks.append(track)
-        // pin change
     }
     
+    //unused
     func deleteTrack(track: TrackData){
         lock.wait()
         defer{lock.signal()}
         tracks.remove(track)
-        // pin change
     }
     
+    //unused
     func deleteAllTracks(){
-        // pin change
     }
     
     func hash(into hasher: inout Hasher) {

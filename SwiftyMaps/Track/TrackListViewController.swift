@@ -117,15 +117,8 @@ extension TrackListViewController : TrackCellDelegate, TrackDetailDelegate{
     
     private func deleteTrack(track: TrackData){
         delegate?.deleteTrack(track: track, approved: true)
+        tracks?.remove(track)
         tableView.reloadData()
-    }
-    
-    func pauseActiveTrack() {
-        delegate?.pauseActiveTrack()
-    }
-    
-    func resumeActiveTrack() {
-        delegate?.resumeActiveTrack()
     }
     
     func cancelActiveTrack() {
@@ -143,22 +136,24 @@ extension TrackListViewController : UIDocumentPickerDelegate{
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if let url = urls.first{
             if let locations = GPXParser.parseFile(url: url){
-                guard !locations.isEmpty else {return}
-                let track = TrackData()
-                for loc in locations{
-                    track.trackpoints.append(TrackPoint(location: loc))
-                }
-                assertLocation(coordinate: track.trackpoints.first!.coordinate){ location in
-                    track.startLocation = location
-                    location.tracks.append(track)
-                    let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-                    alertController.addTextField()
-                    alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                        track.description = alertController.textFields![0].text ?? url.lastPathComponent
-                        self.tracks?.append(track)
-                        self.tableView.reloadData()
-                    })
-                    self.present(alertController, animated: true)
+                if let startPosition = locations.first{
+                    assertLocation(coordinate: startPosition.coordinate){ location in
+                        let track = TrackData(startLocation: location)
+                        for loc in locations{
+                            track.trackpoints.append(TrackPoint(location: loc))
+                        }
+                        track.evaluateTrackpoints()
+                        let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
+                        alertController.addTextField()
+                        alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
+                            track.description = alertController.textFields![0].text ?? url.lastPathComponent
+                            location.addTrack(track: track)
+                            Locations.save()
+                            self.tracks?.append(track)
+                            self.tableView.reloadData()
+                        })
+                        self.present(alertController, animated: true)
+                    }
                 }
             }
         }

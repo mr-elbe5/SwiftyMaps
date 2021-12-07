@@ -147,16 +147,15 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func startTracking(){
-        ActiveTrack.startTracking()
-        if let track = ActiveTrack.track{
-            assertStartLocation(for: track)
-            mapView.trackLayerView.setTrack(track: track)
-            mapView.controlLayerView.startTrackControl()
+        if let lastLocation = LocationService.shared.lastLocation{
+            assertLocation(coordinate: lastLocation.coordinate){ location in
+                ActiveTrack.startTracking(startLocation: location)
+                if let track = ActiveTrack.track{
+                    self.mapView.trackLayerView.setTrack(track: track)
+                    self.mapView.controlLayerView.startTrackControl()
+                }
+            }
         }
-    }
-    
-    func assertStartLocation(for track: TrackData){
-        
     }
     
     func openTrack(track: TrackData) {
@@ -327,24 +326,19 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     }
     
     func saveActiveTrack() {
-        if let track = ActiveTrack.track, !track.trackpoints.isEmpty{
+        if let track = ActiveTrack.track{
             let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
             alertController.addTextField()
             alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                 track.description = alertController.textFields![0].text ?? "Route"
-                self.assertLocation(coordinate: track.trackpoints.first!.coordinate){ location in
-                    track.startLocation = location
-                    location.addTrack(track: track)
-                    self.mapView.trackLayerView.setTrack(track: track)
-                    ActiveTrack.stopTracking()
-                    self.mapView.controlLayerView.stopTrackControl()
-                    self.mapView.updateLocationLayer()
-                }
+                track.startLocation.addTrack(track: track)
+                Locations.save()
+                self.mapView.trackLayerView.setTrack(track: track)
+                ActiveTrack.stopTracking()
+                self.mapView.controlLayerView.stopTrackControl()
+                self.mapView.updateLocationLayer()
             })
             present(alertController, animated: true)
-        }
-        else{
-            showAlert(title: "error".localize(), text: "noTrackPoints".localize())
         }
     }
     

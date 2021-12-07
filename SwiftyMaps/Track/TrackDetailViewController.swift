@@ -14,8 +14,6 @@ protocol TrackDetailDelegate{
     func showTrackOnMap(track: TrackData)
     func viewTrackDetails(track: TrackData)
     func deleteTrack(track: TrackData, approved: Bool)
-    func pauseActiveTrack()
-    func resumeActiveTrack()
     func cancelActiveTrack()
     func saveActiveTrack()
 }
@@ -93,30 +91,18 @@ class TrackDetailViewController: PopupScrollViewController{
             contentView.addSubview(durationLabel)
             durationLabel.setAnchors(top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor)
             if isActiveTrack{
-                let pauseButton = UIButton()
-                pauseButton.setTitle("pause".localize(), for: .normal)
-                pauseButton.setTitleColor(.systemBlue, for: .normal)
-                contentView.addSubview(pauseButton)
-                pauseButton.setAnchors(top: durationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-                pauseButton.addTarget(self, action: #selector(pause), for: .touchDown)
-                
-                let resumeButton = UIButton()
-                resumeButton.setTitle("resume".localize(), for: .normal)
-                resumeButton.setTitleColor(.systemBlue, for: .normal)
-                contentView.addSubview(resumeButton)
-                resumeButton.setAnchors(top: pauseButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-                resumeButton.addTarget(self, action: #selector(resume), for: .touchDown)
-                
                 let cancelButton = UIButton()
                 cancelButton.setTitle("cancel".localize(), for: .normal)
                 cancelButton.setTitleColor(.systemBlue, for: .normal)
+                cancelButton.setGrayRoundedBorders()
                 contentView.addSubview(cancelButton)
-                cancelButton.setAnchors(top: resumeButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+                cancelButton.setAnchors(top: durationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
                 cancelButton.addTarget(self, action: #selector(cancel), for: .touchDown)
                 
                 let saveButton = UIButton()
                 saveButton.setTitle("save".localize(), for: .normal)
                 saveButton.setTitleColor(.systemBlue, for: .normal)
+                saveButton.setGrayRoundedBorders()
                 contentView.addSubview(saveButton)
                 saveButton.setAnchors(top: cancelButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
                 saveButton.addTarget(self, action: #selector(save), for: .touchDown)
@@ -141,18 +127,6 @@ class TrackDetailViewController: PopupScrollViewController{
                     self.delegate?.deleteTrack(track: track, approved: true)
                 }
             }
-        }
-    }
-    
-    @objc func pause(){
-        if isActiveTrack{
-            delegate?.pauseActiveTrack()
-        }
-    }
-    
-    @objc func resume(){
-        if isActiveTrack{
-            delegate?.resumeActiveTrack()
         }
     }
     

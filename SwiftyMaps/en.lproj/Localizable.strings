@@ -37,13 +37,14 @@
 "sizeToLoad"="Full size of tiles to load (est.):";
 "unloadedTiles"="Number load errors:";
 
-//map preferences view
-"mapPreferences"="Map Preferences";
+//preferences view
+"mapPreferences"="Preferences";
 "urlTemplate"="URL Template for OpenStreetMap tiles:";
 "startZoom"="Start zoom [2-18]";
 "minLocationAccuracy"="Minimal horizontal accuracy for GPS [m]";
 "maxLocationMergeDistance"="Maximal distance for merging locations [m]";
 "minZoomToShowLocations"="Minimal zoom for showing locations (needles) [2-18]";
+"pinGroupRadius"="Radius for showing pins as a group [m at full zoom]";
 "maxPreloadTiles"="Maximal number of tiles for preload";
 "startWithLastPosition"="Start with last position";
 "showLocations"="Show locations (needles)";
@@ -61,29 +62,28 @@
 "locationList"="Locations";
 
 // track menu
-"startNewTrack"="Start new Tour";
-"showCurrentTrack"="Current tour...";
-"hideTrack"="Hide tour";
-"showTrackList"="Saved tours...";
-"deleteTracks"="Delete all tours";
-"confirmDeleteTracks"="Do you want to delete all tours?";
+"startNewTrack"="Start new Track";
+"showCurrentTrack"="Current track...";
+"hideTrack"="Hide track";
+"showTrackList"="Saved tracks...";
+"deleteTracks"="Delete all tracks";
+"confirmDeleteTracks"="Do you want to delete all tracks?";
 "deleteTracksHint"="This action cannot be undone.";
-"configureTracks"="Configure tours...";
 
 // track/ current track
-"track"="Tour";
+"track"="Track";
 "startLocation"="Start location";
 "distances"="Distances";
 "distance"="Distance";
 "upDistance"="Upwards";
 "downDistance"="Downwards";
 "duration"="Duration";
-"currentTrack"="Current Tour";
+"currentTrack"="Current Track";
 "pause"="Pause";
 "resume"="Resume";
 
 // track list
-"trackList"="Tours";
+"trackList"="Tracks";
 "nameOrDescriptionHint"="Please enter a name or description for this tour";
 
 //location
@@ -106,15 +106,13 @@
 "locationData"="Location Details";
 "description"="Description";
 "photos"="Photos";
+"tracks"="Tracks";
 "confirmDeletePhoto"="Do you want to delete this photo?";
 "deletePhotoHint"="This action is executed immediately and cannot be undone.";
 
 //camera
 "cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";
 "cameraNotAvailable"="Camera is not available.";
-"balanced"="Balanced";
-"quality"="Quality";
-"speed"="Speed";
 "photoLibraryNotAuthorized"="The use of the photo library is not authorized. Please change your settings.";
 "photoShared"="Photo has been copied.";
 "shareImage"="Share image";

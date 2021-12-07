@@ -102,6 +102,11 @@ class LocationCell: UITableViewCell{
             label = UILabel()
             label.text = String(location.photos.count) + " " + "photos".localize()
             cellBody.addSubview(label)
+            label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
+            nextAnchor = label.bottomAnchor
+            label = UILabel()
+            label.text = String(location.tracks.count) + " " + "tracks".localize()
+            cellBody.addSubview(label)
             label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
         }
     }

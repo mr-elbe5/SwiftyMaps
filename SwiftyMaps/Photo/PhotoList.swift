@@ -20,4 +20,11 @@ extension PhotoList{
         }
     }
     
+    mutating func removeAllPhotos(){
+        for photo in self{
+            FileController.deleteFile(url: photo.fileURL)
+        }
+        removeAll()
+    }
+    
 }
