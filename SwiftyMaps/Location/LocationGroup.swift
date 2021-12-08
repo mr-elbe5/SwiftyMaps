@@ -33,10 +33,10 @@ class LocationGroup{
     }
     
     func isWithinRadius(location: Location, radius: CGFloat) -> Bool{
-        print("checkking radius")
+        //print("checkking radius")
         if let center = center{
             let dist = center.distance(to: location.coordinate)
-            print("dist = \(dist) at radius \(radius)")
+            //print("dist = \(dist) at radius \(radius)")
             return dist <= radius
         }
         else{

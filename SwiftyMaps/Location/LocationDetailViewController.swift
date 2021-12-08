@@ -18,7 +18,7 @@ class LocationDetailViewController: PopupScrollViewController{
     let deleteButton = IconButton(icon: "trash", tintColor: .white)
     
     let descriptionContainerView = UIView()
-    var descriptionView : TextEditView? = nil
+    var descriptionView : TextEditArea? = nil
     let photoStackView = UIStackView()
     let trackStackView = UIStackView()
     
@@ -93,9 +93,14 @@ class LocationDetailViewController: PopupScrollViewController{
         descriptionContainerView.removeAllSubviews()
         guard let location = location else {return}
         if editMode{
-            descriptionView = TextEditView.fromData(text: location.description)
+            descriptionView = TextEditArea()
+            descriptionView!.text = location.description
+            descriptionView?.setGrayRoundedBorders()
+            descriptionView?.setDefaults()
+            descriptionView?.isScrollEnabled = false
+            descriptionView?.setKeyboardToolbar(doneTitle: "done".localize())
             descriptionContainerView.addSubview(descriptionView!)
-            descriptionView!.setAnchors(top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor)
+            descriptionView!.setAnchors(top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, insets: defaultInsets)
             let saveButton = UIButton()
             saveButton.setTitle("save".localize(), for: .normal)
             saveButton.setTitleColor(.systemBlue, for: .normal)
@@ -108,7 +113,7 @@ class LocationDetailViewController: PopupScrollViewController{
             descriptionView = nil
             let descriptionLabel = UILabel(text: location.description)
             descriptionContainerView.addSubview(descriptionLabel)
-            descriptionLabel.setAnchors(top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, bottom: descriptionContainerView.bottomAnchor)
+            descriptionLabel.setAnchors(top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, bottom: descriptionContainerView.bottomAnchor, insets: defaultInsets)
         }
     }
     
@@ -249,7 +254,11 @@ extension LocationDetailViewController: PhotoListItemDelegate{
 extension LocationDetailViewController: TrackListItemDelegate{
     
     func viewTrack(sender: TrackListItemView) {
-        //todo
+        let trackController = TrackDetailViewController()
+        trackController.track = sender.trackData
+        trackController.delegate = self
+        trackController.modalPresentationStyle = .fullScreen
+        self.present(trackController, animated: true)
     }
     
     func showTrackOnMap(sender: TrackListItemView) {
@@ -277,6 +286,14 @@ extension LocationDetailViewController: TrackListItemDelegate{
                 }
             }
         }
+    }
+    
+}
+
+extension LocationDetailViewController: TrackDetailDelegate{
+    
+    func showTrackOnMap(track: TrackData) {
+        delegate?.showTrackOnMap(track: track)
     }
     
 }

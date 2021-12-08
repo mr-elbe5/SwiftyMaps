@@ -86,13 +86,18 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension TrackListViewController : TrackCellDelegate, TrackDetailDelegate{
+extension TrackListViewController : TrackDetailDelegate{
     
     func showTrackOnMap(track: TrackData) {
         self.dismiss(animated: true){
             self.delegate?.showTrackOnMap(track: track)
         }
     }
+    
+}
+
+
+extension TrackListViewController : TrackCellDelegate{
     
     func viewTrackDetails(track: TrackData) {
         let trackController = TrackDetailViewController()

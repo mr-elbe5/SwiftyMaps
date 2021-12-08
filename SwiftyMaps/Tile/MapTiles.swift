@@ -135,7 +135,7 @@ struct MapTiles{
         if let url = URL(string: tilesDirectory, relativeTo: MapTiles.privateURL){
             do{
                 try FileManager.default.removeItem(at: url)
-                print("tile directory deleted")
+                //print("tile directory deleted")
                 return true
             }
             catch{

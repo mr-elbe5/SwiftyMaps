@@ -158,12 +158,6 @@ class Location : Hashable, Codable{
         zipCode = placemark.postalCode ?? ""
         city = placemark.locality ?? ""
         country = placemark.country ?? ""
-        print("name = \(name)")
-        print("street = \(street)")
-        print("zipCode = \(zipCode)")
-        print("city = \(city)")
-        print("country = \(country)")
-        print("description = \(locationString)")
         hasPlacemark = true
     }
     

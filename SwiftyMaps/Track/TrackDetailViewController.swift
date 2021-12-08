@@ -10,10 +10,10 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol TrackDetailDelegate{
-    
     func showTrackOnMap(track: TrackData)
-    func viewTrackDetails(track: TrackData)
-    func deleteTrack(track: TrackData, approved: Bool)
+}
+
+protocol ActiveTrackDelegate{
     func cancelActiveTrack()
     func saveActiveTrack()
 }
@@ -33,6 +33,7 @@ class TrackDetailViewController: PopupScrollViewController{
     
     // MainViewController
     var delegate : TrackDetailDelegate? = nil
+    var activeDelegate : ActiveTrackDelegate? = nil
     
     override func loadView() {
         title = "track".localize()
@@ -48,11 +49,6 @@ class TrackDetailViewController: PopupScrollViewController{
         headerView.addSubview(mapButton)
         mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
         mapButton.setAnchors(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        
-        headerView.addSubview(deleteButton)
-        deleteButton.addTarget(self, action: #selector(deleteTrack), for: .touchDown)
-        deleteButton.setAnchors(top: headerView.topAnchor, leading: mapButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-    
     }
     
     func setupContent() {
@@ -120,20 +116,10 @@ class TrackDetailViewController: PopupScrollViewController{
         }
     }
     
-    @objc func deleteTrack(){
-        if let track = track{
-            showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
-                self.dismiss(animated: true){
-                    self.delegate?.deleteTrack(track: track, approved: true)
-                }
-            }
-        }
-    }
-    
     @objc func cancel(){
         if isActiveTrack{
             self.dismiss(animated: true){
-                self.delegate?.cancelActiveTrack()
+                self.activeDelegate?.cancelActiveTrack()
             }
         }
     }
@@ -141,7 +127,7 @@ class TrackDetailViewController: PopupScrollViewController{
     @objc func save(){
         if isActiveTrack{
             self.dismiss(animated: true){
-                self.delegate?.saveActiveTrack()
+                self.activeDelegate?.saveActiveTrack()
             }
         }
     }

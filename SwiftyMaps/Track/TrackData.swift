@@ -100,15 +100,14 @@ class TrackData : Hashable, Codable{
         let lastTP = trackpoints.last
         if let tp = lastTP{
             if tp.coordinate.distance(to: location.coordinate) < 10{
-                print("too close")
+                //print("too close")
                 return
             }
             if tp.location.timestamp.distance(to: location.timestamp) < 2{
-                print("too soon")
+                //print("too soon")
                 return
             }
         }
-        print("adding trackpoint")
         trackpoints.append(TrackPoint(location: location))
         if let lastLoc = lastTP?.location{
             distance += lastLoc.coordinate.distance(to: location.coordinate)
@@ -159,13 +158,6 @@ class TrackData : Hashable, Codable{
                 }
             }
             last = tp
-        }
-    }
-    
-    func dump(){
-        print(description)
-        for tp in trackpoints{
-            print("coord: \(tp.coordinateString), altitude: \(tp.location.altitude), time: \(tp.location.timestamp)")
         }
     }
     

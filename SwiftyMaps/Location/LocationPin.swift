@@ -36,7 +36,6 @@ class LocationPin : Pin{
     override func updateImage(){
         if let image = hasPhotos ? (hasTracks ? LocationPin.mapPinPhotoTrackImage : LocationPin.mapPinPhotoImage) : (hasTracks ? LocationPin.mapPinTrackImage : LocationPin.mapPinDefaultImage){
             baseFrame = CGRect(x: -image.size.width/2, y: -image.size.height, width: image.size.width, height: image.size.height)
-            print(baseFrame)
             setImage(image, for: .normal)
         }
     }

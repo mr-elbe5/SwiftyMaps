@@ -48,19 +48,19 @@
 "pinGroupRadius"="Radius zur Anzeige von Nadeln als Gruppe [m bei vollem Zoom]";
 "maxPreloadTiles"="Maximale Anzahl von Kacheln zum Vorladen";
 "startWithLastPosition"="Mit der letzten Position starten";
-"showLocations"="Orte (Nadeln) anzeigen";
+"showLocations"="Positionen (Nadeln) anzeigen";
 
 // location menu
-"addLocation"="Ort (Nadel) hinzufügen";
-"showLocationList"="Ortsliste anzeigen";
-"showLocations"="Orte (Nadeln) anzeigen";
-"hideLocations"="Orte (Nadeln) verstecken";
-"deleteLocations"="Alle Orte löschen";
-"confirmDeleteLocations"="Wollen Sie alle Orte löschen?";
-"deleteLocationsHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Photos werden ebenfalls gelöscht.";
+"addLocation"="Nadel hinzufügen";
+"showLocationList"="Positionsliste anzeigen";
+"showLocations"="Nadeln anzeigen";
+"hideLocations"="Nadeln ausblenden";
+"deleteLocations"="Alle Nadeln löschen";
+"confirmDeleteLocations"="Wollen Sie alle Nadeln löschen?";
+"deleteLocationsHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Fotos und Touren werden ebenfalls gelöscht.";
 
 // location list
-"locationList"="Orte";
+"locationList"="Positionen";
 
 // track menu
 "startNewTrack"="Neue Tour starten";
@@ -79,7 +79,7 @@
 "upDistance"="Aufwärts";
 "downDistance"="Abwärts";
 "duration"="Dauer";
-"currentTrack"="Aktuelle Aufzeichnung";
+"currentTrack"="Aktuelle Tour";
 
 // track list
 "trackList"="Touren";
@@ -100,21 +100,23 @@
 "locationNotAuthorized"="Die App darf deinen Standort nicht feststellen. Bitte ändere die entsprechenden Einstellungen.";
 "saveLocation"="Position speichern";
 "yourPosition"="Deine Position";
-"useLocation"="Vorhandenen Ort benutzen?";
+"useLocation"="Vorhandene Position benutzen?";
 
 // location marker menu
 "showDetails"="Details anzeigen";
-"confirmDeleteLocation"="Wollen Sie diesen Ort löschen?";
-"deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos und kann nicht rückgängig gemacht werden.";
+"confirmDeleteLocation"="Wollen Sie diese Position löschen?";
+"deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos und Touren. Sie kann nicht rückgängig gemacht werden.";
 
 // location view / editor view
-"location"="Ort";
-"locationData"="Ortsangaben";
+"location"="Position";
+"locationData"="Positonsangaben";
 "description"="Beschreibung";
 "photos"="Foto(s)";
-"tracks"="Weg(e)";
+"tracks"="Tour(en)";
 "confirmDeletePhoto"="Wollen Sie dieses Foto löschen?";
 "deletePhotoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
+"confirmDeleteTrack"="Wollen Sie diese Tour löschen?";
+"deleteTrackHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 
 //camera
 "cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";

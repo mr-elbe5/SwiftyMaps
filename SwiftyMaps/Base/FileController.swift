@@ -15,8 +15,6 @@ class FileController {
     
     static var shared = FileController()
     
-    static let tempDir = NSTemporaryDirectory()
-    
     static var documentPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true).first!
     static var documentURL : URL = FileManager.default.urls(for: .documentDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var imageLibraryPath: String = NSSearchPathForDirectoriesInDomains(.picturesDirectory,.userDomainMask,true).first!
@@ -26,16 +24,6 @@ class FileController {
     static var privatePath : String{
         get{
             privateURL.path
-        }
-    }
-    static var temporaryPath : String {
-        get{
-            return tempDir
-        }
-    }
-    static var temporaryURL : URL{
-        get{
-            return URL(fileURLWithPath: temporaryPath, isDirectory: true)
         }
     }
     
@@ -203,32 +191,6 @@ class FileController {
         }
     }
     
-    static func copyVideoToLibrary(name: String, fromDir: URL, callback: @escaping (Result<Void, FileError>) -> Void){
-        askPhotoLibraryAuthorization(){ result in
-            switch result{
-            case .success(()):
-                let url = getURL(dirURL: fromDir, fileName: name)
-                PHPhotoLibrary.shared().performChanges({
-                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-                }) { saved, error in
-                    if saved {
-                        print("video saved")
-                        callback(.success(()))
-                        return
-                    }
-                    else{
-                        callback(.failure(.save))
-                        return
-                    }
-                }
-                return
-            case .failure:
-                callback(.failure(.unauthorized))
-                return
-            }
-        }
-    }
-    
     @discardableResult
     static func renameFile(dirURL: URL, fromName: String, toName: String) -> Bool{
         do{
@@ -244,7 +206,7 @@ class FileController {
     static func deleteFile(dirURL: URL, fileName: String) -> Bool{
         do{
             try FileManager.default.removeItem(at: getURL(dirURL: dirURL, fileName: fileName))
-            print("file deleted: \(fileName)")
+            //print("file deleted: \(fileName)")
             return true
         }
         catch {
@@ -256,7 +218,7 @@ class FileController {
     static func deleteFile(url: URL) -> Bool{
         do{
             try FileManager.default.removeItem(at: url)
-            print("file deleted: \(url)")
+            //print("file deleted: \(url)")
             return true
         }
         catch {
@@ -285,17 +247,12 @@ class FileController {
                 count += 1
             }
         }
-        print("\(count) files deleted")
+        //print("\(count) files deleted")
     }
     
     static func printFileInfo(){
-        print("temporary files:")
-        var names = listAllFiles(dirPath: temporaryPath)
-        for name in names{
-            print(name)
-        }
         print("private files:")
-        names = listAllFiles(dirPath: FileController.privateURL.path)
+        let names = listAllFiles(dirPath: FileController.privateURL.path)
         for name in names{
             print(name)
         }

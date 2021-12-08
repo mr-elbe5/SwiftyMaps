@@ -116,7 +116,6 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func addLocation(){
-        print("MainViewController.addLocation")
         let coordinate = mapView.getVisibleCenterCoordinate()
         assertLocation(coordinate: coordinate){ location in
             self.updateLocationLayer()
@@ -159,6 +158,9 @@ extension MainViewController: ControlLayerDelegate{
         controller.track = track
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
+        if track == ActiveTrack.track{
+            controller.activeDelegate = self
+        }
         present(controller, animated: true)
     }
     
@@ -262,7 +264,7 @@ extension MainViewController: LocationListDelegate{
 
 }
 
-extension MainViewController: TrackDetailDelegate, TrackListDelegate{
+extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrackDelegate{
     
     func viewTrackDetails(track: TrackData) {
         let trackController = TrackDetailViewController()
