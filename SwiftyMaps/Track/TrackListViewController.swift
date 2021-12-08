@@ -102,6 +102,10 @@ extension TrackListViewController : TrackCellDelegate, TrackDetailDelegate{
         self.present(trackController, animated: true)
     }
     
+    func shareTrack(track: TrackData) {
+        //todo
+    }
+    
     func deleteTrack(track: TrackData, approved: Bool) {
         if approved{
             self.deleteTrack(track: track)

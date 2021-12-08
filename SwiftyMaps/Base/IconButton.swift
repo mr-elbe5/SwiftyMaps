@@ -12,8 +12,6 @@ class IconButton : UIButton{
     var tintCol: UIColor
     var disabledTintCol: UIColor
     
-    var dataObject : AnyObject? = nil
-    
     override var isEnabled: Bool{
         get{
             super.isEnabled

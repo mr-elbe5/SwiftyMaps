@@ -45,29 +45,21 @@ class LocationCell: UITableViewCell{
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
         if let location = location{
-            var nextAnchor : NSLayoutYAxisAnchor!
-            if isEditing{
-                let deleteButton = IconButton(icon: "xmark.circle")
-                deleteButton.tintColor = UIColor.systemRed
-                deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
-                cellBody.addSubview(deleteButton)
-                deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-                nextAnchor = deleteButton.bottomAnchor
-            }
-            else{
-                let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
-                viewButton.addTarget(self, action: #selector(viewLocation), for: .touchDown)
-                cellBody.addSubview(viewButton)
-                viewButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-                
-                let mapButton = IconButton(icon: "map")
-                mapButton.tintColor = UIColor.systemBlue
-                mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
-                cellBody.addSubview(mapButton)
-                mapButton.setAnchors(top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
-                
-                nextAnchor = mapButton.bottomAnchor
-            }
+            let deleteButton = IconButton(icon: "xmark.circle")
+            deleteButton.tintColor = UIColor.systemRed
+            deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
+            cellBody.addSubview(deleteButton)
+            deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
+            let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
+            viewButton.addTarget(self, action: #selector(viewLocation), for: .touchDown)
+            cellBody.addSubview(viewButton)
+            viewButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
+            let mapButton = IconButton(icon: "map")
+            mapButton.tintColor = UIColor.systemBlue
+            mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
+            cellBody.addSubview(mapButton)
+            mapButton.setAnchors(top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
+            var nextAnchor = mapButton.bottomAnchor
             var label = UILabel()
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping

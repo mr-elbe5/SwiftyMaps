@@ -34,7 +34,6 @@
 		4E0BD9DB26EA043D005A4A94 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD9DD26EA043D005A4A94 /* Localizable.strings */; };
 		4E0BD9E426EA04EE005A4A94 /* AuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */; };
 		4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E226EA04EE005A4A94 /* FileError.swift */; };
-		4E0D093026F90DC600FABB17 /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0D092F26F90DC600FABB17 /* TrackViewController.swift */; };
 		4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B80F02732ED43003ED6B0 /* MainViewController.swift */; };
 		4E1B81012732EDA2003ED6B0 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B80FF2732EDA2003ED6B0 /* PreferencesViewController.swift */; };
 		4E1B81022732EDA2003ED6B0 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81002732EDA2003ED6B0 /* Preferences.swift */; };
@@ -65,7 +64,6 @@
 		4E24F47427345D11004E69C2 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45C27345D11004E69C2 /* IconButton.swift */; };
 		4E24F47527345D11004E69C2 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45D27345D11004E69C2 /* CGRect.swift */; };
 		4E24F47627345D11004E69C2 /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45E27345D11004E69C2 /* CGSize.swift */; };
-		4E24F47927345D11004E69C2 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46127345D11004E69C2 /* HeaderLabel.swift */; };
 		4E24F47A27345D11004E69C2 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46227345D11004E69C2 /* UILabel.swift */; };
 		4E24F47B27345D11004E69C2 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46327345D11004E69C2 /* UIStackView.swift */; };
 		4E24F47C27345D11004E69C2 /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46427345D11004E69C2 /* Indicator.swift */; };
@@ -94,6 +92,8 @@
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
 		4EA9B7CE27413F0B00C91B68 /* SafeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */; };
+		4EB76A9A2760EF9F00D64B6D /* PhotoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB76A992760EF9F00D64B6D /* PhotoListItemView.swift */; };
+		4EB76A9C2760F2FF00D64B6D /* TrackListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB76A9B2760F2FF00D64B6D /* TrackListItemView.swift */; };
 		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
 		4ECFC99F26FBB8AF0083977B /* MapPreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */; };
 		4ED5DF44273E831B00549AF8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5DF43273E831B00549AF8 /* Location.swift */; };
@@ -131,7 +131,6 @@
 		4E0BD9DE26EA0467005A4A94 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationError.swift; sourceTree = "<group>"; };
 		4E0BD9E226EA04EE005A4A94 /* FileError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileError.swift; sourceTree = "<group>"; };
-		4E0D092F26F90DC600FABB17 /* TrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		4E1B80F02732ED43003ED6B0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4E1B80FF2732EDA2003ED6B0 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		4E1B81002732EDA2003ED6B0 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -162,7 +161,6 @@
 		4E24F45C27345D11004E69C2 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		4E24F45D27345D11004E69C2 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		4E24F45E27345D11004E69C2 /* CGSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
-		4E24F46127345D11004E69C2 /* HeaderLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		4E24F46227345D11004E69C2 /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		4E24F46327345D11004E69C2 /* UIStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		4E24F46427345D11004E69C2 /* Indicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
@@ -191,6 +189,8 @@
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeMap.swift; sourceTree = "<group>"; };
+		4EB76A992760EF9F00D64B6D /* PhotoListItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoListItemView.swift; sourceTree = "<group>"; };
+		4EB76A9B2760F2FF00D64B6D /* TrackListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListItemView.swift; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPreloadViewController.swift; sourceTree = "<group>"; };
 		4ED5DF43273E831B00549AF8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -276,7 +276,6 @@
 				4E0BD9D526EA037F005A4A94 /* DataController.swift */,
 				4E0BD9D626EA037F005A4A94 /* FileController.swift */,
 				4E0BD9E226EA04EE005A4A94 /* FileError.swift */,
-				4E24F46127345D11004E69C2 /* HeaderLabel.swift */,
 				4E24F45C27345D11004E69C2 /* IconButton.swift */,
 				4E24F46427345D11004E69C2 /* Indicator.swift */,
 				4E24F46727345D11004E69C2 /* Insets.swift */,
@@ -297,7 +296,6 @@
 			children = (
 				4EA45A632747CA22001F3533 /* GPXParser.swift */,
 				4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */,
-				4E0D092F26F90DC600FABB17 /* TrackViewController.swift */,
 				4E1D0E1F274BDB1900F3D584 /* TrackDetailViewController.swift */,
 				4E2088E22743A24E0097BFBA /* TrackData.swift */,
 				4E2088E42743A4280097BFBA /* ActiveTrack.swift */,
@@ -307,6 +305,7 @@
 				4E1D0E1A274BA72100F3D584 /* TrackCell.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
 				4E025E3A274E3C4300D56ED7 /* CurrentTrackLine.swift */,
+				4EB76A9B2760F2FF00D64B6D /* TrackListItemView.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -374,6 +373,7 @@
 		4E3BE7EB26EA7EF1000F9069 /* Photo */ = {
 			isa = PBXGroup;
 			children = (
+				4EB76A992760EF9F00D64B6D /* PhotoListItemView.swift */,
 				4E4B758C273AA28100CB4B41 /* PhotoData.swift */,
 				4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */,
 				4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */,
@@ -488,7 +488,6 @@
 				4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */,
 				4EE6A891275A6E19007FBC67 /* PhotoList.swift in Sources */,
 				4E0BD9B326EA0170005A4A94 /* InfoViewController.swift in Sources */,
-				4E0D093026F90DC600FABB17 /* TrackViewController.swift in Sources */,
 				4E0BD9AA26EA0159005A4A94 /* PopupScrollViewController.swift in Sources */,
 				4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */,
 				4E79FBAF275B9326001F0481 /* LocationGroup.swift in Sources */,
@@ -515,6 +514,7 @@
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,
 				4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */,
 				4E1B811D2732EDC5003ED6B0 /* NormalizedPlanetRect.swift in Sources */,
+				4EB76A9C2760F2FF00D64B6D /* TrackListItemView.swift in Sources */,
 				4E2088E92743AD920097BFBA /* CLLocationCoordinate2D.swift in Sources */,
 				4E24F48927345D11004E69C2 /* TextButton.swift in Sources */,
 				4E1B81122732EDC5003ED6B0 /* UserLocationView.swift in Sources */,
@@ -524,6 +524,7 @@
 				4E24F48327345D11004E69C2 /* LabeledTextField.swift in Sources */,
 				4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */,
 				4E05FECD27592E64005D903B /* LocationList.swift in Sources */,
+				4EB76A9A2760EF9F00D64B6D /* PhotoListItemView.swift in Sources */,
 				4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */,
 				4E1D0E20274BDB1900F3D584 /* TrackDetailViewController.swift in Sources */,
 				4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */,
@@ -559,7 +560,6 @@
 				4E68B5BE275F59F00025A80A /* LocationDialog.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
 				4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */,
-				4E24F47927345D11004E69C2 /* HeaderLabel.swift in Sources */,
 				4E1B81162732EDC5003ED6B0 /* MapTiles.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,
 				4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */,

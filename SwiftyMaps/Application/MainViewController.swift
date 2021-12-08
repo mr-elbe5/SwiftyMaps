@@ -265,8 +265,9 @@ extension MainViewController: LocationListDelegate{
 extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     
     func viewTrackDetails(track: TrackData) {
-        let trackController = TrackViewController()
+        let trackController = TrackDetailViewController()
         trackController.track = track
+        trackController.delegate = self
         trackController.modalPresentationStyle = .fullScreen
         self.present(trackController, animated: true)
     }
@@ -285,13 +286,6 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     
     private func deleteTrack(track: TrackData){
         Locations.deleteTrack(track: track)
-    }
-    
-    func viewTrack(track: TrackData) {
-        let trackController = TrackViewController()
-        trackController.track = track
-        trackController.modalPresentationStyle = .fullScreen
-        self.present(trackController, animated: true)
     }
     
     func showTrackOnMap(track: TrackData) {

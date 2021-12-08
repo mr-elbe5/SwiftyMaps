@@ -12,7 +12,6 @@ class PopupTableViewController: UIViewController {
     var headerView = UIView()
     var tableView = UITableView()
     
-    var editButton = IconButton(icon: "pencil.circle", tintColor: .white)
     var closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
     
     override func loadView() {
@@ -50,26 +49,9 @@ class PopupTableViewController: UIViewController {
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
         closeButton.setAnchors(top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         
-        
-        headerView.addSubview(editButton)
-        editButton.addTarget(self, action: #selector(toggleEditMode), for: .touchDown)
-        editButton.setAnchors(top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        
     }
     
     func setNeedsUpdate(){
-        tableView.reloadData()
-    }
-    
-    @objc func toggleEditMode(){
-        if !tableView.isEditing{
-            editButton.tintColor = .systemRed
-            tableView.setEditing(true, animated: true)
-        }
-        else{
-            editButton.tintColor = .white
-            tableView.setEditing(false, animated: true)
-        }
         tableView.reloadData()
     }
     
