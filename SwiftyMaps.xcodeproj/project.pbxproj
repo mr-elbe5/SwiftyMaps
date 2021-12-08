@@ -80,14 +80,12 @@
 		4E24F48827345D11004E69C2 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47027345D11004E69C2 /* UIImage.swift */; };
 		4E24F48927345D11004E69C2 /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47127345D11004E69C2 /* TextButton.swift */; };
 		4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47227345D11004E69C2 /* UIScrollView.swift */; };
-		4E42393B273D19C6005B2E5F /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42393A273D19C6005B2E5F /* PhotoView.swift */; };
 		4E42393D273D2290005B2E5F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42393C273D2290005B2E5F /* TextView.swift */; };
 		4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */; };
 		4E4B758D273AA28100CB4B41 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B758C273AA28100CB4B41 /* PhotoData.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E52F3E8273FD2F30046DC98 /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3E7273FD2F30046DC98 /* MapRegion.swift */; };
 		4E68B5BE275F59F00025A80A /* LocationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68B5BD275F59F00025A80A /* LocationDialog.swift */; };
-		4E68B5C0275FB4CF0025A80A /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68B5BF275FB4CF0025A80A /* TrackView.swift */; };
 		4E79FBAF275B9326001F0481 /* LocationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBAE275B9326001F0481 /* LocationGroup.swift */; };
 		4E79FBB1275BCE0C001F0481 /* LocationGroupPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB0275BCE0C001F0481 /* LocationGroupPin.swift */; };
 		4E79FBB3275BCE67001F0481 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Pin.swift */; };
@@ -179,14 +177,12 @@
 		4E24F47027345D11004E69C2 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		4E24F47127345D11004E69C2 /* TextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
 		4E24F47227345D11004E69C2 /* UIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
-		4E42393A273D19C6005B2E5F /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		4E42393C273D2290005B2E5F /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
 		4E4B758C273AA28100CB4B41 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E52F3E7273FD2F30046DC98 /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
 		4E68B5BD275F59F00025A80A /* LocationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDialog.swift; sourceTree = "<group>"; };
-		4E68B5BF275FB4CF0025A80A /* TrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
 		4E79FBAE275B9326001F0481 /* LocationGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroup.swift; sourceTree = "<group>"; };
 		4E79FBB0275BCE0C001F0481 /* LocationGroupPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroupPin.swift; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
@@ -311,7 +307,6 @@
 				4E1D0E1A274BA72100F3D584 /* TrackCell.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
 				4E025E3A274E3C4300D56ED7 /* CurrentTrackLine.swift */,
-				4E68B5BF275FB4CF0025A80A /* TrackView.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -380,7 +375,6 @@
 			isa = PBXGroup;
 			children = (
 				4E4B758C273AA28100CB4B41 /* PhotoData.swift */,
-				4E42393A273D19C6005B2E5F /* PhotoView.swift */,
 				4E0BD9A126EA0159005A4A94 /* PhotoViewController.swift */,
 				4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */,
 				4EE6A890275A6E19007FBC67 /* PhotoList.swift */,
@@ -486,7 +480,6 @@
 			files = (
 				4EA9B7CE27413F0B00C91B68 /* SafeMap.swift in Sources */,
 				4E24F47D27345D11004E69C2 /* UIButton.swift in Sources */,
-				4E68B5C0275FB4CF0025A80A /* TrackView.swift in Sources */,
 				4E2088E72743AA670097BFBA /* TrackPoint.swift in Sources */,
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
@@ -530,7 +523,6 @@
 				4E0BD9D326EA02BA005A4A94 /* AVCaptureVideoOrientation.swift in Sources */,
 				4E24F48327345D11004E69C2 /* LabeledTextField.swift in Sources */,
 				4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */,
-				4E42393B273D19C6005B2E5F /* PhotoView.swift in Sources */,
 				4E05FECD27592E64005D903B /* LocationList.swift in Sources */,
 				4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */,
 				4E1D0E20274BDB1900F3D584 /* TrackDetailViewController.swift in Sources */,

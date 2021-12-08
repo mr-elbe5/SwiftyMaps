@@ -91,10 +91,6 @@ extension MainViewController: LocationLayerViewDelegate{
         present(controller, animated: true)
     }
     
-    func showLocationGroupDetails(locationGroup: LocationGroup) {
-        mapView.setZoom(zoom: MapStatics.maxZoom, animated: true)
-    }
-    
 }
 
 extension MainViewController: ControlLayerDelegate{
@@ -244,7 +240,7 @@ extension MainViewController: PhotoCaptureDelegate{
     
 }
 
-extension MainViewController: LocationEditDelegate{
+extension MainViewController: LocationViewDelegate{
     
     func updateLocationLayer() {
         mapView.updateLocationLayer()

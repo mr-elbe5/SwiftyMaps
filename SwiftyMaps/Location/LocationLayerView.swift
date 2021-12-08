@@ -8,11 +8,11 @@ import UIKit
 
 protocol LocationLayerViewDelegate{
     func showLocationDetails(location: Location)
-    func showLocationGroupDetails(locationGroup: LocationGroup)
 }
 
 class LocationLayerView: UIView {
     
+    //MainViewController
     var delegate : LocationLayerViewDelegate? = nil
     
     func setupPins(zoom: Int, offset: CGPoint, scale: CGFloat){
@@ -54,7 +54,6 @@ class LocationLayerView: UIView {
                     //print("add group pin")
                     let pin = LocationGroupPin(locationGroup: group)
                     addSubview(pin)
-                    pin.addTarget(self, action: #selector(showLocationGroupDetails), for: .touchDown)
                 }
                 else if let location = group.locations.first{
                     //print("add pin")
@@ -108,12 +107,6 @@ class LocationLayerView: UIView {
     @objc func showLocationDetails(_ sender: AnyObject){
         if let pin = sender as? LocationPin{
             delegate?.showLocationDetails(location: pin.location)
-        }
-    }
-    
-    @objc func showLocationGroupDetails(_ sender: AnyObject){
-        if let pin = sender as? LocationGroupPin{
-            delegate?.showLocationGroupDetails(locationGroup: pin.locationGroup)
         }
     }
     

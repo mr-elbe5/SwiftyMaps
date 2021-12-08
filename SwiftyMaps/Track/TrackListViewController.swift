@@ -12,8 +12,6 @@ import CoreLocation
 protocol TrackListDelegate{
     func showTrackOnMap(track: TrackData)
     func deleteTrack(track: TrackData, approved: Bool)
-    func pauseActiveTrack()
-    func resumeActiveTrack()
     func cancelActiveTrack()
     func saveActiveTrack()
 }

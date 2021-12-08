@@ -39,7 +39,7 @@ class ControlLayerView: UIView {
     var licenseView = UIView()
     
     var debugLabel = UILabel()
-    var debugMode : Bool = true
+    var debugMode : Bool = false
     
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
@@ -174,7 +174,7 @@ class ControlLayerView: UIView {
             self.delegate?.deleteTracks()
         }
         if let track = ActiveTrack.track{
-            let showCurrentAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")?.withTintColor(.green, renderingMode: .alwaysOriginal)){ action in
+            let showCurrentAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)){ action in
                 self.delegate?.openTrack(track: track)
                 self.trackMenuControl.menu = self.getTrackingMenu()
             }

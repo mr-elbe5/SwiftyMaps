@@ -8,7 +8,6 @@ import UIKit
 
 
 protocol LocationCellDelegate{
-    func editLocation(location: Location)
     func deleteLocation(location: Location, approved: Bool)
     func viewLocation(location: Location)
     func showOnMap(location: Location)
@@ -53,14 +52,7 @@ class LocationCell: UITableViewCell{
                 deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
                 cellBody.addSubview(deleteButton)
                 deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-                
-                let editButton = IconButton(icon: "pencil.circle")
-                editButton.tintColor = UIColor.systemBlue
-                editButton.addTarget(self, action: #selector(editLocation), for: .touchDown)
-                cellBody.addSubview(editButton)
-                editButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
-                
-                nextAnchor = editButton.bottomAnchor
+                nextAnchor = deleteButton.bottomAnchor
             }
             else{
                 let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
@@ -108,12 +100,6 @@ class LocationCell: UITableViewCell{
             label.text = String(location.tracks.count) + " " + "tracks".localize()
             cellBody.addSubview(label)
             label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
-        }
-    }
-    
-    @objc func editLocation() {
-        if let location = location{
-            delegate?.editLocation(location: location)
         }
     }
     

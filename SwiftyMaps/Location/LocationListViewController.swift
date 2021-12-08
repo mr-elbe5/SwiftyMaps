@@ -9,9 +9,10 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol LocationListDelegate: LocationEditDelegate{
+protocol LocationListDelegate: LocationViewDelegate{
     func showOnMap(location: Location)
     func deleteLocation(location: Location)
+    func showTrackOnMap(track: TrackData)
 }
 
 class LocationListViewController: PopupTableViewController{
@@ -71,13 +72,6 @@ extension LocationListViewController : LocationCellDelegate{
         }
     }
     
-    func editLocation(location: Location) {
-        let locationController = LocationDetailViewController()
-        locationController.location = location
-        locationController.modalPresentationStyle = .fullScreen
-        self.present(locationController, animated: true)
-    }
-    
     func deleteLocation(location: Location, approved: Bool) {
         if approved{
             deleteLocation(location: location)
@@ -104,10 +98,16 @@ extension LocationListViewController : LocationCellDelegate{
     
 }
 
-extension LocationListViewController: LocationEditDelegate{
+extension LocationListViewController: LocationViewDelegate{
     
     func updateLocationLayer() {
         delegate?.updateLocationLayer()
+    }
+    
+    func showTrackOnMap(track: TrackData) {
+        self.dismiss(animated: true){
+            self.delegate?.showTrackOnMap(track: track)
+        }
     }
     
 }

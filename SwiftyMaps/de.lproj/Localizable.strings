@@ -63,16 +63,16 @@
 "locationList"="Orte";
 
 // track menu
-"startNewTrack"="Neue Aufzeichnung starten";
-"showCurrentTrack"="Aktuelle Aufzeichnung...";
-"hideTrack"="Weg ausblenden";
-"showTrackList"="Aufgezeichnete Wege...";
-"deleteTracks"="Alle aufzeichneten Wege löschen";
-"confirmDeleteTracks"="Wollen Sie alle aufzeichneten Wege löschen?";
+"startNewTrack"="Neue Tour starten";
+"showCurrentTrack"="Aktuelle Tour...";
+"hideTrack"="Tour ausblenden";
+"showTrackList"="Touren...";
+"deleteTracks"="Alle Touren löschen";
+"confirmDeleteTracks"="Wollen Sie alle Touren löschen?";
 "deleteTracksHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
 
 // track / current track
-"track"="Aufgezeichneter Weg";
+"track"="Tour";
 "startLocation"="Startposition";
 "distances"="Entfernungen";
 "distance"="Länge";
@@ -86,10 +86,9 @@
 "nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
 
 //track menu
-"startTracking"="Aufzeichnen starten";
-"stopTracking"="Aufzeichnen beenden";
-"saveTrack"="Aufzeichnung speichern";
-"searchTrack"="Aufzeichnung-Suche";
+"startTracking"="Neue Tour starten";
+"stopTracking"="Tour beenden";
+"saveTrack"="Tour speichern";
 "pause"="Pausieren";
 "resume"="Fortsetzen";
 
