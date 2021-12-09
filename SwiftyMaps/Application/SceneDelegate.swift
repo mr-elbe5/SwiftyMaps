@@ -42,6 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Locations.save()
         LocationService.shared.stop()
         Preferences.instance.save()
+        FileController.deleteTemoporaryFiles()
     }
 
 

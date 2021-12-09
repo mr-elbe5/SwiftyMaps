@@ -52,7 +52,11 @@ class Locations{
     }
     
     static func deleteAllLocations(){
-        //todo
+        _lock.wait()
+        defer{_lock.signal()}
+        for idx in 0..<_list.count{
+            _list[idx].deleteAllPhotos()
+        }
         _list.removeAll()
     }
     

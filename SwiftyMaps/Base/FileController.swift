@@ -260,7 +260,11 @@ class FileController {
                 count += 1
             }
         }
-        //print("\(count) files deleted")
+        print("\(count) files deleted")
+    }
+    
+    static func deleteTemoporaryFiles(){
+        deleteAllFiles(dirURL: temporaryURL)
     }
     
     static func printFileInfo(){
