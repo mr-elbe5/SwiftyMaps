@@ -44,7 +44,7 @@ class TrackListItemView : UIView{
         trackView.setGrayRoundedBorders()
         addSubview(trackView)
         trackView.setAnchors(top: showOnMapButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 2, left: defaultInset, bottom: defaultInset, right: defaultInset))
-        let header = UILabel(header: trackData.description)
+        let header = UILabel(header: trackData.name)
         trackView.addSubview(header)
         header.setAnchors(top: trackView.topAnchor, leading: trackView.leadingAnchor, insets: defaultInsets)
         let locationLabel = UILabel(text: trackData.startLocation?.locationString ?? "")

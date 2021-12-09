@@ -18,7 +18,7 @@ class TrackData : Hashable, Codable{
         case id
         case startTime
         case endTime
-        case description
+        case name
         case trackpoints
         case distance
         case upDistance
@@ -30,7 +30,7 @@ class TrackData : Hashable, Codable{
     var pauseTime : Date? = nil
     var pauseLength : TimeInterval = 0
     var endTime : Date
-    var description : String
+    var name : String
     var trackpoints : Array<TrackPoint>
     var distance : CGFloat
     var upDistance : CGFloat
@@ -58,7 +58,7 @@ class TrackData : Hashable, Codable{
     
     init(startLocation: Location){
         id = UUID()
-        description = ""
+        name = "trk"
         startTime = Date()
         endTime = Date()
         trackpoints = Array<TrackPoint>()
@@ -73,7 +73,7 @@ class TrackData : Hashable, Codable{
         id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         startTime = try values.decodeIfPresent(Date.self, forKey: .startTime) ?? Date()
         endTime = try values.decodeIfPresent(Date.self, forKey: .endTime) ?? Date()
-        description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
+        name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         trackpoints = try values.decodeIfPresent(Array<TrackPoint>.self, forKey: .trackpoints) ?? Array<TrackPoint>()
         distance = try values.decodeIfPresent(CGFloat.self, forKey: .distance) ?? 0
         upDistance = try values.decodeIfPresent(CGFloat.self, forKey: .upDistance) ?? 0
@@ -85,7 +85,7 @@ class TrackData : Hashable, Codable{
         try container.encode(id, forKey: .id)
         try container.encode(startTime, forKey: .startTime)
         try container.encode(endTime, forKey: .endTime)
-        try container.encode(description, forKey: .description)
+        try container.encode(name, forKey: .name)
         try container.encode(trackpoints, forKey: .trackpoints)
         try container.encode(distance, forKey: .distance)
         try container.encode(upDistance, forKey: .upDistance)

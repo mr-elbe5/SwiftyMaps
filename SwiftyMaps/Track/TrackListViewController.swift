@@ -158,7 +158,7 @@ extension TrackListViewController : UIDocumentPickerDelegate{
                         let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
                         alertController.addTextField()
                         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                            track.description = alertController.textFields![0].text ?? url.lastPathComponent
+                            track.name = alertController.textFields![0].text ?? url.lastPathComponent
                             location.addTrack(track: track)
                             Locations.save()
                             self.tracks?.append(track)
