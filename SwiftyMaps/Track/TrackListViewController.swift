@@ -107,8 +107,13 @@ extension TrackListViewController : TrackCellDelegate{
         self.present(trackController, animated: true)
     }
     
-    func shareTrack(track: TrackData) {
-        //todo
+    func exportTrack(track: TrackData) {
+        if let url = GPXCreator.createTemporaryFile(track: track){
+            let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
+            present(controller, animated: true) {
+                FileController.printFileInfo()
+            }
+        }
     }
     
     func deleteTrack(track: TrackData, approved: Bool) {

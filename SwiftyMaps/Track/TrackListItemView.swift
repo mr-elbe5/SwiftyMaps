@@ -10,7 +10,7 @@ import UIKit
 protocol TrackListItemDelegate{
     func viewTrack(sender: TrackListItemView)
     func showTrackOnMap(sender: TrackListItemView)
-    func shareTrack(sender: TrackListItemView)
+    func exportTrack(sender: TrackListItemView)
     func deleteTrack(sender: TrackListItemView)
 }
 
@@ -28,14 +28,14 @@ class TrackListItemView : UIView{
         deleteButton.addTarget(self, action: #selector(deleteTrack), for: .touchDown)
         addSubview(deleteButton)
         deleteButton.setAnchors(top: topAnchor, trailing: trailingAnchor, insets: defaultInsets)
-        let shareButton = IconButton(icon: "square.and.arrow.up", tintColor: .systemBlue)
-        shareButton.addTarget(self, action: #selector(shareTrack), for: .touchDown)
-        addSubview(shareButton)
-        shareButton.setAnchors(top: topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
+        let exportButton = IconButton(icon: "square.and.arrow.up", tintColor: .systemBlue)
+        exportButton.addTarget(self, action: #selector(exportTrack), for: .touchDown)
+        addSubview(exportButton)
+        exportButton.setAnchors(top: topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
         let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
         viewButton.addTarget(self, action: #selector(viewTrack), for: .touchDown)
         addSubview(viewButton)
-        viewButton.setAnchors(top: topAnchor, trailing: shareButton.leadingAnchor, insets: defaultInsets)
+        viewButton.setAnchors(top: topAnchor, trailing: exportButton.leadingAnchor, insets: defaultInsets)
         let showOnMapButton = IconButton(icon: "map", tintColor: .systemBlue)
         showOnMapButton.addTarget(self, action: #selector(showTrackOnMap), for: .touchDown)
         addSubview(showOnMapButton)
@@ -83,8 +83,8 @@ class TrackListItemView : UIView{
         delegate?.showTrackOnMap(sender: self)
     }
     
-    @objc func shareTrack(){
-        delegate?.shareTrack(sender: self)
+    @objc func exportTrack(){
+        delegate?.exportTrack(sender: self)
     }
     
     @objc func deleteTrack(){

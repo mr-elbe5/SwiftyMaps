@@ -267,8 +267,13 @@ extension LocationDetailViewController: TrackListItemDelegate{
         }
     }
     
-    func shareTrack(sender: TrackListItemView) {
-        //todo
+    func exportTrack    (sender: TrackListItemView) {
+        if let url = GPXCreator.createTemporaryFile(track: sender.trackData){
+            let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
+            present(controller, animated: true) {
+                FileController.printFileInfo()
+            }
+        }
     }
     
     func deleteTrack(sender: TrackListItemView) {

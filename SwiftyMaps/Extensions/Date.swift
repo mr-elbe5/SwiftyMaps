@@ -41,6 +41,10 @@ extension Date{
         return DateFormats.timeOnlyFormatter.string(from: self)
     }
     
+    func isoString() -> String{
+        return DateFormats.isoFormatter.string(from: self)
+    }
+    
 }
 
 extension Date {
@@ -97,6 +101,15 @@ class DateFormats{
             let dateFormatter = DateFormatter()
             dateFormatter.timeZone = .none
             dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm"
+            return dateFormatter
+        }
+    }
+    
+    static var isoFormatter : DateFormatter{
+        get{
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = .none
+            dateFormatter.dateFormat = "yyyy-MM-ddTHH:mm:ss.000Z"
             return dateFormatter
         }
     }

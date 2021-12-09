@@ -9,7 +9,7 @@ import UIKit
 protocol TrackCellDelegate{
     func showTrackOnMap(track: TrackData)
     func viewTrackDetails(track: TrackData)
-    func shareTrack(track: TrackData)
+    func exportTrack(track: TrackData)
     func deleteTrack(track: TrackData, approved: Bool)
 }
 
@@ -66,8 +66,8 @@ extension TrackCell: TrackListItemDelegate{
         self.delegate?.showTrackOnMap(track: sender.trackData)
     }
     
-    func shareTrack(sender: TrackListItemView) {
-        self.delegate?.shareTrack(track: sender.trackData)
+    func exportTrack(sender: TrackListItemView) {
+        self.delegate?.exportTrack(track: sender.trackData)
     }
     
     func deleteTrack(sender: TrackListItemView) {

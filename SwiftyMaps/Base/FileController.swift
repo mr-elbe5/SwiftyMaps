@@ -11,6 +11,8 @@ import Compression
 
 class FileController {
     
+    static let tempDir = NSTemporaryDirectory()
+    
     static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     
     static var shared = FileController()
@@ -20,6 +22,17 @@ class FileController {
     static var imageLibraryPath: String = NSSearchPathForDirectoriesInDomains(.picturesDirectory,.userDomainMask,true).first!
     static var imageLibraryURL : URL = FileManager.default.urls(for: .picturesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var gpxDirURL = documentURL.appendingPathComponent("gpx")
+    
+    static var temporaryPath : String {
+        get{
+            return tempDir
+        }
+    }
+    static var temporaryURL : URL{
+        get{
+            return URL(fileURLWithPath: temporaryPath, isDirectory: true)
+        }
+    }
     
     static var privatePath : String{
         get{
@@ -251,8 +264,13 @@ class FileController {
     }
     
     static func printFileInfo(){
+        print("temporary files:")
+        var names = listAllFiles(dirPath: temporaryPath)
+        for name in names{
+            print(name)
+        }
         print("private files:")
-        let names = listAllFiles(dirPath: FileController.privateURL.path)
+        names = listAllFiles(dirPath: FileController.privateURL.path)
         for name in names{
             print(name)
         }
