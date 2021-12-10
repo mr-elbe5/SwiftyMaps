@@ -24,6 +24,7 @@ class MapView: UIView {
     }
     
     var zoom: Int = 0
+    var userLocationInitialized = false
     
     var currentMapRegion : MapRegion{
         get{
@@ -74,6 +75,7 @@ class MapView: UIView {
     }
     
     func setupTrackLayerView(){
+        trackLayerView.backgroundColor = .clear
         addSubview(trackLayerView)
         trackLayerView.fillView(view: self)
     }
@@ -86,7 +88,9 @@ class MapView: UIView {
     }
     
     func setupUserLocationView(){
+        userLocationView.backgroundColor = .clear
         addSubview(userLocationView)
+        userLocationView.fillView(view: self)
     }
     
     func setupControlLayerView(){
@@ -156,18 +160,17 @@ class MapView: UIView {
         scrollToCenteredCoordinate(coordinate: MapStatics.startCoordinate)
     }
     
-    func stateDidChange(from: LocationState, to: LocationState, location: CLLocation){
-        if from == .none{
-            setZoom(zoom: Preferences.instance.startZoom, animated: false)
-            scrollToCenteredCoordinate(coordinate: location.coordinate)
-        }
-        userLocationView.state = to
-        userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
-        debug(to.rawValue)
+    func initalizeUserLocation(location: CLLocation){
+        setZoom(zoom: Preferences.instance.startZoom, animated: false)
+        scrollToCenteredCoordinate(coordinate: location.coordinate)
+        userLocationInitialized = true
     }
     
     func locationDidChange(location: CLLocation) {
-        userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), offset: contentOffset, scale: scale)
+        if !userLocationInitialized{
+            initalizeUserLocation(location: location)
+        }
+        userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scale)
         if ActiveTrack.isTracking{
             ActiveTrack.updateTrack(with: location)
             trackLayerView.updateTrack()
@@ -215,7 +218,9 @@ extension MapView : UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         assertCenteredContent(scrollView: scrollView)
-        userLocationView.updatePosition(offset: contentOffset, scale: scale)
+        if userLocationInitialized{
+            userLocationView.updatePosition(offset: contentOffset, scale: scale)
+        }
         locationLayerView.updatePosition(offset: contentOffset, scale: scale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scale)
     }

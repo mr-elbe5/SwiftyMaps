@@ -14,8 +14,6 @@ class MainViewController: UIViewController {
     
     var mapView = MapView()
     
-    var state : LocationState = .none
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mapView)
@@ -54,25 +52,13 @@ class MainViewController: UIViewController {
 extension MainViewController: LocationServiceDelegate{
     
     func authorizationDidChange(authorized: Bool, location: CLLocation?) {
-        if authorized, let loc = location, state == .none{
-            state = loc.horizontalAccuracy <= Preferences.instance.minLocationAccuracy ? .exact : .estimated
-            mapView.stateDidChange(from: .none, to: state, location: loc)
+        if authorized, let loc = location{
+            mapView.locationDidChange(location: loc)
         }
     }
     
     func locationDidChange(location: CLLocation) {
-        switch state{
-        case .none:
-            state = location.horizontalAccuracy <= Preferences.instance.minLocationAccuracy ? .exact : .estimated
-            mapView.stateDidChange(from: .none, to: state, location: location)
-        case .estimated:
-            if location.horizontalAccuracy <= Preferences.instance.minLocationAccuracy{
-                state = .exact
-                mapView.stateDidChange(from: .estimated, to: state, location: location)
-            }
-        case .exact:
-            mapView.locationDidChange(location: location)
-        }
+        mapView.locationDidChange(location: location)
     }
     
     func directionDidChange(direction: CLLocationDirection) {

@@ -14,12 +14,6 @@ protocol LocationServiceDelegate{
     func authorizationDidChange(authorized: Bool, location: CLLocation?)
 }
 
-enum LocationState: String{
-    case none
-    case estimated
-    case exact
-}
-
 class LocationService : NSObject, CLLocationManagerDelegate{
     
     static var shared = LocationService()
