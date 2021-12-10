@@ -98,6 +98,10 @@ class MapView: UIView {
         controlLayerView.fillView(view: self)
         controlLayerView.setup()
     }
+
+    func clearTiles(){
+        tileLayerView.tileLayer.setNeedsDisplay()
+    }
     
     func getCoordinate(screenPoint: CGPoint) -> CLLocationCoordinate2D{
         let size = scrollViewPlanetSize

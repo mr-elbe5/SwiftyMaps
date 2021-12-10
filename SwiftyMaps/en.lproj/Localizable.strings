@@ -29,8 +29,7 @@
 
 //map preload view
 "mapPreload"="Preload Map Tiles";
-"mapPreloadNote1"="PLEASE NOTE! When you preload map tiles, you must be sure to have rights for making mass downloads from the configured server for the current map type!";
-"mapPreloadNote2"="Also be aware that depending on the state of the server this may take long (1 tile is about 10 - 20 kB). You can decrease the amount of loaded tiles by decreasing the maximum zoom level.";
+"mapPreloadNote"="PLEASE NOTE! When you preload map tiles, you must be sure to have rights for making mass downloads from the configured server!";
 "allTilesForDownload"="Number of all tiles:";
 "existingTiles"="Number of existing tiles:";
 "tilesToLoad"="Numer of tiles to load:";

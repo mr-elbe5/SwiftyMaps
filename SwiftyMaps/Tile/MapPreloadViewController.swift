@@ -38,25 +38,18 @@ class MapPreloadViewController: PopupScrollViewController{
         header.setAnchors(top: contentView.topAnchor, insets: defaultInsets)
             .centerX(contentView.centerXAnchor)
         
-        let note1 = UILabel()
-        note1.numberOfLines = 0
-        note1.lineBreakMode = .byWordWrapping
-        note1.text = "mapPreloadNote1".localize()
-        contentView.addSubview(note1)
-        note1.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        let note2 = UILabel()
-        note2.numberOfLines = 0
-        note2.lineBreakMode = .byWordWrapping
-        note2.text = "mapPreloadNote2".localize()
-        contentView.addSubview(note2)
-        note2.setAnchors(top: note1.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
+        let note = UILabel()
+        note.numberOfLines = 0
+        note.lineBreakMode = .byWordWrapping
+        note.text = "mapPreloadNote".localize()
+        contentView.addSubview(note)
+        note.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         let allTilesLabel = UILabel()
         allTilesLabel.text = "allTilesForDownload".localize()
         contentView.addSubview(allTilesLabel)
-        allTilesLabel.setAnchors(top: note2.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        allTilesLabel.setAnchors(top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         contentView.addSubview(allTilesValueLabel)
-        allTilesValueLabel.setAnchors(top: note2.bottomAnchor, leading: allTilesLabel.trailingAnchor, insets: defaultInsets)
+        allTilesValueLabel.setAnchors(top: note.bottomAnchor, leading: allTilesLabel.trailingAnchor, insets: defaultInsets)
         
         let existingTilesLabel = UILabel()
         existingTilesLabel.text = "existingTiles".localize()

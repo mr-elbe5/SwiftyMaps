@@ -98,6 +98,7 @@ extension MainViewController: ControlLayerDelegate{
     func deleteTiles() {
         showApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
             MapTiles.clear()
+            self.mapView.clearTiles()
         }
     }
     
