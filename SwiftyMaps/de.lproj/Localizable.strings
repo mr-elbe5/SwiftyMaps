@@ -163,7 +163,7 @@
 
 "locationMenuInfoText"="Ortsmarkierungen";
 "locationIconInfoText"="Kreuz zum Setzen einer Markierung anzeigen";
-"addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird keine neue Markierung erstellt.";
+"addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, kann diese benutzt werden.";
 "locationListInfoText"="List aller Orte (siehe unten)";
 "showLocationsInfoText"="Orte (Nadeln) auf der Karte einblenden";
 "hideLocationsInfoText"="Orte (Nadeln) auf der Karte ausblenden";
@@ -171,7 +171,7 @@
 
 "trackMenuInfoText"="Touren";
 "startTrackInfoText"="Neue Tour starten";
-"startTrackLocationInfoText"="Wenn eine Tour gestartet wird, wird auch eine zugehörige Ortsmarkierung erstellt und die Tour dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird die Tour dieser Markierung zugeordnet.";
+"startTrackLocationInfoText"="Wenn eine Tour gestartet wird, wird auch eine zugehörige Ortsmarkierung erstellt und die Tour dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, kann die Tour dieser Markierung zugeordnet werden.";
 "currentTrackInfoText"="Aktuelle Tour öffnen (siehe unten)";
 "hideTrackInfoText"="Tour ausblenden";
 "trackListInfoText"="Liste aller Touren öffnen (siehe unten)";
@@ -180,7 +180,7 @@
 "centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
 
 "cameraIconInfoText"="Ein Foto machen";
-"addPhotoLocationInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Ortsmarkierung erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, wird das Foto dieser Markierung zugeordnet.";
+"addPhotoLocationInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Ortsmarkierung erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, kann das Foto dieser Markierung zugeordnet werden.";
 
 "gearIconInfoText"="Voreinstellungen ändern (siehe unten)";
 
@@ -188,7 +188,7 @@
 
 // info for location detail
 "locationDetailInfoHeader"="Ortsdetails";
-"locationDetailImageInfoText"="Hinzufügen eines Bilds aus der Photobibliothek";
+"locationDetailImageInfoText"="Hinzufügen eines Bildes aus der Photobibliothek";
 "locationDetailTrashInfoText"="Löschen dieses Ortes";
 "locationDetailPencilInfoText"="Editiermodus ein- und ausschalten";
 "locationDetailEditInfoText"="Im Editiermodus können die Beschreibung geändert und Bilder gelöscht werden.";

@@ -94,17 +94,13 @@ class InfoViewController: PopupScrollViewController {
         // info for location list
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "locationListInfoHeader".localize()))
-        stackView.addArrangedSubview(IconInfoText(icon: "pencil.circle", text: "locationListPencilInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "locationListPinInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "map", text: "locationListPinInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "magnifyingglass", text: "locationListViewInfoText".localize()))
-        stackView.addArrangedSubview(UILabel(text: "locationListEditInfoText".localize()))
         // info for track list
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "trackListInfoHeader".localize()))
-        stackView.addArrangedSubview(IconInfoText(icon: "pencil.circle", text: "trackListPencilInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "trackListPinInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "map", text: "trackListPinInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "magnifyingglass", text: "trackListViewInfoText".localize()))
-        stackView.addArrangedSubview(UILabel(text: "trackListEditInfoText".localize()))
         // info for preferences
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "preferencesInfoHeader".localize()))

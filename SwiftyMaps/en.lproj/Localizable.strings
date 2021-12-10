@@ -152,7 +152,7 @@
 
 "locationMenuInfoText"="Location Menu";
 "locationIconInfoText"="Cross for setting marker";
-"addLocationInfoText"="When the cross is active, a location marker can be created by tapping on the cross. If a location marker already exists in the direct vicinity (below the location accuracy), no new location marker is created.";
+"addLocationInfoText"="When the cross is active, a location marker can be created by tapping on the cross. If a location marker already exists in the direct vicinity, this location marker can be used.";
 "locationListInfoText"="List of locations (see below)";
 "showLocationsInfoText"="Show locations (needles) on the map";
 "hideLocationsInfoText"="Hide locations (needles) on the map";
@@ -160,7 +160,7 @@
 
 "trackMenuInfoText"="Track Menu";
 "startTrackInfoText"="Start new track";
-"startTrackLocationInfoText"="When a track is started, a location is created and the track is assigned to this location. If a location already exists in the direct vicinity (below the location accuracy) the track is assigned to this location.";
+"startTrackLocationInfoText"="When a track is started, a location is created and the track is assigned to this location. If a location already exists in the direct vicinity, the track can be assigned to this location.";
 "currentTrackInfoText"="Open current track (see below)";
 "hideTrackInfoText"="Hide track";
 "trackListInfoText"="List of all tracks (see below)";
@@ -169,7 +169,7 @@
 "centerIconInfoText"="Center the current position on the map";
 
 "cameraIconInfoText"="Take a photo";
-"addPhotoLocationInfoText"="When you take a photo, a location is created and the photo is assigned to this location. If a location already exists in the direct vicinity (below the location accuracy) the photo is assigned to this location.";
+"addPhotoLocationInfoText"="When you take a photo, a location is created and the photo is assigned to this location. If a location already exists in the direct vicinity, the photo can be assigned to this location.";
 
 "gearIconInfoText"="Open Preferences (see below)";
 
