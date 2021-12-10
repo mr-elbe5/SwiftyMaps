@@ -19,6 +19,7 @@ extension UIViewController{
             let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
                 let location = Locations.addLocation(coordinate: coordinate)
+                Locations.save()
                 onComplete?(location)
             })
             alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
@@ -28,6 +29,7 @@ extension UIViewController{
         }
         else{
             let location = Locations.addLocation(coordinate: coordinate)
+            Locations.save()
             onComplete?(location)
         }
     }
