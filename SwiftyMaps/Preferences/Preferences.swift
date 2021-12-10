@@ -84,9 +84,14 @@ class Preferences: Identifiable, Codable{
     }
     
     func dump(){
-        print("urlTemplate  = \(urlTemplate)" )
-        print("startWithLastPosition  = \(startWithLastPosition)" )
-        print("showPins  = \(showPins)" )
+        print("urlTemplate = \(urlTemplate)" )
+        print("startZoom = \(startZoom)" )
+        print("minLocationAccuracy = \(minLocationAccuracy)" )
+        print("maxLocationMergeDistance = \(maxLocationMergeDistance)" )
+        print("pinGroupRadius = \(pinGroupRadius)" )
+        print("startWithLastPosition = \(startWithLastPosition)" )
+        print("maxPreloadTiles = \(maxPreloadTiles)" )
+        print("showPins = \(showPins)" )
     }
     
 }
