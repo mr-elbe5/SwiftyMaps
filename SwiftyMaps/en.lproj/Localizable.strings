@@ -8,7 +8,7 @@
 "ok"="Ok";
 "name"="Name";
 "no"="No";
-"pleaseNote"="Please note";
+"pleaseNote"="Please Note";
 "reset" = "Reset";
 "save" = "Save";
 "title"="Title";
@@ -20,12 +20,11 @@
 "close"="Close";
 
 //map menu
-"preloadMaps"="Preload map tiles...";
-"preloadMapsAlert"="You are tying to preload %@ tiles. The maximum size for preloads is %@ tiles. Please use a smaller map region.";
-"deleteTiles"="Delete loaded map tiles";
+"preloadMaps"="Preload Map Tiles...";
+"preloadMapsAlert"="You are tying to preload %@ tiles. The maximum size for preloads is %@ tiles. Please use a smaller map region (zoom in).";
+"deleteTiles"="Delete Loaded Map Tiles";
 "confirmDeleteTiles"="Do you want to delete all map tiles?";
 "deleteTilesHint"="Maps will have to be reloaded then.";
-"configureMap"="Configure map...";
 
 //map preload view
 "mapPreload"="Preload Map Tiles";
@@ -33,45 +32,43 @@
 "allTilesForDownload"="Number of all tiles:";
 "existingTiles"="Number of existing tiles:";
 "tilesToLoad"="Numer of tiles to load:";
-"sizeToLoad"="Full size of tiles to load (est.):";
-"unloadedTiles"="Number load errors:";
+"unloadedTiles"="Number of load errors:";
 
 //preferences view
 "mapPreferences"="Preferences";
-"urlTemplate"="URL Template for OpenStreetMap tiles:";
-"startZoom"="Start zoom [2-18]";
-"minLocationAccuracy"="Minimal horizontal accuracy for GPS [m]";
-"maxLocationMergeDistance"="Maximal distance for merging locations [m]";
-"minZoomToShowLocations"="Minimal zoom for showing locations (needles) [2-18]";
-"pinGroupRadius"="Radius for showing pins as a group [m at full zoom]";
-"maxPreloadTiles"="Maximal number of tiles for preload";
-"startWithLastPosition"="Start with last position";
-"showLocations"="Show locations (needles)";
+"urlTemplate"="URL Template for OpenStreetMap Tiles:";
+"startZoom"="Start Zoom [2-18]";
+"minLocationAccuracy"="Minimal Horizontal Accuracy for GPS [m]";
+"maxLocationMergeDistance"="Maximal Distance for Merging Locations [m]";
+"pinGroupRadius"="Radius for Showing Pins as a Group [m]";
+"maxPreloadTiles"="Maximal Number of Tiles for Preload";
+"startWithLastPosition"="Start with last Position";
+"showLocations"="Show Location Markers (Needles)";
 
 // location menu
-"addLocation"="Add Location (Needle)";
+"addLocation"="Add Location Marker (Needle)";
 "showLocationList"="Show Location List";
-"showLocations"="Show Locations (Needles)";
-"hideLocations"="Hide Locations (Needles)";
-"deleteLocations"="Delete all Locations";
-"confirmDeleteLocations"="Do you want to delete all locations?";
-"deleteLocationsHint"="This action cannot be undone. Associated photos will also be deleted.";
+"showLocations"="Show Location Markers (Needles)";
+"hideLocations"="Hide Location Markers (Needles)";
+"deleteLocations"="Delete all Location Markers";
+"confirmDeleteLocations"="Do you want to delete all location markers?";
+"deleteLocationsHint"="This action cannot be undone. Associated photos and tracks will also be deleted.";
 
 // location list
 "locationList"="Locations";
 
 // track menu
-"startNewTrack"="Start new Track";
-"showCurrentTrack"="Current track...";
-"hideTrack"="Hide track";
-"showTrackList"="Saved tracks...";
-"deleteTracks"="Delete all tracks";
+"startNewTrack"="Start a new Track";
+"showCurrentTrack"="Current Track...";
+"hideTrack"="Hide Track";
+"showTrackList"="Saved Tracks...";
+"deleteTracks"="Delete all Tracks";
 "confirmDeleteTracks"="Do you want to delete all tracks?";
 "deleteTracksHint"="This action cannot be undone.";
 
 // track/ current track
 "track"="Track";
-"startLocation"="Start location";
+"startLocation"="Start Location";
 "distances"="Distances";
 "distance"="Distance";
 "upDistance"="Upwards";
@@ -93,12 +90,12 @@
 "locationNotAuthorized"="Finding your location is not authorized. Please change your settings.";
 "saveLocation"="Save Location";
 "yourPosition"="Your Position";
-"useLocation"="Use existing Location?";
+"useLocation"="Use existing location?";
 
 // location context menu
-"showDetails"="Show details";
+"showDetails"="Show Details";
 "confirmDeleteLocation"="Do you want to delete this location?";
-"deleteLocationHint"="This action cannot be undone and includes associated photos.";
+"deleteLocationHint"="This action cannot be undone and includes associated photos and tracks.";
 
 // location view / editor view
 "location"="Location";
