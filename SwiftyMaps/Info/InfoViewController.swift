@@ -87,6 +87,7 @@ class InfoViewController: PopupScrollViewController {
         // info for track detail
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "trackDetailInfoHeader".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "map", text: "trackDetailMapInfoText".localize()))
         // info for preload
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "tilePreloadInfoHeader".localize()))
@@ -94,7 +95,7 @@ class InfoViewController: PopupScrollViewController {
         // info for location list
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "locationListInfoHeader".localize()))
-        stackView.addArrangedSubview(IconInfoText(icon: "map", text: "locationListPinInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(icon: "map", text: "locationListMapInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "magnifyingglass", text: "locationListViewInfoText".localize()))
         // info for track list
         stackView.addSpacer()

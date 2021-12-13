@@ -3,7 +3,6 @@
 "cancel" = "Abbrechen";
 "comment"="Kommentar";
 "delete"="Löschen";
-"description"="Beschreibung";
 "done"="Fertig";
 "edit"="Ändern";
 "ok"="Ok";
@@ -20,15 +19,14 @@
 "start"="Start";
 "close"="Schliessen";
 
-//map menu
+//map menu - ControlLayerView
 "preloadMaps"="Kartenkacheln vorladen...";
-"preloadMapsAlert"="Sie versuchen, %@ Kacheln vorzuladen. Die maximale Menge ist %@ Kacheln. Bitte wählen Sie eine kleinere Region aus.";
+"preloadMapsAlert"="Sie versuchen, %@ Kacheln vorzuladen. Die maximale Menge ist %@ Kacheln. Bitte wählen Sie eine kleinere Region aus (durch Hineinzoomen).";
 "deleteTiles"="Geladene Kacheln löschen";
 "confirmDeleteTiles"="Wollen Sie alle geladenen Kartenkacheln löschen?";
 "deleteTilesHint"="Die Kacheln müssen anschliessend neu geladen werden.";
-"configureMap"="Karte konfigurieren...";
 
-//map preload view
+//map preload view - MapPreloadViewController
 "mapPreload"="Kartenkacheln vorladen";
 "mapPreloadNote"="BITTE BEACHTEN! Wenn Sie Kartenkacheln vorladen, müssen Sie das Recht haben, Massendownloads von dem konfigurierten Server zu machen! ";
 "allTilesForDownload"="Zahl aller Kacheln:";
@@ -37,7 +35,7 @@
 "sizeToLoad"="Gesamtgröße zu ladender Kacheln (ca):";
 "unloadedTiles"="Zahl von Ladefehlern:";
 
-//preferences view
+//preferences view - PrefrencesViewController
 "mapPreferences"="Einstellungen";
 "urlTemplate"="URL Template für OpenStreetMap Kacheln:";
 "startZoom"="Startzoom [2-18]";
@@ -49,7 +47,7 @@
 "startWithLastPosition"="Mit der letzten Position starten";
 "showLocations"="Positionen (Nadeln) anzeigen";
 
-// location menu
+// location menu - ControlLayerView
 "addLocation"="Nadel hinzufügen";
 "showLocationList"="Positionsliste anzeigen";
 "showLocations"="Nadeln anzeigen";
@@ -58,10 +56,13 @@
 "confirmDeleteLocations"="Wollen Sie alle Nadeln löschen?";
 "deleteLocationsHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Fotos und Touren werden ebenfalls gelöscht.";
 
-// location list
-"locationList"="Positionen";
+// location list - LocationListViewController/LocationCell
+"locationList"="Örtlichkeiten";
+"showDetails"="Details anzeigen";
+"confirmDeleteLocation"="Wollen Sie diese Örtlichkeit löschen?";
+"deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos und Touren. Sie kann nicht rückgängig gemacht werden.";
 
-// track menu
+// track menu - ControlLayerView
 "startNewTrack"="Neue Tour starten";
 "showCurrentTrack"="Aktuelle Tour...";
 "hideTrack"="Tour ausblenden";
@@ -70,7 +71,7 @@
 "confirmDeleteTracks"="Wollen Sie alle Touren löschen?";
 "deleteTracksHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
 
-// track / current track
+// track / current track - ControlLayerView/TrackDetailView
 "track"="Tour";
 "startLocation"="Startposition";
 "distances"="Entfernungen";
@@ -80,11 +81,11 @@
 "duration"="Dauer";
 "currentTrack"="Aktuelle Tour";
 
-// track list
+// track list - TrackListViewController/TrackCell
 "trackList"="Touren";
 "nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
 
-//track menu
+//track menu - ControlLayerView
 "startTracking"="Neue Tour starten";
 "stopTracking"="Tour beenden";
 "saveTrack"="Tour speichern";
@@ -101,11 +102,6 @@
 "yourPosition"="Deine Position";
 "useLocation"="Vorhandene Position benutzen?";
 
-// location marker menu
-"showDetails"="Details anzeigen";
-"confirmDeleteLocation"="Wollen Sie diese Position löschen?";
-"deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos und Touren. Sie kann nicht rückgängig gemacht werden.";
-
 // location view / editor view
 "location"="Position";
 "locationData"="Positonsangaben";
@@ -120,9 +116,6 @@
 //camera
 "cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
 "cameraNotAvailable"="Die Kamera steht nicht zur Verfügung.";
-"balanced"="Ausbalanciert";
-"quality"="Qualität";
-"speed"="Geschwindigkeit";
 "photoLibraryNotAuthorized"="Die Nutzung der Fotobibliothek ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
 "photoShared"="Foto wurde kopiert.";
 "shareImage"="Bild kopieren";
@@ -146,32 +139,32 @@
 "appIconsHeader"="Symbole";
 "userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck). Wenn die Position nicht genau genug bestimmt werden kann, erscheint ein halbtransparenter blauer Kreis.";
 
-"locationMarkerInfoText"="Markierung mit Ortsangabe";
-"locationPhotoMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos";
-"locationTrackMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Touren";
-"locationPhotoTrackMarkerInfoText"="Markierung mit Ortsangabe und zugeordneten Fotos und Touren";
-"locationDetailsInfoText"="Durch Antippen der Nadel wird die Orts-Detailansicht geöffnet (siehe unten)";
+"locationMarkerInfoText"="Markierung mit Positionsangabe";
+"locationPhotoMarkerInfoText"="Markierung mit Positionsangabe und zugeordneten Fotos";
+"locationTrackMarkerInfoText"="Markierung mit Positionsangabe und zugeordneten Touren";
+"locationPhotoTrackMarkerInfoText"="Markierung mit Positionsangabe und zugeordneten Fotos und Touren";
+"locationDetailsInfoText"="Durch Antippen der Nadel wird die Detailansicht geöffnet (siehe unten)";
 "locationDefaultGroupInfoText"="Gruppe von einfachen Ortsmarkierungen";
-"locationPhotoGroupInfoText"="Gruppe von Ortsmarkierungen mit Fotos";
-"locationTrackGroupInfoText"="Gruppe von Ortsmarkierungen mit Touren";
-"locationPhotoTrackGroupInfoText"="Gruppe von Ortsmarkierungen mit Fotos und Touren";
-"locationGroupInfoText"="Durch Antippen der Gruppennadel zoomen Sie zur Ansicht der einzelnen Ortsmarkierungen.";
+"locationPhotoGroupInfoText"="Gruppe von Markierungen mit Fotos";
+"locationTrackGroupInfoText"="Gruppe von Markierungen mit Touren";
+"locationPhotoTrackGroupInfoText"="Gruppe von Markierungen mit Fotos und Touren";
+"locationGroupInfoText"="Eine Gruppennadel wird durch Hineinzoomen in die einzelnen Ortsmarkierungen aufgelöst.";
 
-"mapMenuInfoText"="Karten-Menü";
+"mapMenuInfoText"="Kartenmenü";
 "preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts (siehe unten)";
 "deleteTilesInfoText"="Alle geladenen Kacheln löschen";
 
 "locationMenuInfoText"="Ortsmarkierungen";
 "locationIconInfoText"="Kreuz zum Setzen einer Markierung anzeigen";
-"addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, kann diese benutzt werden.";
-"locationListInfoText"="List aller Orte (siehe unten)";
-"showLocationsInfoText"="Orte (Nadeln) auf der Karte einblenden";
-"hideLocationsInfoText"="Orte (Nadeln) auf der Karte ausblenden";
-"deleteLocationsInfoText"="Löschen der Markierung und der aller zugeordneten Fotos";
+"addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe bereits eine Markierung, kann diese benutzt werden.";
+"locationListInfoText"="List aller Ötrlichkeiten (siehe unten)";
+"showLocationsInfoText"="Nadeln auf der Karte einblenden";
+"hideLocationsInfoText"="Nadeln auf der Karte ausblenden";
+"deleteLocationsInfoText"="Löschen aller Markierungen und der aller zugeordneten Fotos und Touren";
 
 "trackMenuInfoText"="Touren";
 "startTrackInfoText"="Neue Tour starten";
-"startTrackLocationInfoText"="Wenn eine Tour gestartet wird, wird auch eine zugehörige Ortsmarkierung erstellt und die Tour dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, kann die Tour dieser Markierung zugeordnet werden.";
+"startTrackLocationInfoText"="Wenn eine Tour gestartet wird, wird auch eine zugehörige Markierung für die Startposition erstellt und die Tour dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, kann die Tour dieser Markierung zugeordnet werden.";
 "currentTrackInfoText"="Aktuelle Tour öffnen (siehe unten)";
 "hideTrackInfoText"="Tour ausblenden";
 "trackListInfoText"="Liste aller Touren öffnen (siehe unten)";
@@ -180,7 +173,7 @@
 "centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
 
 "cameraIconInfoText"="Ein Foto machen";
-"addPhotoLocationInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Ortsmarkierung erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, kann das Foto dieser Markierung zugeordnet werden.";
+"addPhotoLocationInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Markierung für die Position erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe bereits eine Markierung, kann das Foto dieser Markierung zugeordnet werden.";
 
 "gearIconInfoText"="Voreinstellungen ändern (siehe unten)";
 
@@ -202,12 +195,13 @@
 // info for location list
 "locationListInfoHeader"="Ortsliste";
 "locationListPencilInfoText"="Editiermodus ein- und ausschalten";
-"locationListPinInfoText"="Den Ort auf der Karte anzeigen";
+"locationListMapInfoText"="Den Ort auf der Karte anzeigen";
 "locationListViewInfoText"="Orts-Detailansicht öffnen (siehe oben)";
 "locationListEditInfoText"="Im Editiermodus können einzelne Orte gelöscht werden.";
 
 // info for track details
 "trackDetailInfoHeader"="Tourendetails";
+"trackDetailMapInfoText"="Tour auf der Karte anzeigen";
 
 // info for track list
 "trackListInfoHeader"="Tourenliste";

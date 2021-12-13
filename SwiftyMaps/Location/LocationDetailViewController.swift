@@ -195,7 +195,9 @@ extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavig
         guard let imageURL = info[.imageURL] as? URL else {return}
         let photo = PhotoData()
         if FileController.copyFile(fromURL: imageURL, toURL: photo.fileURL){
-            location?.photos.append(photo)
+            location?.addPhoto(photo: photo)
+            Locations.save()
+            delegate?.updateLocationLayer()
             let photoView = PhotoListItemView(data: photo)
             photoView.delegate = self
             photoStackView.addArrangedSubview(photoView)
