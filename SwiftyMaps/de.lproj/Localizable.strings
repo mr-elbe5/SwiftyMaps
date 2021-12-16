@@ -134,7 +134,7 @@
 
 //info
 "appInfoHeader"="Allgemeines";
-"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden. Das Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
+"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden. Das Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen. Der vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server und auf Karten von Europa im Carto-Stil beschränkt. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
 
 "appIconsHeader"="Symbole";
 "userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck). Wenn die Position nicht genau genug bestimmt werden kann, erscheint ein halbtransparenter blauer Kreis.";
@@ -213,6 +213,9 @@
 //info for preferences
 "preferencesInfoHeader"="Voreinstellungen";
 "urlInfoText"="Die URL Templates sind serverspezifisch und müssen png-Dateien (Kacheln) liefern. Es muss sichergestellt sein, dass die Rechte zum Download der Kacheln vorliegen und dass keine unangemessenen Massendownloads erfolgen.";
+"minLocationAccuracyInfoText"="Dieser Wert gibt an, ab welcher Ungenauigkeit der aktuelle Standort als ungenau eingestuft wird.";
+"maxLocationMergeDistanceInfoText"="Maximale Entfernung zur Nutzung eines nahen Ortes (mit Abfrage)";
+"pinGroupRadiusInfoText"="Dieser Wert in m gibt an, unterhalb welchem Abstand Nadeln als Gruppe angezeigt werden.";
 
 
 

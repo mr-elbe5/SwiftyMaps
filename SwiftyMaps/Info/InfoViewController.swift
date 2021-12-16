@@ -106,6 +106,12 @@ class InfoViewController: PopupScrollViewController {
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "preferencesInfoHeader".localize()))
         stackView.addArrangedSubview(UILabel(text: "urlInfoText".localize()))
+        stackView.addSpacer()
+        stackView.addArrangedSubview(UILabel(text: "minLocationAccuracy".localize() + ": " + "minLocationAccuracyInfoText".localize()))
+        stackView.addSpacer()
+        stackView.addArrangedSubview(UILabel(text: "maxLocationMergeDistance".localize() + ": " + "maxLocationMergeDistanceInfoText".localize()))
+        stackView.addSpacer()
+        stackView.addArrangedSubview(UILabel(text: "pinGroupRadius".localize() + ": " + "pinGroupRadiusInfoText".localize()))
     }
     
 }
