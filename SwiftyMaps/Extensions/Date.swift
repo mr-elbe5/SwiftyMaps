@@ -105,11 +105,10 @@ class DateFormats{
         }
     }
     
-    static var isoFormatter : DateFormatter{
+    static var isoFormatter : ISO8601DateFormatter{
         get{
-            let dateFormatter = DateFormatter()
-            dateFormatter.timeZone = .none
-            dateFormatter.dateFormat = "yyyy-MM-ddTHH:mm:ss.000Z"
+            let dateFormatter = ISO8601DateFormatter()
+            dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
             return dateFormatter
         }
     }
