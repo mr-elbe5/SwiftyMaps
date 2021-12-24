@@ -43,6 +43,12 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         }
     }
     
+    var authorizedForTracking : Bool{
+        get{
+            return locationManager.authorizedForTracking
+        }
+    }
+    
     func getPlacemarkInfo(for location: Location){
         geocoder.reverseGeocodeLocation(location.cllocation, completionHandler: { (placemarks, error) in
             if error == nil, let placemark =  placemarks?[0]{
@@ -78,6 +84,10 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     
     func requestWhenInUseAuthorization(){
         self.locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func requestAlwaysAuthorization(){
+        self.locationManager.requestAlwaysAuthorization()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

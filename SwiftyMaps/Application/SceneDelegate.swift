@@ -31,13 +31,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        
+        if ActiveTrack.isTracking && !LocationService.shared.authorizedForTracking{
+            LocationService.shared.requestAlwaysAuthorization()
+        }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         LocationService.shared.start()
     }
-
+    
     func sceneDidEnterBackground(_ scene: UIScene) {
         Locations.save()
         LocationService.shared.stop()
