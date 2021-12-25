@@ -23,11 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        
+        LocationService.shared.stop()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        
+        LocationService.shared.start()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -42,7 +42,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func sceneDidEnterBackground(_ scene: UIScene) {
         Locations.save()
-        LocationService.shared.stop()
+        if !ActiveTrack.isTracking{
+            LocationService.shared.stop()
+        }
         Preferences.instance.save()
         FileController.deleteTemoporaryFiles()
     }
