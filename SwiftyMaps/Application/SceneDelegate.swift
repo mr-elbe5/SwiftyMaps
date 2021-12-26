@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        Log.startLogging()
         FileController.initialize()
         Preferences.loadInstance()
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -38,7 +37,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        Log.startLogging()
         LocationService.shared.start()
     }
     
@@ -49,11 +47,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         Preferences.instance.save()
         FileController.deleteTemoporaryFiles()
-        if Log.isLogging{
-            Log.stopLogging()
-            print(Log.toString())
-            Log.clear()
-        }
     }
 
 

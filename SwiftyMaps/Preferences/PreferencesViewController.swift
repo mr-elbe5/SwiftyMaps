@@ -17,6 +17,7 @@ class PreferencesViewController: PopupScrollViewController{
     var pinGroupRadiusField = LabeledTextField()
     var maxPreloadTilesField = LabeledTextField()
     var startWithLastPositionSwitch = LabeledSwitchView()
+    var logSwitch = LabeledSwitchView()
     
     override func loadView() {
         title = "mapPreferences".localize()
@@ -49,14 +50,18 @@ class PreferencesViewController: PopupScrollViewController{
         startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: Preferences.instance.startWithLastPosition)
         contentView.addSubview(startWithLastPositionSwitch)
         startWithLastPositionSwitch.setAnchors(top: maxPreloadTilesField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        startWithLastPositionSwitch.isOn = Preferences.instance.startWithLastPosition
+    
+        logSwitch.setupView(labelText: "useLog".localize(), isOn: Log.isLogging)
+        contentView.addSubview(logSwitch)
+        logSwitch.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        logSwitch.delegate = self
         
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
         contentView.addSubview(saveButton)
-        saveButton.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        saveButton.setAnchors(top: logSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
             .centerX(contentView.centerXAnchor)
     }
     
@@ -84,6 +89,27 @@ class PreferencesViewController: PopupScrollViewController{
         Preferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
         Preferences.instance.save()
         self.dismiss(animated: true)
+    }
+    
+}
+
+extension PreferencesViewController: SwitchDelegate{
+    
+    func switchValueDidChange(sender: LabeledSwitchView, isOn: Bool) {
+        if sender == logSwitch{
+            if sender.isOn{
+                Log.startLogging()
+            }
+            else{
+                Log.stopLogging()
+                if let url = URL(string: "log_\(Date().fileDate()).log", relativeTo: FileController.documentURL){
+                    let s = Log.toString()
+                    if let data = s.data(using: .utf8){
+                        FileController.saveFile(data : data, url: url)
+                    }
+                }
+            }
+        }
     }
     
 }

@@ -46,6 +46,7 @@
 "maxPreloadTiles"="Maximale Anzahl von Kacheln zum Vorladen";
 "startWithLastPosition"="Mit der letzten Position starten";
 "showLocations"="Positionen (Nadeln) anzeigen";
+"useLog"="Log benutzen";
 
 // location menu - ControlLayerView
 "addLocation"="Nadel hinzufügen";

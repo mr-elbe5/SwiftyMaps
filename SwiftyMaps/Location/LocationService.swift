@@ -103,7 +103,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
             Log.log("invalid position")
             return
         }
-        Log.log("location changed to \(loc)")
+        Log.log("location changed to \(loc.toString())")
         lastLocation = loc
         delegate?.locationDidChange(location: loc)
     }

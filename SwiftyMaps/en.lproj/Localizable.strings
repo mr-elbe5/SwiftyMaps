@@ -34,7 +34,7 @@
 "tilesToLoad"="Numer of tiles to load:";
 "unloadedTiles"="Number of load errors:";
 
-//preferences view - PrefrencesViewController
+//preferences view - PreferencesViewController
 "mapPreferences"="Preferences";
 "urlTemplate"="URL Template for OpenStreetMap Tiles:";
 "startZoom"="Start Zoom [2-18]";
@@ -44,6 +44,7 @@
 "maxPreloadTiles"="Maximal Number of Tiles for Preload";
 "startWithLastPosition"="Start with last Position";
 "showLocations"="Show Location Markers (Needles)";
+"useLog"="Use Logging";
 
 // location menu - ControlLayerView
 "addLocation"="Add Location Marker (Needle)";

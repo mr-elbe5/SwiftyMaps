@@ -1,9 +1,8 @@
-//
-//  Log.swift
-//  SwiftyMaps
-//
-//  Created by Michael Rönnau on 26.12.21.
-//
+/*
+ SwiftyMaps
+ App for display and use of OSM maps without MapKit
+ Copyright: Michael Rönnau mr@elbe5.de
+ */
 
 import Foundation
 
@@ -62,6 +61,6 @@ struct LogEntry{
     var time: Date
     
     func toString() -> String{
-        time.dateTimeString() + ": " + text + " \n"
+        time.timestampString() + ": " + text + " \n"
     }
 }

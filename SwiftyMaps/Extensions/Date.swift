@@ -29,6 +29,10 @@ extension Date{
         return DateFormats.dateTimeFormatter.string(from: self)
     }
     
+    func timestampString() -> String{
+        return DateFormats.timestampFormatter.string(from: self)
+    }
+    
     func fileDate() -> String{
         return DateFormats.fileDateFormatter.string(from: self)
     }
@@ -83,6 +87,15 @@ class DateFormats{
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .short
+            return dateFormatter
+        }
+    }
+    
+    static var timestampFormatter : DateFormatter{
+        get{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .medium
             return dateFormatter
         }
     }
