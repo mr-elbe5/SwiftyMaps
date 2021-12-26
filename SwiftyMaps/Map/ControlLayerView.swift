@@ -38,9 +38,6 @@ class ControlLayerView: UIView {
     var currentTrackLine = CurrentTrackLine()
     var licenseView = UIView()
     
-    var debugLabel = UILabel()
-    var debugMode : Bool = false
-    
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
         
@@ -117,13 +114,6 @@ class ControlLayerView: UIView {
         licenseView.addSubview(label)
         label.setAnchors(top: licenseView.topAnchor, leading: link.trailingAnchor, trailing: licenseView.trailingAnchor, bottom: licenseView.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: defaultInset))
         label.text = " contributors"
-        
-        if debugMode{
-            debugLabel.text = "Debug"
-            debugLabel.numberOfLines = 0
-            addSubview(debugLabel)
-            debugLabel.setAnchors(top: controlLine.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
-        }
     }
     
     func getMapMenu() -> UIMenu{
@@ -253,10 +243,6 @@ class ControlLayerView: UIView {
     func stopTrackControl(){
         trackMenuControl.menu = getTrackingMenu()
         stopTrackInfo()
-    }
-    
-    func debug(_ text: String){
-        debugLabel.text = text
     }
     
 }

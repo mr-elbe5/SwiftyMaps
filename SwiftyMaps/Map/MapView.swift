@@ -200,10 +200,6 @@ class MapView: UIView {
         getCoordinate(screenPoint: getVisibleCenter())
     }
     
-    func debug(_ text: String){
-        controlLayerView.debug(text)
-    }
-    
 }
 
 extension MapView : UIScrollViewDelegate{

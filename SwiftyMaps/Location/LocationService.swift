@@ -11,7 +11,6 @@ import UIKit
 protocol LocationServiceDelegate{
     func locationDidChange(location: CLLocation)
     func directionDidChange(direction: CLLocationDirection)
-    func authorizationDidChange(authorized: Bool, location: CLLocation?)
 }
 
 class LocationService : NSObject, CLLocationManagerDelegate{
@@ -65,12 +64,12 @@ class LocationService : NSObject, CLLocationManagerDelegate{
             locationManager.startUpdatingHeading()
             running = true
         }
-        //print("loc start: running = \(running)")
+        Log.log("loc start: running = \(running)")
     }
     
     func checkRunning(){
         if authorized && !running{
-            //print("run after check")
+            Log.log("run after check")
             start()
         }
     }
@@ -91,25 +90,53 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        //print("changed auth")
+        Log.log("changed auth")
         checkRunning()
-        delegate?.authorizationDidChange(authorized: authorized, location: lastLocation)
+        if authorized, let loc = lastLocation{
+            delegate?.locationDidChange(location: loc)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let loc = locations.last{
-            if loc.horizontalAccuracy == -1{
-                print("invalid position")
-                return
-            }
-            lastLocation = loc
-            delegate?.locationDidChange(location: loc)
+        let loc = locations.last!
+        if loc.horizontalAccuracy == -1{
+            Log.log("invalid position")
+            return
         }
+        Log.log("location changed to \(loc)")
+        lastLocation = loc
+        delegate?.locationDidChange(location: loc)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         lastDirection = newHeading.trueHeading
         delegate?.directionDidChange(direction: lastDirection)
+    }
+    
+    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
+        Log.log("location updates paused")
+        running = false
+        if let loc = lastLocation{
+            let monitoredRegion = CLCircularRegion(center: loc.coordinate, radius: 5.0, identifier: "monitoredRegion")
+            locationManager.startMonitoring(for: monitoredRegion)
+        }
+    }
+    
+    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
+        Log.log("location updates resumed")
+        running = true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        Log.log("location exited region")
+        if region.identifier == "monitoredRegion"{
+            locationManager.stopMonitoring(for: region)
+            if authorized{
+                locationManager.startUpdatingLocation()
+                locationManager.startUpdatingHeading()
+                running = true
+            }
+        }
     }
     
 }

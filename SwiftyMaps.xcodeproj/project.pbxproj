@@ -78,6 +78,7 @@
 		4E24F48827345D11004E69C2 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47027345D11004E69C2 /* UIImage.swift */; };
 		4E24F48927345D11004E69C2 /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47127345D11004E69C2 /* TextButton.swift */; };
 		4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47227345D11004E69C2 /* UIScrollView.swift */; };
+		4E3F1290277886FE006F9C31 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F128F277886FE006F9C31 /* Log.swift */; };
 		4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */; };
 		4E4B758D273AA28100CB4B41 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B758C273AA28100CB4B41 /* PhotoData.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
@@ -174,6 +175,7 @@
 		4E24F47027345D11004E69C2 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		4E24F47127345D11004E69C2 /* TextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
 		4E24F47227345D11004E69C2 /* UIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
+		4E3F128F277886FE006F9C31 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
 		4E4B758C273AA28100CB4B41 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				4EA9B7CD27413F0B00C91B68 /* SafeMap.swift */,
 				4E24F47127345D11004E69C2 /* TextButton.swift */,
 				4E24F46927345D11004E69C2 /* TextEditArea.swift */,
+				4E3F128F277886FE006F9C31 /* Log.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				4E24F48327345D11004E69C2 /* LabeledTextField.swift in Sources */,
 				4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */,
 				4E05FECD27592E64005D903B /* LocationList.swift in Sources */,
+				4E3F1290277886FE006F9C31 /* Log.swift in Sources */,
 				4EB76A9A2760EF9F00D64B6D /* PhotoListItemView.swift in Sources */,
 				4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */,
 				4E1D0E20274BDB1900F3D584 /* TrackDetailViewController.swift in Sources */,

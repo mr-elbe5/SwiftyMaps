@@ -43,19 +43,9 @@ class MainViewController: UIViewController {
         }
     }
     
-    func debug(_ text: String){
-        mapView.debug(text)
-    }
-    
 }
 
 extension MainViewController: LocationServiceDelegate{
-    
-    func authorizationDidChange(authorized: Bool, location: CLLocation?) {
-        if authorized, let loc = location{
-            mapView.locationDidChange(location: loc)
-        }
-    }
     
     func locationDidChange(location: CLLocation) {
         mapView.locationDidChange(location: location)
