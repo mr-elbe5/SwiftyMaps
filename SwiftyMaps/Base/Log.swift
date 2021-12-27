@@ -14,6 +14,8 @@ class Log{
     
     private static var logging = false
     
+    static var useLogging = true
+    
     static var isLogging: Bool{
         logging
     }
@@ -61,6 +63,6 @@ struct LogEntry{
     var time: Date
     
     func toString() -> String{
-        time.timestampString() + ": " + text + " \n"
+        time.timestampString() + " - " + text
     }
 }

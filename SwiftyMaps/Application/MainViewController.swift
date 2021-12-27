@@ -32,17 +32,6 @@ class MainViewController: UIViewController {
         LocationService.shared.delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        LocationService.shared.delegate = self
-    }
-    
-    // remove??
-    override func viewWillDisappear(_ animated: Bool) {
-        if !ActiveTrack.isTracking{
-            LocationService.shared.delegate = nil
-        }
-    }
-    
 }
 
 extension MainViewController: LocationServiceDelegate{
@@ -172,6 +161,8 @@ extension MainViewController: ControlLayerDelegate{
     
     func openPreferences() {
         let controller = PreferencesViewController()
+        controller.currentZoom = mapView.zoom
+        controller.currentCenterCoordinate = mapView.getVisibleCenterCoordinate()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }

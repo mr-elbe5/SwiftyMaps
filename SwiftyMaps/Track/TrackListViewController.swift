@@ -111,7 +111,7 @@ extension TrackListViewController : TrackCellDelegate{
         if let url = GPXCreator.createTemporaryFile(track: track){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
             present(controller, animated: true) {
-                FileController.printFileInfo()
+                FileController.logFileInfo()
             }
         }
     }

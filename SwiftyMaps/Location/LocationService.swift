@@ -59,23 +59,24 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     func start(){
         lock.wait()
         defer{lock.signal()}
-        if authorized{
+        if authorized, !running{
+            Log.log("location service starting")
             locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
             running = true
         }
-        Log.log("loc start: running = \(running)")
     }
     
     func checkRunning(){
         if authorized && !running{
-            Log.log("run after check")
+            Log.log("location service check")
             start()
         }
     }
     
     func stop(){
         if running{
+            Log.log("location service stopping")
             locationManager.stopUpdatingLocation()
             locationManager.stopUpdatingHeading()
         }
@@ -90,7 +91,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        Log.log("changed auth")
+        Log.log("location service changed authorization")
         checkRunning()
         if authorized, let loc = lastLocation{
             delegate?.locationDidChange(location: loc)
@@ -100,7 +101,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let loc = locations.last!
         if loc.horizontalAccuracy == -1{
-            Log.log("invalid position")
+            Log.log("location service: invalid position")
             return
         }
         Log.log("location changed to \(loc.toString())")

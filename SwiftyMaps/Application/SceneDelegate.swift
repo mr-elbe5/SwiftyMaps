@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        //Log.startLogging()
         FileController.initialize()
         Preferences.loadInstance()
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -45,12 +46,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if !ActiveTrack.isTracking{
             LocationService.shared.stop()
         }
-        Preferences.instance.save()
-        FileController.deleteTemoporaryFiles()
+        Preferences.instance.save(zoom: mainController.mapView.zoom, currentCenterCoordinate: mainController.mapView.getVisibleCenterCoordinate())
+        FileController.deleteTemporaryFiles()
     }
 
 
 }
 
-var mainController : MainViewController? = nil
+var mainController : MainViewController!
 

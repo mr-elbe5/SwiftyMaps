@@ -19,6 +19,9 @@ class PreferencesViewController: PopupScrollViewController{
     var startWithLastPositionSwitch = LabeledSwitchView()
     var logSwitch = LabeledSwitchView()
     
+    var currentZoom : Int = MapStatics.minZoom
+    var currentCenterCoordinate : CLLocationCoordinate2D? = nil
+    
     override func loadView() {
         title = "mapPreferences".localize()
         super.loadView()
@@ -50,19 +53,24 @@ class PreferencesViewController: PopupScrollViewController{
         startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: Preferences.instance.startWithLastPosition)
         contentView.addSubview(startWithLastPositionSwitch)
         startWithLastPositionSwitch.setAnchors(top: maxPreloadTilesField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-    
-        logSwitch.setupView(labelText: "useLog".localize(), isOn: Log.isLogging)
-        contentView.addSubview(logSwitch)
-        logSwitch.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        logSwitch.delegate = self
         
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
         contentView.addSubview(saveButton)
-        saveButton.setAnchors(top: logSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        saveButton.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
             .centerX(contentView.centerXAnchor)
+        
+        if Log.useLogging{
+            logSwitch.setupView(labelText: "useLog".localize(), isOn: Log.isLogging)
+            contentView.addSubview(logSwitch)
+            logSwitch.setAnchors(top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+            logSwitch.delegate = self
+        }
+        else{
+            saveButton.bottom(contentView.bottomAnchor, inset: defaultInset)
+        }
     }
     
     @objc func save(){
@@ -87,7 +95,7 @@ class PreferencesViewController: PopupScrollViewController{
             Preferences.instance.startZoom = val
         }
         Preferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
-        Preferences.instance.save()
+        Preferences.instance.save(zoom: currentZoom, currentCenterCoordinate: currentCenterCoordinate)
         self.dismiss(animated: true)
     }
     
@@ -96,13 +104,13 @@ class PreferencesViewController: PopupScrollViewController{
 extension PreferencesViewController: SwitchDelegate{
     
     func switchValueDidChange(sender: LabeledSwitchView, isOn: Bool) {
-        if sender == logSwitch{
+        if Log.useLogging, sender == logSwitch{
             if sender.isOn{
                 Log.startLogging()
             }
             else{
                 Log.stopLogging()
-                if let url = URL(string: "log_\(Date().fileDate()).log", relativeTo: FileController.documentURL){
+                if let url = URL(string: "log_\(Date().fileDate()).log", relativeTo: FileController.logDirURL){
                     let s = Log.toString()
                     if let data = s.data(using: .utf8){
                         FileController.saveFile(data : data, url: url)

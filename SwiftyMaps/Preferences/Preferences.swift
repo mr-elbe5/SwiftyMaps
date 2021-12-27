@@ -29,12 +29,14 @@ class Preferences: Identifiable, Codable{
         else{
             instance = Preferences()
         }
-        instance.dump()
+        instance.log()
     }
     
     enum CodingKeys: String, CodingKey {
         case urlTemplate
         case startZoom
+        case startPositionLatitude
+        case startPositionLongitude
         case minLocationAccuracy
         case maxLocationMergeDistance
         case pinGroupRadius
@@ -45,6 +47,7 @@ class Preferences: Identifiable, Codable{
 
     var urlTemplate : String = defaultUrl
     var startZoom : Int = defaultStartZoom
+    var startPosition : CLLocationCoordinate2D = LocationService.shared.lastLocation?.coordinate ?? MapStatics.startCoordinate
     var minLocationAccuracy : CLLocationDistance = defaultminLocationAccuracy
     var maxLocationMergeDistance : CLLocationDistance = defaultMaxLocationMergeDistance
     var pinGroupRadius : CGFloat = defaultPinGroupRadius
@@ -59,6 +62,14 @@ class Preferences: Identifiable, Codable{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.defaultUrl
         startZoom = try values.decodeIfPresent(Int.self, forKey: .startZoom) ?? Preferences.defaultStartZoom
+        let lat = try values.decodeIfPresent(Double.self, forKey: .startPositionLatitude)
+        let lon = try values.decodeIfPresent(Double.self, forKey: .startPositionLongitude)
+        if let lat=lat, let lon=lon{
+            startPosition = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        }
+        else{
+            startPosition = MapStatics.startCoordinate
+        }
         minLocationAccuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minLocationAccuracy) ?? Preferences.defaultminLocationAccuracy
         maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? Preferences.defaultMaxLocationMergeDistance
         pinGroupRadius = try values.decodeIfPresent(CGFloat.self, forKey: .pinGroupRadius) ?? Preferences.defaultPinGroupRadius
@@ -71,6 +82,8 @@ class Preferences: Identifiable, Codable{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(urlTemplate, forKey: .urlTemplate)
         try container.encode(startZoom, forKey: .startZoom)
+        try container.encode(startPosition.latitude, forKey: .startPositionLatitude)
+        try container.encode(startPosition.longitude, forKey: .startPositionLongitude)
         try container.encode(minLocationAccuracy, forKey: .minLocationAccuracy)
         try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)
         try container.encode(pinGroupRadius, forKey: .pinGroupRadius)
@@ -79,19 +92,26 @@ class Preferences: Identifiable, Codable{
         try container.encode(showPins, forKey: .showPins)
     }
     
-    func save(){
+    func save(zoom: Int, currentCenterCoordinate: CLLocationCoordinate2D?){
+        Log.log("saving preferences:")
+        log()
+        if let coord = currentCenterCoordinate{
+            startZoom = zoom
+            startPosition = coord
+        }
         DataController.shared.save(forKey: .preferences, value: self)
     }
     
-    func dump(){
-        print("urlTemplate = \(urlTemplate)" )
-        print("startZoom = \(startZoom)" )
-        print("minLocationAccuracy = \(minLocationAccuracy)" )
-        print("maxLocationMergeDistance = \(maxLocationMergeDistance)" )
-        print("pinGroupRadius = \(pinGroupRadius)" )
-        print("startWithLastPosition = \(startWithLastPosition)" )
-        print("maxPreloadTiles = \(maxPreloadTiles)" )
-        print("showPins = \(showPins)" )
+    func log(){
+        Log.log("urlTemplate = \(urlTemplate)" )
+        Log.log("startZoom = \(startZoom)" )
+        Log.log("startPosition = \(startPosition)" )
+        Log.log("minLocationAccuracy = \(minLocationAccuracy)" )
+        Log.log("maxLocationMergeDistance = \(maxLocationMergeDistance)" )
+        Log.log("pinGroupRadius = \(pinGroupRadius)" )
+        Log.log("startWithLastPosition = \(startWithLastPosition)" )
+        Log.log("maxPreloadTiles = \(maxPreloadTiles)" )
+        Log.log("showPins = \(showPins)" )
     }
     
 }

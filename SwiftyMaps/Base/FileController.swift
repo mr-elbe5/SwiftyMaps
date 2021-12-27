@@ -22,6 +22,7 @@ class FileController {
     static var imageLibraryPath: String = NSSearchPathForDirectoriesInDomains(.picturesDirectory,.userDomainMask,true).first!
     static var imageLibraryURL : URL = FileManager.default.urls(for: .picturesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var gpxDirURL = documentURL.appendingPathComponent("gpx")
+    static var logDirURL = documentURL.appendingPathComponent("logs")
     
     static var temporaryPath : String {
         get{
@@ -43,6 +44,7 @@ class FileController {
     static func initialize() {
         try! FileManager.default.createDirectory(at: FileController.privateURL, withIntermediateDirectories: true, attributes: nil)
         try! FileManager.default.createDirectory(at: FileController.gpxDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileController.logDirURL, withIntermediateDirectories: true, attributes: nil)
     }
     
     static func getPath(dirPath: String, fileName: String ) -> String
@@ -87,7 +89,7 @@ class FileController {
             try data.write(to: url, options: .atomic)
             return true
         } catch let err{
-            print("Error saving file: " + err.localizedDescription)
+            Log.log("Error saving file: " + err.localizedDescription)
             return false
         }
     }
@@ -98,7 +100,7 @@ class FileController {
             try text.write(to: url, atomically: true, encoding: .utf8)
             return true
         } catch let err{
-            print("Error saving file: " + err.localizedDescription)
+            Log.log("Error saving file: " + err.localizedDescription)
             return false
         }
     }
@@ -112,7 +114,7 @@ class FileController {
             try FileManager.default.copyItem(at: getURL(dirURL: fromDir,fileName: name), to: getURL(dirURL: toDir, fileName: name))
             return true
         } catch let err{
-            print("Error copying file: " + err.localizedDescription)
+            Log.log("Error copying file: " + err.localizedDescription)
             return false
         }
     }
@@ -126,7 +128,7 @@ class FileController {
             try FileManager.default.copyItem(at: fromURL, to: toURL)
             return true
         } catch let err{
-            print("Error copying file: " + err.localizedDescription)
+            Log.log("Error copying file: " + err.localizedDescription)
             return false
         }
     }
@@ -219,7 +221,7 @@ class FileController {
     static func deleteFile(dirURL: URL, fileName: String) -> Bool{
         do{
             try FileManager.default.removeItem(at: getURL(dirURL: dirURL, fileName: fileName))
-            //print("file deleted: \(fileName)")
+            Log.log("file deleted: \(fileName)")
             return true
         }
         catch {
@@ -231,7 +233,7 @@ class FileController {
     static func deleteFile(url: URL) -> Bool{
         do{
             try FileManager.default.removeItem(at: url)
-            //print("file deleted: \(url)")
+            Log.log("file deleted: \(url)")
             return true
         }
         catch {
@@ -263,17 +265,17 @@ class FileController {
         print("\(count) files deleted")
     }
     
-    static func deleteTemoporaryFiles(){
+    static func deleteTemporaryFiles(){
         deleteAllFiles(dirURL: temporaryURL)
     }
     
-    static func printFileInfo(){
-        print("temporary files:")
+    static func logFileInfo(){
+        Log.log("temporary files:")
         var names = listAllFiles(dirPath: temporaryPath)
         for name in names{
             print(name)
         }
-        print("private files:")
+        Log.log("private files:")
         names = listAllFiles(dirPath: FileController.privateURL.path)
         for name in names{
             print(name)

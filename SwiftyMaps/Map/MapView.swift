@@ -24,7 +24,7 @@ class MapView: UIView {
     }
     
     var zoom: Int = 0
-    var userLocationInitialized = false
+    var startLocationIsSet = false
     
     var currentMapRegion : MapRegion{
         get{
@@ -83,7 +83,6 @@ class MapView: UIView {
     func setupLocationLayerView(){
         addSubview(locationLayerView)
         locationLayerView.fillView(view: self)
-        locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)
         locationLayerView.isHidden = !Preferences.instance.showPins
     }
     
@@ -155,27 +154,34 @@ class MapView: UIView {
     
     func setZoom(zoom: Int, animated: Bool){
         scrollView.setZoomScale(MapStatics.zoomScale(at: zoom - MapStatics.maxZoom), animated: animated)
+        self.zoom = zoom
         updateLocationLayer()
-        
     }
     
     func setDefaultLocation(){
-        setZoom(zoom: MapStatics.minZoom, animated: false)
-        scrollToCenteredCoordinate(coordinate: MapStatics.startCoordinate)
-    }
-    
-    func initalizeUserLocation(location: CLLocation){
-        setZoom(zoom: Preferences.instance.startZoom, animated: false)
-        scrollToCenteredCoordinate(coordinate: location.coordinate)
-        userLocationInitialized = true
+        if Preferences.instance.startWithLastPosition{
+            Log.log("set default location at last position")
+            startLocationIsSet = true
+            setZoom(zoom: Preferences.instance.startZoom, animated: false)
+            scrollToCenteredCoordinate(coordinate: Preferences.instance.startPosition)
+        }
+        else{
+            Log.log("set default location at default position")
+            setZoom(zoom: MapStatics.minZoom, animated: false)
+            scrollToCenteredCoordinate(coordinate: MapStatics.startCoordinate)
+        }
     }
     
     func locationDidChange(location: CLLocation) {
-        if !userLocationInitialized{
-            initalizeUserLocation(location: location)
+        if !startLocationIsSet{
+            Log.log("start location not set")
+            setZoom(zoom: Preferences.instance.startZoom, animated: false)
+            scrollToCenteredCoordinate(coordinate: location.coordinate)
+            startLocationIsSet = true
         }
         userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scale)
         if ActiveTrack.isTracking{
+            Log.log("updating track")
             ActiveTrack.updateTrack(with: location)
             trackLayerView.updateTrack()
             controlLayerView.updateTrackInfo()
@@ -218,7 +224,8 @@ extension MapView : UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         assertCenteredContent(scrollView: scrollView)
-        if userLocationInitialized{
+        if startLocationIsSet{
+            Log.log("start location is set: updating position")
             userLocationView.updatePosition(offset: contentOffset, scale: scale)
         }
         locationLayerView.updatePosition(offset: contentOffset, scale: scale)

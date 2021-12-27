@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This setting is needed for recording your position even if the app is in the background.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -19,9 +15,11 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
@@ -32,6 +30,8 @@
 	<string>The documents folder is used for export and import.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Your location is needed for showing your current position and record it on demand.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This setting is needed for recording your position even if the app is in the background.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Your location is needed for showing and saving your current position.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
