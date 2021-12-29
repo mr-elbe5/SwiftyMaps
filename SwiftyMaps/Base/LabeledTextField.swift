@@ -17,6 +17,9 @@ class LabeledTextField : UIView, UITextFieldDelegate{
         get{
             return textField.text ?? ""
         }
+        set{
+            textField.text = newValue
+        }
     }
     
     func setupView(labelText: String, text: String = "", isHorizontal : Bool = true){

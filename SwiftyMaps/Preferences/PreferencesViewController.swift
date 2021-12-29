@@ -30,9 +30,30 @@ class PreferencesViewController: PopupScrollViewController{
         contentView.addSubview(urlTemplateField)
         urlTemplateField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
+        let elbe5Button = UIButton()
+        elbe5Button.setTitle("-> elbe5.de template", for: .normal)
+        elbe5Button.setTitleColor(.systemBlue, for: .normal)
+        elbe5Button.addTarget(self, action: #selector(elbe5Template), for: .touchDown)
+        contentView.addSubview(elbe5Button)
+        elbe5Button.setAnchors(top: urlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+        
+        let osmButton = UIButton()
+        osmButton.setTitle("-> openstreetmap.org template", for: .normal)
+        osmButton.setTitleColor(.systemBlue, for: .normal)
+        osmButton.addTarget(self, action: #selector(osmTemplate), for: .touchDown)
+        contentView.addSubview(osmButton)
+        osmButton.setAnchors(top: elbe5Button.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+        
+        let germanOsmButton = UIButton()
+        germanOsmButton.setTitle("-> openstreetmap.de template", for: .normal)
+        germanOsmButton.setTitleColor(.systemBlue, for: .normal)
+        germanOsmButton.addTarget(self, action: #selector(germanOsmTemplate), for: .touchDown)
+        contentView.addSubview(germanOsmButton)
+        germanOsmButton.setAnchors(top: osmButton.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+        
         startZoomField.setupView(labelText: "startZoom".localize(), text: String(Int(Preferences.instance.startZoom)), isHorizontal: true)
         contentView.addSubview(startZoomField)
-        startZoomField.setAnchors(top: urlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        startZoomField.setAnchors(top: germanOsmButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         minLocationAccuracyField.setupView(labelText: "minLocationAccuracy".localize(), text: String(Int(Preferences.instance.minLocationAccuracy)), isHorizontal: true)
         contentView.addSubview(minLocationAccuracyField)
@@ -71,6 +92,18 @@ class PreferencesViewController: PopupScrollViewController{
         else{
             saveButton.bottom(contentView.bottomAnchor, inset: defaultInset)
         }
+    }
+    
+    @objc func elbe5Template(){
+        urlTemplateField.text = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
+    }
+    
+    @objc func osmTemplate(){
+        urlTemplateField.text = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+    }
+    
+    @objc func germanOsmTemplate(){
+        urlTemplateField.text = "https://a.tile.openstreetmap.de/{z}/{x}/{y}.png"
     }
     
     @objc func save(){
