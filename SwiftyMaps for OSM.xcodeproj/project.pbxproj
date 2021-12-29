@@ -106,7 +106,7 @@
 		4E025E3C274E420800D56ED7 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		4E05FECA2759266D005D903B /* TrackList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackList.swift; sourceTree = "<group>"; };
 		4E05FECC27592E64005D903B /* LocationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationList.swift; sourceTree = "<group>"; };
-		4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E0BD97D26E9FC66005A4A94 /* SwiftyMaps for OSM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftyMaps for OSM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4E0BD98926E9FC67005A4A94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 		4E0BD97E26E9FC66005A4A94 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */,
+				4E0BD97D26E9FC66005A4A94 /* SwiftyMaps for OSM.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -409,9 +409,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4E0BD97C26E9FC66005A4A94 /* SwiftyMaps */ = {
+		4E0BD97C26E9FC66005A4A94 /* SwiftyMaps for OSM */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "SwiftyMaps" */;
+			buildConfigurationList = 4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "SwiftyMaps for OSM" */;
 			buildPhases = (
 				4E0BD97926E9FC66005A4A94 /* Sources */,
 				4E0BD97A26E9FC66005A4A94 /* Frameworks */,
@@ -421,11 +421,11 @@
 			);
 			dependencies = (
 			);
-			name = SwiftyMaps;
+			name = "SwiftyMaps for OSM";
 			packageProductDependencies = (
 			);
 			productName = SwiftyMapViewer;
-			productReference = 4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */;
+			productReference = 4E0BD97D26E9FC66005A4A94 /* SwiftyMaps for OSM.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -442,7 +442,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "SwiftyMaps" */;
+			buildConfigurationList = 4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "SwiftyMaps for OSM" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -458,7 +458,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4E0BD97C26E9FC66005A4A94 /* SwiftyMaps */,
+				4E0BD97C26E9FC66005A4A94 /* SwiftyMaps for OSM */,
 			);
 		};
 /* End PBXProject section */
@@ -759,7 +759,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "SwiftyMaps" */ = {
+		4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "SwiftyMaps for OSM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E0BD98F26E9FC67005A4A94 /* Debug */,
@@ -768,7 +768,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "SwiftyMaps" */ = {
+		4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "SwiftyMaps for OSM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E0BD99226E9FC67005A4A94 /* Debug */,
