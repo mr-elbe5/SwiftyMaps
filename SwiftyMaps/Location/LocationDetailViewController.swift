@@ -164,7 +164,7 @@ class LocationDetailViewController: PopupScrollViewController{
     
     @objc func deleteLocation(){
         if let loc = location{
-            showApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
+            showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
                 Locations.deleteLocation(loc)
                 self.dismiss(animated: true){
                     self.delegate?.updateLocationLayer()
@@ -235,7 +235,7 @@ extension LocationDetailViewController: PhotoListItemDelegate{
     }
     
     func deletePhoto(sender: PhotoListItemView) {
-        showApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
+        showDestructiveApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
             if let location = self.location{
                 location.deletePhoto(photo: sender.photoData)
                 Locations.save()
@@ -279,7 +279,7 @@ extension LocationDetailViewController: TrackListItemDelegate{
     }
     
     func deleteTrack(sender: TrackListItemView) {
-        showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
+        showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
             if let location = self.location{
                 location.deleteTrack(track: sender.trackData)
                 Locations.save()

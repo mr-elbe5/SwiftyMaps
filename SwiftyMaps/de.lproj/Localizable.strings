@@ -34,10 +34,17 @@
 "tilesToLoad"="Zahl zu ladender Kacheln:";
 "sizeToLoad"="Gesamtgröße zu ladender Kacheln (ca):";
 "unloadedTiles"="Zahl von Ladefehlern:";
+"confirmPreload"="Haben Sie die Rechte für Massendownloads?";
+"preloadHint"="Sie finden Links zu den Regeln in den Einstellungen.";
 
 //preferences view - PrefrencesViewController
 "mapPreferences"="Einstellungen";
-"urlTemplate"="URL Template für OpenStreetMap Kacheln:";
+"urlTemplate"="URL-Template für OpenStreetMap-Kacheln:";
+"elbe5TileURL"="Template für Elbe5.de benutzen";
+"osmTileURL"="Template für OpenStreetMap.org benutzen";
+"elbe5LegalInfo"="Regeln für das Laden von Elbe5.de";
+"osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
+"preloadUrlTemplate"="URL Template für das Vorladen von OpenStreetMap-Kacheln:";
 "startZoom"="Startzoom [2-18]";
 "minLocationAccuracy"="Minimale horizontale Genauigkeit für GPS [m]";
 "maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";

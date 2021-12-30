@@ -75,7 +75,7 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func deleteTiles() {
-        showApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
+        showDestructiveApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
             MapTiles.clear()
             self.mapView.clearTiles()
         }
@@ -101,7 +101,7 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func deleteLocations() {
-        showApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
+        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
             Locations.deleteAllLocations()
             self.updateLocationLayer()
         }
@@ -143,7 +143,7 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func deleteTracks() {
-        showApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
+        showDestructiveApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
             Locations.deleteAllTracks()
             self.mapView.trackLayerView.setNeedsDisplay()
         }
@@ -247,7 +247,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
             deleteTrack(track: track)
         }
         else{
-            showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
+            showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
                 self.deleteTrack(track: track)
                 //pin change
             }

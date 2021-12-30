@@ -157,19 +157,21 @@ class MapPreloadViewController: PopupScrollViewController{
         if tiles.isEmpty{
             return
         }
-        if errors > 0{
-            errors = 0
-            updateValueViews()
-        }
-        startButton.isEnabled = false
-        cancelButton.isEnabled = true
-        downloadQueue = OperationQueue()
-        downloadQueue!.name = "downloadQueue"
-        downloadQueue!.maxConcurrentOperationCount = 2
-        tiles.forEach { tile in
-            let operation = TileDownloadOperation(tile: tile)
-            operation.delegate = self
-            downloadQueue!.addOperation(operation)
+        showApprove(title: "confirmPreload".localize(), text: "preloadHint".localize()){
+            if self.errors > 0{
+                self.errors = 0
+                self.updateValueViews()
+            }
+            self.startButton.isEnabled = false
+            self.cancelButton.isEnabled = true
+            self.downloadQueue = OperationQueue()
+            self.downloadQueue!.name = "downloadQueue"
+            self.downloadQueue!.maxConcurrentOperationCount = 2
+            self.tiles.forEach { tile in
+                let operation = TileDownloadOperation(tile: tile, urlTemplate: Preferences.instance.preloadUrlTemplate)
+                operation.delegate = self
+                self.downloadQueue!.addOperation(operation)
+            }
         }
     }
     

@@ -77,7 +77,7 @@ extension LocationListViewController : LocationCellDelegate{
             deleteLocation(location: location)
         }
         else{
-            showApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
+            showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
                 self.deleteLocation(location: location)
             }
         }

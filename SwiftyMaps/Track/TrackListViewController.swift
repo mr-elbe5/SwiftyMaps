@@ -121,7 +121,7 @@ extension TrackListViewController : TrackCellDelegate{
             self.deleteTrack(track: track)
         }
         else{
-            showApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
+            showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
                 self.deleteTrack(track: track)
             }
         }

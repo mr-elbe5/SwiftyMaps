@@ -162,8 +162,8 @@ class MapView: UIView {
         if Preferences.instance.startWithLastPosition{
             Log.log("set default location at last position")
             startLocationIsSet = true
-            setZoom(zoom: Preferences.instance.startZoom, animated: false)
-            scrollToCenteredCoordinate(coordinate: Preferences.instance.startPosition)
+            setZoom(zoom: Preferences.instance.lastZoom, animated: false)
+            scrollToCenteredCoordinate(coordinate: Preferences.instance.lastPosition)
         }
         else{
             Log.log("set default location at default position")

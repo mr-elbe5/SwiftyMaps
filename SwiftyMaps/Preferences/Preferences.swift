@@ -15,7 +15,8 @@ class Preferences: Identifiable, Codable{
     
     static var instance = Preferences()
     
-    static var defaultUrl = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
+    static var elbe5Url = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
+    static var osmUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
     static var defaultStartZoom : Int = 10
     static var defaultminLocationAccuracy : CLLocationDistance = 5.0
     static var defaultMaxLocationMergeDistance : CLLocationDistance = 10.0
@@ -34,9 +35,11 @@ class Preferences: Identifiable, Codable{
     
     enum CodingKeys: String, CodingKey {
         case urlTemplate
+        case preloadUrlTemplate
         case startZoom
-        case startPositionLatitude
-        case startPositionLongitude
+        case lastZoom
+        case lastPositionLatitude
+        case lastPositionLongitude
         case minLocationAccuracy
         case maxLocationMergeDistance
         case pinGroupRadius
@@ -45,9 +48,11 @@ class Preferences: Identifiable, Codable{
         case showPins
     }
 
-    var urlTemplate : String = defaultUrl
+    var urlTemplate : String = elbe5Url
+    var preloadUrlTemplate : String = elbe5Url
     var startZoom : Int = defaultStartZoom
-    var startPosition : CLLocationCoordinate2D = LocationService.shared.lastLocation?.coordinate ?? MapStatics.startCoordinate
+    var lastZoom : Int = defaultStartZoom
+    var lastPosition : CLLocationCoordinate2D = LocationService.shared.lastLocation?.coordinate ?? MapStatics.startCoordinate
     var minLocationAccuracy : CLLocationDistance = defaultminLocationAccuracy
     var maxLocationMergeDistance : CLLocationDistance = defaultMaxLocationMergeDistance
     var pinGroupRadius : CGFloat = defaultPinGroupRadius
@@ -60,15 +65,17 @@ class Preferences: Identifiable, Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.defaultUrl
+        urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.elbe5Url
+        preloadUrlTemplate = try values.decodeIfPresent(String.self, forKey: .preloadUrlTemplate) ?? Preferences.elbe5Url
         startZoom = try values.decodeIfPresent(Int.self, forKey: .startZoom) ?? Preferences.defaultStartZoom
-        let lat = try values.decodeIfPresent(Double.self, forKey: .startPositionLatitude)
-        let lon = try values.decodeIfPresent(Double.self, forKey: .startPositionLongitude)
+        lastZoom = try values.decodeIfPresent(Int.self, forKey: .lastZoom) ?? Preferences.defaultStartZoom
+        let lat = try values.decodeIfPresent(Double.self, forKey: .lastPositionLatitude)
+        let lon = try values.decodeIfPresent(Double.self, forKey: .lastPositionLongitude)
         if let lat=lat, let lon=lon{
-            startPosition = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+            lastPosition = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         }
         else{
-            startPosition = MapStatics.startCoordinate
+            lastPosition = MapStatics.startCoordinate
         }
         minLocationAccuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minLocationAccuracy) ?? Preferences.defaultminLocationAccuracy
         maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? Preferences.defaultMaxLocationMergeDistance
@@ -81,9 +88,11 @@ class Preferences: Identifiable, Codable{
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(urlTemplate, forKey: .urlTemplate)
+        try container.encode(preloadUrlTemplate, forKey: .preloadUrlTemplate)
         try container.encode(startZoom, forKey: .startZoom)
-        try container.encode(startPosition.latitude, forKey: .startPositionLatitude)
-        try container.encode(startPosition.longitude, forKey: .startPositionLongitude)
+        try container.encode(lastZoom, forKey: .lastZoom)
+        try container.encode(lastPosition.latitude, forKey: .lastPositionLatitude)
+        try container.encode(lastPosition.longitude, forKey: .lastPositionLongitude)
         try container.encode(minLocationAccuracy, forKey: .minLocationAccuracy)
         try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)
         try container.encode(pinGroupRadius, forKey: .pinGroupRadius)
@@ -96,16 +105,18 @@ class Preferences: Identifiable, Codable{
         Log.log("saving preferences:")
         log()
         if let coord = currentCenterCoordinate{
-            startZoom = zoom
-            startPosition = coord
+            lastZoom = zoom
+            lastPosition = coord
         }
         DataController.shared.save(forKey: .preferences, value: self)
     }
     
     func log(){
         Log.log("urlTemplate = \(urlTemplate)" )
+        Log.log("preloadUrlTemplate = \(preloadUrlTemplate)" )
         Log.log("startZoom = \(startZoom)" )
-        Log.log("startPosition = \(startPosition)" )
+        Log.log("lastZoom = \(lastZoom)" )
+        Log.log("lastPosition = \(lastPosition)" )
         Log.log("minLocationAccuracy = \(minLocationAccuracy)" )
         Log.log("maxLocationMergeDistance = \(maxLocationMergeDistance)" )
         Log.log("pinGroupRadius = \(pinGroupRadius)" )
