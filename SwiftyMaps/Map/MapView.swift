@@ -175,13 +175,16 @@ class MapView: UIView {
     func locationDidChange(location: CLLocation) {
         if !startLocationIsSet{
             Log.log("start location not set")
-            setZoom(zoom: Preferences.instance.startZoom, animated: false)
+            setZoom(zoom: MapStatics.minZoom, animated: false)
             scrollToCenteredCoordinate(coordinate: location.coordinate)
             startLocationIsSet = true
         }
+        else{
+            setZoom(zoom: Preferences.instance.startZoom, animated: false)
+        }
         userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scale)
         if ActiveTrack.isTracking{
-            Log.log("updating track")
+            Log.log("updating track with coordinate \(location.coordinate)")
             ActiveTrack.updateTrack(with: location)
             trackLayerView.updateTrack()
             controlLayerView.updateTrackInfo()

@@ -69,21 +69,13 @@ class PreferencesViewController: PopupScrollViewController{
         contentView.addSubview(startZoomField)
         startZoomField.setAnchors(top: preloadUrlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        minLocationAccuracyField.setupView(labelText: "minLocationAccuracy".localize(), text: String(Int(Preferences.instance.minLocationAccuracy)), isHorizontal: true)
-        contentView.addSubview(minLocationAccuracyField)
-        minLocationAccuracyField.setAnchors(top: startZoomField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
         maxLocationMergeDistanceField.setupView(labelText: "maxLocationMergeDistance".localize(), text: String(Int(Preferences.instance.maxLocationMergeDistance)), isHorizontal: true)
         contentView.addSubview(maxLocationMergeDistanceField)
-        maxLocationMergeDistanceField.setAnchors(top: minLocationAccuracyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        pinGroupRadiusField.setupView(labelText: "pinGroupRadius".localize(), text: String(Int(Preferences.instance.pinGroupRadius)), isHorizontal: true)
-        contentView.addSubview(pinGroupRadiusField)
-        pinGroupRadiusField.setAnchors(top: maxLocationMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        maxLocationMergeDistanceField.setAnchors(top: startZoomField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         maxPreloadTilesField.setupView(labelText: "maxPreloadTiles".localize(), text: String(Int(Preferences.instance.maxPreloadTiles)), isHorizontal: true)
         contentView.addSubview(maxPreloadTilesField)
-        maxPreloadTilesField.setAnchors(top: pinGroupRadiusField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        maxPreloadTilesField.setAnchors(top: maxLocationMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: Preferences.instance.startWithLastPosition)
         contentView.addSubview(startWithLastPositionSwitch)
@@ -94,18 +86,13 @@ class PreferencesViewController: PopupScrollViewController{
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
         contentView.addSubview(saveButton)
-        saveButton.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
-            .centerX(contentView.centerXAnchor)
-        
-        if Log.useLogging{
-            logSwitch.setupView(labelText: "useLog".localize(), isOn: Log.isLogging)
-            contentView.addSubview(logSwitch)
-            logSwitch.setAnchors(top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
-            logSwitch.delegate = self
-        }
-        else{
-            saveButton.bottom(contentView.bottomAnchor, inset: defaultInset)
-        }
+        saveButton.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
+    
+        logSwitch.setupView(labelText: "useLog".localize(), isOn: Log.isLogging)
+        contentView.addSubview(logSwitch)
+        logSwitch.setAnchors(top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+        logSwitch.delegate = self
     }
     
     @objc func elbe5Template(){
@@ -131,14 +118,8 @@ class PreferencesViewController: PopupScrollViewController{
             _ = MapTiles.clear()
         }
         Preferences.instance.preloadUrlTemplate = preloadUrlTemplateField.text
-        if let val = Int(minLocationAccuracyField.text){
-            Preferences.instance.minLocationAccuracy = CLLocationDistance(val)
-        }
         if let val = Int(maxLocationMergeDistanceField.text){
             Preferences.instance.maxLocationMergeDistance = CLLocationDistance(val)
-        }
-        if let val = Int(pinGroupRadiusField.text){
-            Preferences.instance.pinGroupRadius = CGFloat(val)
         }
         if let val = Int(maxPreloadTilesField.text){
             Preferences.instance.maxPreloadTiles = val
@@ -156,9 +137,10 @@ class PreferencesViewController: PopupScrollViewController{
 extension PreferencesViewController: SwitchDelegate{
     
     func switchValueDidChange(sender: LabeledSwitchView, isOn: Bool) {
-        if Log.useLogging, sender == logSwitch{
+        if sender == logSwitch{
             if sender.isOn{
                 Log.startLogging()
+                Preferences.instance.log()
             }
             else{
                 Log.stopLogging()

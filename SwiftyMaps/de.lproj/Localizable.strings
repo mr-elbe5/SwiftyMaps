@@ -46,10 +46,8 @@
 "osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
 "preloadUrlTemplate"="URL Template für das Vorladen von OpenStreetMap-Kacheln:";
 "startZoom"="Startzoom [2-18]";
-"minLocationAccuracy"="Minimale horizontale Genauigkeit für GPS [m]";
 "maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
 "minZoomToShowLocations"="Minimalzoom zur Anzeige von Orten (Nadeln) [2-18]";
-"pinGroupRadius"="Radius zur Anzeige von Nadeln als Gruppe [m bei vollem Zoom]";
 "maxPreloadTiles"="Maximale Anzahl von Kacheln zum Vorladen";
 "startWithLastPosition"="Mit der letzten Position starten";
 "showLocations"="Positionen (Nadeln) anzeigen";
@@ -145,7 +143,7 @@
 "appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden. Das Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen. Der vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server und auf Karten von Europa im Carto-Stil beschränkt. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
 
 "appIconsHeader"="Symbole";
-"userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck). Wenn die Position nicht genau genug bestimmt werden kann, erscheint ein halbtransparenter blauer Kreis.";
+"userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck). Wenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.";
 
 "locationMarkerInfoText"="Markierung mit Positionsangabe";
 "locationPhotoMarkerInfoText"="Markierung mit Positionsangabe und zugeordneten Fotos";
@@ -221,9 +219,8 @@
 //info for preferences
 "preferencesInfoHeader"="Voreinstellungen";
 "urlInfoText"="Die URL Templates sind serverspezifisch und müssen png-Dateien (Kacheln) liefern. Es muss sichergestellt sein, dass die Rechte zum Download der Kacheln vorliegen und dass keine unangemessenen Massendownloads erfolgen.";
-"minLocationAccuracyInfoText"="Dieser Wert gibt an, ab welcher Ungenauigkeit der aktuelle Standort als ungenau eingestuft wird.";
 "maxLocationMergeDistanceInfoText"="Maximale Entfernung zur Nutzung eines nahen Ortes (mit Abfrage)";
-"pinGroupRadiusInfoText"="Dieser Wert in m gibt an, unterhalb welchem Abstand Nadeln als Gruppe angezeigt werden.";
+"logInfoText"="Hier kann Logging an- und ausgeschaltet werden. Beim Ausschalten wird eine Log-Datei in SwiftyMaps/logs erzeugt.";
 
 
 

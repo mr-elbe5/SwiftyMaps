@@ -28,7 +28,7 @@ class LocationLayerView: UIView {
             }
         }
         else{
-            let planetDist = MapStatics.zoomScaleToPlanet(from: zoom) * Preferences.instance.pinGroupRadius
+            let planetDist = MapStatics.zoomScaleToPlanet(from: zoom) * 10 // 10m at full zoom
             var groups = Array<LocationGroup>()
             for location in Locations.list{
                 var grouped = false

@@ -42,25 +42,23 @@ class UserLocationView : UIView{
         if let drawCenter = drawCenter{
             let drawRect = CGRect(x: drawCenter.x - MapStatics.locationRadius , y: drawCenter.y - MapStatics.locationRadius, width: 2*MapStatics.locationRadius, height: 2*MapStatics.locationRadius)
             let ctx = UIGraphicsGetCurrentContext()!
-            if accuracy <= Preferences.instance.minLocationAccuracy{
-                let color = UserLocationView.userLocationColor.cgColor
-                ctx.beginPath()
-                ctx.addEllipse(in: drawRect.scaleCenteredBy(0.3))
-                ctx.setFillColor(color)
-                ctx.drawPath(using: .fill)
-                ctx.beginPath()
-                ctx.setLineWidth(2.0)
-                ctx.addEllipse(in: drawRect.scaleCenteredBy(0.6))
-                ctx.setStrokeColor(color)
-                ctx.drawPath(using: .stroke)
+            var color : CGColor!
+            if accuracy <= 10{
+                color = UIColor.systemBlue.cgColor
             }
             else{
-                let color = UserLocationView.userLocationColor.withAlphaComponent(0.2).cgColor
-                let ctx = UIGraphicsGetCurrentContext()!
-                ctx.setFillColor(color)
-                ctx.addEllipse(in: drawRect)
-                ctx.fillPath()
+                let redFactor = max(1.0, accuracy/100.0)
+                color = UIColor(red: redFactor, green: 0, blue: 1.0, alpha: 1.0).cgColor
             }
+            ctx.beginPath()
+            ctx.addEllipse(in: drawRect.scaleCenteredBy(0.3))
+            ctx.setFillColor(color)
+            ctx.drawPath(using: .fill)
+            ctx.beginPath()
+            ctx.setLineWidth(2.0)
+            ctx.addEllipse(in: drawRect.scaleCenteredBy(0.6))
+            ctx.setStrokeColor(color)
+            ctx.drawPath(using: .stroke)
             let angle1 = (direction - 15)*CGFloat.pi/180
             let angle2 = (direction + 15)*CGFloat.pi/180
             ctx.beginPath()

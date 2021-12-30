@@ -45,9 +45,7 @@
 "osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
 "preloadUrlTemplate"="URL Template for preloading OpenStreetMap Tiles:";
 "startZoom"="Start Zoom [2-18]";
-"minLocationAccuracy"="Minimal Horizontal Accuracy for GPS [m]";
 "maxLocationMergeDistance"="Maximal Distance for Merging Locations [m]";
-"pinGroupRadius"="Radius for Showing Pins as a Group [m]";
 "maxPreloadTiles"="Maximal Number of Tiles for Preload";
 "startWithLastPosition"="Start with last Position";
 "showLocations"="Show Location Markers (Needles)";
@@ -138,7 +136,7 @@
 "appInfoText"="This App is based on data from OpenStreetMap but not associated with the OpenStreetMap organization. Loading of map tiles from the configured server may only take place in accordance with the respective published terms of use. The default server, maps.elbe5.de, is a private server and restricted to the Europe map in carto style. Once loaded tiles are stored in the app until all tiles are deleted.";
 
 "appIconsHeader"="Icons";
-"userLocationInfoText"="Shows the current position and direction (red triangle). If the position is not exact enough, a transparent blue circle appears.";
+"userLocationInfoText"="Shows the current position and direction (red triangle). If the position is not exact, the color moves to purple.";
 
 "locationMarkerInfoText"="Location marker for location with data";
 "locationPhotoMarkerInfoText"="Location marker for location with data and assigned photos";
@@ -212,9 +210,8 @@
 //info for preferences
 "preferencesInfoHeader"="Preferences";
 "urlInfoText"="The URL templates are server specific and have to return png files (tiles). You must be sure to have the rights for downloading the tiles and that you do not start inappropriate mass downloads.";
-"minLocationAccuracyInfoText"="Dieser Wert gibt an, ab welcher Ungenauigkeit der aktuelle Standort als ungenau eingestuft wird.";
-"maxLocationMergeDistanceInfoText"="Maximale Entfernung zur Nutzung eines nahen Ortes (mit Abfrage)";
-"pinGroupRadiusInfoText"="Dieser Wert in m gibt an, unterhalb welchem Abstand Nadeln als Gruppe angezeigt werden.";
+"maxLocationMergeDistanceInfoText"="Maximal distance for using a nearby location (with prompt)";
+"logInfoText"="Here logging can be switched on or off. When switching off, a log file is created in SwiftyMaps/logs.";
 
 
 
