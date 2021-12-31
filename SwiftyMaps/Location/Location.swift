@@ -68,11 +68,9 @@ class Location : Hashable, Codable{
     }
     
     var coordinateString : String{
-        get{
-            let latitudeText = coordinate.latitude > 0 ? "north".localize() : "south".localize()
-            let longitudeText = coordinate.longitude > 0 ? "east".localize() : "west".localize()
-            return String(format: "%.04f", abs(coordinate.latitude)) + "° " + latitudeText + ", " + String(format: "%.04f", abs(coordinate.longitude)) + "° "  + longitudeText
-        }
+        let latitudeText = coordinate.latitude > 0 ? "north".localize() : "south".localize()
+        let longitudeText = coordinate.longitude > 0 ? "east".localize() : "west".localize()
+        return String(format: "%.04f", abs(coordinate.latitude)) + "° " + latitudeText + ", " + String(format: "%.04f", abs(coordinate.longitude)) + "° "  + longitudeText
     }
     
     var hasPhotos : Bool{

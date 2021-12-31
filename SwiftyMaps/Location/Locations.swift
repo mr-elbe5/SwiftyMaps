@@ -15,9 +15,7 @@ class Locations{
     static private var _lock = DispatchSemaphore(value: 1)
     
     static var size : Int{
-        get{
-            _list.count
-        }
+        _list.count
     }
     
     static func location(at idx: Int) -> Location?{
@@ -25,9 +23,7 @@ class Locations{
     }
     
     static var list : LocationList{
-        get{
-            _list
-        }
+        _list
     }
     
     @discardableResult

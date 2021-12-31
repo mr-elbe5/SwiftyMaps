@@ -71,9 +71,7 @@ class TileSet{
     }
     
     var size : Int{
-        get{
-            (maxX - minX + 1) * (maxY - minY + 1)
-        }
+        (maxX - minX + 1) * (maxY - minY + 1)
     }
     
 }

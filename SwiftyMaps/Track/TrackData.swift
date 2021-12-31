@@ -39,21 +39,17 @@ class TrackData : Hashable, Codable{
     var startLocation : Location!
     
     var duration : TimeInterval{
-        get{
-            if let pauseTime = pauseTime{
-                return startTime.distance(to: pauseTime) - pauseLength
-            }
-            return startTime.distance(to: endTime) - pauseLength
+        if let pauseTime = pauseTime{
+            return startTime.distance(to: pauseTime) - pauseLength
         }
+        return startTime.distance(to: endTime) - pauseLength
     }
     
     var durationUntilNow : TimeInterval{
-        get{
-            if let pauseTime = pauseTime{
-                return startTime.distance(to: pauseTime) - pauseLength
-            }
-            return startTime.distance(to: Date()) - pauseLength
+        if let pauseTime = pauseTime{
+            return startTime.distance(to: pauseTime) - pauseLength
         }
+        return startTime.distance(to: Date()) - pauseLength
     }
     
     init(startLocation: Location){

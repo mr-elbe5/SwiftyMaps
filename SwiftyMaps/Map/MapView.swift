@@ -17,37 +17,27 @@ class MapView: UIView {
     var controlLayerView = ControlLayerView()
     
     var scale: CGFloat{
-        get{
-            scrollView.zoomScale
+        scrollView.zoomScale
             // same as contentView.layer.affineTransform().a
-        }
     }
     
     var zoom: Int = 0
     var startLocationIsSet = false
     
     var currentMapRegion : MapRegion{
-        get{
-            MapRegion(topLeft: getCoordinate(screenPoint: CGPoint(x: 0, y: 0)), bottomRight: getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width, y: scrollView.visibleSize.height)), maxZoom: MapStatics.maxZoom)
-        }
+        MapRegion(topLeft: getCoordinate(screenPoint: CGPoint(x: 0, y: 0)), bottomRight: getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width, y: scrollView.visibleSize.height)), maxZoom: MapStatics.maxZoom)
     }
     
     var contentDrawScale : CGFloat{
-        get{
-            scale*tileLayerView.layer.contentsScale
-        }
+        scale*tileLayerView.layer.contentsScale
     }
     
     var contentOffset : CGPoint{
-        get{
-            scrollView.contentOffset
-        }
+        scrollView.contentOffset
     }
     
     var scrollViewPlanetSize : CGSize{
-        get{
-            CGSize(width: scrollView.contentSize.width/3, height: scrollView.contentSize.height)
-        }
+        CGSize(width: scrollView.contentSize.width/3, height: scrollView.contentSize.height)
     }
     
     func setupScrollView(){

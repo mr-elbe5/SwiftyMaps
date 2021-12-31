@@ -9,45 +9,31 @@ import UIKit
 extension UIViewController{
     
     var defaultInset : CGFloat{
-        get{
-            return Insets.defaultInset
-        }
+        Insets.defaultInset
     }
     
     var defaultInsets : UIEdgeInsets{
-        get{
-            return Insets.defaultInsets
-        }
+        Insets.defaultInsets
     }
     
     var doubleInsets : UIEdgeInsets{
-        get{
-            return Insets.doubleInsets
-        }
+        Insets.doubleInsets
     }
     
     var flatInsets : UIEdgeInsets{
-        get{
-            return Insets.flatInsets
-        }
+        Insets.flatInsets
     }
     
     var flatWideInsets : UIEdgeInsets{
-        get{
-            return Insets.flatWideInsets
-        }
+        Insets.flatWideInsets
     }
     
     var narrowInsets : UIEdgeInsets{
-        get{
-            return Insets.narrowInsets
-        }
+        Insets.narrowInsets
     }
     
     var wideInsets : UIEdgeInsets{
-        get{
-            return Insets.wideInsets
-        }
+        Insets.wideInsets
     }
     
     var isDarkMode: Bool {

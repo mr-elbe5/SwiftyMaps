@@ -65,39 +65,31 @@ extension Date {
 class DateFormats{
     
     static var dateOnlyFormatter : DateFormatter{
-        get{
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            dateFormatter.timeStyle = .none
-            return dateFormatter
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        return dateFormatter
     }
     
     static var timeOnlyFormatter : DateFormatter{
-        get{
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .none
-            dateFormatter.timeStyle = .short
-            return dateFormatter
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        return dateFormatter
     }
     
     static var dateTimeFormatter : DateFormatter{
-        get{
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            dateFormatter.timeStyle = .short
-            return dateFormatter
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        return dateFormatter
     }
     
     static var timestampFormatter : DateFormatter{
-        get{
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            dateFormatter.timeStyle = .medium
-            return dateFormatter
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .medium
+        return dateFormatter
     }
     
     static var fileDateFormatter : DateFormatter{
@@ -110,20 +102,16 @@ class DateFormats{
     }
     
     static var shortFileDateFormatter : DateFormatter{
-        get{
-            let dateFormatter = DateFormatter()
-            dateFormatter.timeZone = .none
-            dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm"
-            return dateFormatter
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = .none
+        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm"
+        return dateFormatter
     }
     
     static var isoFormatter : ISO8601DateFormatter{
-        get{
-            let dateFormatter = ISO8601DateFormatter()
-            dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
-            return dateFormatter
-        }
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFullDate, .withFullTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
+        return dateFormatter
     }
     
 }

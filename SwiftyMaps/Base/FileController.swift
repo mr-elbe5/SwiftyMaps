@@ -25,20 +25,15 @@ class FileController {
     static var logDirURL = documentURL.appendingPathComponent("logs")
     
     static var temporaryPath : String {
-        get{
-            return tempDir
-        }
+        tempDir
     }
+    
     static var temporaryURL : URL{
-        get{
-            return URL(fileURLWithPath: temporaryPath, isDirectory: true)
-        }
+        URL(fileURLWithPath: temporaryPath, isDirectory: true)
     }
     
     static var privatePath : String{
-        get{
-            privateURL.path
-        }
+        privateURL.path
     }
     
     static func initialize() {
@@ -49,7 +44,7 @@ class FileController {
     
     static func getPath(dirPath: String, fileName: String ) -> String
     {
-        return dirPath+"/"+fileName
+        dirPath+"/"+fileName
     }
     
     static func getURL(dirURL: URL, fileName: String ) -> URL

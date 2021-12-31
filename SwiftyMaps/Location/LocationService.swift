@@ -37,15 +37,11 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     var authorized : Bool{
-        get{
-            return locationManager.authorized
-        }
+        locationManager.authorized
     }
     
     var authorizedForTracking : Bool{
-        get{
-            return locationManager.authorizedForTracking
-        }
+        locationManager.authorizedForTracking
     }
     
     func getPlacemarkInfo(for location: Location){

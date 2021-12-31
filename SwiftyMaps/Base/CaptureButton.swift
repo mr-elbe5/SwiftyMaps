@@ -32,16 +32,14 @@ class CaptureButton: UIButton {
     }
     
     private var innerPath : UIBezierPath{
-        get{
-            switch buttonState {
-                case .normal:    return innerCircle
-                case .recording: return innerRect
-            }
+        switch buttonState {
+        case .normal:    return innerCircle
+        case .recording: return innerRect
         }
     }
     
     private var lineWidth: CGFloat {
-        return bounds.width * 0.1
+        bounds.width * 0.1
     }
     
     lazy private var innerCircleLayer: CAShapeLayer = {

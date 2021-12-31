@@ -25,21 +25,15 @@ class PhotoData : Equatable, Identifiable, Codable{
     var isNew = false
     
     var fileName : String {
-        get{
-            return "img_\(id)_\(creationDate.shortFileDate()).jpg"
-        }
+        "img_\(id)_\(creationDate.shortFileDate()).jpg"
     }
     
     var filePath : String{
-        get{
-            return FileController.getPath(dirPath: FileController.privatePath,fileName: fileName)
-        }
+        FileController.getPath(dirPath: FileController.privatePath,fileName: fileName)
     }
     
     var fileURL : URL{
-        get{
-            return FileController.getURL(dirURL: FileController.privateURL,fileName: fileName)
-        }
+        FileController.getURL(dirURL: FileController.privateURL,fileName: fileName)
     }
     
     init(isNew: Bool = false){

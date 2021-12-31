@@ -11,72 +11,52 @@ import UIKit
 extension UIView{
     
     var defaultInset : CGFloat{
-        get{
-            return Insets.defaultInset
-        }
+        Insets.defaultInset
     }
     
     var defaultInsets : UIEdgeInsets{
-        get{
-            return Insets.defaultInsets
-        }
+        Insets.defaultInsets
     }
     
     var doubleInsets : UIEdgeInsets{
-        get{
-            return Insets.doubleInsets
-        }
+        Insets.doubleInsets
     }
     
     var flatInsets : UIEdgeInsets{
-        get{
-            return Insets.flatInsets
-        }
+        Insets.flatInsets
     }
     
     var narrowInsets : UIEdgeInsets{
-        get{
-            return Insets.narrowInsets
-        }
+        Insets.narrowInsets
     }
     
     var highPriority : Float{
-        get{
-            return 900
-        }
+        900
     }
     
     var midPriority : Float{
-        get{
-            return 500
-        }
+        500
     }
     
     var lowPriority : Float{
-        get{
-            return 300
-        }
+        300
     }
     
     static var defaultPriority : Float{
-        get{
-            return 900
-        }
+        900
     }
     
     var transparentColor : UIColor{
-        get{
-            if isDarkMode{
-                return UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.8)
-            }
-            else{
-                return UIColor(displayP3Red: 255, green: 255, blue: 255, alpha: 0.85)
-            }
+        if isDarkMode{
+            return UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.8)
+        }
+        else{
+            return UIColor(displayP3Red: 255, green: 255, blue: 255, alpha: 0.85)
         }
     }
     
     var isDarkMode: Bool {
-        return self.traitCollection.userInterfaceStyle == .dark
+        self.traitCollection.userInterfaceStyle == .dark
     }
     
     func setRoundedBorders(){

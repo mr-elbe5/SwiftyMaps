@@ -10,22 +10,18 @@ import CoreLocation
 extension CLLocationManager{
     
     var authorized : Bool{
-        get{
-            switch authorizationStatus{
-            case .authorizedAlways:
-                return true
-            case.authorizedWhenInUse:
-                return true
-            default:
-                return false
-            }
+        switch authorizationStatus{
+        case .authorizedAlways:
+            return true
+        case.authorizedWhenInUse:
+            return true
+        default:
+            return false
         }
     }
     
     var authorizedForTracking : Bool{
-        get{
-            authorizationStatus == .authorizedAlways
-        }
+        authorizationStatus == .authorizedAlways
     }
     
 }
