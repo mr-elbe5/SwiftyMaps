@@ -10,8 +10,10 @@ typealias LocationList = Array<Location>
     
 extension LocationList{
     
+    static var storeKey = "locations"
+    
     static func load() -> LocationList{
-        if let locations : LocationList = DataController.shared.load(forKey: .locations){
+        if let locations : LocationList = DataController.shared.load(forKey: LocationList.storeKey){
             return locations
         }
         else{
@@ -20,7 +22,8 @@ extension LocationList{
     }
     
     static func save(_ list: LocationList){
-        DataController.shared.save(forKey: .locations, value: list)
+        DataController.shared.save(forKey: LocationList.storeKey, value: list)
     }
     
 }
+

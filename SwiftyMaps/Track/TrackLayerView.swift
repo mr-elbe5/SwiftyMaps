@@ -13,7 +13,7 @@ class TrackLayerView: UIView {
     var scale : CGFloat = 1.0
     var normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint())
     
-    private var track : TrackData? = nil
+    var track : TrackData? = nil
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return false

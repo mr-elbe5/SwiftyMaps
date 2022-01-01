@@ -91,8 +91,24 @@ class PreferencesViewController: PopupScrollViewController{
     
         logSwitch.setupView(labelText: "useLog".localize(), isOn: Log.isLogging)
         contentView.addSubview(logSwitch)
-        logSwitch.setAnchors(top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+        logSwitch.setAnchors(top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         logSwitch.delegate = self
+        
+        let clearLogButton = UIButton()
+        clearLogButton.setTitle("clearLog".localize(), for: .normal)
+        clearLogButton.setTitleColor(.systemBlue, for: .normal)
+        clearLogButton.addTarget(self, action: #selector(clearLog), for: .touchDown)
+        contentView.addSubview(clearLogButton)
+        clearLogButton.setAnchors(top: logSwitch.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
+        
+        let saveLogButton = UIButton()
+        saveLogButton.setTitle("saveLog".localize(), for: .normal)
+        saveLogButton.setTitleColor(.systemBlue, for: .normal)
+        saveLogButton.addTarget(self, action: #selector(saveLog), for: .touchDown)
+        contentView.addSubview(saveLogButton)
+        saveLogButton.setAnchors(top: clearLogButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
     }
     
     @objc func elbe5Template(){
@@ -128,8 +144,24 @@ class PreferencesViewController: PopupScrollViewController{
             Preferences.instance.startZoom = val
         }
         Preferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
-        Preferences.instance.save(zoom: currentZoom, currentCenterCoordinate: currentCenterCoordinate)
-        self.dismiss(animated: true)
+        Preferences.instance.save()
+    }
+    
+    @objc func clearLog(){
+        logSwitch.isOn = false
+        Log.clear()
+    }
+    
+    @objc func saveLog(){
+        logSwitch.isOn = false
+        if !Log.isEmtpy{
+            if let url = URL(string: "log_\(Date().fileDate()).log", relativeTo: FileController.logDirURL){
+                let s = Log.toString()
+                if let data = s.data(using: .utf8){
+                    FileController.saveFile(data : data, url: url)
+                }
+            }
+        }
     }
     
 }
@@ -140,16 +172,9 @@ extension PreferencesViewController: SwitchDelegate{
         if sender == logSwitch{
             if sender.isOn{
                 Log.startLogging()
-                Preferences.instance.log()
             }
             else{
                 Log.stopLogging()
-                if let url = URL(string: "log_\(Date().fileDate()).log", relativeTo: FileController.logDirURL){
-                    let s = Log.toString()
-                    if let data = s.data(using: .utf8){
-                        FileController.saveFile(data : data, url: url)
-                    }
-                }
             }
         }
     }

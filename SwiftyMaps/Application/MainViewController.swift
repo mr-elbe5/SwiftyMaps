@@ -102,8 +102,12 @@ extension MainViewController: ControlLayerDelegate{
     
     func deleteLocations() {
         showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
+            if ActiveTrack.track != nil{
+                self.cancelActiveTrack()
+            }
             Locations.deleteAllLocations()
             self.updateLocationLayer()
+            self.mapView.clearTrack()
         }
     }
     
@@ -144,8 +148,10 @@ extension MainViewController: ControlLayerDelegate{
     
     func deleteTracks() {
         showDestructiveApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
+            self.cancelActiveTrack()
             Locations.deleteAllTracks()
-            self.mapView.trackLayerView.setNeedsDisplay()
+            self.updateLocationLayer()
+            self.mapView.clearTrack()
         }
     }
     
@@ -225,6 +231,12 @@ extension MainViewController: LocationListDelegate{
     }
     
     func deleteLocation(location: Location) {
+        if let track = ActiveTrack.track, location.tracks.contains(track){
+            cancelActiveTrack()
+        }
+        if let track = mapView.trackLayerView.track, location.tracks.contains(track){
+            mapView.clearTrack()
+        }
         Locations.deleteLocation(location)
         Locations.save()
         updateLocationLayer()
@@ -249,13 +261,14 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
         else{
             showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
                 self.deleteTrack(track: track)
-                //pin change
             }
         }
     }
     
     private func deleteTrack(track: TrackData){
         Locations.deleteTrack(track: track)
+        mapView.clearTrack(track)
+        updateLocationLayer()
     }
     
     func showTrackOnMap(track: TrackData) {
@@ -281,8 +294,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     
     func cancelActiveTrack() {
         ActiveTrack.stopTracking()
-        mapView.trackLayerView.setTrack(track: nil)
-        mapView.controlLayerView.stopTrackControl()
+        mapView.clearTrack()
     }
     
     func saveActiveTrack() {

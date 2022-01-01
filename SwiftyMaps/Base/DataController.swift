@@ -8,12 +8,6 @@ import Foundation
 
 class DataController{
     
-    enum StoreKey: String, CaseIterable {
-        case preferences
-        case locations
-        case tracks
-    }
-    
     static var shared = DataController()
     
     let store: UserDefaults
@@ -22,17 +16,17 @@ class DataController{
         self.store = UserDefaults.standard
     }
     
-    func save(forKey key: StoreKey, value: Codable) {
+    func save(forKey key: String, value: Codable) {
         let storeString = value.toJSON()
         //print(storeString)
-        store.set(storeString, forKey: key.rawValue)
+        store.set(storeString, forKey: key)
     }
     
-    func load<T : Codable>(forKey key: StoreKey) -> T? {
-        if let storedString = store.value(forKey: key.rawValue) as? String {
+    func load<T : Codable>(forKey key: String) -> T? {
+        if let storedString = store.value(forKey: key) as? String {
             return T.fromJSON(encoded: storedString)
         }
-        print("no saved data available for \(key.rawValue)")
+        print("no saved data available for \(key)")
         return nil
     }
     

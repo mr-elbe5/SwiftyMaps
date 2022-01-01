@@ -18,9 +18,19 @@ class Log{
         logging
     }
     
+    static var isEmtpy: Bool{
+        entries.isEmpty
+    }
+    
     static func startLogging(){
         logging = true
-        log("log started")
+        if isEmtpy{
+            log("log started")
+            Preferences.instance.log()
+        }
+        else{
+            log("log resumed")
+        }
     }
     
     static func stopLogging(){

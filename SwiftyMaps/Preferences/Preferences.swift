@@ -23,7 +23,7 @@ class Preferences: Identifiable, Codable{
     static var defaultMaxPreloadTiles : Int = 5000
     
     static func loadInstance(){
-        if let prefs : Preferences = DataController.shared.load(forKey: .preferences){
+        if let prefs : Preferences = DataController.shared.load(forKey: Preferences.storeKey){
             instance = prefs
         }
         else{
@@ -36,9 +36,6 @@ class Preferences: Identifiable, Codable{
         case urlTemplate
         case preloadUrlTemplate
         case startZoom
-        case lastZoom
-        case lastPositionLatitude
-        case lastPositionLongitude
         case maxLocationMergeDistance
         case startWithLastPosition
         case maxPreloadTiles
@@ -48,8 +45,6 @@ class Preferences: Identifiable, Codable{
     var urlTemplate : String = elbe5Url
     var preloadUrlTemplate : String = elbe5Url
     var startZoom : Int = defaultStartZoom
-    var lastZoom : Int = defaultStartZoom
-    var lastPosition : CLLocationCoordinate2D = LocationService.shared.lastLocation?.coordinate ?? MapStatics.startCoordinate
     var maxLocationMergeDistance : CLLocationDistance = defaultMaxLocationMergeDistance
     var startWithLastPosition : Bool = true
     var maxPreloadTiles : Int = defaultMaxPreloadTiles
@@ -57,21 +52,12 @@ class Preferences: Identifiable, Codable{
     
     init(){
     }
-    
+
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.elbe5Url
         preloadUrlTemplate = try values.decodeIfPresent(String.self, forKey: .preloadUrlTemplate) ?? Preferences.elbe5Url
         startZoom = try values.decodeIfPresent(Int.self, forKey: .startZoom) ?? Preferences.defaultStartZoom
-        lastZoom = try values.decodeIfPresent(Int.self, forKey: .lastZoom) ?? Preferences.defaultStartZoom
-        let lat = try values.decodeIfPresent(Double.self, forKey: .lastPositionLatitude)
-        let lon = try values.decodeIfPresent(Double.self, forKey: .lastPositionLongitude)
-        if let lat=lat, let lon=lon{
-            lastPosition = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        }
-        else{
-            lastPosition = MapStatics.startCoordinate
-        }
         maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? Preferences.defaultMaxLocationMergeDistance
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         maxPreloadTiles = try values.decodeIfPresent(Int.self, forKey: .maxPreloadTiles) ?? Preferences.defaultMaxPreloadTiles
@@ -83,31 +69,22 @@ class Preferences: Identifiable, Codable{
         try container.encode(urlTemplate, forKey: .urlTemplate)
         try container.encode(preloadUrlTemplate, forKey: .preloadUrlTemplate)
         try container.encode(startZoom, forKey: .startZoom)
-        try container.encode(lastZoom, forKey: .lastZoom)
-        try container.encode(lastPosition.latitude, forKey: .lastPositionLatitude)
-        try container.encode(lastPosition.longitude, forKey: .lastPositionLongitude)
         try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(maxPreloadTiles, forKey: .maxPreloadTiles)
         try container.encode(showPins, forKey: .showPins)
     }
     
-    func save(zoom: Int, currentCenterCoordinate: CLLocationCoordinate2D?){
+    func save(){
         Log.log("saving preferences:")
         log()
-        if let coord = currentCenterCoordinate{
-            lastZoom = zoom
-            lastPosition = coord
-        }
-        DataController.shared.save(forKey: .preferences, value: self)
+        DataController.shared.save(forKey: Preferences.storeKey, value: self)
     }
     
     func log(){
         Log.log("urlTemplate = \(urlTemplate)" )
         Log.log("preloadUrlTemplate = \(preloadUrlTemplate)" )
         Log.log("startZoom = \(startZoom)" )
-        Log.log("lastZoom = \(lastZoom)" )
-        Log.log("lastPosition = \(lastPosition)" )
         Log.log("maxLocationMergeDistance = \(maxLocationMergeDistance)" )
         Log.log("startWithLastPosition = \(startWithLastPosition)" )
         Log.log("maxPreloadTiles = \(maxPreloadTiles)" )
