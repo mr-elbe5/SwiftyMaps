@@ -1,5 +1,5 @@
 "NSCameraUsageDescription"="Access to the camera is needed for taking photos, which will be stored in the app in connection with its location.";
-"NSDocumentsFolderUsageDescription"="The documents folder is used for export and import of gpx files and for logs.";
+"NSDocumentsFolderUsageDescription"="Access to the camera is needed for taking photos, which will be stored in the app in connection with its location.";
 "NSLocationAlwaysAndWhenInUseUsageDescription"="Your location is needed for showing your current position and record it on demand.";
 "NSLocationAlwaysUsageDescription"="This setting is needed for recording your position even if the app is in the background.";
 "NSLocationUsageDescription"="Your location is needed for showing and saving your current position.";
