@@ -100,6 +100,7 @@
 		4ECFC99F26FBB8AF0083977B /* MapPreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */; };
 		4ED5DF44273E831B00549AF8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5DF43273E831B00549AF8 /* Location.swift */; };
 		4EE6A891275A6E19007FBC67 /* PhotoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6A890275A6E19007FBC67 /* PhotoList.swift */; };
+		4EF5FA7727820B2D0004583B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EF5FA7927820B2D0004583B /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -199,6 +200,8 @@
 		4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPreloadViewController.swift; sourceTree = "<group>"; };
 		4ED5DF43273E831B00549AF8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		4EE6A890275A6E19007FBC67 /* PhotoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoList.swift; sourceTree = "<group>"; };
+		4EF5FA7827820B2D0004583B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EF5FA7A27820B300004583B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +237,7 @@
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
 				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
 				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
+				4EF5FA7927820B2D0004583B /* InfoPlist.strings */,
 				4E0BD9DD26EA043D005A4A94 /* Localizable.strings */,
 				4E0BD99726EA0020005A4A94 /* Application */,
 				4E24F48B27345DD5004E69C2 /* Extensions */,
@@ -472,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E0BD98D26E9FC67005A4A94 /* LaunchScreen.storyboard in Resources */,
+				4EF5FA7727820B2D0004583B /* InfoPlist.strings in Resources */,
 				4E0BD9DB26EA043D005A4A94 /* Localizable.strings in Resources */,
 				4E0BD98A26E9FC67005A4A94 /* Assets.xcassets in Resources */,
 			);
@@ -595,6 +600,15 @@
 				4E0BD9DE26EA0467005A4A94 /* de */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		4EF5FA7927820B2D0004583B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EF5FA7827820B2D0004583B /* en */,
+				4EF5FA7A27820B300004583B /* de */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

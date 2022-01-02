@@ -25,19 +25,19 @@
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Access to the camera is needed for taking photos, which will be stored in the app in connection with its location.</string>
+	<string></string>
 	<key>NSDocumentsFolderUsageDescription</key>
-	<string>The documents folder is used for export and import of gpx files and for logs.</string>
+	<string></string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Your location is needed for showing your current position and record it on demand.</string>
+	<string></string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This setting is needed for recording your position even if the app is in the background.</string>
+	<string></string>
 	<key>NSLocationUsageDescription</key>
-	<string>Your location is needed for showing and saving your current position.</string>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is needed for showing and saving your current position.</string>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>The access to the photo library is needed, when photos from the app are exported to the library or when photos from the library are assigned to a location.</string>
+	<string></string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
