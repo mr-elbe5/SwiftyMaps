@@ -1,3 +1,4 @@
+
 //common
 "back"="Zurück";
 "cancel" = "Abbrechen";
@@ -54,6 +55,8 @@
 "useLog"="Log benutzen";
 "clearLog"="Log zurücksetzen";
 "saveLog"="Log speichern";
+"preferencesSaved"="Die Einstellungen wurden gespeichert.";
+"logSaved"="Das Log wurde gespeichert.";
 
 // location menu - ControlLayerView
 "addLocation"="Nadel hinzufügen";

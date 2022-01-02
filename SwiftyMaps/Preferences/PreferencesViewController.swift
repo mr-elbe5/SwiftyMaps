@@ -145,6 +145,7 @@ class PreferencesViewController: PopupScrollViewController{
         }
         Preferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
         Preferences.instance.save()
+        showDone(title: "ok".localize(), text: "preferencesSaved".localize())
     }
     
     @objc func clearLog(){
@@ -159,6 +160,7 @@ class PreferencesViewController: PopupScrollViewController{
                 let s = Log.toString()
                 if let data = s.data(using: .utf8){
                     FileController.saveFile(data : data, url: url)
+                    showDone(title: "ok".localize(), text: "logSaved".localize())
                 }
             }
         }

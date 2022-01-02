@@ -1,3 +1,4 @@
+
 //common
 "back"="Back";
 "cancel" = "Cancel";
@@ -52,6 +53,8 @@
 "useLog"="Use Logging";
 "clearLog"="Clear Log";
 "saveLog"="Save Log";
+"preferencesSaved"="The preferences have been saved.";
+"logSaved"="The log has been saved.";
 
 // location menu - ControlLayerView
 "addLocation"="Add Location Marker (Needle)";

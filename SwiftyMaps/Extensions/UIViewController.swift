@@ -66,5 +66,11 @@ extension UIViewController{
         self.present(alertController, animated: true)
     }
     
+    func showDone(title: String, text: String){
+        let alertController = UIAlertController(title: title, message: text, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "ok".localize(), style: .default))
+        self.present(alertController, animated: true)
+    }
+    
 }
 
