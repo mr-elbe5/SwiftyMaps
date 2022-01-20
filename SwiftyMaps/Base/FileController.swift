@@ -216,7 +216,7 @@ class FileController {
     static func deleteFile(dirURL: URL, fileName: String) -> Bool{
         do{
             try FileManager.default.removeItem(at: getURL(dirURL: dirURL, fileName: fileName))
-            Log.log("file deleted: \(fileName)")
+            Log.log("File deleted: \(fileName)")
             return true
         }
         catch {
@@ -228,7 +228,7 @@ class FileController {
     static func deleteFile(url: URL) -> Bool{
         do{
             try FileManager.default.removeItem(at: url)
-            Log.log("file deleted: \(url)")
+            Log.log("File deleted: \(url)")
             return true
         }
         catch {
@@ -265,12 +265,12 @@ class FileController {
     }
     
     static func logFileInfo(){
-        Log.log("temporary files:")
+        Log.log("Temporary files:")
         var names = listAllFiles(dirPath: temporaryPath)
         for name in names{
             print(name)
         }
-        Log.log("private files:")
+        Log.log("Private files:")
         names = listAllFiles(dirPath: FileController.privateURL.path)
         for name in names{
             print(name)

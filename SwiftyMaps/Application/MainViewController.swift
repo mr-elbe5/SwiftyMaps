@@ -259,7 +259,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
             deleteTrack(track: track)
         }
         else{
-            showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackInfo".localize()){
+            showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
                 self.deleteTrack(track: track)
             }
         }

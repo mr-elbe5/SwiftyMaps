@@ -27,12 +27,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        LocationService.shared.start()
+        Log.log("Changing to foreground")
+        if !LocationService.shared.running{
+            LocationService.shared.start()
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        if ActiveTrack.isTracking && !LocationService.shared.authorizedForTracking{
-            LocationService.shared.requestAlwaysAuthorization()
+        Log.log("Changing to background")
+        if ActiveTrack.isTracking{
+            Log.log("Now tracking in background mode")
+            if !LocationService.shared.authorizedForTracking{
+                LocationService.shared.requestAlwaysAuthorization()
+            }
         }
     }
 
@@ -44,6 +51,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Locations.save()
         if !ActiveTrack.isTracking{
             LocationService.shared.stop()
+        }
+        else{
+            
         }
         Preferences.instance.save()
         mainController.mapView.savePosition()

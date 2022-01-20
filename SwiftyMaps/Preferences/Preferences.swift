@@ -50,6 +50,9 @@ class Preferences: Identifiable, Codable{
     var maxPreloadTiles : Int = defaultMaxPreloadTiles
     var showPins : Bool = true
     
+    var minTrackingDistance : CGFloat = 5 // [m]
+    var minTrackingInterval : CGFloat = 5 // [sec]
+    
     init(){
     }
 
@@ -76,19 +79,18 @@ class Preferences: Identifiable, Codable{
     }
     
     func save(){
-        Log.log("saving preferences:")
-        log()
+        Log.log("Saving preferences")
         DataController.shared.save(forKey: Preferences.storeKey, value: self)
     }
     
     func log(){
-        Log.log("urlTemplate = \(urlTemplate)" )
-        Log.log("preloadUrlTemplate = \(preloadUrlTemplate)" )
-        Log.log("startZoom = \(startZoom)" )
-        Log.log("maxLocationMergeDistance = \(maxLocationMergeDistance)" )
-        Log.log("startWithLastPosition = \(startWithLastPosition)" )
-        Log.log("maxPreloadTiles = \(maxPreloadTiles)" )
-        Log.log("showPins = \(showPins)" )
+        Log.log("UrlTemplate = \(urlTemplate)" )
+        Log.log("PreloadUrlTemplate = \(preloadUrlTemplate)" )
+        Log.log("StartZoom = \(startZoom)" )
+        Log.log("MaxLocationMergeDistance = \(maxLocationMergeDistance)" )
+        Log.log("StartWithLastPosition = \(startWithLastPosition)" )
+        Log.log("MaxPreloadTiles = \(maxPreloadTiles)" )
+        Log.log("ShowPins = \(showPins)" )
     }
     
 }

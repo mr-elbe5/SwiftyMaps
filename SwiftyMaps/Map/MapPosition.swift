@@ -50,14 +50,7 @@ class MapPosition: Codable{
     }
     
     func save(){
-        Log.log("saving position:")
-        log()
         DataController.shared.save(forKey: MapPosition.storeKey, value: self)
-    }
-    
-    func log(){
-        Log.log("scale = \(scale)" )
-        Log.log("coordinate = \(coordinate)" )
     }
     
 }

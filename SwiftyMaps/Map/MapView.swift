@@ -162,14 +162,14 @@ class MapView: UIView {
     
     func setDefaultLocation(){
         if Preferences.instance.startWithLastPosition, let pos = position{
-            Log.log("set default location at last position")
+            Log.log("Setting location to last position")
             scaleTo(scale: pos.scale)
             updateLocationLayer()
             scrollToCenteredCoordinate(coordinate: pos.coordinate)
             startLocationIsSet = true
         }
         else{
-            Log.log("set default location at default position, zooming to min zoom")
+            Log.log("Setting location to default position, zooming to min zoom")
             zoomTo(zoom: MapStatics.minZoom, animated: false)
             scrollToCenteredCoordinate(coordinate: MapStatics.startCoordinate)
             updateLocationLayer()
@@ -178,7 +178,7 @@ class MapView: UIView {
     
     func locationDidChange(location: CLLocation) {
         if !startLocationIsSet{
-            Log.log("start location not set, zooming to min zoom")
+            Log.log("Start location not set, zooming to min zoom")
             zoomTo(zoom: MapStatics.minZoom, animated: false)
             scrollToCenteredCoordinate(coordinate: location.coordinate)
             updatePosition()
@@ -187,7 +187,6 @@ class MapView: UIView {
         else{
             userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scale)
             if ActiveTrack.isTracking{
-                Log.log("updating track with coordinate \(location.coordinate)")
                 ActiveTrack.updateTrack(with: location)
                 trackLayerView.updateTrack()
                 controlLayerView.updateTrackInfo()
@@ -215,7 +214,6 @@ class MapView: UIView {
     
     func updatePosition(){
         position = MapPosition(scale: scrollView.zoomScale, coordinate: getVisibleCenterCoordinate())
-        position?.log()
     }
     
     func savePosition(){

@@ -16,7 +16,6 @@ class LocationLayerView: UIView {
     var delegate : LocationLayerViewDelegate? = nil
     
     func setupPins(zoom: Int, offset: CGPoint, scale: CGFloat){
-        Log.log("setup pins with \(Locations.list.count) locations at zoom \(zoom) and scale \(scale)")
         for subview in subviews {
             subview.removeFromSuperview()
         }
@@ -48,12 +47,10 @@ class LocationLayerView: UIView {
             }
             for group in groups{
                 if group.locations.count > 1{
-                    Log.log("adding group pin")
                     let pin = LocationGroupPin(locationGroup: group)
                     addSubview(pin)
                 }
                 else if let location = group.locations.first{
-                    Log.log("adding single pin")
                     let pin = LocationPin(location: location)
                     addSubview(pin)
                     pin.addTarget(self, action: #selector(showLocationDetails), for: .touchDown)

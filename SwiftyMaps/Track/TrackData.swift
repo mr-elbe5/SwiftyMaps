@@ -93,21 +93,19 @@ class TrackData : Hashable, Codable{
     }
     
     func updateTrack(_ location: CLLocation){
+        
         let lastTP = trackpoints.last
         if let tp = lastTP{
-            if tp.coordinate.distance(to: location.coordinate) < 10{
-                //print("too close")
+            let distance = tp.coordinate.distance(to: location.coordinate)
+            if tp.coordinate.distance(to: location.coordinate) < Preferences.instance.minTrackingDistance{
                 return
             }
-            if tp.location.timestamp.distance(to: location.timestamp) < 2{
-                //print("too soon")
+            let interval = tp.location.timestamp.distance(to: location.timestamp)
+            if interval < Preferences.instance.minTrackingInterval{
                 return
             }
-        }
-        trackpoints.append(TrackPoint(location: location))
-        if let lastLoc = lastTP?.location{
-            distance += lastLoc.coordinate.distance(to: location.coordinate)
-            let vDist = location.altitude - lastLoc.altitude
+            self.distance += tp.location.coordinate.distance(to: location.coordinate)
+            let vDist = location.altitude - tp.location.altitude
             if vDist > 0{
                 upDistance += vDist
             }
@@ -116,7 +114,9 @@ class TrackData : Hashable, Codable{
                 downDistance -= vDist
             }
             endTime = location.timestamp
+            Log.log("Added trackpoint at \(location.coordinate.shortString) with distance \(Int(distance)) m after \(Int(interval)) sec")
         }
+        trackpoints.append(TrackPoint(location: location))
     }
     
     func pauseTracking(){

@@ -31,7 +31,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 5.0
+        locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.headingFilter = 2.0
         
     }
@@ -56,8 +56,11 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         lock.wait()
         defer{lock.signal()}
         if authorized, !running{
-            Log.log("location service starting")
+            Log.log("Location service starting")
             locationManager.startUpdatingLocation()
+            locationManager.allowsBackgroundLocationUpdates = true
+            locationManager.pausesLocationUpdatesAutomatically = false
+            locationManager.showsBackgroundLocationIndicator = true
             locationManager.startUpdatingHeading()
             running = true
         }
@@ -65,14 +68,13 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     
     func checkRunning(){
         if authorized && !running{
-            Log.log("location service check")
             start()
         }
     }
     
     func stop(){
         if running{
-            Log.log("location service stopping")
+            Log.log("Location service stopping")
             locationManager.stopUpdatingLocation()
             locationManager.stopUpdatingHeading()
         }
@@ -87,7 +89,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        Log.log("location service changed authorization")
+        Log.log("Location service changed authorization")
         checkRunning()
         if authorized, let loc = lastLocation{
             delegate?.locationDidChange(location: loc)
@@ -97,10 +99,8 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let loc = locations.last!
         if loc.horizontalAccuracy == -1{
-            Log.log("location service: invalid position")
             return
         }
-        Log.log("location changed to \(loc.toString())")
         lastLocation = loc
         delegate?.locationDidChange(location: loc)
     }
@@ -111,7 +111,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        Log.log("location updates paused")
+        Log.log("Location updates paused")
         running = false
         if let loc = lastLocation{
             let monitoredRegion = CLCircularRegion(center: loc.coordinate, radius: 5.0, identifier: "monitoredRegion")
@@ -120,12 +120,12 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
-        Log.log("location updates resumed")
+        Log.log("Location updates resumed")
         running = true
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        Log.log("location exited region")
+        Log.log("Location exited monitored region")
         if region.identifier == "monitoredRegion"{
             locationManager.stopMonitoring(for: region)
             if authorized{

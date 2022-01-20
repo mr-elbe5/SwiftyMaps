@@ -25,16 +25,16 @@ class Log{
     static func startLogging(){
         logging = true
         if isEmtpy{
-            log("log started")
+            log("Log started")
             Preferences.instance.log()
         }
         else{
-            log("log resumed")
+            log("Log resumed")
         }
     }
     
     static func stopLogging(){
-        log("log stopped")
+        log("Log stopped")
         logging = false
     }
     
@@ -59,6 +59,7 @@ class Log{
         var s = ""
         for entry in entries{
             s += entry.toString()
+            s += "\n"
         }
         return s
     }
@@ -71,6 +72,6 @@ struct LogEntry{
     var time: Date
     
     func toString() -> String{
-        time.timestampString() + " - " + text + "\n"
+        time.timestampString() + " - " + text
     }
 }

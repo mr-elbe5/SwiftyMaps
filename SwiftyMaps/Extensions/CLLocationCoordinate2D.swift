@@ -22,4 +22,8 @@ extension CLLocationCoordinate2D : Equatable{
         return sqrt(pow( latDelta * latMetersPerDegree,2) + pow( lonDelta * lonMetersPerDegree,2))
     }
     
+    public var shortString : String{
+        "lat: \(latitude), lon: \(longitude)"
+    }
+    
 }
