@@ -257,7 +257,9 @@ class FileController {
                 count += 1
             }
         }
-        print("\(count) files deleted")
+        if count > 0{
+            print("\(count) files deleted")
+        }
     }
     
     static func deleteTemporaryFiles(){

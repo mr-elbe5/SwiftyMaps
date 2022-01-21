@@ -44,7 +44,7 @@ class ActiveTrack{
     
     static func stopTracking(){
         if track != nil{
-            Log.log("Tracking stopped after \(track!.duration) sec")
+            Log.log("Tracking stopped after \(String(format: "%.1f",track!.duration))sec")
             isTracking = false
             track = nil
         }

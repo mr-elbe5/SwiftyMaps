@@ -24,8 +24,8 @@ class GPXCreator : NSObject{
     static func trackPointString(tp: TrackPoint) -> String{
             """
             
-                  <trkpt lat="\(tp.coordinate.latitude)" lon="\(tp.coordinate.longitude)">
-                    <ele>\(tp.location.altitude)</ele>
+                  <trkpt lat="\(String(format:"%.7f", tp.coordinate.latitude))" lon="\(String(format:"%.7f", tp.coordinate.longitude))">
+                    <ele>\(String(format: "%.1f",tp.location.altitude))</ele>
                     <time>\(tp.location.timestamp.isoString())</time>
                   </trkpt>
             """

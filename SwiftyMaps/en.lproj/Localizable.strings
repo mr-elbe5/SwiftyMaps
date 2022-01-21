@@ -47,6 +47,8 @@
 "preloadUrlTemplate"="URL Template for preloading OpenStreetMap Tiles:";
 "startZoom"="Start Zoom [2-18]";
 "maxLocationMergeDistance"="Maximal Distance for Merging Locations [m]";
+"minTrackingDistance"="Minimal distance from a trackpoint to the next one [m]";
+"minTrackingInterval"="Minimal time from a trackpoint to the next one [sec]";
 "maxPreloadTiles"="Maximal Number of Tiles for Preload";
 "startWithLastPosition"="Start with last Position";
 "showLocations"="Show Location Markers (Needles)";

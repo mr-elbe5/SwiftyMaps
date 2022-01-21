@@ -24,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidDisconnect(_ scene: UIScene) {
         LocationService.shared.stop()
+        FileController.deleteTemporaryFiles()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -57,9 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         Preferences.instance.save()
         mainController.mapView.savePosition()
-        FileController.deleteTemporaryFiles()
     }
-
 
 }
 

@@ -18,8 +18,10 @@ class Preferences: Identifiable, Codable{
     static var elbe5Url = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
     static var osmUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
     static var defaultStartZoom : Int = 10
-    static var defaultminLocationAccuracy : CLLocationDistance = 5.0
+    static var defaultMinLocationAccuracy : CLLocationDistance = 5.0
     static var defaultMaxLocationMergeDistance : CLLocationDistance = 10.0
+    static var defaultMinTrackingDistance : CGFloat = 5 // [m]
+    static var defaultMinTrackingInterval : CGFloat = 5 // [sec]
     static var defaultMaxPreloadTiles : Int = 5000
     
     static func loadInstance(){
@@ -37,6 +39,8 @@ class Preferences: Identifiable, Codable{
         case preloadUrlTemplate
         case startZoom
         case maxLocationMergeDistance
+        case minTrackingDistance
+        case minTrackingInterval
         case startWithLastPosition
         case maxPreloadTiles
         case showPins
@@ -46,12 +50,11 @@ class Preferences: Identifiable, Codable{
     var preloadUrlTemplate : String = elbe5Url
     var startZoom : Int = defaultStartZoom
     var maxLocationMergeDistance : CLLocationDistance = defaultMaxLocationMergeDistance
+    var minTrackingDistance : CGFloat = Preferences.defaultMinTrackingDistance
+    var minTrackingInterval : CGFloat = Preferences.defaultMinTrackingInterval
     var startWithLastPosition : Bool = true
     var maxPreloadTiles : Int = defaultMaxPreloadTiles
     var showPins : Bool = true
-    
-    var minTrackingDistance : CGFloat = 5 // [m]
-    var minTrackingInterval : CGFloat = 5 // [sec]
     
     init(){
     }
@@ -62,6 +65,8 @@ class Preferences: Identifiable, Codable{
         preloadUrlTemplate = try values.decodeIfPresent(String.self, forKey: .preloadUrlTemplate) ?? Preferences.elbe5Url
         startZoom = try values.decodeIfPresent(Int.self, forKey: .startZoom) ?? Preferences.defaultStartZoom
         maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? Preferences.defaultMaxLocationMergeDistance
+        minTrackingDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minTrackingDistance) ?? Preferences.defaultMinTrackingDistance
+        minTrackingInterval = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minTrackingInterval) ?? Preferences.defaultMinTrackingInterval
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         maxPreloadTiles = try values.decodeIfPresent(Int.self, forKey: .maxPreloadTiles) ?? Preferences.defaultMaxPreloadTiles
         showPins = try values.decodeIfPresent(Bool.self, forKey: .showPins) ?? true
@@ -73,6 +78,8 @@ class Preferences: Identifiable, Codable{
         try container.encode(preloadUrlTemplate, forKey: .preloadUrlTemplate)
         try container.encode(startZoom, forKey: .startZoom)
         try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)
+        try container.encode(minTrackingDistance, forKey: .minTrackingDistance)
+        try container.encode(minTrackingInterval, forKey: .minTrackingInterval)
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(maxPreloadTiles, forKey: .maxPreloadTiles)
         try container.encode(showPins, forKey: .showPins)
@@ -88,6 +95,8 @@ class Preferences: Identifiable, Codable{
         Log.log("PreloadUrlTemplate = \(preloadUrlTemplate)" )
         Log.log("StartZoom = \(startZoom)" )
         Log.log("MaxLocationMergeDistance = \(maxLocationMergeDistance)" )
+        Log.log("MinTrackingDistance = \(minTrackingDistance)" )
+        Log.log("MinTrackingInterval = \(minTrackingInterval)" )
         Log.log("StartWithLastPosition = \(startWithLastPosition)" )
         Log.log("MaxPreloadTiles = \(maxPreloadTiles)" )
         Log.log("ShowPins = \(showPins)" )

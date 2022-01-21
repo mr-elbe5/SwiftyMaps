@@ -23,7 +23,7 @@ extension CLLocationCoordinate2D : Equatable{
     }
     
     public var shortString : String{
-        "lat: \(latitude), lon: \(longitude)"
+        "lat: \(String(format: "%.7f", latitude)), lon: \(String(format: "%.7f", longitude))"
     }
     
 }

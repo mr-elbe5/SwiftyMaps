@@ -93,7 +93,6 @@ class TrackData : Hashable, Codable{
     }
     
     func updateTrack(_ location: CLLocation){
-        
         let lastTP = trackpoints.last
         if let tp = lastTP{
             let distance = tp.coordinate.distance(to: location.coordinate)
@@ -114,7 +113,7 @@ class TrackData : Hashable, Codable{
                 downDistance -= vDist
             }
             endTime = location.timestamp
-            Log.log("Added trackpoint at \(location.coordinate.shortString) with distance \(Int(distance)) m after \(Int(interval)) sec")
+            Log.log("Trackpoint at \(location.coordinate.shortString) ( \(Int(distance))m after \(String(format:"%.1f",interval))sec)")
         }
         trackpoints.append(TrackPoint(location: location))
     }

@@ -48,6 +48,8 @@
 "preloadUrlTemplate"="URL Template für das Vorladen von OpenStreetMap-Kacheln:";
 "startZoom"="Startzoom [2-18]";
 "maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
+"minTrackingDistance"="Minimale Entfernung von einem Tourpunkt zum nächsten [m]";
+"minTrackingInterval"="Minimale Zeit von einem Tourpunkt zum nächsten [sec]";
 "minZoomToShowLocations"="Minimalzoom zur Anzeige von Orten (Nadeln) [2-18]";
 "maxPreloadTiles"="Maximale Anzahl von Kacheln zum Vorladen";
 "startWithLastPosition"="Mit der letzten Position starten";
