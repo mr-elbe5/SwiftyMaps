@@ -112,12 +112,20 @@ class PreferencesViewController: PopupScrollViewController{
         clearLogButton.setAnchors(top: logSwitch.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
+        let deleteLogsButton = UIButton()
+        deleteLogsButton.setTitle("deleteAllLogs".localize(), for: .normal)
+        deleteLogsButton.setTitleColor(.systemBlue, for: .normal)
+        deleteLogsButton.addTarget(self, action: #selector(deleteAllLogs), for: .touchDown)
+        contentView.addSubview(deleteLogsButton)
+        deleteLogsButton.setAnchors(top: clearLogButton.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
+        
         let saveLogButton = UIButton()
         saveLogButton.setTitle("saveLog".localize(), for: .normal)
         saveLogButton.setTitleColor(.systemBlue, for: .normal)
         saveLogButton.addTarget(self, action: #selector(saveLog), for: .touchDown)
         contentView.addSubview(saveLogButton)
-        saveLogButton.setAnchors(top: clearLogButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        saveLogButton.setAnchors(top: deleteLogsButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
     }
     
@@ -179,6 +187,13 @@ class PreferencesViewController: PopupScrollViewController{
                     showDone(title: "ok".localize(), text: "logSaved".localize())
                 }
             }
+        }
+    }
+    
+    @objc func deleteAllLogs(){
+        showDestructiveApprove(title: "confirmDeleteLogs".localize(), text: "deleteLogsHint".localize()){
+            FileController.deleteAllFiles(dirURL: FileController.logDirURL)
+            self.showDone(title: "ok".localize(), text: "logsDeleted".localize())
         }
     }
     

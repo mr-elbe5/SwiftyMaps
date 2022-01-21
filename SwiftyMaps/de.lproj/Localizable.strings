@@ -57,22 +57,26 @@
 "useLog"="Log benutzen";
 "clearLog"="Log zurücksetzen";
 "saveLog"="Log speichern";
+"deleteAllLogs"="Alle Logs löschen";
+"confirmDeleteLogs"="Alle Logs löschen?";
+"deleteLogsHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
+"logsDeleted"="Die Logs wurden gelöscht.";
 "preferencesSaved"="Die Einstellungen wurden gespeichert.";
 "logSaved"="Das Log wurde gespeichert.";
 
 // location menu - ControlLayerView
-"addLocation"="Nadel hinzufügen";
-"showLocationList"="Positionsliste anzeigen";
-"showLocations"="Nadeln anzeigen";
-"hideLocations"="Nadeln ausblenden";
-"deleteLocations"="Alle Nadeln löschen";
-"confirmDeleteLocations"="Wollen Sie alle Nadeln löschen?";
+"addLocation"="Ort hinzufügen";
+"showLocationList"="Ortsliste anzeigen";
+"showLocations"="Orte (Nadeln) anzeigen";
+"hideLocations"="Orte (Nadeln) ausblenden";
+"deleteLocations"="Alle Orte löschen";
+"confirmDeleteLocations"="Wollen Sie alle Orte löschen?";
 "deleteLocationsHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Fotos und Touren werden ebenfalls gelöscht.";
 
 // location list - LocationListViewController/LocationCell
-"locationList"="Örtlichkeiten";
+"locationList"="Orte";
 "showDetails"="Details anzeigen";
-"confirmDeleteLocation"="Wollen Sie diese Örtlichkeit löschen?";
+"confirmDeleteLocation"="Wollen Sie diesen Ort löschen?";
 "deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos und Touren. Sie kann nicht rückgängig gemacht werden.";
 
 // track menu - ControlLayerView
@@ -152,32 +156,32 @@
 "appIconsHeader"="Symbole";
 "userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck). Wenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.";
 
-"locationMarkerInfoText"="Markierung mit Positionsangabe";
-"locationPhotoMarkerInfoText"="Markierung mit Positionsangabe und zugeordneten Fotos";
-"locationTrackMarkerInfoText"="Markierung mit Positionsangabe und zugeordneten Touren";
-"locationPhotoTrackMarkerInfoText"="Markierung mit Positionsangabe und zugeordneten Fotos und Touren";
+"locationMarkerInfoText"="Ort mit Positionsangabe";
+"locationPhotoMarkerInfoText"="Ort mit Positionsangabe und zugeordneten Fotos";
+"locationTrackMarkerInfoText"="Ort mit Positionsangabe und zugeordneten Touren";
+"locationPhotoTrackMarkerInfoText"="Ort mit Positionsangabe und zugeordneten Fotos und Touren";
 "locationDetailsInfoText"="Durch Antippen der Nadel wird die Detailansicht geöffnet (siehe unten)";
-"locationDefaultGroupInfoText"="Gruppe von einfachen Ortsmarkierungen";
-"locationPhotoGroupInfoText"="Gruppe von Markierungen mit Fotos";
-"locationTrackGroupInfoText"="Gruppe von Markierungen mit Touren";
-"locationPhotoTrackGroupInfoText"="Gruppe von Markierungen mit Fotos und Touren";
+"locationDefaultGroupInfoText"="Gruppe von Orten ohne Extras";
+"locationPhotoGroupInfoText"="Gruppe von Orten mit Fotos";
+"locationTrackGroupInfoText"="Gruppe von Orten mit Touren";
+"locationPhotoTrackGroupInfoText"="Gruppe von Orten mit Fotos und Touren";
 "locationGroupInfoText"="Eine Gruppennadel wird durch Hineinzoomen in die einzelnen Ortsmarkierungen aufgelöst.";
 
 "mapMenuInfoText"="Kartenmenü";
 "preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts (siehe unten)";
 "deleteTilesInfoText"="Alle geladenen Kacheln löschen";
 
-"locationMenuInfoText"="Ortsmarkierungen";
-"locationIconInfoText"="Kreuz zum Setzen einer Markierung anzeigen";
-"addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung erstellt werden. Existiert in der unmittelbaren Nähe bereits eine Markierung, kann diese benutzt werden.";
-"locationListInfoText"="List aller Ötrlichkeiten (siehe unten)";
+"locationMenuInfoText"="Orte";
+"locationIconInfoText"="Kreuz zum Markieren eines Ortes anzeigen";
+"addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung (Nadel) erstellt werden. Existiert in der unmittelbaren Nähe bereits eine Markierung, kann diese benutzt werden.";
+"locationListInfoText"="Liste aller Orte (siehe unten)";
 "showLocationsInfoText"="Nadeln auf der Karte einblenden";
 "hideLocationsInfoText"="Nadeln auf der Karte ausblenden";
-"deleteLocationsInfoText"="Löschen aller Markierungen und der aller zugeordneten Fotos und Touren";
+"deleteLocationsInfoText"="Löschen aller Orte und der aller zugeordneten Fotos und Touren";
 
 "trackMenuInfoText"="Touren";
 "startTrackInfoText"="Neue Tour starten";
-"startTrackLocationInfoText"="Wenn eine Tour gestartet wird, wird auch eine zugehörige Markierung für die Startposition erstellt und die Tour dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe (unterhalb der Ortsgenauigkeit) bereits eine Markierung, kann die Tour dieser Markierung zugeordnet werden.";
+"startTrackLocationInfoText"="Wenn eine Tour gestartet wird, wird auch eine zugehöriger Ort für die Startposition erstellt und die Tour diesem Ort zugeordnet. Existiert in der unmittelbaren Nähe bereits ein Ort, kann die Tour diesem Ort zugeordnet werden.";
 "currentTrackInfoText"="Aktuelle Tour öffnen (siehe unten)";
 "hideTrackInfoText"="Tour ausblenden";
 "trackListInfoText"="Liste aller Touren öffnen (siehe unten)";
@@ -186,7 +190,7 @@
 "centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
 
 "cameraIconInfoText"="Ein Foto machen";
-"addPhotoLocationInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehörige Markierung für die Position erstellt und das Foto dieser Markierung zugeordnet. Existiert in der unmittelbaren Nähe bereits eine Markierung, kann das Foto dieser Markierung zugeordnet werden.";
+"addPhotoLocationInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehöriger Ort für die Position erstellt und das Foto diesem Ort zugeordnet. Existiert in der unmittelbaren Nähe bereits ein Ort, kann das Foto diesem Ort zugeordnet werden.";
 
 "gearIconInfoText"="Voreinstellungen ändern (siehe unten)";
 
