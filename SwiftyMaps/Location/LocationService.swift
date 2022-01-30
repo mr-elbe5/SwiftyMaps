@@ -37,11 +37,18 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     var authorized : Bool{
-        locationManager.authorized
+        switch locationManager.authorizationStatus{
+        case .authorizedAlways:
+            return true
+        case.authorizedWhenInUse:
+            return true
+        default:
+            return false
+        }
     }
     
     var authorizedForTracking : Bool{
-        locationManager.authorizedForTracking
+        locationManager.authorizationStatus == .authorizedAlways
     }
     
     func getPlacemarkInfo(for location: Location){

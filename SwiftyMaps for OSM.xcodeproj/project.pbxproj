@@ -23,7 +23,6 @@
 		4E0BD9BD26EA0239005A4A94 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B826EA0239005A4A94 /* Date.swift */; };
 		4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B926EA0239005A4A94 /* String.swift */; };
 		4E0BD9BF26EA0239005A4A94 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9BA26EA0239005A4A94 /* URL.swift */; };
-		4E0BD9CB26EA02BA005A4A94 /* CLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C126EA02BA005A4A94 /* CLLocationManager.swift */; };
 		4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */; };
 		4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */; };
 		4E0BD9CE26EA02BA005A4A94 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C426EA02BA005A4A94 /* LocationService.swift */; };
@@ -122,7 +121,6 @@
 		4E0BD9B826EA0239005A4A94 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		4E0BD9B926EA0239005A4A94 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		4E0BD9BA26EA0239005A4A94 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
-		4E0BD9C126EA02BA005A4A94 /* CLLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationManager.swift; sourceTree = "<group>"; };
 		4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
 		4E0BD9C426EA02BA005A4A94 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
@@ -344,7 +342,6 @@
 			children = (
 				4E24F45D27345D11004E69C2 /* CGRect.swift */,
 				4E24F45E27345D11004E69C2 /* CGSize.swift */,
-				4E0BD9C126EA02BA005A4A94 /* CLLocationManager.swift */,
 				4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */,
 				4E0BD9B726EA0239005A4A94 /* Codable.swift */,
 				4E0BD9B826EA0239005A4A94 /* Date.swift */,
@@ -511,7 +508,6 @@
 				4ECFC99F26FBB8AF0083977B /* MapPreloadViewController.swift in Sources */,
 				4E0BD9BD26EA0239005A4A94 /* Date.swift in Sources */,
 				4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */,
-				4E0BD9CB26EA02BA005A4A94 /* CLLocationManager.swift in Sources */,
 				4E0BD9CE26EA02BA005A4A94 /* LocationService.swift in Sources */,
 				4E1B81172732EDC5003ED6B0 /* LocationLayerView.swift in Sources */,
 				4E52F3E8273FD2F30046DC98 /* MapRegion.swift in Sources */,
