@@ -53,9 +53,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if !ActiveTrack.isTracking{
             LocationService.shared.stop()
         }
-        else{
-            
-        }
         Preferences.instance.save()
         mainController.mapView.savePosition()
     }
