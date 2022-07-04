@@ -33,7 +33,7 @@
 		4E0BD9DB26EA043D005A4A94 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD9DD26EA043D005A4A94 /* Localizable.strings */; };
 		4E0BD9E426EA04EE005A4A94 /* AuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */; };
 		4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E226EA04EE005A4A94 /* FileError.swift */; };
-		4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B80F02732ED43003ED6B0 /* MainViewController.swift */; };
+		4E1B80F12732ED43003ED6B0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B80F02732ED43003ED6B0 /* MapViewController.swift */; };
 		4E1B81012732EDA2003ED6B0 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B80FF2732EDA2003ED6B0 /* PreferencesViewController.swift */; };
 		4E1B81022732EDA2003ED6B0 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81002732EDA2003ED6B0 /* Preferences.swift */; };
 		4E1B81122732EDC5003ED6B0 /* UserLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81032732EDC4003ED6B0 /* UserLocationView.swift */; };
@@ -99,6 +99,11 @@
 		4ECFC99F26FBB8AF0083977B /* MapPreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */; };
 		4ED5DF44273E831B00549AF8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5DF43273E831B00549AF8 /* Location.swift */; };
 		4EE6A891275A6E19007FBC67 /* PhotoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6A890275A6E19007FBC67 /* PhotoList.swift */; };
+		4EF2FD6528732EA9005DBA73 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD6428732EA9005DBA73 /* MainTabController.swift */; };
+		4EF2FD6A28732FC7005DBA73 /* CompassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD6928732FC7005DBA73 /* CompassViewController.swift */; };
+		4EF2FD6C2873301D005DBA73 /* TracksViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD6B2873301D005DBA73 /* TracksViewcontroller.swift */; };
+		4EF2FD6E2873305F005DBA73 /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD6D2873305F005DBA73 /* LocationsViewController.swift */; };
+		4EF2FD7028733725005DBA73 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD6F28733725005DBA73 /* ScrollViewController.swift */; };
 		4EF5FA7727820B2D0004583B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EF5FA7927820B2D0004583B /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -132,7 +137,7 @@
 		4E0BD9DE26EA0467005A4A94 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationError.swift; sourceTree = "<group>"; };
 		4E0BD9E226EA04EE005A4A94 /* FileError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileError.swift; sourceTree = "<group>"; };
-		4E1B80F02732ED43003ED6B0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		4E1B80F02732ED43003ED6B0 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4E1B80FF2732EDA2003ED6B0 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		4E1B81002732EDA2003ED6B0 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		4E1B81032732EDC4003ED6B0 /* UserLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationView.swift; sourceTree = "<group>"; };
@@ -198,6 +203,11 @@
 		4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPreloadViewController.swift; sourceTree = "<group>"; };
 		4ED5DF43273E831B00549AF8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		4EE6A890275A6E19007FBC67 /* PhotoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoList.swift; sourceTree = "<group>"; };
+		4EF2FD6428732EA9005DBA73 /* MainTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		4EF2FD6928732FC7005DBA73 /* CompassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassViewController.swift; sourceTree = "<group>"; };
+		4EF2FD6B2873301D005DBA73 /* TracksViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewcontroller.swift; sourceTree = "<group>"; };
+		4EF2FD6D2873305F005DBA73 /* LocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
+		4EF2FD6F28733725005DBA73 /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		4EF5FA7827820B2D0004583B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4EF5FA7A27820B300004583B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,6 +242,9 @@
 		4E0BD97F26E9FC66005A4A94 /* SwiftyMaps */ = {
 			isa = PBXGroup;
 			children = (
+				4EF2FD6828732F8D005DBA73 /* Compass */,
+				4EF2FD6728732F81005DBA73 /* Tracks */,
+				4EF2FD6628732F76005DBA73 /* Locations */,
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
 				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
 				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
@@ -254,9 +267,9 @@
 		4E0BD99726EA0020005A4A94 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4EF2FD6428732EA9005DBA73 /* MainTabController.swift */,
 				4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
-				4E1B80F02732ED43003ED6B0 /* MainViewController.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -293,6 +306,7 @@
 				4E24F47127345D11004E69C2 /* TextButton.swift */,
 				4E24F46927345D11004E69C2 /* TextEditArea.swift */,
 				4E3F128F277886FE006F9C31 /* Log.swift */,
+				4EF2FD6F28733725005DBA73 /* ScrollViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -366,6 +380,7 @@
 		4E3BE7EA26EA7E57000F9069 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				4E1B80F02732ED43003ED6B0 /* MapViewController.swift */,
 				4E1B81112732EDC5003ED6B0 /* MapStatics.swift */,
 				4E1B810B2732EDC5003ED6B0 /* NormalizedPlanetPoint.swift */,
 				4E1B810E2732EDC5003ED6B0 /* NormalizedPlanetRect.swift */,
@@ -408,6 +423,30 @@
 				4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */,
 			);
 			path = Tile;
+			sourceTree = "<group>";
+		};
+		4EF2FD6628732F76005DBA73 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				4EF2FD6D2873305F005DBA73 /* LocationsViewController.swift */,
+			);
+			path = Locations;
+			sourceTree = "<group>";
+		};
+		4EF2FD6728732F81005DBA73 /* Tracks */ = {
+			isa = PBXGroup;
+			children = (
+				4EF2FD6B2873301D005DBA73 /* TracksViewcontroller.swift */,
+			);
+			path = Tracks;
+			sourceTree = "<group>";
+		};
+		4EF2FD6828732F8D005DBA73 /* Compass */ = {
+			isa = PBXGroup;
+			children = (
+				4EF2FD6928732FC7005DBA73 /* CompassViewController.swift */,
+			);
+			path = Compass;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,6 +542,7 @@
 				4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,
 				4ED5DF44273E831B00549AF8 /* Location.swift in Sources */,
+				4EF2FD6E2873305F005DBA73 /* LocationsViewController.swift in Sources */,
 				4E24F47A27345D11004E69C2 /* UILabel.swift in Sources */,
 				4E0BD9BF26EA0239005A4A94 /* URL.swift in Sources */,
 				4ECFC99F26FBB8AF0083977B /* MapPreloadViewController.swift in Sources */,
@@ -518,6 +558,7 @@
 				4E24F48027345D11004E69C2 /* UITextView.swift in Sources */,
 				4EA835E8277F1BCE001BA2E9 /* MapPosition.swift in Sources */,
 				4E1B81202732EDC5003ED6B0 /* MapStatics.swift in Sources */,
+				4EF2FD6528732EA9005DBA73 /* MainTabController.swift in Sources */,
 				4E24F48727345D11004E69C2 /* UIImageView.swift in Sources */,
 				4E025E3B274E3C4300D56ED7 /* CurrentTrackLine.swift in Sources */,
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,
@@ -549,6 +590,7 @@
 				4E24F48127345D11004E69C2 /* TextEditArea.swift in Sources */,
 				4E1B811C2732EDC5003ED6B0 /* MapTile.swift in Sources */,
 				4E89173F273688580046AC91 /* LocationDetailViewController.swift in Sources */,
+				4EF2FD6C2873301D005DBA73 /* TracksViewcontroller.swift in Sources */,
 				4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */,
 				4E1B81142732EDC5003ED6B0 /* ControlLayerView.swift in Sources */,
 				4E0BD9E426EA04EE005A4A94 /* AuthorizationError.swift in Sources */,
@@ -558,6 +600,7 @@
 				4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */,
 				4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */,
 				4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */,
+				4EF2FD7028733725005DBA73 /* ScrollViewController.swift in Sources */,
 				4E1B81012732EDA2003ED6B0 /* PreferencesViewController.swift in Sources */,
 				4E1B811A2732EDC5003ED6B0 /* NormalizedPlanetPoint.swift in Sources */,
 				4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */,
@@ -568,10 +611,11 @@
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
 				4E68B5BE275F59F00025A80A /* LocationDialog.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
-				4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */,
+				4E1B80F12732ED43003ED6B0 /* MapViewController.swift in Sources */,
 				4E1B81162732EDC5003ED6B0 /* MapTiles.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,
 				4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */,
+				4EF2FD6A28732FC7005DBA73 /* CompassViewController.swift in Sources */,
 				4E1B81022732EDA2003ED6B0 /* Preferences.swift in Sources */,
 				4E4B758D273AA28100CB4B41 /* PhotoData.swift in Sources */,
 				4E1B811B2732EDC5003ED6B0 /* Locations.swift in Sources */,

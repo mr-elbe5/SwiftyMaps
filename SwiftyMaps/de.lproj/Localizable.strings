@@ -20,6 +20,13 @@
 "start"="Start";
 "close"="Schliessen";
 
+//main tabs
+"map"="Karte";
+"compass"="Kompass";
+"locations"="Orte";
+"tracks"="Touren";
+"info"="Info";
+
 //map menu - ControlLayerView
 "preloadMaps"="Kartenkacheln vorladen...";
 "preloadMapsAlert"="Sie versuchen, %@ Kacheln vorzuladen. Die maximale Menge ist %@ Kacheln. Bitte wählen Sie eine kleinere Region aus (durch Hineinzoomen).";
@@ -123,8 +130,7 @@
 "location"="Position";
 "locationData"="Positonsangaben";
 "description"="Beschreibung";
-"photos"="Foto(s)";
-"tracks"="Tour(en)";
+"photos"="Fotos";
 "confirmDeletePhoto"="Wollen Sie dieses Foto löschen?";
 "deletePhotoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 "confirmDeleteTrack"="Wollen Sie diese Tour löschen?";

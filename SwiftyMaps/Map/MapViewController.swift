@@ -10,7 +10,7 @@ import AVKit
 
 
 
-class MainViewController: UIViewController {
+class MapViewController :  UIViewController {
     
     var mapView = MapView()
     
@@ -34,7 +34,7 @@ class MainViewController: UIViewController {
     
 }
 
-extension MainViewController: LocationServiceDelegate{
+extension MapViewController: LocationServiceDelegate{
     
     func locationDidChange(location: CLLocation) {
         mapView.locationDidChange(location: location)
@@ -46,7 +46,7 @@ extension MainViewController: LocationServiceDelegate{
     
 }
 
-extension MainViewController: LocationLayerViewDelegate{
+extension MapViewController: LocationLayerViewDelegate{
     
     func showLocationDetails(location: Location) {
         let controller = LocationDetailViewController()
@@ -58,7 +58,7 @@ extension MainViewController: LocationLayerViewDelegate{
     
 }
 
-extension MainViewController: ControlLayerDelegate{
+extension MapViewController: ControlLayerDelegate{
     
     func preloadMap() {
         let region = mapView.currentMapRegion
@@ -197,7 +197,7 @@ extension MainViewController: ControlLayerDelegate{
     
 }
 
-extension MainViewController: PhotoCaptureDelegate{
+extension MapViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
         if let location = LocationService.shared.lastLocation{
@@ -216,7 +216,7 @@ extension MainViewController: PhotoCaptureDelegate{
     
 }
 
-extension MainViewController: LocationViewDelegate{
+extension MapViewController: LocationViewDelegate{
     
     func updateLocationLayer() {
         mapView.updateLocationLayer()
@@ -224,7 +224,7 @@ extension MainViewController: LocationViewDelegate{
     
 }
 
-extension MainViewController: LocationListDelegate{
+extension MapViewController: LocationListDelegate{
     
     func showOnMap(location: Location) {
         mapView.scrollToCenteredCoordinate(coordinate: location.coordinate)
@@ -244,7 +244,7 @@ extension MainViewController: LocationListDelegate{
 
 }
 
-extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrackDelegate{
+extension MapViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrackDelegate{
     
     func viewTrackDetails(track: TrackData) {
         let trackController = TrackDetailViewController()

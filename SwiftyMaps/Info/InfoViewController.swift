@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class InfoViewController: PopupScrollViewController {
+class InfoViewController: ScrollViewController {
     
     var stackView = UIStackView()
     
