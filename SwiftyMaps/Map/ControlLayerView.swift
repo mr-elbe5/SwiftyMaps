@@ -9,20 +9,13 @@ import UIKit
 protocol ControlLayerDelegate{
     func preloadMap()
     func deleteTiles()
-    func openLocationList()
     func showLocations(_ show: Bool)
-    func deleteLocations()
     func focusUserLocation()
-    func openInfo()
-    func openPreferences()
     func openCamera()
     func addLocation()
     func startTracking()
     func openTrack(track: TrackData)
     func hideTrack()
-    func openTrackList()
-    func deleteTracks()
-    
 }
 
 class ControlLayerView: UIView {
@@ -68,19 +61,9 @@ class ControlLayerView: UIView {
             .centerX(controlLine.centerXAnchor)
         focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
         
-        let infoControl = IconButton(icon: "info.circle")
-        controlLine.addSubview(infoControl)
-        infoControl.setAnchors(top: controlLine.topAnchor, trailing: controlLine.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
-        infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
-        
-        let preferencesControl = IconButton(icon: "gearshape")
-        controlLine.addSubview(preferencesControl)
-        preferencesControl.setAnchors(top: controlLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
-        preferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
-        
         let openCameraControl = IconButton(icon: "camera")
         controlLine.addSubview(openCameraControl)
-        openCameraControl.setAnchors(top: controlLine.topAnchor, trailing: preferencesControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
+        openCameraControl.setAnchors(top: controlLine.topAnchor, trailing: controlLine.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
         currentTrackLine.setup()
@@ -144,38 +127,26 @@ class ControlLayerView: UIView {
                 
             }
         }
-        let showLocationListAction = UIAction(title: "showLocationList".localize(), image: UIImage(systemName: "list.bullet")){ action in
-            self.delegate?.openLocationList()
-        }
-        let deleteLocationsAction = UIAction(title: "deleteLocations".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.deleteLocations()
-        }
-        return UIMenu(title: "", children: [addLocationAction, showLocationListAction, showLocationsAction, deleteLocationsAction])
+        return UIMenu(title: "", children: [addLocationAction, showLocationsAction])
     }
     
     func getTrackingMenu() -> UIMenu{
         let hideTrackAction = UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eye.slash")){ action in
             self.delegate?.hideTrack()
         }
-        let trackListAction = UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
-            self.delegate?.openTrackList()
-        }
-        let deleteTracksAction = UIAction(title: "deleteTracks".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.deleteTracks()
-        }
         if let track = ActiveTrack.track{
             let showCurrentAction = UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)){ action in
                 self.delegate?.openTrack(track: track)
                 self.trackMenuControl.menu = self.getTrackingMenu()
             }
-            return UIMenu(title: "", children: [showCurrentAction, hideTrackAction, trackListAction, deleteTracksAction])
+            return UIMenu(title: "", children: [showCurrentAction, hideTrackAction])
         }
         else{
             let startTrackAction = UIAction(title: "startNewTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
                 self.delegate?.startTracking()
                 self.trackMenuControl.menu = self.getTrackingMenu()
             }
-            return UIMenu(title: "", children: [startTrackAction, hideTrackAction, trackListAction, deleteTracksAction])
+            return UIMenu(title: "", children: [startTrackAction, hideTrackAction])
         }
     }
     
@@ -191,14 +162,6 @@ class ControlLayerView: UIView {
     
     @objc func focusUserLocation(){
         delegate?.focusUserLocation()
-    }
-    
-    @objc func openInfo(){
-        delegate?.openInfo()
-    }
-    
-    @objc func openPreferences(){
-        delegate?.openPreferences()
     }
     
     @objc func openCamera(){

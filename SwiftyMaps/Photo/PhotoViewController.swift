@@ -8,7 +8,7 @@ import Foundation
 import UIKit
 
 
-class PhotoViewController: PopupScrollViewController, UIScrollViewDelegate {
+class PhotoViewController: HeaderScrollViewController, UIScrollViewDelegate {
     
     var uiImage : UIImage? = nil
     var imageView : UIImageView? = nil
@@ -25,6 +25,11 @@ class PhotoViewController: PopupScrollViewController, UIScrollViewDelegate {
             scrollView.addSubview(imageView!)
             imageView!.fillView(view: scrollView)
         }
+    }
+    
+    override func setupHeaderView() {
+        super.setupHeaderView()
+        addCloseButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {

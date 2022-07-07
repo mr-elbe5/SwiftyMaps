@@ -15,7 +15,7 @@ class UserLocationView : UIView{
     var drawCenter : CGPoint? = nil
     var accuracy: CLLocationAccuracy = 100
     var planetPoint : CGPoint = .zero
-    var direction : CLLocationDirection = 0
+    var direction : Int = 0
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return false
@@ -33,7 +33,7 @@ class UserLocationView : UIView{
         setNeedsDisplay()
     }
     
-    func updateDirection(direction: CLLocationDirection){
+    func updateDirection(direction: Int){
         self.direction = direction
         setNeedsDisplay()
     }
@@ -59,13 +59,15 @@ class UserLocationView : UIView{
             ctx.addEllipse(in: drawRect.scaleCenteredBy(0.6))
             ctx.setStrokeColor(color)
             ctx.drawPath(using: .stroke)
-            let angle1 = (direction - 15)*CGFloat.pi/180
-            let angle2 = (direction + 15)*CGFloat.pi/180
+            let angle1 = (Double(direction) - 15.0)*CGFloat.pi/180
+            let sin1 = sin(angle1)
+            let angle2 = (Double(direction) + 15.0)*CGFloat.pi/180
+            let sin2 = sin(angle2)
             ctx.beginPath()
             ctx.setFillColor(UserLocationView.userDirectionColor.cgColor)
             ctx.move(to: drawCenter)
-            ctx.addLine(to: CGPoint(x: drawCenter.x + MapStatics.locationRadius * sin(angle1), y: drawCenter.y - MapStatics.locationRadius * cos(angle1)))
-            ctx.addLine(to: CGPoint(x: drawCenter.x + MapStatics.locationRadius * sin(angle2), y: drawCenter.y - MapStatics.locationRadius * cos(angle2)))
+            ctx.addLine(to: CGPoint(x: drawCenter.x + MapStatics.locationRadius * sin1, y: drawCenter.y - MapStatics.locationRadius * cos(angle1)))
+            ctx.addLine(to: CGPoint(x: drawCenter.x + MapStatics.locationRadius * sin2, y: drawCenter.y - MapStatics.locationRadius * cos(angle2)))
             ctx.closePath()
             ctx.drawPath(using: .fill)
         }

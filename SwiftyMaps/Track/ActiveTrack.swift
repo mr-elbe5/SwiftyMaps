@@ -15,16 +15,15 @@ class ActiveTrack{
     
     static func startTracking(startLocation: Location){
         if track == nil{
-            Log.log("Tracking started at \(startLocation.cllocation.coordinate.shortString)")
             track = TrackData(startLocation: startLocation)
-            track!.trackpoints.append(TrackPoint(location: startLocation.cllocation))
+            track!.trackpoints.append(Position(location: startLocation.cllocation))
         }
         isTracking = true
     }
     
-    static func updateTrack(with location: CLLocation){
+    static func updateTrack(with position: Position){
         if let track = track{
-            track.updateTrack(location)
+            track.updateTrack(position)
         }
     }
     
@@ -44,7 +43,6 @@ class ActiveTrack{
     
     static func stopTracking(){
         if track != nil{
-            Log.log("Tracking stopped after \(String(format: "%.1f",track!.duration))sec")
             isTracking = false
             track = nil
         }

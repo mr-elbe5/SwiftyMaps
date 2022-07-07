@@ -29,19 +29,7 @@ class MapViewController :  UIViewController {
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
         mapView.setDefaultLocation()
-        LocationService.shared.delegate = self
-    }
-    
-}
-
-extension MapViewController: LocationServiceDelegate{
-    
-    func locationDidChange(location: CLLocation) {
-        mapView.locationDidChange(location: location)
-    }
-    
-    func directionDidChange(direction: CLLocationDirection) {
-        mapView.setDirection(direction)
+        LocationService.shared.delegates.append(mapView)
     }
     
 }
@@ -88,32 +76,14 @@ extension MapViewController: ControlLayerDelegate{
         }
     }
     
-    func openLocationList() {
-        let controller = LocationListViewController()
-        controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
-        present(controller, animated: true)
-    }
-    
     func showLocations(_ show: Bool) {
         Preferences.instance.showPins = show
         mapView.locationLayerView.isHidden = !Preferences.instance.showPins
     }
     
-    func deleteLocations() {
-        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
-            if ActiveTrack.track != nil{
-                self.cancelActiveTrack()
-            }
-            Locations.deleteAllLocations()
-            self.updateLocationLayer()
-            self.mapView.clearTrack()
-        }
-    }
-    
     func startTracking(){
-        if let lastLocation = LocationService.shared.lastLocation{
-            assertLocation(coordinate: lastLocation.coordinate){ location in
+        if let lastPosition = LocationService.shared.lastPosition{
+            assertLocation(coordinate: lastPosition.coordinate){ location in
                 ActiveTrack.startTracking(startLocation: location)
                 if let track = ActiveTrack.track{
                     self.mapView.trackLayerView.setTrack(track: track)
@@ -136,23 +106,6 @@ extension MapViewController: ControlLayerDelegate{
     
     func hideTrack() {
         mapView.trackLayerView.setTrack(track: nil)
-    }
-    
-    func openTrackList() {
-        let controller = TrackListViewController()
-        controller.tracks = Locations.getAllTracks()
-        controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
-        present(controller, animated: true)
-    }
-    
-    func deleteTracks() {
-        showDestructiveApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
-            self.cancelActiveTrack()
-            Locations.deleteAllTracks()
-            self.updateLocationLayer()
-            self.mapView.clearTrack()
-        }
     }
     
     func focusUserLocation() {
@@ -200,8 +153,8 @@ extension MapViewController: ControlLayerDelegate{
 extension MapViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
-        if let location = LocationService.shared.lastLocation{
-            assertLocation(coordinate: location.coordinate){ location in
+        if let lastPosition = LocationService.shared.lastPosition{
+            assertLocation(coordinate: lastPosition.coordinate){ location in
                 let changeState = location.photos.isEmpty
                 location.addPhoto(photo: photo)
                 Locations.save()
@@ -224,7 +177,7 @@ extension MapViewController: LocationViewDelegate{
     
 }
 
-extension MapViewController: LocationListDelegate{
+extension MapViewController: LocationsDelegate{
     
     func showOnMap(location: Location) {
         mapView.scrollToCenteredCoordinate(coordinate: location.coordinate)
@@ -244,7 +197,7 @@ extension MapViewController: LocationListDelegate{
 
 }
 
-extension MapViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrackDelegate{
+extension MapViewController: TrackDetailDelegate, TracksDelegate, ActiveTrackDelegate{
     
     func viewTrackDetails(track: TrackData) {
         let trackController = TrackDetailViewController()

@@ -108,8 +108,6 @@ class InfoViewController: ScrollViewController {
         stackView.addArrangedSubview(UILabel(text: "urlInfoText".localize()))
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(text: "maxLocationMergeDistance".localize() + ": " + "maxLocationMergeDistanceInfoText".localize()))
-        stackView.addSpacer()
-        stackView.addArrangedSubview(UILabel(text: "useLog".localize() + ": " + "logInfoText".localize()))
     }
     
 }

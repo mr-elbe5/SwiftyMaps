@@ -9,37 +9,40 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol TrackListDelegate{
+protocol TracksDelegate{
     func showTrackOnMap(track: TrackData)
     func deleteTrack(track: TrackData, approved: Bool)
     func cancelActiveTrack()
     func saveActiveTrack()
 }
 
-class TrackListViewController: PopupTableViewController{
+class TracksViewController: HeaderTableViewController{
 
     private static let CELL_IDENT = "trackCell"
     
     var tracks: TrackList? = nil
     
     // MainViewController
-    var delegate: TrackListDelegate? = nil
+    var delegate: TracksDelegate? = nil
     
     override open func loadView() {
-        title = "trackList".localize()
+        //title = "trackList".localize()
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TrackCell.self, forCellReuseIdentifier: TrackListViewController.CELL_IDENT)
+        tableView.register(TrackCell.self, forCellReuseIdentifier: TracksViewController.CELL_IDENT)
     }
     
     override func setupHeaderView(){
         super.setupHeaderView()
-        
-        let loadButton = IconButton(icon: "arrow.down.square", tintColor: .white)
+        let loadButton = IconButton(icon: "arrow.down.square", tintColor: .systemBlue)
         headerView.addSubview(loadButton)
         loadButton.addTarget(self, action: #selector(loadTrack), for: .touchDown)
         loadButton.setAnchors(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        let deleteButton = IconButton(icon: "trash", tintColor: .systemRed)
+        headerView.addSubview(deleteButton)
+        deleteButton.addTarget(self, action: #selector(deleteTracks), for: .touchDown)
+        deleteButton.setAnchors(top: headerView.topAnchor, leading: loadButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
     }
     
     @objc func loadTrack(){
@@ -51,9 +54,18 @@ class TrackListViewController: PopupTableViewController{
         self.present(filePicker, animated: true)
     }
     
+    @objc func deleteTracks(){
+        showDestructiveApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
+            self.cancelActiveTrack()
+            Locations.deleteAllTracks()
+            MainTabController.getMapViewController().updateLocationLayer()
+            MainTabController.getMapViewController().mapView.clearTrack()
+        }
+    }
+    
 }
 
-extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
+extension TracksViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -64,7 +76,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TrackListViewController.CELL_IDENT, for: indexPath) as! TrackCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TracksViewController.CELL_IDENT, for: indexPath) as! TrackCell
         let track = tracks?[indexPath.row]
         cell.track = track
         cell.delegate = self
@@ -86,7 +98,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension TrackListViewController : TrackDetailDelegate{
+extension TracksViewController : TrackDetailDelegate{
     
     func showTrackOnMap(track: TrackData) {
         self.dismiss(animated: true){
@@ -97,7 +109,7 @@ extension TrackListViewController : TrackDetailDelegate{
 }
 
 
-extension TrackListViewController : TrackCellDelegate{
+extension TracksViewController : TrackCellDelegate{
     
     func viewTrackDetails(track: TrackData) {
         let trackController = TrackDetailViewController()
@@ -143,16 +155,16 @@ extension TrackListViewController : TrackCellDelegate{
     
 }
 
-extension TrackListViewController : UIDocumentPickerDelegate{
+extension TracksViewController : UIDocumentPickerDelegate{
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if let url = urls.first{
-            if let locations = GPXParser.parseFile(url: url){
-                if let startPosition = locations.first{
+            if let positions = GPXParser.parseFile(url: url){
+                if let startPosition = positions.first{
                     assertLocation(coordinate: startPosition.coordinate){ location in
                         let track = TrackData(startLocation: location)
-                        for loc in locations{
-                            track.trackpoints.append(TrackPoint(location: loc))
+                        for pos in positions{
+                            track.trackpoints.append(pos)
                         }
                         track.evaluateTrackpoints()
                         let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)

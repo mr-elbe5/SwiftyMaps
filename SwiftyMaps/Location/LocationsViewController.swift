@@ -9,29 +9,48 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol LocationListDelegate: LocationViewDelegate{
+protocol LocationsDelegate: LocationViewDelegate{
     func showOnMap(location: Location)
     func deleteLocation(location: Location)
     func showTrackOnMap(track: TrackData)
 }
 
-class LocationListViewController: PopupTableViewController{
+class LocationsViewController: HeaderTableViewController{
 
     private static let CELL_IDENT = "locationCell"
     
-    var delegate: LocationListDelegate? = nil
+    var delegate: LocationsDelegate? = nil
     
     override func loadView() {
         title = "locationList".localize()
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(LocationCell.self, forCellReuseIdentifier: LocationListViewController.CELL_IDENT)
+        tableView.register(LocationCell.self, forCellReuseIdentifier: LocationsViewController.CELL_IDENT)
+    }
+    
+    override func setupHeaderView(){
+        super.setupHeaderView()
+        let deleteButton = IconButton(icon: "trash", tintColor: .systemRed)
+        headerView.addSubview(deleteButton)
+        deleteButton.addTarget(self, action: #selector(deleteLocations), for: .touchDown)
+        deleteButton.setAnchors(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+    }
+    
+    @objc func deleteLocations() {
+        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
+            if ActiveTrack.track != nil{
+                MainTabController.getMapViewController().cancelActiveTrack()
+            }
+            Locations.deleteAllLocations()
+            self.updateLocationLayer()
+            MainTabController.getMapViewController().mapView.clearTrack()
+        }
     }
     
 }
 
-extension LocationListViewController: UITableViewDelegate, UITableViewDataSource{
+extension LocationsViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -42,7 +61,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: LocationListViewController.CELL_IDENT, for: indexPath) as! LocationCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: LocationsViewController.CELL_IDENT, for: indexPath) as! LocationCell
         let track = Locations.location(at: indexPath.row)
         cell.location = track
         cell.delegate = self
@@ -64,7 +83,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
 }
 
-extension LocationListViewController : LocationCellDelegate{
+extension LocationsViewController : LocationCellDelegate{
     
     func showOnMap(location: Location) {
         self.dismiss(animated: true){
@@ -98,7 +117,7 @@ extension LocationListViewController : LocationCellDelegate{
     
 }
 
-extension LocationListViewController: LocationViewDelegate{
+extension LocationsViewController: LocationViewDelegate{
     
     func updateLocationLayer() {
         delegate?.updateLocationLayer()

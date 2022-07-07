@@ -9,23 +9,42 @@ import CoreLocation
 import UIKit
 
 protocol LocationServiceDelegate{
-    func locationDidChange(location: CLLocation)
-    func directionDidChange(direction: CLLocationDirection)
+    func authorizationDidChange(authorization: CLAuthorizationStatus)
+    func positionDidChange(position: Position)
+    func directionDidChange(direction: Int)
 }
 
-class LocationService : NSObject, CLLocationManagerDelegate{
+class LocationService : NSObject{
     
     static var shared = LocationService()
     
-    var lastLocation : CLLocation? = nil
-    var lastDirection : CLLocationDirection = 0
+    var lastDirection : Int = 0
     var running = false
-    var delegate : LocationServiceDelegate? = nil
+    
+    var delegates : Array<LocationServiceDelegate> = []
     
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
+    private var lastPositions : Array<Position> = []
     
     private var lock = DispatchSemaphore(value: 1)
+    
+    var authorization: CLAuthorizationStatus{
+        locationManager.authorizationStatus
+    }
+    
+    var authorized: Bool{
+        let status = authorization
+        return status == CLAuthorizationStatus.authorizedWhenInUse || status == CLAuthorizationStatus.authorizedAlways
+    }
+    
+    var authorizedAlways: Bool{
+        return authorization == CLAuthorizationStatus.authorizedAlways
+    }
+    
+    var lastPosition: Position?{
+        return lastPositions.last
+    }
     
     override init() {
         super.init()
@@ -34,21 +53,6 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.headingFilter = 2.0
         
-    }
-    
-    var authorized : Bool{
-        switch locationManager.authorizationStatus{
-        case .authorizedAlways:
-            return true
-        case.authorizedWhenInUse:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    var authorizedForTracking : Bool{
-        locationManager.authorizationStatus == .authorizedAlways
     }
     
     func getPlacemarkInfo(for location: Location){
@@ -63,7 +67,6 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         lock.wait()
         defer{lock.signal()}
         if authorized, !running{
-            Log.log("Location service starting")
             locationManager.startUpdatingLocation()
             locationManager.allowsBackgroundLocationUpdates = true
             locationManager.pausesLocationUpdatesAutomatically = false
@@ -81,9 +84,9 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     
     func stop(){
         if running{
-            Log.log("Location service stopping")
             locationManager.stopUpdatingLocation()
             locationManager.stopUpdatingHeading()
+            running = false
         }
     }
     
@@ -95,11 +98,22 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         self.locationManager.requestAlwaysAuthorization()
     }
     
+    func addPosition(loc: CLLocation) -> Bool{
+        lastPositions.append(Position(location: loc))
+        if lastPositions.count > 5{
+            lastPositions.remove(at: 0)
+        }
+        return true
+    }
+    
+}
+
+extension LocationService : CLLocationManagerDelegate{
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        Log.log("Location service changed authorization")
         checkRunning()
-        if authorized, let loc = lastLocation{
-            delegate?.locationDidChange(location: loc)
+        for delegate in delegates{
+            delegate.authorizationDidChange(authorization: manager.authorizationStatus)
         }
     }
     
@@ -108,31 +122,33 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         if loc.horizontalAccuracy == -1{
             return
         }
-        lastLocation = loc
-        delegate?.locationDidChange(location: loc)
+        if addPosition(loc: loc){
+            for delegate in delegates{
+                delegate.positionDidChange(position: lastPosition!)
+            }
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        lastDirection = newHeading.trueHeading
-        delegate?.directionDidChange(direction: lastDirection)
+        lastDirection = Int(newHeading.trueHeading.rounded())
+        for delegate in delegates{
+            delegate.directionDidChange(direction: lastDirection)
+        }
     }
     
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        Log.log("Location updates paused")
         running = false
-        if let loc = lastLocation{
-            let monitoredRegion = CLCircularRegion(center: loc.coordinate, radius: 5.0, identifier: "monitoredRegion")
+        if let pos = lastPosition{
+            let monitoredRegion = CLCircularRegion(center: pos.coordinate, radius: 5.0, identifier: "monitoredRegion")
             locationManager.startMonitoring(for: monitoredRegion)
         }
     }
     
     func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
-        Log.log("Location updates resumed")
         running = true
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        Log.log("Location exited monitored region")
         if region.identifier == "monitoredRegion"{
             locationManager.stopMonitoring(for: region)
             if authorized{
@@ -144,4 +160,6 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
 }
+
+
 

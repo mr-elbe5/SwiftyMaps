@@ -162,46 +162,22 @@ class MapView: UIView {
     
     func setDefaultLocation(){
         if Preferences.instance.startWithLastPosition, let pos = position{
-            Log.log("Setting location to last position")
             scaleTo(scale: pos.scale)
             updateLocationLayer()
             scrollToCenteredCoordinate(coordinate: pos.coordinate)
             startLocationIsSet = true
         }
         else{
-            Log.log("Setting location to default position, zooming to min zoom")
             zoomTo(zoom: MapStatics.minZoom, animated: false)
             scrollToCenteredCoordinate(coordinate: MapStatics.startCoordinate)
             updateLocationLayer()
         }
     }
     
-    func locationDidChange(location: CLLocation) {
-        if !startLocationIsSet{
-            Log.log("Start location not set, zooming to min zoom")
-            zoomTo(zoom: MapStatics.minZoom, animated: false)
-            scrollToCenteredCoordinate(coordinate: location.coordinate)
-            updatePosition()
-            startLocationIsSet = true
-        }
-        else{
-            userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scale)
-            if ActiveTrack.isTracking{
-                ActiveTrack.updateTrack(with: location)
-                trackLayerView.updateTrack()
-                controlLayerView.updateTrackInfo()
-            }
-        }
-    }
-    
     func focusUserLocation() {
-        if let location = LocationService.shared.lastLocation{
-            scrollToCenteredCoordinate(coordinate: location.coordinate)
+        if let position = LocationService.shared.lastPosition{
+            scrollToCenteredCoordinate(coordinate: position.coordinate)
         }
-    }
-    
-    func setDirection(_ direction: CLLocationDirection) {
-        userLocationView.updateDirection(direction: direction)
     }
     
     func getVisibleCenter() -> CGPoint{
@@ -220,6 +196,37 @@ class MapView: UIView {
         if let pos = position{
             pos.save()
         }
+    }
+    
+}
+
+extension MapView: LocationServiceDelegate{
+    
+    func authorizationDidChange(authorization: CLAuthorizationStatus) {
+        if authorization.rawValue >= CLAuthorizationStatus.authorizedWhenInUse.rawValue{
+            //todo
+        }
+    }
+    
+    func positionDidChange(position: Position) {
+        if !startLocationIsSet{
+            zoomTo(zoom: MapStatics.minZoom, animated: false)
+            scrollToCenteredCoordinate(coordinate: position.coordinate)
+            updatePosition()
+            startLocationIsSet = true
+        }
+        else{
+            userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: position.coordinate), accuracy: position.horizontalAccuracy, offset: contentOffset, scale: scale)
+            if ActiveTrack.isTracking{
+                ActiveTrack.updateTrack(with: position)
+                trackLayerView.updateTrack()
+                controlLayerView.updateTrackInfo()
+            }
+        }
+    }
+    
+    func directionDidChange(direction: Int) {
+        userLocationView.updateDirection(direction: direction)
     }
     
 }

@@ -18,7 +18,6 @@ class Preferences: Identifiable, Codable{
     static var elbe5Url = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
     static var osmUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
     static var defaultStartZoom : Int = 10
-    static var defaultMinLocationAccuracy : CLLocationDistance = 5.0
     static var defaultMaxLocationMergeDistance : CLLocationDistance = 10.0
     static var defaultMinTrackingDistance : CGFloat = 5 // [m]
     static var defaultMinTrackingInterval : CGFloat = 5 // [sec]
@@ -31,7 +30,6 @@ class Preferences: Identifiable, Codable{
         else{
             instance = Preferences()
         }
-        instance.log()
     }
     
     enum CodingKeys: String, CodingKey {
@@ -86,20 +84,8 @@ class Preferences: Identifiable, Codable{
     }
     
     func save(){
-        Log.log("Saving preferences")
         DataController.shared.save(forKey: Preferences.storeKey, value: self)
     }
     
-    func log(){
-        Log.log("UrlTemplate = \(urlTemplate)" )
-        Log.log("PreloadUrlTemplate = \(preloadUrlTemplate)" )
-        Log.log("StartZoom = \(startZoom)" )
-        Log.log("MaxLocationMergeDistance = \(maxLocationMergeDistance)" )
-        Log.log("MinTrackingDistance = \(minTrackingDistance)" )
-        Log.log("MinTrackingInterval = \(minTrackingInterval)" )
-        Log.log("StartWithLastPosition = \(startWithLastPosition)" )
-        Log.log("MaxPreloadTiles = \(maxPreloadTiles)" )
-        Log.log("ShowPins = \(showPins)" )
-    }
     
 }

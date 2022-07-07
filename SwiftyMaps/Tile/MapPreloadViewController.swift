@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class MapPreloadViewController: PopupScrollViewController{
+class MapPreloadViewController: HeaderScrollViewController{
     
     var mapRegion: MapRegion? = nil
     
@@ -103,6 +103,11 @@ class MapPreloadViewController: PopupScrollViewController{
             startButton.isEnabled = true
             cancelButton.isEnabled = false
         }
+    }
+    
+    override func setupHeaderView() {
+        super.setupHeaderView()
+        addCloseButton()
     }
     
     func reset(){

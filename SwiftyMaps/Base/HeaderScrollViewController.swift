@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class PopupScrollViewController: UIViewController {
+class HeaderScrollViewController: UIViewController {
     
     var headerView = UIView()
     var scrollView = UIScrollView()
@@ -16,14 +16,18 @@ class PopupScrollViewController: UIViewController {
     var scrollVertical : Bool = true
     var scrollHorizontal : Bool = false
     
-    var closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
-    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .systemGroupedBackground
         let guide = view.safeAreaLayoutGuide
-        setupHeaderView()
         view.addSubview(headerView)
+        if let title = title{
+            let label = UILabel(header: title)
+            label.textColor = .darkGray
+            headerView.addSubview(label)
+            label.setAnchors(top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+                .centerX(headerView.centerXAnchor)
+        }
         headerView.setAnchors(top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor)
         self.view.addSubview(scrollView)
         scrollView.backgroundColor = .systemBackground
@@ -45,15 +49,11 @@ class PopupScrollViewController: UIViewController {
     }
     
     func setupHeaderView(){
-        headerView.backgroundColor = .black
-        if let title = title{
-            let label = UILabel()
-            label.text = title
-            label.textColor = .white
-            headerView.addSubview(label)
-            label.setAnchors(top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-                .centerX(headerView.centerXAnchor)
-        }
+        
+    }
+    
+    func addCloseButton(tintColor: UIColor = .darkGray){
+        let closeButton = IconButton(icon: "xmark.circle", tintColor: tintColor)
         headerView.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
         closeButton.setAnchors(top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)

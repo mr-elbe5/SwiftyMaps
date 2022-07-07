@@ -18,7 +18,7 @@ protocol ActiveTrackDelegate{
     func saveActiveTrack()
 }
 
-class TrackDetailViewController: PopupScrollViewController{
+class TrackDetailViewController: HeaderScrollViewController{
     
     var track: TrackData? = nil
     
@@ -43,6 +43,7 @@ class TrackDetailViewController: PopupScrollViewController{
     
     override func setupHeaderView(){
         super.setupHeaderView()
+        addCloseButton()
         
         headerView.addSubview(mapButton)
         mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)

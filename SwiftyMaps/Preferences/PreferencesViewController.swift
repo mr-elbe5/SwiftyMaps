@@ -8,7 +8,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class PreferencesViewController: PopupScrollViewController{
+class PreferencesViewController: ScrollViewController{
     
     var urlTemplateField = LabeledTextField()
     var preloadUrlTemplateField = LabeledTextField()
@@ -20,7 +20,6 @@ class PreferencesViewController: PopupScrollViewController{
     var pinGroupRadiusField = LabeledTextField()
     var maxPreloadTilesField = LabeledTextField()
     var startWithLastPositionSwitch = LabeledSwitchView()
-    var logSwitch = LabeledSwitchView()
     
     var currentZoom : Int = MapStatics.minZoom
     var currentCenterCoordinate : CLLocationCoordinate2D? = nil
@@ -96,36 +95,7 @@ class PreferencesViewController: PopupScrollViewController{
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
         contentView.addSubview(saveButton)
-        saveButton.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-    
-        logSwitch.setupView(labelText: "useLog".localize(), isOn: Log.isLogging)
-        contentView.addSubview(logSwitch)
-        logSwitch.setAnchors(top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        logSwitch.delegate = self
-        
-        let clearLogButton = UIButton()
-        clearLogButton.setTitle("clearLog".localize(), for: .normal)
-        clearLogButton.setTitleColor(.systemBlue, for: .normal)
-        clearLogButton.addTarget(self, action: #selector(clearLog), for: .touchDown)
-        contentView.addSubview(clearLogButton)
-        clearLogButton.setAnchors(top: logSwitch.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
-        let deleteLogsButton = UIButton()
-        deleteLogsButton.setTitle("deleteAllLogs".localize(), for: .normal)
-        deleteLogsButton.setTitleColor(.systemBlue, for: .normal)
-        deleteLogsButton.addTarget(self, action: #selector(deleteAllLogs), for: .touchDown)
-        contentView.addSubview(deleteLogsButton)
-        deleteLogsButton.setAnchors(top: clearLogButton.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
-        let saveLogButton = UIButton()
-        saveLogButton.setTitle("saveLog".localize(), for: .normal)
-        saveLogButton.setTitleColor(.systemBlue, for: .normal)
-        saveLogButton.addTarget(self, action: #selector(saveLog), for: .touchDown)
-        contentView.addSubview(saveLogButton)
-        saveLogButton.setAnchors(top: deleteLogsButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        saveButton.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
     }
     
@@ -170,46 +140,6 @@ class PreferencesViewController: PopupScrollViewController{
         Preferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
         Preferences.instance.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
-    }
-    
-    @objc func clearLog(){
-        logSwitch.isOn = false
-        Log.clear()
-    }
-    
-    @objc func saveLog(){
-        logSwitch.isOn = false
-        if !Log.isEmtpy{
-            if let url = URL(string: "log_\(Date().fileDate()).log", relativeTo: FileController.logDirURL){
-                let s = Log.toString()
-                if let data = s.data(using: .utf8){
-                    FileController.saveFile(data : data, url: url)
-                    showDone(title: "ok".localize(), text: "logSaved".localize())
-                }
-            }
-        }
-    }
-    
-    @objc func deleteAllLogs(){
-        showDestructiveApprove(title: "confirmDeleteLogs".localize(), text: "deleteLogsHint".localize()){
-            FileController.deleteAllFiles(dirURL: FileController.logDirURL)
-            self.showDone(title: "ok".localize(), text: "logsDeleted".localize())
-        }
-    }
-    
-}
-
-extension PreferencesViewController: SwitchDelegate{
-    
-    func switchValueDidChange(sender: LabeledSwitchView, isOn: Bool) {
-        if sender == logSwitch{
-            if sender.isOn{
-                Log.startLogging()
-            }
-            else{
-                Log.stopLogging()
-            }
-        }
     }
     
 }

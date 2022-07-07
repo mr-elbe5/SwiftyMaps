@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class PopupTableViewController: UIViewController {
+class HeaderTableViewController: UIViewController {
     
     var headerView = UIView()
     var tableView = UITableView()
@@ -34,29 +34,18 @@ class PopupTableViewController: UIViewController {
     }
     
     func setupHeaderView(){
-        headerView.backgroundColor = .black
         if let title = title{
             let label = UILabel()
             label.text = title
-            label.textColor = .white
+            label.textColor = .darkGray
             headerView.addSubview(label)
             label.setAnchors(top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
                 .centerX(headerView.centerXAnchor)
         }
-        
-        let closeButton = IconButton(icon: "xmark.circle", tintColor: .white)
-        headerView.addSubview(closeButton)
-        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        closeButton.setAnchors(top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        
     }
     
     func setNeedsUpdate(){
         tableView.reloadData()
-    }
-    
-    @objc func close(){
-        self.dismiss(animated: true)
     }
     
 }

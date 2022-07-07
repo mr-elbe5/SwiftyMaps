@@ -12,7 +12,7 @@ protocol LocationViewDelegate{
     func showTrackOnMap(track: TrackData)
 }
 
-class LocationDetailViewController: PopupScrollViewController{
+class LocationDetailViewController: HeaderScrollViewController{
     
     let editButton = IconButton(icon: "pencil.circle", tintColor: .white)
     let deleteButton = IconButton(icon: "trash", tintColor: .white)
@@ -39,6 +39,7 @@ class LocationDetailViewController: PopupScrollViewController{
     
     override func setupHeaderView(){
         super.setupHeaderView()
+        addCloseButton()
         
         let addPhotoButton = IconButton(icon: "photo", tintColor: .white)
         headerView.addSubview(addPhotoButton)
