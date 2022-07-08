@@ -96,7 +96,7 @@ class MapView: UIView {
     func clearTrack(_ track: TrackData? = nil){
         if track == nil || trackLayerView.track == track{
             trackLayerView.setTrack(track: nil)
-            controlLayerView.stopTrackControl()
+            controlLayerView.stopTrackInfo()
         }
     }
     

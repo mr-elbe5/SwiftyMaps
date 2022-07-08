@@ -20,6 +20,7 @@ class PreferencesViewController: ScrollViewController{
     var pinGroupRadiusField = LabeledTextField()
     var maxPreloadTilesField = LabeledTextField()
     var startWithLastPositionSwitch = LabeledSwitchView()
+    var showPinsSwitch = LabeledSwitchView()
     
     var currentZoom : Int = MapStatics.minZoom
     var currentCenterCoordinate : CLLocationCoordinate2D? = nil
@@ -90,12 +91,16 @@ class PreferencesViewController: ScrollViewController{
         contentView.addSubview(startWithLastPositionSwitch)
         startWithLastPositionSwitch.setAnchors(top: maxPreloadTilesField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
+        showPinsSwitch.setupView(labelText: "showPins".localize(), isOn: Preferences.instance.showPins)
+        contentView.addSubview(showPinsSwitch)
+        showPinsSwitch.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
         contentView.addSubview(saveButton)
-        saveButton.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        saveButton.setAnchors(top: showPinsSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
     }
     
@@ -138,6 +143,11 @@ class PreferencesViewController: ScrollViewController{
             Preferences.instance.startZoom = val
         }
         Preferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
+        let showPins = showPinsSwitch.isOn
+        if showPins != Preferences.instance.showPins{
+            Preferences.instance.showPins = showPinsSwitch.isOn
+            MainTabController.getMapViewController().updateLocationLayer()
+        }
         Preferences.instance.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
     }

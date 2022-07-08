@@ -26,7 +26,7 @@ class TracksViewController: HeaderTableViewController{
     var delegate: TracksDelegate? = nil
     
     override open func loadView() {
-        //title = "trackList".localize()
+        tracks = Locations.getAllTracks()
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self

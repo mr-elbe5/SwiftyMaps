@@ -107,6 +107,7 @@ class MapPreloadViewController: HeaderScrollViewController{
     
     override func setupHeaderView() {
         super.setupHeaderView()
+        addHeaderTitle()
         addCloseButton()
     }
     

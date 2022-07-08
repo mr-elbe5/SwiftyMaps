@@ -76,11 +76,6 @@ extension MapViewController: ControlLayerDelegate{
         }
     }
     
-    func showLocations(_ show: Bool) {
-        Preferences.instance.showPins = show
-        mapView.locationLayerView.isHidden = !Preferences.instance.showPins
-    }
-    
     func startTracking(){
         if let lastPosition = LocationService.shared.lastPosition{
             assertLocation(coordinate: lastPosition.coordinate){ location in
@@ -260,7 +255,7 @@ extension MapViewController: TrackDetailDelegate, TracksDelegate, ActiveTrackDel
                 Locations.save()
                 self.mapView.trackLayerView.setTrack(track: track)
                 ActiveTrack.stopTracking()
-                self.mapView.controlLayerView.stopTrackControl()
+                self.mapView.controlLayerView.stopTrackInfo()
                 self.mapView.updateLocationLayer()
             })
             present(alertController, animated: true)

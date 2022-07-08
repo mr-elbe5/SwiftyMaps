@@ -21,13 +21,7 @@ class HeaderScrollViewController: UIViewController {
         view.backgroundColor = .systemGroupedBackground
         let guide = view.safeAreaLayoutGuide
         view.addSubview(headerView)
-        if let title = title{
-            let label = UILabel(header: title)
-            label.textColor = .darkGray
-            headerView.addSubview(label)
-            label.setAnchors(top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-                .centerX(headerView.centerXAnchor)
-        }
+        setupHeaderView()
         headerView.setAnchors(top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor)
         self.view.addSubview(scrollView)
         scrollView.backgroundColor = .systemBackground
@@ -49,7 +43,16 @@ class HeaderScrollViewController: UIViewController {
     }
     
     func setupHeaderView(){
-        
+    }
+    
+    func addHeaderTitle(){
+        if let title = title{
+            let label = UILabel(header: title)
+            label.textColor = .darkGray
+            headerView.addSubview(label)
+            label.setAnchors(top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+                .centerX(headerView.centerXAnchor)
+        }
     }
     
     func addCloseButton(tintColor: UIColor = .darkGray){

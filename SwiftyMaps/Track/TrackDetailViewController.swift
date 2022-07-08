@@ -26,8 +26,8 @@ class TrackDetailViewController: HeaderScrollViewController{
         track != nil && track == ActiveTrack.track
     }
     
-    let mapButton = IconButton(icon: "map", tintColor: .white)
-    let deleteButton = IconButton(icon: "trash", tintColor: .white)
+    let mapButton = IconButton(icon: "map", tintColor: .darkGray)
+    let deleteButton = IconButton(icon: "trash", tintColor: .darkGray)
     
     // MainViewController
     var delegate : TrackDetailDelegate? = nil
@@ -43,8 +43,8 @@ class TrackDetailViewController: HeaderScrollViewController{
     
     override func setupHeaderView(){
         super.setupHeaderView()
+        addHeaderTitle()
         addCloseButton()
-        
         headerView.addSubview(mapButton)
         mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
         mapButton.setAnchors(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)

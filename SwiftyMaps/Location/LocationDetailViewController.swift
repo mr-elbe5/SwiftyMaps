@@ -14,8 +14,8 @@ protocol LocationViewDelegate{
 
 class LocationDetailViewController: HeaderScrollViewController{
     
-    let editButton = IconButton(icon: "pencil.circle", tintColor: .white)
-    let deleteButton = IconButton(icon: "trash", tintColor: .white)
+    let editButton = IconButton(icon: "pencil.circle", tintColor: .darkGray)
+    let deleteButton = IconButton(icon: "trash", tintColor: .systemRed)
     
     let descriptionContainerView = UIView()
     var descriptionView : TextEditArea? = nil
@@ -38,10 +38,9 @@ class LocationDetailViewController: HeaderScrollViewController{
     }
     
     override func setupHeaderView(){
-        super.setupHeaderView()
+        addHeaderTitle()
         addCloseButton()
-        
-        let addPhotoButton = IconButton(icon: "photo", tintColor: .white)
+        let addPhotoButton = IconButton(icon: "photo", tintColor: .darkGray)
         headerView.addSubview(addPhotoButton)
         addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchDown)
         addPhotoButton.setAnchors(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)

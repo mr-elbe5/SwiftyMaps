@@ -29,6 +29,7 @@ class PhotoViewController: HeaderScrollViewController, UIScrollViewDelegate {
     
     override func setupHeaderView() {
         super.setupHeaderView()
+        addHeaderTitle()
         addCloseButton()
     }
     
