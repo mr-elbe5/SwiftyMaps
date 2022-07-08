@@ -192,7 +192,7 @@ extension MapViewController: LocationsDelegate{
 
 }
 
-extension MapViewController: TrackDetailDelegate, TracksDelegate, ActiveTrackDelegate{
+extension MapViewController: TrackDetailDelegate, TracksViewDelegate, ActiveTrackDelegate{
     
     func viewTrackDetails(track: TrackData) {
         let trackController = TrackDetailViewController()

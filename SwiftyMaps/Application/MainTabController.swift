@@ -34,9 +34,8 @@ class MainTabController: UITabBarController {
         selectedViewController = mapViewcontroller
     }
     
-    static func getViewController(tag: TabTags) -> UIViewController?{
-        let viewController = instance
-        for viewController in viewController.viewControllers!{
+    func getViewController(tag: TabTags) -> UIViewController?{
+        for viewController in MainTabController.instance.viewControllers!{
             if viewController.tabBarItem!.tag == tag.hashValue{
                 return viewController
             }
@@ -44,32 +43,8 @@ class MainTabController: UITabBarController {
         return nil
     }
     
-    static func getMapViewController() -> MapViewController{
-        return getViewController(tag: .map) as! MapViewController
-    }
-    
-    static func getLocationsViewController() -> LocationsViewController{
-        return getViewController(tag: .locations) as! LocationsViewController
-    }
-    
-    static func getTracksViewController() -> TracksViewController{
-        return getViewController(tag: .tracks) as! TracksViewController
-    }
-    
-    static func getInfoViewController() -> InfoViewController{
-        return getViewController(tag: .info) as! InfoViewController
-    }
-    
-    static func getPreferencesViewController() -> PreferencesViewController{
-        return getViewController(tag: .preferences) as! PreferencesViewController
-    }
-    
-    static func getStatusViewController() -> StatusViewController{
-        return getViewController(tag: .status) as! StatusViewController
-    }
-    
-    static func switchToTab(tag: TabTags){
-        instance.selectedViewController = getViewController(tag: tag);
+    func switchToTab(tag: TabTags){
+        selectedViewController = getViewController(tag: tag);
     }
 
 }

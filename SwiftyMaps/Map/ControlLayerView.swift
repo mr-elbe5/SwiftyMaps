@@ -19,7 +19,7 @@ protocol ControlLayerDelegate{
 
 class ControlLayerView: UIView {
     
-    //MainViewController
+    //MapViewController
     var delegate : ControlLayerDelegate? = nil
     
     var topControl = UIView()
@@ -57,7 +57,8 @@ class ControlLayerView: UIView {
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
         crossControl.setAnchors(centerX: centerXAnchor, centerY: centerYAnchor)
-        crossControl.addTarget(self, action: #selector(locationCrossTouched), for: .touchDown)
+        crossControl.menu = getCrossMenu()
+        crossControl.showsMenuAsPrimaryAction = true
         crossControl.isHidden = true
         
         addSubview(licenseView)
@@ -137,7 +138,7 @@ class ControlLayerView: UIView {
         pauseResumeButton.addTarget(self, action: #selector(pauseResume), for: .touchDown)
         
         updateTrackInfo()
-        //self.isHidden = true
+        self.isHidden = true
     }
     
     func fillLicenseView(){
@@ -204,9 +205,11 @@ class ControlLayerView: UIView {
     
     // cross
     
-    @objc func locationCrossTouched(){
-        delegate?.addLocation()
-        crossControl.isHidden = true
+    func getCrossMenu() -> UIMenu{
+        let addLocationAction = UIAction(title: "addLocation".localize(), image: UIImage(systemName: "mappin")){ action in
+            self.delegate?.addLocation()
+        }
+        return UIMenu(title: "", children: [addLocationAction])
     }
     
     // track

@@ -40,11 +40,11 @@ class LocationsViewController: HeaderTableViewController{
     @objc func deleteLocations() {
         showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
             if ActiveTrack.track != nil{
-                MainTabController.getMapViewController().cancelActiveTrack()
+                self.mapViewController.cancelActiveTrack()
             }
             Locations.deleteAllLocations()
             self.updateLocationLayer()
-            MainTabController.getMapViewController().mapView.clearTrack()
+            self.mapViewController.mapView.clearTrack()
         }
     }
     

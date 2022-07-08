@@ -7,18 +7,18 @@
 import Foundation
 import UIKit
 
-protocol TrackListItemDelegate{
-    func viewTrack(sender: TrackListItemView)
-    func showTrackOnMap(sender: TrackListItemView)
-    func exportTrack(sender: TrackListItemView)
-    func deleteTrack(sender: TrackListItemView)
+protocol TrackDataDelegate{
+    func viewTrack(sender: TrackDataView)
+    func showTrackOnMap(sender: TrackDataView)
+    func exportTrack(sender: TrackDataView)
+    func deleteTrack(sender: TrackDataView)
 }
 
-class TrackListItemView : UIView{
+class TrackDataView : UIView{
     
     var trackData : TrackData
     
-    var delegate : TrackListItemDelegate? = nil
+    var delegate : TrackDataDelegate? = nil
     
     init(data: TrackData){
         self.trackData = data

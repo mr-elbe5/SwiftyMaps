@@ -146,7 +146,7 @@ class PreferencesViewController: ScrollViewController{
         let showPins = showPinsSwitch.isOn
         if showPins != Preferences.instance.showPins{
             Preferences.instance.showPins = showPinsSwitch.isOn
-            MainTabController.getMapViewController().updateLocationLayer()
+            mapViewController.updateLocationLayer()
         }
         Preferences.instance.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())

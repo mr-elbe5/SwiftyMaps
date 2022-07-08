@@ -46,7 +46,7 @@ class TrackCell: UITableViewCell{
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
         if let track = track{
-            let trackView = TrackListItemView(data: track)
+            let trackView = TrackDataView(data: track)
             trackView.delegate = self
             cellBody.addSubview(trackView)
             trackView.fillView(view: cellBody)
@@ -56,21 +56,21 @@ class TrackCell: UITableViewCell{
     
 }
 
-extension TrackCell: TrackListItemDelegate{
+extension TrackCell: TrackDataDelegate{
     
-    func viewTrack(sender: TrackListItemView) {
+    func viewTrack(sender: TrackDataView) {
         self.delegate?.viewTrackDetails(track: sender.trackData)
     }
     
-    func showTrackOnMap(sender: TrackListItemView) {
+    func showTrackOnMap(sender: TrackDataView) {
         self.delegate?.showTrackOnMap(track: sender.trackData)
     }
     
-    func exportTrack(sender: TrackListItemView) {
+    func exportTrack(sender: TrackDataView) {
         self.delegate?.exportTrack(track: sender.trackData)
     }
     
-    func deleteTrack(sender: TrackListItemView) {
+    func deleteTrack(sender: TrackDataView) {
         self.delegate?.deleteTrack(track: sender.trackData, approved: false)
     }
     

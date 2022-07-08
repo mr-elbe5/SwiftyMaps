@@ -18,6 +18,7 @@ class LocationService : NSObject{
     
     static var shared = LocationService()
     
+    var lastPosition : Position? = nil
     var lastDirection : Int = 0
     var running = false
     
@@ -25,7 +26,6 @@ class LocationService : NSObject{
     
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
-    private var lastPositions : Array<Position> = []
     
     private var lock = DispatchSemaphore(value: 1)
     
@@ -40,10 +40,6 @@ class LocationService : NSObject{
     
     var authorizedAlways: Bool{
         return authorization == CLAuthorizationStatus.authorizedAlways
-    }
-    
-    var lastPosition: Position?{
-        return lastPositions.last
     }
     
     override init() {
@@ -98,11 +94,11 @@ class LocationService : NSObject{
         self.locationManager.requestAlwaysAuthorization()
     }
     
-    func addPosition(loc: CLLocation) -> Bool{
-        lastPositions.append(Position(location: loc))
-        if lastPositions.count > 5{
-            lastPositions.remove(at: 0)
+    func setPosition(loc: CLLocation) -> Bool{
+        if loc.horizontalAccuracy == -1{
+            return false
         }
+        lastPosition = Position(location: loc)
         return true
     }
     
@@ -118,13 +114,11 @@ extension LocationService : CLLocationManagerDelegate{
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let loc = locations.last!
-        if loc.horizontalAccuracy == -1{
-            return
-        }
-        if addPosition(loc: loc){
-            for delegate in delegates{
-                delegate.positionDidChange(position: lastPosition!)
+        if let loc = locations.last{
+            if setPosition(loc: loc), let position = lastPosition{
+                for delegate in delegates{
+                    delegate.positionDidChange(position: position)
+                }
             }
         }
     }
@@ -133,29 +127,6 @@ extension LocationService : CLLocationManagerDelegate{
         lastDirection = Int(newHeading.trueHeading.rounded())
         for delegate in delegates{
             delegate.directionDidChange(direction: lastDirection)
-        }
-    }
-    
-    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        running = false
-        if let pos = lastPosition{
-            let monitoredRegion = CLCircularRegion(center: pos.coordinate, radius: 5.0, identifier: "monitoredRegion")
-            locationManager.startMonitoring(for: monitoredRegion)
-        }
-    }
-    
-    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
-        running = true
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        if region.identifier == "monitoredRegion"{
-            locationManager.stopMonitoring(for: region)
-            if authorized{
-                locationManager.startUpdatingLocation()
-                locationManager.startUpdatingHeading()
-                running = true
-            }
         }
     }
     

@@ -133,7 +133,7 @@ class LocationDetailViewController: HeaderScrollViewController{
         trackStackView.removeAllSubviews()
         guard let location = location else {return}
         for track in location.tracks{
-            let trackView = TrackListItemView(data: track)
+            let trackView = TrackDataView(data: track)
             trackView.delegate = self
             trackStackView.addArrangedSubview(trackView)
         }
@@ -253,9 +253,9 @@ extension LocationDetailViewController: PhotoListItemDelegate{
     
 }
 
-extension LocationDetailViewController: TrackListItemDelegate{
+extension LocationDetailViewController: TrackDataDelegate{
     
-    func viewTrack(sender: TrackListItemView) {
+    func viewTrack(sender: TrackDataView) {
         let trackController = TrackDetailViewController()
         trackController.track = sender.trackData
         trackController.delegate = self
@@ -263,13 +263,13 @@ extension LocationDetailViewController: TrackListItemDelegate{
         self.present(trackController, animated: true)
     }
     
-    func showTrackOnMap(sender: TrackListItemView) {
+    func showTrackOnMap(sender: TrackDataView) {
         self.dismiss(animated: true){
             self.delegate?.showTrackOnMap(track: sender.trackData)
         }
     }
     
-    func exportTrack    (sender: TrackListItemView) {
+    func exportTrack    (sender: TrackDataView) {
         if let url = GPXCreator.createTemporaryFile(track: sender.trackData){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
             present(controller, animated: true) {
@@ -278,7 +278,7 @@ extension LocationDetailViewController: TrackListItemDelegate{
         }
     }
     
-    func deleteTrack(sender: TrackListItemView) {
+    func deleteTrack(sender: TrackDataView) {
         showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
             if let location = self.location{
                 location.deleteTrack(track: sender.trackData)

@@ -9,7 +9,7 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol TracksDelegate{
+protocol TracksViewDelegate{
     func showTrackOnMap(track: TrackData)
     func deleteTrack(track: TrackData, approved: Bool)
     func cancelActiveTrack()
@@ -23,7 +23,7 @@ class TracksViewController: HeaderTableViewController{
     var tracks: TrackList? = nil
     
     // MainViewController
-    var delegate: TracksDelegate? = nil
+    var delegate: TracksViewDelegate? = nil
     
     override open func loadView() {
         tracks = Locations.getAllTracks()
@@ -58,8 +58,8 @@ class TracksViewController: HeaderTableViewController{
         showDestructiveApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
             self.cancelActiveTrack()
             Locations.deleteAllTracks()
-            MainTabController.getMapViewController().updateLocationLayer()
-            MainTabController.getMapViewController().mapView.clearTrack()
+            self.mapViewController.updateLocationLayer()
+            self.mapViewController.mapView.clearTrack()
         }
     }
     
