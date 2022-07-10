@@ -42,6 +42,7 @@ class Preferences: Identifiable, Codable{
         case startWithLastPosition
         case maxPreloadTiles
         case showPins
+        case showTrack
     }
 
     var urlTemplate : String = elbe5Url
@@ -53,6 +54,7 @@ class Preferences: Identifiable, Codable{
     var startWithLastPosition : Bool = true
     var maxPreloadTiles : Int = defaultMaxPreloadTiles
     var showPins : Bool = true
+    var showTrack : Bool = true
     
     init(){
     }
@@ -68,6 +70,7 @@ class Preferences: Identifiable, Codable{
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         maxPreloadTiles = try values.decodeIfPresent(Int.self, forKey: .maxPreloadTiles) ?? Preferences.defaultMaxPreloadTiles
         showPins = try values.decodeIfPresent(Bool.self, forKey: .showPins) ?? true
+        showTrack = try values.decodeIfPresent(Bool.self, forKey: .showTrack) ?? true
     }
     
     func encode(to encoder: Encoder) throws {
@@ -81,6 +84,7 @@ class Preferences: Identifiable, Codable{
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(maxPreloadTiles, forKey: .maxPreloadTiles)
         try container.encode(showPins, forKey: .showPins)
+        try container.encode(showTrack, forKey: .showTrack)
     }
     
     func save(){

@@ -8,14 +8,14 @@ import UIKit
 
 
 protocol LocationCellDelegate{
-    func deleteLocation(location: Location, approved: Bool)
-    func viewLocation(location: Location)
-    func showOnMap(location: Location)
+    func deleteLocation(location: LocationData, approved: Bool)
+    func viewLocationDetails(location: LocationData)
+    func showOnMap(location: LocationData)
 }
 
 class LocationCell: UITableViewCell{
     
-    var location : Location? = nil {
+    var location : LocationData? = nil {
         didSet {
             updateCell()
         }
@@ -51,7 +51,7 @@ class LocationCell: UITableViewCell{
             cellBody.addSubview(deleteButton)
             deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
-            viewButton.addTarget(self, action: #selector(viewLocation), for: .touchDown)
+            viewButton.addTarget(self, action: #selector(viewLocationDetails), for: .touchDown)
             cellBody.addSubview(viewButton)
             viewButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
             let mapButton = IconButton(icon: "map")
@@ -86,11 +86,6 @@ class LocationCell: UITableViewCell{
             label = UILabel()
             label.text = String(location.photos.count) + " " + "photos".localize()
             cellBody.addSubview(label)
-            label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
-            label = UILabel()
-            label.text = String(location.tracks.count) + " " + "tracks".localize()
-            cellBody.addSubview(label)
             label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
         }
     }
@@ -101,9 +96,9 @@ class LocationCell: UITableViewCell{
         }
     }
     
-    @objc func viewLocation(){
+    @objc func viewLocationDetails(){
         if location != nil{
-            delegate?.viewLocation(location: location!)
+            delegate?.viewLocationDetails(location: location!)
         }
     }
     

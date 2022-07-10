@@ -26,4 +26,10 @@ extension CLLocationCoordinate2D : Equatable{
         "lat: \(String(format: "%.7f", latitude)), lon: \(String(format: "%.7f", longitude))"
     }
     
+    public var coordinateString : String{
+        let latitudeText = latitude > 0 ? "north".localize() : "south".localize()
+        let longitudeText = longitude > 0 ? "east".localize() : "west".localize()
+        return String(format: "%.04f", abs(latitude)) + "° " + latitudeText + ", " + String(format: "%.04f", abs(longitude)) + "° "  + longitudeText
+    }
+    
 }

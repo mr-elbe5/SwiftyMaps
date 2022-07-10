@@ -7,9 +7,10 @@
 import Foundation
 import UIKit
 
+// LocationsViewController
+// MapViewController
 protocol LocationViewDelegate{
     func updateLocationLayer()
-    func showTrackOnMap(track: TrackData)
 }
 
 class LocationDetailViewController: HeaderScrollViewController{
@@ -20,13 +21,14 @@ class LocationDetailViewController: HeaderScrollViewController{
     let descriptionContainerView = UIView()
     var descriptionView : TextEditArea? = nil
     let photoStackView = UIStackView()
-    let trackStackView = UIStackView()
     
     var editMode = false
     
-    var location: Location? = nil
+    var location: LocationData? = nil
     var hadPhotos = false
     
+    // LocationsViewController
+    // MapViewController
     var delegate: LocationViewDelegate? = nil
     
     override func loadView() {
@@ -78,14 +80,7 @@ class LocationDetailViewController: HeaderScrollViewController{
             photoStackView.setupVertical()
             setupPhotoStackView()
             contentView.addSubview(photoStackView)
-            photoStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
-            header = UILabel(header: "tracks".localize())
-            contentView.addSubview(header)
-            header.setAnchors(top: photoStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-            trackStackView.setupVertical()
-            setupTrackStackView()
-            contentView.addSubview(trackStackView)
-            trackStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: 0, bottom: 0, right: 0))
+            photoStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: 0, bottom: 0, right: 0))
         }
     }
     
@@ -128,17 +123,6 @@ class LocationDetailViewController: HeaderScrollViewController{
         }
     }
     
-    func setupTrackStackView(){
-        trackStackView.removeAllArrangedSubviews()
-        trackStackView.removeAllSubviews()
-        guard let location = location else {return}
-        for track in location.tracks{
-            let trackView = TrackDataView(data: track)
-            trackView.delegate = self
-            trackStackView.addArrangedSubview(trackView)
-        }
-    }
-    
     @objc func addPhoto(){
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
@@ -165,7 +149,7 @@ class LocationDetailViewController: HeaderScrollViewController{
     @objc func deleteLocation(){
         if let loc = location{
             showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-                Locations.deleteLocation(loc)
+                LocationPool.deleteLocation(loc)
                 self.dismiss(animated: true){
                     self.delegate?.updateLocationLayer()
                 }
@@ -177,7 +161,7 @@ class LocationDetailViewController: HeaderScrollViewController{
         var needsUpdate = false
         if let location = location{
             location.description = descriptionView?.text ?? ""
-            Locations.save()
+            LocationPool.save()
             needsUpdate = location.hasPhotos != hadPhotos
         }
         self.dismiss(animated: true){
@@ -196,7 +180,7 @@ extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavig
         let photo = PhotoData()
         if FileController.copyFile(fromURL: imageURL, toURL: photo.fileURL){
             location?.addPhoto(photo: photo)
-            Locations.save()
+            LocationPool.save()
             delegate?.updateLocationLayer()
             let photoView = PhotoListItemView(data: photo)
             photoView.delegate = self
@@ -238,7 +222,7 @@ extension LocationDetailViewController: PhotoListItemDelegate{
         showDestructiveApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
             if let location = self.location{
                 location.deletePhoto(photo: sender.photoData)
-                Locations.save()
+                LocationPool.save()
                 self.delegate?.updateLocationLayer()
                 for subView in self.photoStackView.subviews{
                     if subView == sender{
@@ -253,54 +237,3 @@ extension LocationDetailViewController: PhotoListItemDelegate{
     
 }
 
-extension LocationDetailViewController: TrackDataDelegate{
-    
-    func viewTrack(sender: TrackDataView) {
-        let trackController = TrackDetailViewController()
-        trackController.track = sender.trackData
-        trackController.delegate = self
-        trackController.modalPresentationStyle = .fullScreen
-        self.present(trackController, animated: true)
-    }
-    
-    func showTrackOnMap(sender: TrackDataView) {
-        self.dismiss(animated: true){
-            self.delegate?.showTrackOnMap(track: sender.trackData)
-        }
-    }
-    
-    func exportTrack    (sender: TrackDataView) {
-        if let url = GPXCreator.createTemporaryFile(track: sender.trackData){
-            let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
-            present(controller, animated: true) {
-                FileController.logFileInfo()
-            }
-        }
-    }
-    
-    func deleteTrack(sender: TrackDataView) {
-        showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
-            if let location = self.location{
-                location.deleteTrack(track: sender.trackData)
-                Locations.save()
-                self.delegate?.updateLocationLayer()
-                for subView in self.trackStackView.subviews{
-                    if subView == sender{
-                        self.trackStackView.removeArrangedSubview(subView)
-                        self.trackStackView.removeSubview(subView)
-                        break
-                    }
-                }
-            }
-        }
-    }
-    
-}
-
-extension LocationDetailViewController: TrackDetailDelegate{
-    
-    func showTrackOnMap(track: TrackData) {
-        delegate?.showTrackOnMap(track: track)
-    }
-    
-}

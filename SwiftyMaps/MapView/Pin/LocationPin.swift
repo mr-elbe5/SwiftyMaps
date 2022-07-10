@@ -13,7 +13,7 @@ class LocationPin : Pin{
     static var mapPinTrackImage = UIImage(named: "mappin.blue")
     static var mapPinPhotoTrackImage = UIImage(named: "mappin.purple")
     
-    var location : Location
+    var location : LocationData
     
     override var hasPhotos : Bool{
         location.hasPhotos
@@ -23,7 +23,7 @@ class LocationPin : Pin{
         location.hasTracks
     }
     
-    init(location: Location){
+    init(location: LocationData){
         self.location = location
         super.init(frame: .zero)
         updateImage()

@@ -9,11 +9,10 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
+//MapViewController
 protocol TracksViewDelegate{
     func showTrackOnMap(track: TrackData)
     func deleteTrack(track: TrackData, approved: Bool)
-    func cancelActiveTrack()
-    func saveActiveTrack()
 }
 
 class TracksViewController: HeaderTableViewController{
@@ -22,11 +21,11 @@ class TracksViewController: HeaderTableViewController{
     
     var tracks: TrackList? = nil
     
-    // MainViewController
+    //MapViewController
     var delegate: TracksViewDelegate? = nil
     
     override open func loadView() {
-        tracks = Locations.getAllTracks()
+        tracks = TrackPool.tracks
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -37,15 +36,15 @@ class TracksViewController: HeaderTableViewController{
         super.setupHeaderView()
         let loadButton = IconButton(icon: "arrow.down.square", tintColor: .systemBlue)
         headerView.addSubview(loadButton)
-        loadButton.addTarget(self, action: #selector(loadTrack), for: .touchDown)
+        loadButton.addTarget(self, action: #selector(importTrack), for: .touchDown)
         loadButton.setAnchors(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         let deleteButton = IconButton(icon: "trash", tintColor: .systemRed)
         headerView.addSubview(deleteButton)
-        deleteButton.addTarget(self, action: #selector(deleteTracks), for: .touchDown)
+        deleteButton.addTarget(self, action: #selector(deleteAllTracks), for: .touchDown)
         deleteButton.setAnchors(top: headerView.topAnchor, leading: loadButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
     }
     
-    @objc func loadTrack(){
+    @objc func importTrack(){
         let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "gpx")!])
         filePicker.directoryURL = FileController.gpxDirURL
         filePicker.allowsMultipleSelection = false
@@ -54,11 +53,10 @@ class TracksViewController: HeaderTableViewController{
         self.present(filePicker, animated: true)
     }
     
-    @objc func deleteTracks(){
+    @objc func deleteAllTracks(){
         showDestructiveApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
-            self.cancelActiveTrack()
-            Locations.deleteAllTracks()
-            self.mapViewController.updateLocationLayer()
+            TrackPool.cancelTracking()
+            TrackPool.deleteAllTracks()
             self.mapViewController.mapView.clearTrack()
         }
     }
@@ -108,7 +106,6 @@ extension TracksViewController : TrackDetailDelegate{
     
 }
 
-
 extension TracksViewController : TrackCellDelegate{
     
     func viewTrackDetails(track: TrackData) {
@@ -128,29 +125,12 @@ extension TracksViewController : TrackCellDelegate{
         }
     }
     
-    func deleteTrack(track: TrackData, approved: Bool) {
-        if approved{
-            self.deleteTrack(track: track)
+    func deleteTrack(track: TrackData) {
+        showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
+            self.delegate?.deleteTrack(track: track, approved: true)
+            self.tracks?.remove(obj: track)
+            self.tableView.reloadData()
         }
-        else{
-            showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
-                self.deleteTrack(track: track)
-            }
-        }
-    }
-    
-    private func deleteTrack(track: TrackData){
-        delegate?.deleteTrack(track: track, approved: true)
-        tracks?.remove(track)
-        tableView.reloadData()
-    }
-    
-    func cancelActiveTrack() {
-        delegate?.cancelActiveTrack()
-    }
-    
-    func saveActiveTrack() {
-        delegate?.saveActiveTrack()
     }
     
 }
@@ -159,26 +139,22 @@ extension TracksViewController : UIDocumentPickerDelegate{
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if let url = urls.first{
-            if let positions = GPXParser.parseFile(url: url){
-                if let startPosition = positions.first{
-                    assertLocation(coordinate: startPosition.coordinate){ location in
-                        let track = TrackData(startLocation: location)
-                        for pos in positions{
-                            track.trackpoints.append(pos)
-                        }
-                        track.evaluateTrackpoints()
-                        let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-                        alertController.addTextField()
-                        alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                            track.name = alertController.textFields![0].text ?? url.lastPathComponent
-                            location.addTrack(track: track)
-                            Locations.save()
-                            self.tracks?.append(track)
-                            self.tableView.reloadData()
-                        })
-                        self.present(alertController, animated: true)
-                    }
+            if let positions = GPXParser.parseFile(url: url), !positions.isEmpty{
+                let track = TrackData()
+                for pos in positions{
+                    track.trackpoints.append(pos)
                 }
+                track.evaluateTrackpoints()
+                let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
+                alertController.addTextField()
+                alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
+                    track.name = alertController.textFields![0].text ?? url.lastPathComponent
+                    TrackPool.addTrack(track: track)
+                    LocationPool.save()
+                    self.tracks?.append(track)
+                    self.tableView.reloadData()
+                })
+                self.present(alertController, animated: true)
             }
         }
     }

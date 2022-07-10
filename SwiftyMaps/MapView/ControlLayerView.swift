@@ -6,16 +6,20 @@
 
 import UIKit
 
+//MapViewController
 protocol ControlLayerDelegate{
     func preloadMap()
     func deleteTiles()
     func addLocation()
     func focusUserLocation()
     func updatePinVisibility()
+    func updateTrackVisibility()
     func openCamera()
     func startTracking()
-    func openTrack(track: TrackData)
-    func hideTrack()
+    func pauseTracking()
+    func resumeTracking()
+    func cancelTracking()
+    func saveAndCloseTracking()
 }
 
 class ControlLayerView: UIView {
@@ -192,7 +196,9 @@ class ControlLayerView: UIView {
     }
     
     @objc func toggleTracking(){
-        trackControl.isHidden = !trackControl.isHidden
+        Preferences.instance.showTrack = !Preferences.instance.showTrack
+        trackControl.isHidden = !Preferences.instance.showTrack
+        delegate?.updateTrackVisibility()
     }
     
     @objc func focusUserLocation(){
@@ -238,7 +244,7 @@ class ControlLayerView: UIView {
     }
     
     func updateTrackInfo(){
-        if let track = ActiveTrack.track{
+        if let track = TrackPool.activeTrack{
             distanceLabel.text = "\(Int(track.distance))m"
             distanceUpLabel.text = "\(Int(track.upDistance))m"
             distanceDownLabel.text = "\(Int(track.downDistance))m"
@@ -257,25 +263,25 @@ class ControlLayerView: UIView {
     }
     
     @objc func updateTime(){
-        if let track = ActiveTrack.track{
+        if let track = TrackPool.activeTrack{
             timeLabel.text = track.durationUntilNow.hmsString()
         }
     }
     
     @objc func pauseResume(){
-        if let _ = ActiveTrack.track{
-            if ActiveTrack.isTracking{
-                ActiveTrack.pauseTracking()
+        if let _ = TrackPool.activeTrack{
+            if TrackPool.isTracking{
+                TrackPool.pauseTracking()
             }
             else{
-                ActiveTrack.resumeTracking()
+                TrackPool.resumeTracking()
             }
             updatePauseResumeButton()
         }
     }
     
     func updatePauseResumeButton(){
-        if ActiveTrack.isTracking{
+        if TrackPool.isTracking{
             pauseResumeButton.setImage(UIImage(systemName: "pause"), for: .normal)
         }
         else{

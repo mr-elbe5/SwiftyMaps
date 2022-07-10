@@ -13,6 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         FileController.initialize()
         Preferences.loadInstance()
+        LocationPool.load()
+        TrackPool.load()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -34,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        if ActiveTrack.isTracking{
+        if TrackPool.isTracking{
             if !LocationService.shared.authorizedAlways{
                 LocationService.shared.requestAlwaysAuthorization()
             }
@@ -46,8 +48,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
-        Locations.save()
-        if !ActiveTrack.isTracking{
+        LocationPool.save()
+        if !TrackPool.isTracking{
             LocationService.shared.stop()
         }
         Preferences.instance.save()

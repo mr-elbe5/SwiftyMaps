@@ -36,7 +36,7 @@ class MapViewController :  UIViewController {
 
 extension MapViewController: LocationLayerViewDelegate{
     
-    func showLocationDetails(location: Location) {
+    func showLocationDetails(location: LocationData) {
         let controller = LocationDetailViewController()
         controller.location = location
         controller.delegate = self
@@ -47,6 +47,19 @@ extension MapViewController: LocationLayerViewDelegate{
 }
 
 extension MapViewController: ControlLayerDelegate{
+    
+    func focusUserLocation() {
+        mapView.focusUserLocation()
+    }
+    
+    func updatePinVisibility() {
+        mapView.updatePinVisibility()
+    }
+    
+    func updateTrackVisibility() {
+        mapView.updateTrackVisibility()
+    }
+    
     
     func preloadMap() {
         let region = mapView.currentMapRegion
@@ -79,8 +92,8 @@ extension MapViewController: ControlLayerDelegate{
     func startTracking(){
         if let lastPosition = LocationService.shared.lastPosition{
             assertLocation(coordinate: lastPosition.coordinate){ location in
-                ActiveTrack.startTracking(startLocation: location)
-                if let track = ActiveTrack.track{
+                TrackPool.startTracking(startLocation: location)
+                if let track = TrackPool.activeTrack{
                     self.mapView.trackLayerView.setTrack(track: track)
                     self.mapView.controlLayerView.startTrackControl()
                 }
@@ -88,27 +101,33 @@ extension MapViewController: ControlLayerDelegate{
         }
     }
     
-    func openTrack(track: TrackData) {
-        let controller = TrackDetailViewController()
-        controller.track = track
-        controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
-        if track == ActiveTrack.track{
-            controller.activeDelegate = self
+    func pauseTracking() {
+        TrackPool.pauseTracking()
+        mapView.controlLayerView.pauseTrackInfo()
+    }
+    
+    func resumeTracking() {
+        TrackPool.resumeTracking()
+        mapView.controlLayerView.resumeTrackInfo()
+    }
+    
+    func cancelTracking() {
+        TrackPool.cancelTracking()
+        mapView.clearTrack()
+    }
+    
+    func saveAndCloseTracking() {
+        if let track = TrackPool.activeTrack{
+            let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
+            alertController.addTextField()
+            alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
+                TrackPool.saveTrack(name: alertController.textFields![0].text ?? "Track")
+                self.mapView.trackLayerView.setTrack(track: track)
+                self.mapView.controlLayerView.stopTrackInfo()
+                self.mapView.updateLocationLayer()
+            })
+            present(alertController, animated: true)
         }
-        present(controller, animated: true)
-    }
-    
-    func hideTrack() {
-        mapView.trackLayerView.setTrack(track: nil)
-    }
-    
-    func focusUserLocation() {
-        mapView.focusUserLocation()
-    }
-    
-    func updatePinVisibility() {
-        mapView.updatePinVisibility()
     }
     
     func openCamera() {
@@ -142,7 +161,7 @@ extension MapViewController: PhotoCaptureDelegate{
             assertLocation(coordinate: lastPosition.coordinate){ location in
                 let changeState = location.photos.isEmpty
                 location.addPhoto(photo: photo)
-                Locations.save()
+                LocationPool.save()
                 if changeState{
                     DispatchQueue.main.async {
                         self.updateLocationLayer()
@@ -164,33 +183,19 @@ extension MapViewController: LocationViewDelegate{
 
 extension MapViewController: LocationsDelegate{
     
-    func showOnMap(location: Location) {
+    func showOnMap(location: LocationData) {
         mapView.scrollToCenteredCoordinate(coordinate: location.coordinate)
     }
     
-    func deleteLocation(location: Location) {
-        if let track = ActiveTrack.track, location.tracks.contains(track){
-            cancelActiveTrack()
-        }
-        if let track = mapView.trackLayerView.track, location.tracks.contains(track){
-            mapView.clearTrack()
-        }
-        Locations.deleteLocation(location)
-        Locations.save()
+    func deleteLocation(location: LocationData) {
+        LocationPool.deleteLocation(location)
+        LocationPool.save()
         updateLocationLayer()
     }
 
 }
 
-extension MapViewController: TrackDetailDelegate, TracksViewDelegate, ActiveTrackDelegate{
-    
-    func viewTrackDetails(track: TrackData) {
-        let trackController = TrackDetailViewController()
-        trackController.track = track
-        trackController.delegate = self
-        trackController.modalPresentationStyle = .fullScreen
-        self.present(trackController, animated: true)
-    }
+extension MapViewController: TracksViewDelegate{
     
     func deleteTrack(track: TrackData, approved: Bool) {
         if approved{
@@ -204,51 +209,15 @@ extension MapViewController: TrackDetailDelegate, TracksViewDelegate, ActiveTrac
     }
     
     private func deleteTrack(track: TrackData){
-        Locations.deleteTrack(track: track)
+        TrackPool.deleteTrack(track)
         mapView.clearTrack(track)
         updateLocationLayer()
     }
     
     func showTrackOnMap(track: TrackData) {
-        if let startLocation = track.startLocation{
-            mapView.trackLayerView.setTrack(track: track)
-            mapView.scrollToCenteredCoordinate(coordinate: startLocation.coordinate)
-        }
-    }
-    
-    func updateTrackLayer() {
-        mapView.trackLayerView.setNeedsDisplay()
-    }
-    
-    func pauseActiveTrack() {
-        ActiveTrack.pauseTracking()
-        mapView.controlLayerView.pauseTrackInfo()
-    }
-    
-    func resumeActiveTrack() {
-        ActiveTrack.resumeTracking()
-        mapView.controlLayerView.resumeTrackInfo()
-    }
-    
-    func cancelActiveTrack() {
-        ActiveTrack.stopTracking()
-        mapView.clearTrack()
-    }
-    
-    func saveActiveTrack() {
-        if let track = ActiveTrack.track{
-            let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-            alertController.addTextField()
-            alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                track.name = alertController.textFields![0].text ?? "Route"
-                track.startLocation.addTrack(track: track)
-                Locations.save()
-                self.mapView.trackLayerView.setTrack(track: track)
-                ActiveTrack.stopTracking()
-                self.mapView.controlLayerView.stopTrackInfo()
-                self.mapView.updateLocationLayer()
-            })
-            present(alertController, animated: true)
+        mapView.trackLayerView.setTrack(track: track)
+        if let startPoint = track.trackpoints.first{
+            mapView.scrollToCenteredCoordinate(coordinate: startPoint.coordinate)
         }
     }
     

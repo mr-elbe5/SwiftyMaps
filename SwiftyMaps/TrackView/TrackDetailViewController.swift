@@ -13,17 +13,13 @@ protocol TrackDetailDelegate{
     func showTrackOnMap(track: TrackData)
 }
 
-protocol ActiveTrackDelegate{
-    func cancelActiveTrack()
-    func saveActiveTrack()
-}
-
+//opened by TrackCell via TracksViewController
 class TrackDetailViewController: HeaderScrollViewController{
     
     var track: TrackData? = nil
     
     var isActiveTrack : Bool{
-        track != nil && track == ActiveTrack.track
+        track != nil && track == TrackPool.activeTrack
     }
     
     let mapButton = IconButton(icon: "map", tintColor: .darkGray)
@@ -31,7 +27,6 @@ class TrackDetailViewController: HeaderScrollViewController{
     
     // MapViewController
     var delegate : TrackDetailDelegate? = nil
-    var activeDelegate : ActiveTrackDelegate? = nil
     
     override func loadView() {
         title = "track".localize()
@@ -52,27 +47,21 @@ class TrackDetailViewController: HeaderScrollViewController{
     
     func setupContent() {
         if let track = track{
-            var header = UILabel(header: "startLocation".localize())
+            var header = UILabel(header: "name".localize())
             contentView.addSubview(header)
             header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
-            let locationLabel = UILabel(text: track.startLocation?.locationString ?? "")
-            contentView.addSubview(locationLabel)
-            locationLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
-            let coordinateLabel = UILabel(text: track.startLocation?.coordinateString ?? "")
-            contentView.addSubview(coordinateLabel)
-            coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
-            let timeLabel = UILabel(text: "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())")
-            contentView.addSubview(timeLabel)
-            timeLabel.setAnchors(top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
-            header = UILabel(header: "name".localize())
-            contentView.addSubview(header)
-            header.setAnchors(top: timeLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
             let nameLabel = UILabel(text: track.name)
             contentView.addSubview(nameLabel)
             nameLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
+            let coordinateLabel = UILabel(text: track.trackpoints.first?.coordinate.coordinateString ?? "")
+            contentView.addSubview(coordinateLabel)
+            coordinateLabel.setAnchors(top: nameLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
+            let timeLabel = UILabel(text: "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())")
+            contentView.addSubview(timeLabel)
+            timeLabel.setAnchors(top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
             header = UILabel(header: "distances".localize())
             contentView.addSubview(header)
-            header.setAnchors(top: nameLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
+            header.setAnchors(top: timeLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
             let distanceLabel = UILabel(text: "\("distance".localize()): \(Int(track.distance))m")
             contentView.addSubview(distanceLabel)
             distanceLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
@@ -84,27 +73,7 @@ class TrackDetailViewController: HeaderScrollViewController{
             downDistanceLabel.setAnchors(top: upDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
             let durationLabel = UILabel(text: "\("duration".localize()): \(track.duration.hmsString())")
             contentView.addSubview(durationLabel)
-            durationLabel.setAnchors(top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
-            if isActiveTrack{
-                let cancelButton = UIButton()
-                cancelButton.setTitle("cancel".localize(), for: .normal)
-                cancelButton.setTitleColor(.systemBlue, for: .normal)
-                cancelButton.setGrayRoundedBorders()
-                contentView.addSubview(cancelButton)
-                cancelButton.setAnchors(top: durationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-                cancelButton.addTarget(self, action: #selector(cancel), for: .touchDown)
-                
-                let saveButton = UIButton()
-                saveButton.setTitle("save".localize(), for: .normal)
-                saveButton.setTitleColor(.systemBlue, for: .normal)
-                saveButton.setGrayRoundedBorders()
-                contentView.addSubview(saveButton)
-                saveButton.setAnchors(top: cancelButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
-                saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-            }
-            else{
-                durationLabel.bottom(contentView.bottomAnchor)
-            }
+            durationLabel.setAnchors(top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor,insets: flatInsets)
         }
         
     }
@@ -114,23 +83,6 @@ class TrackDetailViewController: HeaderScrollViewController{
             delegate?.showTrackOnMap(track: track)
         }
     }
-    
-    @objc func cancel(){
-        if isActiveTrack{
-            self.dismiss(animated: true){
-                self.activeDelegate?.cancelActiveTrack()
-            }
-        }
-    }
-    
-    @objc func save(){
-        if isActiveTrack{
-            self.dismiss(animated: true){
-                self.activeDelegate?.saveActiveTrack()
-            }
-        }
-    }
-    
     
 }
 

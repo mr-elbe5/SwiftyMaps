@@ -10,9 +10,8 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol LocationsDelegate: LocationViewDelegate{
-    func showOnMap(location: Location)
-    func deleteLocation(location: Location)
-    func showTrackOnMap(track: TrackData)
+    func showOnMap(location: LocationData)
+    func deleteLocation(location: LocationData)
 }
 
 class LocationsViewController: HeaderTableViewController{
@@ -39,10 +38,7 @@ class LocationsViewController: HeaderTableViewController{
     
     @objc func deleteLocations() {
         showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
-            if ActiveTrack.track != nil{
-                self.mapViewController.cancelActiveTrack()
-            }
-            Locations.deleteAllLocations()
+            LocationPool.deleteAllLocations()
             self.updateLocationLayer()
             self.mapViewController.mapView.clearTrack()
         }
@@ -57,12 +53,12 @@ extension LocationsViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Locations.size
+        LocationPool.size
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationsViewController.CELL_IDENT, for: indexPath) as! LocationCell
-        let track = Locations.location(at: indexPath.row)
+        let track = LocationPool.location(at: indexPath.row)
         cell.location = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
@@ -85,13 +81,13 @@ extension LocationsViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension LocationsViewController : LocationCellDelegate{
     
-    func showOnMap(location: Location) {
+    func showOnMap(location: LocationData) {
         self.dismiss(animated: true){
             self.delegate?.showOnMap(location: location)
         }
     }
     
-    func deleteLocation(location: Location, approved: Bool) {
+    func deleteLocation(location: LocationData, approved: Bool) {
         if approved{
             deleteLocation(location: location)
         }
@@ -102,12 +98,12 @@ extension LocationsViewController : LocationCellDelegate{
         }
     }
     
-    private func deleteLocation(location: Location){
+    private func deleteLocation(location: LocationData){
         delegate?.deleteLocation(location: location)
         self.tableView.reloadData()
     }
     
-    func viewLocation(location: Location) {
+    func viewLocationDetails(location: LocationData) {
         let locationController = LocationDetailViewController()
         locationController.delegate = self
         locationController.location = location
@@ -121,12 +117,6 @@ extension LocationsViewController: LocationViewDelegate{
     
     func updateLocationLayer() {
         delegate?.updateLocationLayer()
-    }
-    
-    func showTrackOnMap(track: TrackData) {
-        self.dismiss(animated: true){
-            self.delegate?.showTrackOnMap(track: track)
-        }
     }
     
 }

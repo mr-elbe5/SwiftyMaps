@@ -32,7 +32,7 @@ class LocationGroup{
         return false
     }
     
-    func isWithinRadius(location: Location, radius: CGFloat) -> Bool{
+    func isWithinRadius(location: LocationData, radius: CGFloat) -> Bool{
         //print("checkking radius")
         if let center = center{
             let dist = center.distance(to: location.coordinate)
@@ -44,11 +44,11 @@ class LocationGroup{
         }
     }
     
-    func hasLocation(location: Location) -> Bool{
+    func hasLocation(location: LocationData) -> Bool{
         locations.contains(location)
     }
     
-    func addLocation(location: Location){
+    func addLocation(location: LocationData){
         locations.append(location)
     }
     

@@ -7,7 +7,7 @@
 import UIKit
 
 protocol LocationLayerViewDelegate{
-    func showLocationDetails(location: Location)
+    func showLocationDetails(location: LocationData)
 }
 
 class LocationLayerView: UIView {
@@ -20,7 +20,7 @@ class LocationLayerView: UIView {
             subview.removeFromSuperview()
         }
         if zoom == MapStatics.maxZoom{
-            for location in Locations.list{
+            for location in LocationPool.locations{
                 let pin = LocationPin(location: location)
                 addSubview(pin)
                 pin.addTarget(self, action: #selector(showLocationDetails), for: .touchDown)
@@ -29,7 +29,7 @@ class LocationLayerView: UIView {
         else{
             let planetDist = MapStatics.zoomScaleToPlanet(from: zoom) * 10 // 10m at full zoom
             var groups = Array<LocationGroup>()
-            for location in Locations.list{
+            for location in LocationPool.locations{
                 var grouped = false
                 for group in groups{
                     if group.isWithinRadius(location: location, radius: planetDist){
@@ -61,7 +61,7 @@ class LocationLayerView: UIView {
         updatePosition(offset: offset, scale: scale)
     }
     
-    func getPin(location: Location) -> Pin?{
+    func getPin(location: LocationData) -> Pin?{
         for subview in subviews{
             if let pin = subview as? LocationPin, pin.location == location{
                 return pin
@@ -91,7 +91,7 @@ class LocationLayerView: UIView {
         }
     }
     
-    func updateLocationState(_ location: Location){
+    func updateLocationState(_ location: LocationData){
         if let pin = getPin(location: location){
             pin.updateImage()
         }

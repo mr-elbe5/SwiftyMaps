@@ -8,9 +8,9 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Location : Hashable, Codable{
+class LocationData : Hashable, Codable{
     
-    static func == (lhs: Location, rhs: Location) -> Bool {
+    static func == (lhs: LocationData, rhs: LocationData) -> Bool {
         lhs.id == rhs.id
     }
     
@@ -68,9 +68,7 @@ class Location : Hashable, Codable{
     }
     
     var coordinateString : String{
-        let latitudeText = coordinate.latitude > 0 ? "north".localize() : "south".localize()
-        let longitudeText = coordinate.longitude > 0 ? "east".localize() : "west".localize()
-        return String(format: "%.04f", abs(coordinate.latitude)) + "° " + latitudeText + ", " + String(format: "%.04f", abs(coordinate.longitude)) + "° "  + longitudeText
+        coordinate.coordinateString
     }
     
     var hasPhotos : Bool{
@@ -118,9 +116,6 @@ class Location : Hashable, Codable{
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         photos = try values.decodeIfPresent(PhotoList.self, forKey: .photos) ?? Array<PhotoData>()
         tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks) ?? TrackList()
-        for track in tracks{
-            track.startLocation = self
-        }
         if !hasPlacemark{
             LocationService.shared.getPlacemarkInfo(for: self)
         }
@@ -139,7 +134,7 @@ class Location : Hashable, Codable{
         try container.encode(country, forKey: .country)
         try container.encode(description, forKey: .description)
         try container.encode(photos, forKey: .photos)
-        try container.encode(tracks, forKey: .tracks)
+        //try container.encode(tracks, forKey: .tracks)
     }
     
     func addPlacemarkInfo(placemark: CLPlacemark){
@@ -177,21 +172,6 @@ class Location : Hashable, Codable{
     
     func deleteAllPhotos(){
         photos.removeAllPhotos()
-    }
-    
-    func addTrack(track: TrackData){
-        tracks.append(track)
-    }
-    
-    //unused
-    func deleteTrack(track: TrackData){
-        lock.wait()
-        defer{lock.signal()}
-        tracks.remove(track)
-    }
-    
-    //unused
-    func deleteAllTracks(){
     }
     
     func hash(into hasher: inout Hasher) {

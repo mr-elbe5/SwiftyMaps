@@ -154,6 +154,16 @@ class MapView: UIView {
         locationLayerView.isHidden = Preferences.instance.showPins
     }
     
+    func updateTrackVisibility(){
+        trackLayerView.isHidden = Preferences.instance.showTrack
+    }
+    
+    func updateTrackLayer(){
+        if !trackLayerView.isHidden{
+            trackLayerView.setNeedsDisplay()
+        }
+    }
+    
     func scaleTo(scale: Double, animated : Bool = false){
         scrollView.setZoomScale(scale, animated: animated)
     }
@@ -221,8 +231,8 @@ extension MapView: LocationServiceDelegate{
         }
         else{
             userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: position.coordinate), accuracy: position.horizontalAccuracy, offset: contentOffset, scale: scale)
-            if ActiveTrack.isTracking{
-                ActiveTrack.updateTrack(with: position)
+            if TrackPool.isTracking{
+                TrackPool.updateTrack(with: position)
                 trackLayerView.updateTrack()
                 controlLayerView.updateTrackInfo()
             }
