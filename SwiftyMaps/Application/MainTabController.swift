@@ -16,7 +16,8 @@ class MainTabController: UITabBarController {
     override func loadView() {
         super.loadView()
         tabBar.barTintColor = UIColor.systemBackground
-        tabBar.isTranslucent = false
+        tabBar.tintColor = UIColor.darkGray
+        tabBar.isTranslucent = true
         let mapViewcontroller = MapViewController()
         mapViewcontroller.tabBarItem = UITabBarItem(title: NSLocalizedString("map", comment: ""), image: UIImage(systemName: "globe"), tag: TabTags.map.hashValue)
         let locationsViewController = LocationsViewController()

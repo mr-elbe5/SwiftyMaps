@@ -46,7 +46,7 @@
 "preloadHint"="Sie finden Links zu den Regeln in den Einstellungen.";
 
 //preferences view - PrefrencesViewController
-"mapPreferences"="Einstellungen";
+"preferences"="Einstellungen";
 "urlTemplate"="URL-Template für OpenStreetMap-Kacheln:";
 "elbe5TileURL"="Template für Elbe5.de benutzen";
 "osmTileURL"="Template für OpenStreetMap.org benutzen";

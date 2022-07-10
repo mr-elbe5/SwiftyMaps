@@ -45,7 +45,7 @@
 "preloadHint"="You can find links to legal infos under preferences.";
 
 //preferences view - PreferencesViewController
-"mapPreferences"="Preferences";
+"preferences"="Preferences";
 "urlTemplate"="URL Template for OpenStreetMap Tiles:";
 "elbe5TileURL"="Use template for Elbe5.de";
 "osmTileURL"="Use template for OpenStreetMap.org";

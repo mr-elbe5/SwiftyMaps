@@ -107,18 +107,8 @@ extension MapViewController: ControlLayerDelegate{
         mapView.focusUserLocation()
     }
     
-    func openInfo() {
-        let controller = InfoViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
-    func openPreferences() {
-        let controller = PreferencesViewController()
-        controller.currentZoom = mapView.zoom
-        controller.currentCenterCoordinate = mapView.getVisibleCenterCoordinate()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+    func updatePinVisibility() {
+        mapView.updatePinVisibility()
     }
     
     func openCamera() {

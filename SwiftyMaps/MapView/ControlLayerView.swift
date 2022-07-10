@@ -11,6 +11,7 @@ protocol ControlLayerDelegate{
     func deleteTiles()
     func addLocation()
     func focusUserLocation()
+    func updatePinVisibility()
     func openCamera()
     func startTracking()
     func openTrack(track: TrackData)
@@ -24,9 +25,10 @@ class ControlLayerView: UIView {
     
     var topControl = UIView()
     var mapMenuControl = IconButton(icon: "map")
-    var toggleCrossControl = IconButton(icon: "plus.circle")
+    var togglePinsControl = IconButton(icon: "mappin")
     var toggleTrackControl = IconButton(icon: "figure.walk")
     var focusUserLocationControl = IconButton(icon: "record.circle")
+    var toggleCrossControl = IconButton(icon: "plus.circle")
     var openCameraControl = IconButton(icon: "camera")
     var crossControl = IconButton(icon: "plus.circle")
     
@@ -43,7 +45,7 @@ class ControlLayerView: UIView {
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
         
-        topControl.backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        topControl.backgroundColor = .white //UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         topControl.layer.cornerRadius = 10
         topControl.layer.masksToBounds = true
         addSubview(topControl)
@@ -72,12 +74,12 @@ class ControlLayerView: UIView {
         mapMenuControl.menu = getMapMenu()
         mapMenuControl.showsMenuAsPrimaryAction = true
         
-        topControl.addSubview(toggleCrossControl)
-        toggleCrossControl.setAnchors(top: topControl.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: topControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
-        toggleCrossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
+        topControl.addSubview(togglePinsControl)
+        togglePinsControl.setAnchors(top: topControl.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: topControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        togglePinsControl.addTarget(self, action: #selector(togglePins), for: .touchDown)
         
         topControl.addSubview(toggleTrackControl)
-        toggleTrackControl.setAnchors(top: topControl.topAnchor, leading: toggleCrossControl.trailingAnchor, bottom: topControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        toggleTrackControl.setAnchors(top: topControl.topAnchor, leading: togglePinsControl.trailingAnchor, bottom: topControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
         toggleTrackControl.addTarget(self, action: #selector(toggleTracking), for: .touchDown)
         
         topControl.addSubview(focusUserLocationControl)
@@ -89,6 +91,9 @@ class ControlLayerView: UIView {
         openCameraControl.setAnchors(top: topControl.topAnchor, trailing: topControl.trailingAnchor, bottom: topControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
+        topControl.addSubview(toggleCrossControl)
+        toggleCrossControl.setAnchors(top: topControl.topAnchor, trailing: openCameraControl.leadingAnchor, bottom: topControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
+        toggleCrossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
     }
     
     func fillTrackControl(){
@@ -138,7 +143,7 @@ class ControlLayerView: UIView {
         pauseResumeButton.addTarget(self, action: #selector(pauseResume), for: .touchDown)
         
         updateTrackInfo()
-        self.isHidden = true
+        //self.isHidden = true
     }
     
     func fillLicenseView(){
@@ -181,8 +186,9 @@ class ControlLayerView: UIView {
         return UIMenu(title: "", children: [preloadMapAction, deleteTilesAction])
     }
     
-    @objc func toggleCross(){
-        crossControl.isHidden = !crossControl.isHidden
+    @objc func togglePins(){
+        Preferences.instance.showPins = !Preferences.instance.showPins
+        delegate?.updatePinVisibility()
     }
     
     @objc func toggleTracking(){
@@ -191,6 +197,10 @@ class ControlLayerView: UIView {
     
     @objc func focusUserLocation(){
         delegate?.focusUserLocation()
+    }
+    
+    @objc func toggleCross(){
+        crossControl.isHidden = !crossControl.isHidden
     }
     
     @objc func openCamera(){

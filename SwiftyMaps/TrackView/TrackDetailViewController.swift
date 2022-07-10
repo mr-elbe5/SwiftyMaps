@@ -29,7 +29,7 @@ class TrackDetailViewController: HeaderScrollViewController{
     let mapButton = IconButton(icon: "map", tintColor: .darkGray)
     let deleteButton = IconButton(icon: "trash", tintColor: .darkGray)
     
-    // MainViewController
+    // MapViewController
     var delegate : TrackDetailDelegate? = nil
     var activeDelegate : ActiveTrackDelegate? = nil
     

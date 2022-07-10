@@ -150,6 +150,10 @@ class MapView: UIView {
         locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)
     }
     
+    func updatePinVisibility(){
+        locationLayerView.isHidden = Preferences.instance.showPins
+    }
+    
     func scaleTo(scale: Double, animated : Bool = false){
         scrollView.setZoomScale(scale, animated: animated)
     }

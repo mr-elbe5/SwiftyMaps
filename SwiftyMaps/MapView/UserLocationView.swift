@@ -12,6 +12,10 @@ class UserLocationView : UIView{
     static var userLocationColor = UIColor.systemBlue
     static var userDirectionColor = UIColor.red
     
+    static var goodPositionColor = UIColor(red: 0.0, green: 0, blue: 1.0, alpha: 1.0).cgColor
+    static var mediumPositionColor = UIColor(red: 0.75, green: 0, blue: 1.0, alpha: 1.0).cgColor
+    static var badPositionColor = UIColor(red: 1.0, green: 0, blue: 1.0, alpha: 1.0).cgColor
+    
     var drawCenter : CGPoint? = nil
     var accuracy: CLLocationAccuracy = 100
     var planetPoint : CGPoint = .zero
@@ -44,11 +48,13 @@ class UserLocationView : UIView{
             let ctx = UIGraphicsGetCurrentContext()!
             var color : CGColor!
             if accuracy <= 10{
-                color = UIColor.systemBlue.cgColor
+                color = UserLocationView.goodPositionColor
+            }
+            else if accuracy <= 50{
+                color = UserLocationView.mediumPositionColor
             }
             else{
-                let redFactor = max(1.0, accuracy/100.0)
-                color = UIColor(red: redFactor, green: 0, blue: 1.0, alpha: 1.0).cgColor
+                color = UserLocationView.badPositionColor
             }
             ctx.beginPath()
             ctx.addEllipse(in: drawRect.scaleCenteredBy(0.3))
