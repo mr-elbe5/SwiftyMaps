@@ -40,7 +40,7 @@ class LocationsViewController: HeaderTableViewController{
         showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
             LocationPool.deleteAllLocations()
             self.updateLocationLayer()
-            self.mapViewController.mapView.clearTrack()
+            mapViewController.mapView.clearTrack()
         }
     }
     

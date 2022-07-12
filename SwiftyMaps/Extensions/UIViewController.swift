@@ -72,29 +72,5 @@ extension UIViewController{
         self.present(alertController, animated: true)
     }
     
-    var mapViewController : MapViewController{
-        return MainTabController.instance.getViewController(tag: .map) as! MapViewController
-    }
-    
-    var locationsViewController : LocationsViewController{
-        return MainTabController.instance.getViewController(tag: .locations) as! LocationsViewController
-    }
-    
-    var tracksViewController : TracksViewController{
-        return MainTabController.instance.getViewController(tag: .tracks) as! TracksViewController
-    }
-    
-    var infoViewController : InfoViewController{
-        return MainTabController.instance.getViewController(tag: .info) as! InfoViewController
-    }
-    
-    var preferencesViewController : PreferencesViewController{
-        return MainTabController.instance.getViewController(tag: .preferences) as! PreferencesViewController
-    }
-    
-    var statusViewController : StatusViewController{
-        return MainTabController.instance.getViewController(tag: .status) as! StatusViewController
-    }
-    
 }
 

@@ -80,3 +80,4 @@ class UserLocationView : UIView{
     }
     
 }
+

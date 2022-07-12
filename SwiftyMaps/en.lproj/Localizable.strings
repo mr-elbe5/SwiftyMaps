@@ -6,6 +6,7 @@
 "delete"="Delete";
 "done"="Done";
 "edit"="Edit";
+"hide"="Hide";
 "ok"="Ok";
 "name"="Name";
 "no"="No";
@@ -15,6 +16,7 @@
 "title"="Title";
 "title/text"="Title/Text";
 "success"="Success";
+"show"="Show";
 "yes"="Yes";
 "yourText"="Your text...";
 "start"="Start";
@@ -79,9 +81,8 @@
 
 // track menu - ControlLayerView
 "startNewTrack"="Start a new Track";
-"showCurrentTrack"="Current Track...";
+"showTrack"="Show Track";
 "hideTrack"="Hide Track";
-"showTrackList"="Saved Tracks...";
 "deleteTracks"="Delete all Tracks";
 "confirmDeleteTracks"="Do you want to delete all tracks?";
 "deleteTracksHint"="This action cannot be undone.";

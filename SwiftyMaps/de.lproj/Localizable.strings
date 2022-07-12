@@ -6,6 +6,7 @@
 "delete"="Löschen";
 "done"="Fertig";
 "edit"="Ändern";
+"hide"="Ausblenden";
 "ok"="Ok";
 "name"="Name";
 "no"="Nein";
@@ -14,6 +15,7 @@
 "save"="Speichern";
 "title"="Titel";
 "title/text"="Titel/Text";
+"show"="Einblenden";
 "success"="Erfolg";
 "yes"="Ja";
 "yourText"="Dein Text...";
@@ -66,7 +68,6 @@
 
 // location menu - ControlLayerView
 "addLocation"="Ort hinzufügen";
-"showLocationList"="Ortsliste anzeigen";
 "showLocations"="Orte (Nadeln) anzeigen";
 "hideLocations"="Orte (Nadeln) ausblenden";
 "deleteLocations"="Alle Orte löschen";
@@ -81,7 +82,7 @@
 
 // track menu - ControlLayerView
 "startNewTrack"="Neue Tour starten";
-"showCurrentTrack"="Aktuelle Tour...";
+"showTrack"="Tour einblenden";
 "hideTrack"="Tour ausblenden";
 "showTrackList"="Touren...";
 "deleteTracks"="Alle Touren löschen";

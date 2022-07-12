@@ -2,16 +2,10 @@
 import UIKit
 
 enum TabTags{
-    case map, locations, tracks, info, preferences, status
+    case map, locations, tracks, info, preferences
 }
 
 class MainTabController: UITabBarController {
-    
-    static var instance : MainTabController{
-        get{
-            return UIApplication.shared.windows.first!.rootViewController as! MainTabController
-        }
-    }
     
     override func loadView() {
         super.loadView()
@@ -24,19 +18,17 @@ class MainTabController: UITabBarController {
         locationsViewController.tabBarItem = UITabBarItem(title: "locations".localize(), image: UIImage(systemName: "mappin.and.ellipse"), tag: TabTags.locations.hashValue)
         let tracksViewController = TracksViewController()
         tracksViewController.tabBarItem = UITabBarItem(title: "tracks".localize(), image: UIImage(systemName: "figure.walk"), tag: TabTags.tracks.hashValue)
+        let preferencesViewController = PreferencesViewController()
+        preferencesViewController.tabBarItem = UITabBarItem(title: "preferences".localize(), image: UIImage(systemName: "slider.horizontal.3"), tag: TabTags.preferences.hashValue)
         let infoViewController = InfoViewController()
         infoViewController.tabBarItem = UITabBarItem(title: "info".localize(), image: UIImage(systemName: "info"), tag: TabTags.info.hashValue)
-        let preferencesViewController = PreferencesViewController()
-        preferencesViewController.tabBarItem = UITabBarItem(title: "preferences".localize(), image: UIImage(systemName: "gearshape"), tag: TabTags.preferences.hashValue)
-        let statusViewController = StatusViewController()
-        statusViewController.tabBarItem = UITabBarItem(title: "status".localize(), image: UIImage(systemName: "waveform"), tag: TabTags.status.hashValue)
-        let tabBarList = [mapViewcontroller, locationsViewController, tracksViewController, infoViewController, preferencesViewController, statusViewController]
+        let tabBarList = [mapViewcontroller, locationsViewController, tracksViewController, preferencesViewController, infoViewController]
         viewControllers = tabBarList
         selectedViewController = mapViewcontroller
     }
     
     func getViewController(tag: TabTags) -> UIViewController?{
-        for viewController in MainTabController.instance.viewControllers!{
+        for viewController in mainTabController.viewControllers!{
             if viewController.tabBarItem!.tag == tag.hashValue{
                 return viewController
             }
@@ -49,5 +41,6 @@ class MainTabController: UITabBarController {
     }
 
 }
+
 
 

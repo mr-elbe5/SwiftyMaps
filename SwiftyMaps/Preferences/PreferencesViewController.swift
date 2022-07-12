@@ -15,10 +15,6 @@ class PreferencesViewController: ScrollViewController{
     var startZoomField = LabeledTextField()
     var minLocationAccuracyField = LabeledTextField()
     var maxLocationMergeDistanceField = LabeledTextField()
-    var minTrackingDistanceField = LabeledTextField()
-    var minTrackingIntervalField = LabeledTextField()
-    var pinGroupRadiusField = LabeledTextField()
-    var maxPreloadTilesField = LabeledTextField()
     var startWithLastPositionSwitch = LabeledSwitchView()
     var showPinsSwitch = LabeledSwitchView()
     var showTrackSwitch = LabeledSwitchView()
@@ -76,23 +72,11 @@ class PreferencesViewController: ScrollViewController{
         contentView.addSubview(maxLocationMergeDistanceField)
         maxLocationMergeDistanceField.setAnchors(top: startZoomField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        minTrackingDistanceField.setupView(labelText: "minTrackingDistance".localize(), text: String(Int(Preferences.instance.minTrackingDistance)), isHorizontal: true)
-        contentView.addSubview(minTrackingDistanceField)
-        minTrackingDistanceField.setAnchors(top: maxLocationMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        minTrackingIntervalField.setupView(labelText: "minTrackingInterval".localize(), text: String(Int(Preferences.instance.minTrackingInterval)), isHorizontal: true)
-        contentView.addSubview(minTrackingIntervalField)
-        minTrackingIntervalField.setAnchors(top: minTrackingDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        maxPreloadTilesField.setupView(labelText: "maxPreloadTiles".localize(), text: String(Int(Preferences.instance.maxPreloadTiles)), isHorizontal: true)
-        contentView.addSubview(maxPreloadTilesField)
-        maxPreloadTilesField.setAnchors(top: minTrackingIntervalField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
         startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: Preferences.instance.startWithLastPosition)
         contentView.addSubview(startWithLastPositionSwitch)
-        startWithLastPositionSwitch.setAnchors(top: maxPreloadTilesField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        startWithLastPositionSwitch.setAnchors(top: maxLocationMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        showPinsSwitch.setupView(labelText: "showPins".localize(), isOn: Preferences.instance.showPins)
+        showPinsSwitch.setupView(labelText: "showLocations".localize(), isOn: Preferences.instance.showPins)
         contentView.addSubview(showPinsSwitch)
         showPinsSwitch.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -134,15 +118,6 @@ class PreferencesViewController: ScrollViewController{
         Preferences.instance.preloadUrlTemplate = preloadUrlTemplateField.text
         if let val = Int(maxLocationMergeDistanceField.text){
             Preferences.instance.maxLocationMergeDistance = CLLocationDistance(val)
-        }
-        if let val = Int(minTrackingDistanceField.text){
-            Preferences.instance.minTrackingDistance = CLLocationDistance(val)
-        }
-        if let val = Int(minTrackingIntervalField.text){
-            Preferences.instance.minTrackingInterval = CLLocationDistance(val)
-        }
-        if let val = Int(maxPreloadTilesField.text){
-            Preferences.instance.maxPreloadTiles = val
         }
         if let val = Int(startZoomField.text){
             Preferences.instance.startZoom = val

@@ -57,7 +57,7 @@ class TracksViewController: HeaderTableViewController{
         showDestructiveApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
             TrackPool.cancelTracking()
             TrackPool.deleteAllTracks()
-            self.mapViewController.mapView.clearTrack()
+            mapViewController.mapView.clearTrack()
         }
     }
     

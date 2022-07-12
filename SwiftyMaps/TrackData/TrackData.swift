@@ -92,20 +92,12 @@ class TrackData : Hashable, Codable{
     func updateTrack(_ position: Position){
         let lastTP = trackpoints.last
         if let tp = lastTP{
-            if tp.coordinate.distance(to: position.coordinate) < Preferences.instance.minTrackingDistance{
-                return
-            }
-            let interval = tp.timestamp.distance(to: position.timestamp)
-            if interval < Preferences.instance.minTrackingInterval{
-                return
-            }
             self.distance += tp.coordinate.distance(to: position.coordinate)
             let vDist = position.altitude - tp.altitude
             if vDist > 0{
                 upDistance += vDist
             }
             else{
-                //invert negative
                 downDistance -= vDist
             }
             endTime = position.timestamp
@@ -113,11 +105,11 @@ class TrackData : Hashable, Codable{
         trackpoints.append(Position(position: position))
     }
     
-    func pauseTracking(){
+    func startPause(){
         pauseTime = Date()
     }
     
-    func resumeTracking(){
+    func endPause(){
         if let pauseTime = pauseTime{
             pauseLength += pauseTime.distance(to: Date())
             self.pauseTime = nil

@@ -96,7 +96,6 @@ class MapView: UIView {
     func clearTrack(_ track: TrackData? = nil){
         if track == nil || trackLayerView.track == track{
             trackLayerView.setTrack(track: nil)
-            controlLayerView.stopTrackInfo()
         }
     }
     
@@ -151,11 +150,11 @@ class MapView: UIView {
     }
     
     func updatePinVisibility(){
-        locationLayerView.isHidden = Preferences.instance.showPins
+        locationLayerView.isHidden = !Preferences.instance.showPins
     }
     
     func updateTrackVisibility(){
-        trackLayerView.isHidden = Preferences.instance.showTrack
+        trackLayerView.isHidden = !Preferences.instance.showTrack
     }
     
     func updateTrackLayer(){
@@ -166,6 +165,7 @@ class MapView: UIView {
     
     func scaleTo(scale: Double, animated : Bool = false){
         scrollView.setZoomScale(scale, animated: animated)
+        updateZoom()
     }
     
     func zoomTo(zoom: Int, animated: Bool){
@@ -177,9 +177,9 @@ class MapView: UIView {
     func setDefaultLocation(){
         if Preferences.instance.startWithLastPosition, let pos = position{
             scaleTo(scale: pos.scale)
-            updateLocationLayer()
             scrollToCenteredCoordinate(coordinate: pos.coordinate)
             startLocationIsSet = true
+            updateLocationLayer()
         }
         else{
             zoomTo(zoom: MapStatics.minZoom, animated: false)
@@ -206,6 +206,14 @@ class MapView: UIView {
         position = MapPosition(scale: scrollView.zoomScale, coordinate: getVisibleCenterCoordinate())
     }
     
+    func updateZoom(){
+        let zoom = MapStatics.zoomLevelFromReverseScale(scale: scale)
+        if zoom != self.zoom{
+            self.zoom = zoom
+            locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)
+        }
+    }
+    
     func savePosition(){
         if let pos = position{
             pos.save()
@@ -216,9 +224,15 @@ class MapView: UIView {
 
 extension MapView: LocationServiceDelegate{
     
-    func authorizationDidChange(authorization: CLAuthorizationStatus) {
+    func authorizationDidChange(authorization: CLAuthorizationStatus, position: Position) {
         if authorization.rawValue >= CLAuthorizationStatus.authorizedWhenInUse.rawValue{
-            //todo
+            if !startLocationIsSet{
+                zoomTo(zoom: MapStatics.minZoom, animated: false)
+                scrollToCenteredCoordinate(coordinate: position.coordinate)
+                updatePosition()
+                updateLocationLayer()
+                startLocationIsSet = true
+            }
         }
     }
     
@@ -227,10 +241,12 @@ extension MapView: LocationServiceDelegate{
             zoomTo(zoom: MapStatics.minZoom, animated: false)
             scrollToCenteredCoordinate(coordinate: position.coordinate)
             updatePosition()
+            updateLocationLayer()
             startLocationIsSet = true
         }
         else{
             userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: position.coordinate), accuracy: position.horizontalAccuracy, offset: contentOffset, scale: scale)
+            controlLayerView.updateLocationInfo(position: position)
             if TrackPool.isTracking{
                 TrackPool.updateTrack(with: position)
                 trackLayerView.updateTrack()
@@ -253,11 +269,7 @@ extension MapView : UIScrollViewDelegate{
     
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         updatePosition()
-        let zoom = MapStatics.zoomLevelFromReverseScale(scale: scale)
-        if zoom != self.zoom{
-            self.zoom = zoom
-            locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)
-        }
+        updateZoom()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

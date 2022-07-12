@@ -9,7 +9,7 @@ import CoreLocation
 import UIKit
 
 protocol LocationServiceDelegate{
-    func authorizationDidChange(authorization: CLAuthorizationStatus)
+    func authorizationDidChange(authorization: CLAuthorizationStatus, position: Position)
     func positionDidChange(position: Position)
     func directionDidChange(direction: Int)
 }
@@ -18,12 +18,16 @@ class LocationService : NSObject{
     
     static var shared = LocationService()
     
+    static let minDistanceChange = 5.0
+    static let minHeadingChange = 2.0
+    
     var lastPosition : Position? = nil
     var lastDirection : Int = 0
     var running = false
     
-    var delegates : Array<LocationServiceDelegate> = []
+    var delegate : LocationServiceDelegate? = nil
     
+    private let locationQueue = DispatchQueue(label: "swiftymaps.locationQueue")
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     
@@ -46,8 +50,11 @@ class LocationService : NSObject{
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.headingFilter = 2.0
+        locationManager.distanceFilter = LocationService.minDistanceChange
+        locationManager.headingFilter = LocationService.minHeadingChange
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.showsBackgroundLocationIndicator = true
         
     }
     
@@ -63,12 +70,11 @@ class LocationService : NSObject{
         lock.wait()
         defer{lock.signal()}
         if authorized, !running{
-            locationManager.startUpdatingLocation()
-            locationManager.allowsBackgroundLocationUpdates = true
-            locationManager.pausesLocationUpdatesAutomatically = false
-            locationManager.showsBackgroundLocationIndicator = true
-            locationManager.startUpdatingHeading()
-            running = true
+            locationQueue.async{
+                self.locationManager.startUpdatingLocation()
+                self.locationManager.startUpdatingHeading()
+                self.running = true
+            }
         }
     }
     
@@ -80,18 +86,24 @@ class LocationService : NSObject{
     
     func stop(){
         if running{
-            locationManager.stopUpdatingLocation()
-            locationManager.stopUpdatingHeading()
-            running = false
+            locationQueue.async{
+                self.locationManager.stopUpdatingLocation()
+                self.locationManager.stopUpdatingHeading()
+                self.running = false
+            }
         }
     }
     
     func requestWhenInUseAuthorization(){
-        self.locationManager.requestWhenInUseAuthorization()
+        locationQueue.async{
+            self.locationManager.requestWhenInUseAuthorization()
+        }
     }
     
     func requestAlwaysAuthorization(){
-        self.locationManager.requestAlwaysAuthorization()
+        locationQueue.async{
+            self.locationManager.requestAlwaysAuthorization()
+        }
     }
     
     func setPosition(loc: CLLocation) -> Bool{
@@ -108,16 +120,18 @@ extension LocationService : CLLocationManagerDelegate{
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkRunning()
-        for delegate in delegates{
-            delegate.authorizationDidChange(authorization: manager.authorizationStatus)
+        if let position = self.lastPosition{
+            DispatchQueue.main.async {
+                self.delegate?.authorizationDidChange(authorization: manager.authorizationStatus, position: position)
+            }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.last{
             if setPosition(loc: loc), let position = lastPosition{
-                for delegate in delegates{
-                    delegate.positionDidChange(position: position)
+                DispatchQueue.main.async {
+                    self.delegate?.positionDidChange(position: position)
                 }
             }
         }
@@ -125,8 +139,8 @@ extension LocationService : CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         lastDirection = Int(newHeading.trueHeading.rounded())
-        for delegate in delegates{
-            delegate.directionDidChange(direction: lastDirection)
+        DispatchQueue.main.async {
+            self.delegate?.directionDidChange(direction: self.lastDirection)
         }
     }
     

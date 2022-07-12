@@ -9,7 +9,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         FileController.initialize()
         Preferences.loadInstance()
@@ -18,8 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        mainController = MapViewController()
-        window?.rootViewController = MainTabController()
+        mainTabController = MainTabController()
+        window?.rootViewController = mainTabController
         window?.makeKeyAndVisible()
         LocationService.shared.requestWhenInUseAuthorization()
     }
@@ -53,10 +53,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             LocationService.shared.stop()
         }
         Preferences.instance.save()
-        mainController.mapView.savePosition()
+        mapViewController.mapView.savePosition()
     }
 
 }
 
-var mainController : MapViewController!
+var mainTabController : MainTabController!
+
+var mapViewController : MapViewController{
+    mainTabController.getViewController(tag: .map) as! MapViewController
+}
+
+var locationsViewController : LocationsViewController{
+    mainTabController.getViewController(tag: .locations) as! LocationsViewController
+}
+
+var tracksViewController : TracksViewController{
+    mainTabController.getViewController(tag: .tracks) as! TracksViewController
+}
+
+
 

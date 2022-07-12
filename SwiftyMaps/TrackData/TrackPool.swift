@@ -34,7 +34,10 @@ class TrackPool{
     static var tracks : TrackList = TrackList()
     
     static var activeTrack : TrackData? = nil
-    static var isTracking : Bool = false
+    static var isTracking : Bool{
+        activeTrack != nil
+    }
+    static var isPausing : Bool = false;
     
     static private var _lock = DispatchSemaphore(value: 1)
     
@@ -75,12 +78,12 @@ class TrackPool{
         DataController.shared.save(forKey: TrackPool.storeKey, value: tracks)
     }
     
-    static func startTracking(startLocation: LocationData){
-        if activeTrack == nil{
+    static func startTracking(){
+        if !isTracking, let position = LocationService.shared.lastPosition{
             activeTrack = TrackData()
-            activeTrack!.trackpoints.append(Position(location: startLocation.cllocation))
+            activeTrack!.trackpoints.append(position)
         }
-        isTracking = true
+        isPausing = false
     }
     
     static func updateTrack(with position: Position){
@@ -91,21 +94,21 @@ class TrackPool{
     
     static func pauseTracking(){
         if let track = activeTrack{
-            track.pauseTracking()
-            isTracking = false
+            track.startPause()
+            isPausing = true
         }
     }
     
     static func resumeTracking(){
         if let track = activeTrack{
-            track.resumeTracking()
-            isTracking = true
+            track.endPause()
+            isPausing = false
         }
     }
     
     static func cancelTracking(){
         if activeTrack != nil{
-            isTracking = false
+            isPausing = false
             activeTrack = nil
         }
     }
@@ -113,7 +116,7 @@ class TrackPool{
     static func saveTrack(name: String){
         if let track = activeTrack{
             track.name = name
-            isTracking = false
+            isPausing = false
             tracks.append(track)
             activeTrack = nil
             save()

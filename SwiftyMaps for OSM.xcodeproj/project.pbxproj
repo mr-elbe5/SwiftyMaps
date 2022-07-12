@@ -93,7 +93,6 @@
 		4EF2FD6C2873301D005DBA73 /* TracksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD6B2873301D005DBA73 /* TracksViewController.swift */; };
 		4EF2FD6E2873305F005DBA73 /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD6D2873305F005DBA73 /* LocationsViewController.swift */; };
 		4EF2FD7028733725005DBA73 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD6F28733725005DBA73 /* ScrollViewController.swift */; };
-		4EF2FD732875E9A4005DBA73 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD722875E9A4005DBA73 /* StatusViewController.swift */; };
 		4EF2FD762876DC28005DBA73 /* HeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD752876DC28005DBA73 /* HeaderTableViewController.swift */; };
 		4EF2FD7828772B4C005DBA73 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD7728772B4C005DBA73 /* Position.swift */; };
 		4EF2FD84287B0EE4005DBA73 /* TrackPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2FD83287B0EE4005DBA73 /* TrackPool.swift */; };
@@ -191,7 +190,6 @@
 		4EF2FD6B2873301D005DBA73 /* TracksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewController.swift; sourceTree = "<group>"; };
 		4EF2FD6D2873305F005DBA73 /* LocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
 		4EF2FD6F28733725005DBA73 /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
-		4EF2FD722875E9A4005DBA73 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		4EF2FD752876DC28005DBA73 /* HeaderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTableViewController.swift; sourceTree = "<group>"; };
 		4EF2FD7728772B4C005DBA73 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		4EF2FD83287B0EE4005DBA73 /* TrackPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPool.swift; sourceTree = "<group>"; };
@@ -248,7 +246,6 @@
 				4EF2FD7F287AC685005DBA73 /* LocationView */,
 				4E0BD99C26EA0074005A4A94 /* InfoView */,
 				4E3BE7EA26EA7E57000F9069 /* MapView */,
-				4EF2FD742876CC0E005DBA73 /* StatusView */,
 				4EF2FD7D287AC5B8005DBA73 /* TrackView */,
 			);
 			path = SwiftyMaps;
@@ -397,14 +394,6 @@
 			path = TileData;
 			sourceTree = "<group>";
 		};
-		4EF2FD742876CC0E005DBA73 /* StatusView */ = {
-			isa = PBXGroup;
-			children = (
-				4EF2FD722875E9A4005DBA73 /* StatusViewController.swift */,
-			);
-			path = StatusView;
-			sourceTree = "<group>";
-		};
 		4EF2FD7D287AC5B8005DBA73 /* TrackView */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,7 +522,6 @@
 			files = (
 				4EA9B7CE27413F0B00C91B68 /* SafeMap.swift in Sources */,
 				4E24F47D27345D11004E69C2 /* UIButton.swift in Sources */,
-				4EF2FD732875E9A4005DBA73 /* StatusViewController.swift in Sources */,
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E24F48827345D11004E69C2 /* UIImage.swift in Sources */,

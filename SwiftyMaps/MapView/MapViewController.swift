@@ -29,7 +29,7 @@ class MapViewController :  UIViewController {
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
         mapView.setDefaultLocation()
-        LocationService.shared.delegates.append(mapView)
+        LocationService.shared.delegate = mapView
     }
     
 }
@@ -63,16 +63,10 @@ extension MapViewController: ControlLayerDelegate{
     
     func preloadMap() {
         let region = mapView.currentMapRegion
-        if region.size > Preferences.instance.maxPreloadTiles{
-            let text = "preloadMapsAlert".localize(param1: String(region.size), param2: String(Preferences.instance.maxPreloadTiles))
-            showAlert(title: "pleaseNote".localize(), text: text, onOk: nil)
-        }
-        else{
-            let controller = MapPreloadViewController()
-            controller.mapRegion = region
-            controller.modalPresentationStyle = .fullScreen
-            present(controller, animated: true)
-        }
+        let controller = MapPreloadViewController()
+        controller.mapRegion = region
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
     
     func deleteTiles() {
@@ -83,48 +77,25 @@ extension MapViewController: ControlLayerDelegate{
     }
     
     func addLocation(){
-        let coordinate = mapView.getVisibleCenterCoordinate()
-        assertLocation(coordinate: coordinate){ location in
-            self.updateLocationLayer()
-        }
-    }
-    
-    func startTracking(){
-        if let lastPosition = LocationService.shared.lastPosition{
-            assertLocation(coordinate: lastPosition.coordinate){ location in
-                TrackPool.startTracking(startLocation: location)
-                if let track = TrackPool.activeTrack{
-                    self.mapView.trackLayerView.setTrack(track: track)
-                    self.mapView.controlLayerView.startTrackControl()
-                }
+        if let position = LocationService.shared.lastPosition{
+            assertLocation(coordinate: position.coordinate){ location in
+                self.updateLocationLayer()
             }
         }
     }
     
-    func pauseTracking() {
-        TrackPool.pauseTracking()
-        mapView.controlLayerView.pauseTrackInfo()
+    func updateTrackLayer() {
+        mapView.updateTrackLayer()
     }
     
-    func resumeTracking() {
-        TrackPool.resumeTracking()
-        mapView.controlLayerView.resumeTrackInfo()
-    }
-    
-    func cancelTracking() {
-        TrackPool.cancelTracking()
-        mapView.clearTrack()
-    }
-    
-    func saveAndCloseTracking() {
-        if let track = TrackPool.activeTrack{
+    func saveAndCloseTracking(){
+        if TrackPool.isTracking{
             let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
             alertController.addTextField()
             alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                 TrackPool.saveTrack(name: alertController.textFields![0].text ?? "Track")
-                self.mapView.trackLayerView.setTrack(track: track)
-                self.mapView.controlLayerView.stopTrackInfo()
-                self.mapView.updateLocationLayer()
+                self.mapView.controlLayerView.trackingStopped()
+                self.updateTrackLayer()
             })
             present(alertController, animated: true)
         }
