@@ -19,7 +19,7 @@ class LocationService : NSObject{
     static var shared = LocationService()
     
     static let minHorizontalAccuracy = 20.0
-    static let minDistanceChange = 5.0
+    static let minDistanceChange = 1.0
     static let minHeadingChange = 2.0
     
     var lastPosition : Position? = nil

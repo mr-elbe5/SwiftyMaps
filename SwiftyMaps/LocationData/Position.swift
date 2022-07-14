@@ -77,17 +77,14 @@ class Position  : Hashable, Codable{
     
     func calculateLastSpeedAndBearing(previousPosition: Position){
         let dist = coordinate.distance(to: previousPosition.coordinate)
-        print("dist= \(Int(dist))")
         let timeDiff : TimeInterval = timestamp.timeIntervalSince(previousPosition.timestamp)
-        if dist != 0{
-            speed = timeDiff/dist
+        if timeDiff != 0{
+            speed = dist/timeDiff * 3.6
         }
         else{
             speed = 0
         }
-        print("speed=\(speed)")
         bearing = previousPosition.coordinate.bearing(to: coordinate)
-        print("bearing=\(bearing)")
     }
     
 }

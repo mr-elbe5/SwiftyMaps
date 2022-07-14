@@ -21,6 +21,8 @@ protocol ControlLayerDelegate{
 
 class ControlLayerView: UIView {
     
+    static let layerBackground : UIColor = .white
+    
     //MapViewController
     var delegate : ControlLayerDelegate? = nil
     
@@ -37,7 +39,7 @@ class ControlLayerView: UIView {
     var bearingLabel = UILabel()
     var speedLabel = UILabel()
     
-    var topControl = UIView()
+    var menuControl = UIView()
     var mapMenuControl = IconButton(icon: "map")
     var locationMenuControl = IconButton(icon: "mappin")
     var trackingMenuControl = IconButton(icon: "figure.walk")
@@ -46,131 +48,128 @@ class ControlLayerView: UIView {
     
     var licenseView = UIView()
     
+    var iconInsets = UIEdgeInsets(top: 1, left: 5, bottom: 1, right: 1)
+    var labelInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 5)
+    
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
         
-        statusInfo.backgroundColor = .white //UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        statusInfo.backgroundColor = ControlLayerView.layerBackground
+        statusInfo.layer.cornerRadius = 10
+        statusInfo.layer.masksToBounds = true
         addSubview(statusInfo)
-        statusInfo.setAnchors(top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: .zero)
-        updateStatusControl()
+        statusInfo.setAnchors(top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: defaultInsets)
+        setupStatusInfo()
         
-        trackingInfo.backgroundColor = .white //UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        addSubview(trackingInfo)
-        trackingInfo.setAnchors(top: statusInfo.bottomAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: .zero)
-        updateTrackingControl()
-        
-        topControl.backgroundColor = .white //UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        topControl.layer.cornerRadius = 10
-        topControl.layer.masksToBounds = true
-        addSubview(topControl)
-        topControl.setAnchors(top: trackingInfo.bottomAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: defaultInsets)
-        updateTopControl()
+        menuControl.backgroundColor = ControlLayerView.layerBackground
+        menuControl.layer.cornerRadius = 10
+        menuControl.layer.masksToBounds = true
+        addSubview(menuControl)
+        menuControl.setAnchors(top: statusInfo.bottomAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: defaultInsets)
+        setupMenuControl()
         
         addSubview(licenseView)
         licenseView.setAnchors(trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
         fillLicenseView()
+        
+        trackingInfo.backgroundColor = ControlLayerView.layerBackground
+        trackingInfo.layer.cornerRadius = 10
+        trackingInfo.layer.masksToBounds = true
+        addSubview(trackingInfo)
+        trackingInfo.setAnchors(leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
+        setupTrackingInfo()
+        trackingInfo.isHidden = true
     }
     
-    func updateStatusControl(){
-        heightLabel.textColor = .darkGray
-        heightLabel.text = "0m"
-        statusInfo.addSubview(heightLabel)
-        heightLabel.setAnchors(top: statusInfo.topAnchor, trailing: statusInfo.trailingAnchor, bottom: statusInfo.bottomAnchor, insets: flatInsets)
-        var label = UILabel(text: "height".localize())
-        label.tintColor = .darkGray
-        statusInfo.addSubview(label)
-        label.setAnchors(top: statusInfo.topAnchor, trailing: heightLabel.leadingAnchor, bottom: statusInfo.bottomAnchor, insets: .zero)
+    func setupStatusInfo(){
         
+        let headingIcon = UIImageView(image: UIImage(systemName: "safari"))
+        headingIcon.tintColor = .darkGray
+        statusInfo.addSubview(headingIcon)
+        headingIcon.setAnchors(top: statusInfo.topAnchor, leading: statusInfo.leadingAnchor, bottom: statusInfo.bottomAnchor, insets: iconInsets)
         headingLabel.textColor = .darkGray
         headingLabel.text = "0°"
         statusInfo.addSubview(headingLabel)
-        headingLabel.setAnchors(top: statusInfo.topAnchor, trailing: label.leadingAnchor, bottom: statusInfo.bottomAnchor, insets: flatInsets)
-        label = UILabel(text: "direction".localize())
-        label.tintColor = .darkGray
-        statusInfo.addSubview(label)
-        label.setAnchors(top: statusInfo.topAnchor, trailing: headingLabel.leadingAnchor, bottom: statusInfo.bottomAnchor, insets: .zero)
+        headingLabel.setAnchors(top: statusInfo.topAnchor, leading: headingIcon.trailingAnchor, bottom: statusInfo.bottomAnchor, insets: labelInsets)
+        
+        let heightIcon = UIImageView(image: UIImage(systemName: "triangle.bottomhalf.filled"))
+        heightIcon.tintColor = .darkGray
+        statusInfo.addSubview(heightIcon)
+        heightIcon.setAnchors(top: statusInfo.topAnchor, leading: headingLabel.trailingAnchor, bottom: statusInfo.bottomAnchor, insets: iconInsets)
+        heightLabel.textColor = .darkGray
+        heightLabel.text = "0m"
+        statusInfo.addSubview(heightLabel)
+        heightLabel.setAnchors(top: statusInfo.topAnchor, leading: heightIcon.trailingAnchor, bottom: statusInfo.bottomAnchor, insets: labelInsets)
+        
     }
     
-    func updateTrackingControl(){
+    func setupTrackingInfo(){
         let distanceIcon = UIImageView(image: UIImage(systemName: "arrow.right"))
         distanceIcon.tintColor = .darkGray
         trackingInfo.addSubview(distanceIcon)
-        distanceIcon.setAnchors(top: trackingInfo.topAnchor, leading: trackingInfo.leadingAnchor, bottom: trackingInfo.bottomAnchor, insets: flatInsets)
+        distanceIcon.setAnchors(top: trackingInfo.topAnchor, leading: trackingInfo.leadingAnchor, bottom: trackingInfo.bottomAnchor, insets: iconInsets)
         distanceLabel.textColor = .darkGray
-        distanceLabel.text = "0m"
         trackingInfo.addSubview(distanceLabel)
-        distanceLabel.setAnchors(top: trackingInfo.topAnchor, leading: distanceIcon.trailingAnchor, bottom: trackingInfo.bottomAnchor)
+        distanceLabel.setAnchors(top: trackingInfo.topAnchor, leading: distanceIcon.trailingAnchor, bottom: trackingInfo.bottomAnchor,insets: labelInsets)
         
         let distanceUpIcon = UIImageView(image: UIImage(systemName: "arrow.up"))
         distanceUpIcon.tintColor = .darkGray
         trackingInfo.addSubview(distanceUpIcon)
-        distanceUpIcon.setAnchors(top: trackingInfo.topAnchor, leading: distanceLabel.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: flatInsets)
+        distanceUpIcon.setAnchors(top: trackingInfo.topAnchor, leading: distanceLabel.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: iconInsets)
         distanceUpLabel.textColor = .darkGray
-        distanceUpLabel.text = "0m"
         trackingInfo.addSubview(distanceUpLabel)
-        distanceUpLabel.setAnchors(top: trackingInfo.topAnchor, leading: distanceUpIcon.trailingAnchor, bottom: trackingInfo.bottomAnchor)
+        distanceUpLabel.setAnchors(top: trackingInfo.topAnchor, leading: distanceUpIcon.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: labelInsets)
         
         let distanceDownIcon = UIImageView(image: UIImage(systemName: "arrow.down"))
         distanceDownIcon.tintColor = .darkGray
         trackingInfo.addSubview(distanceDownIcon)
-        distanceDownIcon.setAnchors(top: trackingInfo.topAnchor, leading: distanceUpLabel.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: flatInsets)
+        distanceDownIcon.setAnchors(top: trackingInfo.topAnchor, leading: distanceUpLabel.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: iconInsets)
         distanceDownLabel.textColor = .darkGray
-        distanceDownLabel.text = "0m"
         trackingInfo.addSubview(distanceDownLabel)
-        distanceDownLabel.setAnchors(top: trackingInfo.topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: trackingInfo.bottomAnchor)
+        distanceDownLabel.setAnchors(top: trackingInfo.topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: labelInsets)
         
         let timeIcon = UIImageView(image: UIImage(systemName: "stopwatch"))
         timeIcon.tintColor = .darkGray
         trackingInfo.addSubview(timeIcon)
-        timeIcon.setAnchors(top: trackingInfo.topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: flatInsets)
+        timeIcon.setAnchors(top: trackingInfo.topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: iconInsets)
         timeLabel.textColor = .darkGray
         trackingInfo.addSubview(timeLabel)
-        timeLabel.setAnchors(top: trackingInfo.topAnchor, leading: timeIcon.trailingAnchor, bottom: trackingInfo.bottomAnchor)
+        timeLabel.setAnchors(top: trackingInfo.topAnchor, leading: timeIcon.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: labelInsets)
         
-        speedLabel.textColor = .darkGray
-        speedLabel.text = "0m/s"
-        trackingInfo.addSubview(speedLabel)
-        speedLabel.setAnchors(top: trackingInfo.topAnchor, trailing: trackingInfo.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: flatInsets)
         let speedIcon = UIImageView(image: UIImage(systemName: "figure.walk"))
         speedIcon.tintColor = .darkGray
         trackingInfo.addSubview(speedIcon)
-        speedIcon.setAnchors(top: trackingInfo.topAnchor, trailing: speedLabel.leadingAnchor, bottom: trackingInfo.bottomAnchor, insets: .zero)
-        
-        bearingLabel.textColor = .darkGray
-        bearingLabel.text = "0°"
-        trackingInfo.addSubview(bearingLabel)
-        bearingLabel.setAnchors(top: trackingInfo.topAnchor, trailing: speedIcon.leadingAnchor, bottom: trackingInfo.bottomAnchor, insets: flatInsets)
-        let bearingIcon = UIImageView(image: UIImage(systemName: "safari"))
-        bearingIcon.tintColor = .darkGray
-        trackingInfo.addSubview(bearingIcon)
-        bearingIcon.setAnchors(top: trackingInfo.topAnchor, trailing: bearingLabel.leadingAnchor, bottom: trackingInfo.bottomAnchor, insets: .zero)
-        
+        speedIcon.setAnchors(top: trackingInfo.topAnchor, leading: timeLabel.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: iconInsets)
+        speedLabel.textColor = .darkGray
+        trackingInfo.addSubview(speedLabel)
+        speedLabel.setAnchors(top: trackingInfo.topAnchor, leading: speedIcon.trailingAnchor, bottom: trackingInfo.bottomAnchor, insets: labelInsets)
+        resetTrackInfo()
     }
     
-    func updateTopControl(){
-        topControl.removeAllSubviews()
-        topControl.addSubview(mapMenuControl)
-        mapMenuControl.setAnchors(top: topControl.topAnchor, leading: topControl.leadingAnchor, bottom: topControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 10 , bottom: 0, right: 0))
+    func setupMenuControl(){
+        menuControl.removeAllSubviews()
+        menuControl.addSubview(mapMenuControl)
+        mapMenuControl.setAnchors(top: menuControl.topAnchor, leading: menuControl.leadingAnchor, bottom: menuControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 10 , bottom: 0, right: 0))
         mapMenuControl.menu = getMapMenu()
         mapMenuControl.showsMenuAsPrimaryAction = true
         
-        topControl.addSubview(locationMenuControl)
-        locationMenuControl.setAnchors(top: topControl.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: topControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        menuControl.addSubview(locationMenuControl)
+        locationMenuControl.setAnchors(top: menuControl.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: menuControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
         locationMenuControl.menu = getLocationMenu()
         locationMenuControl.showsMenuAsPrimaryAction = true
         
-        topControl.addSubview(trackingMenuControl)
-        trackingMenuControl.setAnchors(top: topControl.topAnchor, leading: locationMenuControl.trailingAnchor, bottom: topControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        menuControl.addSubview(trackingMenuControl)
+        trackingMenuControl.setAnchors(top: menuControl.topAnchor, leading: locationMenuControl.trailingAnchor, bottom: menuControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
         trackingMenuControl.menu = getTrackingMenu()
         trackingMenuControl.showsMenuAsPrimaryAction = true
         
-        topControl.addSubview(focusUserLocationControl)
-        focusUserLocationControl.setAnchors(top: topControl.topAnchor, bottom: topControl.bottomAnchor)
-            .centerX(topControl.centerXAnchor)
+        menuControl.addSubview(focusUserLocationControl)
+        focusUserLocationControl.setAnchors(top: menuControl.topAnchor, bottom: menuControl.bottomAnchor)
+            .centerX(menuControl.centerXAnchor)
         focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
         
-        topControl.addSubview(openCameraControl)
-        openCameraControl.setAnchors(top: topControl.topAnchor, trailing: topControl.trailingAnchor, bottom: topControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
+        menuControl.addSubview(openCameraControl)
+        openCameraControl.setAnchors(top: menuControl.topAnchor, trailing: menuControl.trailingAnchor, bottom: menuControl.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
     }
@@ -236,6 +235,7 @@ class ControlLayerView: UIView {
                 self.updateTrackingMenu()
                 self.delegate?.updateTrackLayer()
                 self.resetTrackInfo()
+                self.trackingInfo.isHidden = true
             })
             actions.append(UIAction(title: "stopTracking".localize(), image: UIImage(systemName: "stop.circle")){ action in
                 self.delegate?.saveAndCloseTracking()
@@ -247,8 +247,9 @@ class ControlLayerView: UIView {
                 Preferences.instance.showTrack = true
                 self.startTimer()
                 self.delegate?.updateTrackVisibility()
+                self.trackingInfo.isHidden = false
                 self.updateTrackingMenu()
-                self.updateStatusControl()
+                self.setupStatusInfo()
             })
             if Preferences.instance.showTrack{
                 actions.append(UIAction(title: "hide".localize(), image: UIImage(systemName: "eye.slash")){ action in
@@ -273,6 +274,7 @@ class ControlLayerView: UIView {
     func trackingStopped(){
         stopTimer()
         self.resetTrackInfo()
+        trackingInfo.isHidden = false
     }
     
     func updateTrackingMenu(){
@@ -303,7 +305,7 @@ class ControlLayerView: UIView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
-            ($0 == topControl || $0 is IconButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
+            ($0 == menuControl || $0 is IconButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
         })
     }
     
@@ -321,15 +323,15 @@ class ControlLayerView: UIView {
         distanceLabel.text = "0m"
         distanceUpLabel.text = "0m"
         distanceDownLabel.text = "0m"
-        timeLabel.text = ""
-        speedLabel.text = "0m/s"
+        timeLabel.text = 0.hmsString()
+        speedLabel.text = "0km/h"
         bearingLabel.text = "0°"
     }
     
     func updateLocationInfo(position: Position){
         heightLabel.text = "\(Int(position.altitude))m"
         bearingLabel.text = "\(position.bearing)°"
-        speedLabel.text = "\(Int(position.speed))m/s"
+        speedLabel.text = "\(String(format: "%.1f", position.speed))km/h"
     }
     
     func updateHeadingInfo(heading: Int){
