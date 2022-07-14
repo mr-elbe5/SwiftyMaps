@@ -153,14 +153,8 @@ class MapView: UIView {
         locationLayerView.isHidden = !Preferences.instance.showPins
     }
     
-    func updateTrackVisibility(){
-        trackLayerView.isHidden = !Preferences.instance.showTrack
-    }
-    
     func updateTrackLayer(){
-        if !trackLayerView.isHidden{
-            trackLayerView.setNeedsDisplay()
-        }
+        trackLayerView.setNeedsDisplay()
     }
     
     func scaleTo(scale: Double, animated : Bool = false){

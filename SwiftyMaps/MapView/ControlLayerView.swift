@@ -13,10 +13,12 @@ protocol ControlLayerDelegate{
     func addLocation()
     func focusUserLocation()
     func updatePinVisibility()
-    func updateTrackVisibility()
     func openCamera()
     func updateTrackLayer()
+    func startTracking()
     func saveAndCloseTracking()
+    func showsTrack() -> Bool
+    func hideTrack()
 }
 
 class ControlLayerView: UIView {
@@ -232,38 +234,25 @@ class ControlLayerView: UIView {
             actions.append(UIAction(title: "cancel".localize(), image: UIImage(systemName: "trash")){ action in
                 TrackPool.cancelTracking()
                 self.stopTimer()
-                self.updateTrackingMenu()
-                self.delegate?.updateTrackLayer()
                 self.resetTrackInfo()
                 self.trackingInfo.isHidden = true
+                self.delegate?.hideTrack()
+                self.updateTrackingMenu()
             })
             actions.append(UIAction(title: "stopTracking".localize(), image: UIImage(systemName: "stop.circle")){ action in
                 self.delegate?.saveAndCloseTracking()
             })
         }
         else{
-            actions.append(UIAction(title: "startTracking".localize(), image: UIImage(systemName: "figure.walk.departure")){ action in
-                TrackPool.startTracking()
-                Preferences.instance.showTrack = true
+            actions.append(UIAction(title: "startTracking".localize(), image: UIImage(systemName: "figure.walk")){ action in
+                self.delegate?.startTracking()
                 self.startTimer()
-                self.delegate?.updateTrackVisibility()
                 self.trackingInfo.isHidden = false
                 self.updateTrackingMenu()
-                self.setupStatusInfo()
             })
-            if Preferences.instance.showTrack{
-                actions.append(UIAction(title: "hide".localize(), image: UIImage(systemName: "eye.slash")){ action in
-                    Preferences.instance.showTrack = false
-                    Preferences.instance.save()
-                    self.delegate?.updateTrackVisibility()
-                    self.updateTrackingMenu()
-                })
-            }
-            else{
-                actions.append(UIAction(title: "show".localize(), image: UIImage(systemName: "eye")){ action in
-                    Preferences.instance.showTrack = true
-                    Preferences.instance.save()
-                    self.delegate?.updateTrackVisibility()
+            if delegate?.showsTrack() ?? false{
+                actions.append(UIAction(title: "hide".localize(), image: UIImage(systemName: "point.3.filled.connected.trianglepath.dotted")?.withTintColor(UIColor.systemOrange, renderingMode: .alwaysOriginal)){ action in
+                    self.delegate?.hideTrack()
                     self.updateTrackingMenu()
                 })
             }
@@ -273,8 +262,9 @@ class ControlLayerView: UIView {
     
     func trackingStopped(){
         stopTimer()
-        self.resetTrackInfo()
-        trackingInfo.isHidden = false
+        resetTrackInfo()
+        trackingInfo.isHidden = true
+        updateTrackingMenu()
     }
     
     func updateTrackingMenu(){

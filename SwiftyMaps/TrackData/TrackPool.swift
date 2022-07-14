@@ -119,6 +119,7 @@ class TrackPool{
             isPausing = false
             tracks.append(track)
             activeTrack = nil
+            isPausing = false
             save()
         }
     }

@@ -36,7 +36,6 @@ class Preferences: Identifiable, Codable{
         case maxLocationMergeDistance
         case startWithLastPosition
         case showPins
-        case showTrack
     }
 
     var urlTemplate : String = elbe5Url
@@ -45,7 +44,6 @@ class Preferences: Identifiable, Codable{
     var maxLocationMergeDistance : CLLocationDistance = defaultMaxLocationMergeDistance
     var startWithLastPosition : Bool = true
     var showPins : Bool = true
-    var showTrack : Bool = true
     
     init(){
     }
@@ -58,7 +56,6 @@ class Preferences: Identifiable, Codable{
         maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? Preferences.defaultMaxLocationMergeDistance
         startWithLastPosition = try values.decodeIfPresent(Bool.self, forKey: .startWithLastPosition) ?? false
         showPins = try values.decodeIfPresent(Bool.self, forKey: .showPins) ?? true
-        showTrack = try values.decodeIfPresent(Bool.self, forKey: .showTrack) ?? true
     }
     
     func encode(to encoder: Encoder) throws {
@@ -69,7 +66,6 @@ class Preferences: Identifiable, Codable{
         try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)
         try container.encode(startWithLastPosition, forKey: .startWithLastPosition)
         try container.encode(showPins, forKey: .showPins)
-        try container.encode(showTrack, forKey: .showTrack)
     }
     
     func save(){

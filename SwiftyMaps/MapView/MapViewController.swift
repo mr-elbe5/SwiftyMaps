@@ -56,11 +56,6 @@ extension MapViewController: ControlLayerDelegate{
         mapView.updatePinVisibility()
     }
     
-    func updateTrackVisibility() {
-        mapView.updateTrackVisibility()
-    }
-    
-    
     func preloadMap() {
         let region = mapView.currentMapRegion
         let controller = MapPreloadViewController()
@@ -84,8 +79,21 @@ extension MapViewController: ControlLayerDelegate{
         }
     }
     
+    func startTracking() {
+        TrackPool.startTracking()
+        mapView.trackLayerView.setTrack(track: TrackPool.activeTrack)
+    }
+    
     func updateTrackLayer() {
         mapView.updateTrackLayer()
+    }
+    
+    func showsTrack() -> Bool {
+        mapView.trackLayerView.track != nil
+    }
+    
+    func hideTrack() {
+        mapView.trackLayerView.setTrack(track: nil)
     }
     
     func saveAndCloseTracking(){
@@ -95,7 +103,6 @@ extension MapViewController: ControlLayerDelegate{
             alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                 TrackPool.saveTrack(name: alertController.textFields![0].text ?? "Track")
                 self.mapView.controlLayerView.trackingStopped()
-                self.updateTrackLayer()
             })
             present(alertController, animated: true)
         }

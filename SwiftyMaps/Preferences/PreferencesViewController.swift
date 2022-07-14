@@ -17,7 +17,6 @@ class PreferencesViewController: ScrollViewController{
     var maxLocationMergeDistanceField = LabeledTextField()
     var startWithLastPositionSwitch = LabeledSwitchView()
     var showPinsSwitch = LabeledSwitchView()
-    var showTrackSwitch = LabeledSwitchView()
     
     var currentZoom : Int = MapStatics.minZoom
     var currentCenterCoordinate : CLLocationCoordinate2D? = nil
@@ -80,16 +79,12 @@ class PreferencesViewController: ScrollViewController{
         contentView.addSubview(showPinsSwitch)
         showPinsSwitch.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        showTrackSwitch.setupView(labelText: "showTrack".localize(), isOn: Preferences.instance.showTrack)
-        contentView.addSubview(showTrackSwitch)
-        showTrackSwitch.setAnchors(top: showPinsSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
         contentView.addSubview(saveButton)
-        saveButton.setAnchors(top: showTrackSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        saveButton.setAnchors(top: showPinsSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
     }
     
@@ -127,11 +122,6 @@ class PreferencesViewController: ScrollViewController{
         if showPins != Preferences.instance.showPins{
             Preferences.instance.showPins = showPinsSwitch.isOn
             mapViewController.mapView.updatePinVisibility()
-        }
-        let showTrack = showTrackSwitch.isOn
-        if showTrack != Preferences.instance.showTrack{
-            Preferences.instance.showTrack = showTrackSwitch.isOn
-            mapViewController.mapView.updateTrackVisibility()
         }
         Preferences.instance.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
