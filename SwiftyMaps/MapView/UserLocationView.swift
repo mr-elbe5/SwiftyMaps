@@ -19,7 +19,7 @@ class UserLocationView : UIView{
     var drawCenter : CGPoint? = nil
     var accuracy: CLLocationAccuracy = 100
     var planetPoint : CGPoint = .zero
-    var direction : Int = 0
+    var heading : Int = 0
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return false
@@ -37,8 +37,8 @@ class UserLocationView : UIView{
         setNeedsDisplay()
     }
     
-    func updateDirection(direction: Int){
-        self.direction = direction
+    func updateDirection(heading: Int){
+        self.heading = heading
         setNeedsDisplay()
     }
     
@@ -65,9 +65,9 @@ class UserLocationView : UIView{
             ctx.addEllipse(in: drawRect.scaleCenteredBy(0.6))
             ctx.setStrokeColor(color)
             ctx.drawPath(using: .stroke)
-            let angle1 = (Double(direction) - 15.0)*CGFloat.pi/180
+            let angle1 = (Double(heading) - 15.0)*CGFloat.pi/180
             let sin1 = sin(angle1)
-            let angle2 = (Double(direction) + 15.0)*CGFloat.pi/180
+            let angle2 = (Double(heading) + 15.0)*CGFloat.pi/180
             let sin2 = sin(angle2)
             ctx.beginPath()
             ctx.setFillColor(UserLocationView.userDirectionColor.cgColor)

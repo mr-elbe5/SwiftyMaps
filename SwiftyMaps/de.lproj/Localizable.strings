@@ -21,6 +21,8 @@
 "yourText"="Dein Text...";
 "start"="Start";
 "close"="Schliessen";
+"direction"="Richtung:";
+"height"="Höhe:";
 
 //main tabs
 "map"="Karte";

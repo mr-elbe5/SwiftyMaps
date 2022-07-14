@@ -21,6 +21,8 @@ class Position  : Hashable, Codable{
     
     var horizontalAccuracy : CLLocationDistance = 0
     var verticalAccuracy : CLLocationDistance = 0
+    var speed : Double = 0.0
+    var bearing : Int = 0
     
     var coordinateString : String{
         let latitudeText = coordinate.latitude > 0 ? "north".localize() : "south".localize()
@@ -34,6 +36,7 @@ class Position  : Hashable, Codable{
         self.timestamp = position.timestamp
         self.horizontalAccuracy = position.horizontalAccuracy
         self.verticalAccuracy = position.verticalAccuracy
+        self.bearing = position.bearing
     }
     
     init(location: CLLocation){
@@ -70,6 +73,21 @@ class Position  : Hashable, Codable{
     func hash(into hasher: inout Hasher) {
         hasher.combine(coordinate.latitude)
         hasher.combine(coordinate.longitude)
+    }
+    
+    func calculateLastSpeedAndBearing(previousPosition: Position){
+        let dist = coordinate.distance(to: previousPosition.coordinate)
+        print("dist= \(Int(dist))")
+        let timeDiff : TimeInterval = timestamp.timeIntervalSince(previousPosition.timestamp)
+        if dist != 0{
+            speed = timeDiff/dist
+        }
+        else{
+            speed = 0
+        }
+        print("speed=\(speed)")
+        bearing = previousPosition.coordinate.bearing(to: coordinate)
+        print("bearing=\(bearing)")
     }
     
 }

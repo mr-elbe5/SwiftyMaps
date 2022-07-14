@@ -21,6 +21,8 @@
 "yourText"="Your text...";
 "start"="Start";
 "close"="Close";
+"direction"="Direction:";
+"height"="Height:";
 
 //main tabs
 "map"="Map";

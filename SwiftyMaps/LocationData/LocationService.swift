@@ -11,18 +11,19 @@ import UIKit
 protocol LocationServiceDelegate{
     func authorizationDidChange(authorization: CLAuthorizationStatus, position: Position)
     func positionDidChange(position: Position)
-    func directionDidChange(direction: Int)
+    func headingDidChange(heading: Int)
 }
 
 class LocationService : NSObject{
     
     static var shared = LocationService()
     
+    static let minHorizontalAccuracy = 20.0
     static let minDistanceChange = 5.0
     static let minHeadingChange = 2.0
     
     var lastPosition : Position? = nil
-    var lastDirection : Int = 0
+    var lastHeading : Int = 0
     var running = false
     
     var delegate : LocationServiceDelegate? = nil
@@ -31,6 +32,7 @@ class LocationService : NSObject{
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     
+    private var positionQueue = Array<Position>()
     private var lock = DispatchSemaphore(value: 1)
     
     var authorization: CLAuthorizationStatus{
@@ -107,10 +109,19 @@ class LocationService : NSObject{
     }
     
     func setPosition(loc: CLLocation) -> Bool{
-        if loc.horizontalAccuracy == -1{
+        if loc.horizontalAccuracy == -1 || loc.horizontalAccuracy > LocationService.minHorizontalAccuracy{
+            print("low accuracy")
             return false
         }
-        lastPosition = Position(location: loc)
+        let position = Position(location: loc)
+        if let previousPosition = positionQueue.last{
+            position.calculateLastSpeedAndBearing(previousPosition: previousPosition)
+        }
+        positionQueue.append(position)
+        if positionQueue.count > 5{
+            positionQueue.remove(at: 0)
+        }
+        lastPosition = positionQueue.last
         return true
     }
     
@@ -138,9 +149,9 @@ extension LocationService : CLLocationManagerDelegate{
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        lastDirection = Int(newHeading.trueHeading.rounded())
+        lastHeading = Int(newHeading.trueHeading.rounded())
         DispatchQueue.main.async {
-            self.delegate?.directionDidChange(direction: self.lastDirection)
+            self.delegate?.headingDidChange(heading: self.lastHeading)
         }
     }
     

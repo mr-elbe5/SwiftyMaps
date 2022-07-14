@@ -255,8 +255,9 @@ extension MapView: LocationServiceDelegate{
         }
     }
     
-    func directionDidChange(direction: Int) {
-        userLocationView.updateDirection(direction: direction)
+    func headingDidChange(heading: Int) {
+        userLocationView.updateDirection(heading: heading)
+        controlLayerView.updateHeadingInfo(heading: heading)
     }
     
 }

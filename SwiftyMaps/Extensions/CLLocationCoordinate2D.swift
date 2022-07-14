@@ -22,6 +22,17 @@ extension CLLocationCoordinate2D : Equatable{
         return sqrt(pow( latDelta * latMetersPerDegree,2) + pow( lonDelta * lonMetersPerDegree,2))
     }
     
+    public func bearing(to coord: CLLocationCoordinate2D) -> Int{
+        let deltaL = coord.longitude.toRadians - self.longitude.toRadians
+        let thetaB = coord.latitude.toRadians
+        let thetaA = self.latitude.toRadians
+        let x = cos(thetaB) * sin(deltaL)
+        let y = cos(thetaA) * sin(thetaB) - sin(thetaA) * cos(thetaB) * cos(deltaL)
+        let bearing = atan2(x,y)
+        let degrees = Int(bearing.toDegrees)
+        return degrees < 0 ? 360 + degrees : degrees
+    }
+    
     public var shortString : String{
         "lat: \(String(format: "%.7f", latitude)), lon: \(String(format: "%.7f", longitude))"
     }

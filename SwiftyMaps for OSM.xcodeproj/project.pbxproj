@@ -79,6 +79,7 @@
 		4E79FBAF275B9326001F0481 /* LocationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBAE275B9326001F0481 /* LocationGroup.swift */; };
 		4E79FBB1275BCE0C001F0481 /* LocationGroupPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB0275BCE0C001F0481 /* LocationGroupPin.swift */; };
 		4E79FBB3275BCE67001F0481 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Pin.swift */; };
+		4E8540BF288015050088E054 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8540BE288015050088E054 /* Double.swift */; };
 		4E89173F273688580046AC91 /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationDetailViewController.swift */; };
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
@@ -176,6 +177,7 @@
 		4E79FBAE275B9326001F0481 /* LocationGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroup.swift; sourceTree = "<group>"; };
 		4E79FBB0275BCE0C001F0481 /* LocationGroupPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroupPin.swift; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
+		4E8540BE288015050088E054 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* LocationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				4E025E3C274E420800D56ED7 /* TimeInterval.swift */,
 				4E3F12912778A5A6006F9C31 /* CLLocation.swift */,
 				4E68B5BD275F59F00025A80A /* LocationDialog.swift */,
+				4E8540BE288015050088E054 /* Double.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				4EF2FD762876DC28005DBA73 /* HeaderTableViewController.swift in Sources */,
 				4E0BD9A926EA0159005A4A94 /* PhotoViewController.swift in Sources */,
 				4E0BD9D326EA02BA005A4A94 /* AVCaptureVideoOrientation.swift in Sources */,
+				4E8540BF288015050088E054 /* Double.swift in Sources */,
 				4E24F48327345D11004E69C2 /* LabeledTextField.swift in Sources */,
 				4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */,
 				4EB76A9A2760EF9F00D64B6D /* PhotoListItemView.swift in Sources */,
